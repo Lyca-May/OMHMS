@@ -16,13 +16,20 @@ use App\Http\Controllers\Authentication\AuthController;
 */
 
 Route::get('/', function () {
-    return view('user.pages.home');
+    return view('auth.register');
 });
+
+//Auth
 Route::view('auth/signin', 'auth.login');
 Route::view('auth/forgot', 'auth.forgot_account');
-Route::view('auth/register', 'auth.register');
 Route::view('auth/reset-form', 'auth.reset-form');
 
+//Admin Page
+Route::view('admin/home', 'admin.pages.home');
+Route::view('admin/form', 'admin.pages.form');
+Route::view('admin/advance', 'admin.pages.advance');
+Route::view('admin/visit', 'admin.pages.visit');
+// Route::view('user/my-profile', 'user.pages.visit');
 
 Route::post('auth/register/verify', [AuthController::class, 'register'])->name('register'); //register
 Route::get('auth/verify-account/{token}', [AuthController::class, 'verify_account']); //verifying the account
@@ -32,8 +39,4 @@ Route::post('auth/confirm-reset', [AuthController::class,'confirm_reset']); //co
 Route::post('auth/login/user', [AuthController::class, 'login']); //login the user
 
 
-//Admin Page
-Route::view('admin/home', 'admin.pages.home');
-Route::view('admin/form', 'admin.pages.form');
-Route::view('admin/advance', 'admin.pages.advance');
-Route::view('admin/login', 'admin.pages.login');
+

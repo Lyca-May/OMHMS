@@ -35,6 +35,7 @@ class AuthController extends Controller
             if($user->account_status=='VERIFIED'){
                 if(password_verify($password, $user->user_password)){
                     $data =[
+                        'user_id'=>$user->user_id,
                         'user_fname'=>$user->user_fname,
                         'user_mname'=>$user->user_mname,
                         'user_lname'=>$user->user_lname,

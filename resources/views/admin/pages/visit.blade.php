@@ -6,7 +6,8 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Ela Admin - HTML5 Admin Template</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('omhms.png') }}">
+    <title>OMHMS</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -19,11 +20,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
-    <link rel="stylesheet" href="assets/css/cs-skin-elastic.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/lib/chosen/chosen.min.css">
+    <link rel="stylesheet" href="{{asset('assets/css/cs-skin-elastic.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/lib/datatable/dataTables.bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
 
 </head>
 <body>
@@ -53,14 +56,14 @@
                             <li><i class="fa fa-file-word-o"></i><a href="ui-typgraphy.html">Typography</a></li>
                         </ul>
                     </li>
-                    <li class="menu-item-has-children dropdown">
+                    <li class="menu-item-has-children active dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Tables</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-table"></i><a href="tables-basic.html">Basic Table</a></li>
                             <li><i class="fa fa-table"></i><a href="tables-data.html">Data Table</a></li>
                         </ul>
                     </li>
-                    <li class="menu-item-has-children active dropdown">
+                    <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Forms</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="menu-icon fa fa-th"></i><a href="forms-basic.html">Basic Form</a></li>
@@ -109,17 +112,18 @@
             </div><!-- /.navbar-collapse -->
         </nav>
     </aside><!-- /#left-panel -->
+
     <!-- Left Panel -->
 
-
     <!-- Right Panel -->
+
     <div id="right-panel" class="right-panel">
 
         <!-- Header-->
         <header id="header" class="header">
             <div class="top-left">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="./"><img src="images/logo.png" alt="Logo"></a>
+                    <a class="navbar-brand" href="./"><img src="{{asset('omhms.png')}}" width="50px" height="40px" alt="Logo">OMHMS</a>
                     <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a>
                     <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
                 </div>
@@ -235,8 +239,8 @@
                             <div class="page-title">
                                 <ol class="breadcrumb text-right">
                                     <li><a href="#">Dashboard</a></li>
-                                    <li><a href="#">Forms</a></li>
-                                    <li class="active">Advanced</li>
+                                    <li><a href="#">Table</a></li>
+                                    <li class="active">Data table</li>
                                 </ol>
                             </div>
                         </div>
@@ -247,222 +251,85 @@
 
         <div class="content">
             <div class="animated fadeIn">
-
                 <div class="row">
-
-                    <div class="col-xs-6 col-sm-6">
+                    <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong>Masked Input</strong> <small> Small Text Mask</small>
-                            </div>
-                            <div class="card-body card-block">
-                                <div class="form-group">
-                                    <label class=" form-control-label">Date input</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                        <input class="form-control">
-                                    </div>
-                                    <small class="form-text text-muted">ex. 99/99/9999</small>
-                                </div>
-                                <div class="form-group">
-                                    <label class=" form-control-label">Phone input</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon"><i class="fa fa-phone"></i></div>
-                                        <input class="form-control">
-                                    </div>
-                                    <small class="form-text text-muted">ex. (999) 999-9999</small>
-                                </div>
-                                <div class="form-group">
-                                    <label class=" form-control-label">Taxpayer Identification Numbers</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon"><i class="fa fa-usd"></i></div>
-                                        <input class="form-control">
-                                    </div>
-                                    <small class="form-text text-muted">ex. 99-9999999</small>
-                                </div>
-                                <div class="form-group">
-                                    <label class=" form-control-label">Social Security Number</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon"><i class="fa fa-male"></i></div>
-                                        <input class="form-control">
-                                    </div>
-                                    <small class="form-text text-muted">ex. 999-99-9999</small>
-                                </div>
-                                <div class="form-group">
-                                    <label class=" form-control-label">Eye Script</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon"><i class="fa fa-asterisk"></i></div>
-                                        <input class="form-control">
-                                    </div>
-                                    <small class="form-text text-muted">ex. ~9.99 ~9.99 999</small>
-                                </div>
-                                <div class="form-group">
-                                    <label class=" form-control-label">Credit Card Number</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon"><i class="fa fa-credit-card"></i></div>
-                                        <input class="form-control">
-                                    </div>
-                                    <small class="form-text text-muted">ex. 9999 9999 9999 9999</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-xs-6 col-sm-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <strong class="card-title">Standard Select</strong>
+                                <strong class="card-title">Data Table</strong>
                             </div>
                             <div class="card-body">
+                                <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Full Name</th>
+                                            <th>Address</th>
+                                            <th>Contact Number</th>
+                                            <th>Date of Visit</th>
+                                            <th>Selected Time</th>
+                                            <th>Number of Visitors</th>
+                                            <th>Name of Institution</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
-                              <select data-placeholder="Choose a Country..." class="standardSelect" tabindex="1">
-                                <option value="" label="default"></option>
-                                <option value="United States">United States</option>
-                                <option value="United Kingdom">United Kingdom</option>
-                                <option value="Afghanistan">Afghanistan</option>
-                                <option value="Aland Islands">Aland Islands</option>
-                                <option value="Albania">Albania</option>
-                                <option value="Algeria">Algeria</option>
-                                <option value="American Samoa">American Samoa</option>
-                                <option value="Andorra">Andorra</option>
-                                <option value="Angola">Angola</option>
-                                <option value="Anguilla">Anguilla</option>
-                                <option value="Antarctica">Antarctica</option>
-                            </select>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="card">
-                        <div class="card-header">
-                            <strong class="card-title">Multi Select</strong>
-                        </div>
-                        <div class="card-body">
 
-                          <select data-placeholder="Choose a country..." multiple class="standardSelect">
-                            <option value="" label="default"></option>
-                            <option value="United States">United States</option>
-                            <option value="United Kingdom">United Kingdom</option>
-                            <option value="Afghanistan">Afghanistan</option>
-                            <option value="Aland Islands">Aland Islands</option>
-                            <option value="Albania">Albania</option>
-                            <option value="Algeria">Algeria</option>
-                            <option value="American Samoa">American Samoa</option>
-                            <option value="Andorra">Andorra</option>
-                            <option value="Angola">Angola</option>
-                            <option value="Anguilla">Anguilla</option>
-                            <option value="Antarctica">Antarctica</option>
-                        </select>
-
-                    </div>
                 </div>
+            </div><!-- .animated -->
+        </div><!-- .content -->
 
-                <div class="card">
-                    <div class="card-header">
-                        <strong class="card-title">Multi Select with Groups</strong>
+
+        <div class="clearfix"></div>
+
+        <footer class="site-footer">
+            <div class="footer-inner bg-white">
+                <div class="row">
+                    <div class="col-sm-6">
+                        Copyright &copy; 2018 Ela Admin
                     </div>
-                    <div class="card-body">
-
-                      <select data-placeholder="Your Favorite Football Team" multiple class="standardSelect" tabindex="5">
-                        <option value="" label="default"></option>
-                        <optgroup label="NFC EAST">
-                          <option>Dallas Cowboys</option>
-                          <option>New York Giants</option>
-                          <option>Philadelphia Eagles</option>
-                          <option>Washington Redskins</option>
-                      </optgroup>
-                      <optgroup label="NFC NORTH">
-                          <option>Chicago Bears</option>
-                          <option>Detroit Lions</option>
-                          <option>Green Bay Packers</option>
-                          <option>Minnesota Vikings</option>
-                      </optgroup>
-                      <optgroup label="NFC SOUTH">
-                          <option>Atlanta Falcons</option>
-                          <option>Carolina Panthers</option>
-                          <option>New Orleans Saints</option>
-                          <option>Tampa Bay Buccaneers</option>
-                      </optgroup>
-                      <optgroup label="NFC WEST">
-                          <option>Arizona Cardinals</option>
-                          <option>St. Louis Rams</option>
-                          <option>San Francisco 49ers</option>
-                          <option>Seattle Seahawks</option>
-                      </optgroup>
-                      <optgroup label="AFC EAST">
-                          <option>Buffalo Bills</option>
-                          <option>Miami Dolphins</option>
-                          <option>New England Patriots</option>
-                          <option>New York Jets</option>
-                      </optgroup>
-                      <optgroup label="AFC NORTH">
-                          <option>Baltimore Ravens</option>
-                          <option>Cincinnati Bengals</option>
-                          <option>Cleveland Browns</option>
-                          <option>Pittsburgh Steelers</option>
-                      </optgroup>
-                      <optgroup label="AFC SOUTH">
-                          <option>Houston Texans</option>
-                          <option>Indianapolis Colts</option>
-                          <option>Jacksonville Jaguars</option>
-                          <option>Tennessee Titans</option>
-                      </optgroup>
-                      <optgroup label="AFC WEST">
-                          <option>Denver Broncos</option>
-                          <option>Kansas City Chiefs</option>
-                          <option>Oakland Raiders</option>
-                          <option>San Diego Chargers</option>
-                      </optgroup>
-                  </select>
-
-              </div>
-          </div>
-
-      </div>
-
-
-
-  </div>
-
-
-</div><!-- .animated -->
-</div><!-- .content -->
-    <div class="clearfix"></div>
-
-    <footer class="site-footer">
-        <div class="footer-inner bg-white">
-            <div class="row">
-                <div class="col-sm-6">
-                    Copyright &copy; 2018 Ela Admin
-                </div>
-                <div class="col-sm-6 text-right">
-                    Designed by <a href="https://colorlib.com">Colorlib</a>
+                    <div class="col-sm-6 text-right">
+                        Designed by <a href="https://colorlib.com">Colorlib</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </footer>
+        </footer>
+
+    </div><!-- /#right-panel -->
+
+    <!-- Right Panel -->
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
+    <script src="{{asset('assets/js/main.js')}}"></script>
 
 
-</div><!-- /#right-panel -->
+    <script src="{{asset('assets/js/lib/data-table/datatables.min.js')}}"></script>
+    <script src="{{asset('assets/js/lib/data-table/dataTables.bootstrap.min.js')}}"></script>
+    <script src="{{asset('assets/js/lib/data-table/dataTables.buttons.min.js')}}"></script>
+    <script src="{{asset('assets/js/lib/data-table/buttons.bootstrap.min.js')}}"></script>
+    <script src="{{asset('assets/js/lib/data-table/jszip.min.js')}}"></script>
+    <script src="{{asset('assets/js/lib/data-table/vfs_fonts.js')}}"></script>
+    <script src="{{asset('assets/js/lib/data-table/buttons.html5.min.js')}}"></script>
+    <script src="{{asset('assets/js/lib/data-table/buttons.print.min.js')}}"></script>
+    <script src="{{asset('assets/js/lib/data-table/buttons.colVis.min.js')}}"></script>
+    <script src="{{asset('assets/js/init/datatables-init.js')}}"></script>
 
-<!-- Right Panel -->
 
-<!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
-<script src="assets/js/main.js"></script>
-<script src="assets/js/lib/chosen/chosen.jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+          $('#bootstrap-data-table-export').DataTable();
+      } );
+  </script>
 
-<script>
-    jQuery(document).ready(function() {
-        jQuery(".standardSelect").chosen({
-            disable_search_threshold: 10,
-            no_results_text: "Oops, nothing found!",
-            width: "100%"
-        });
-    });
-</script>
 
 </body>
 </html>

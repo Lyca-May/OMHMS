@@ -130,7 +130,7 @@
 
                         <div class="form-group">
                             <label for="">Password</label>
-                            <input type="password" class="form-control" placeholder="User Name"name="user_password" value="{{old('user_password')}}" class="@error('user_password') is-invalid @enderror" autocomplete="on">
+                            <input type="password" class="form-control" placeholder="User Name" name="user_password" value="{{old('user_password')}}" class="@error('user_password') is-invalid @enderror" autocomplete="on">
                             @error('user_password')
                             <span style="color: red">{{$message}}</span>
                             @enderror
@@ -146,7 +146,7 @@
                             <button type="submit">Sign Up</button>
                         </div>
                         <div class="register-link m-t-15 text-center">
-                            <p>Already have account ? <a href="#"> Sign in</a></p>
+                            <p>Already have account ? <a href="{{url('auth/signin')}}"> Sign in</a></p>
                         </div>
                     </form>
                 </div>
