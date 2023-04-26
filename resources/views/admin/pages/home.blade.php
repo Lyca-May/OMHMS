@@ -103,7 +103,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Announcement</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="menu-icon fa fa-th"></i><a href="{{url('admin/form')}}">Basic Form</a></li>
-                            <li><i class="menu-icon fa fa-th"></i><a href="forms-advanced.html">Advanced Form</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a href="{{url('admin/advance')}}">Advanced Form</a></li>
                         </ul>
                     </li>
 
