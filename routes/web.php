@@ -36,3 +36,4 @@ Route::post('auth/login/user', [AuthController::class, 'login']); //login the us
 Route::view('admin/home', 'admin.pages.home');
 Route::view('admin/form', 'admin.pages.form');
 Route::view('admin/advance', 'admin.pages.advance');
+Route::view('admin/login', 'admin.pages.login');
