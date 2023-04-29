@@ -11,50 +11,20 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="container card mt-8 ">
-        <div class="row justify-content-center" >
-          <div class="col-sm-6">
-            <div class="card">
-                <div class="mb-3">
-                    <label for="" class="form-label">First Name</label>
-                    <input type="email" class="form-control" id="" placeholder="name@example.com">
-                  </div>
-                <div class="mb-3">
-                    <label for="" class="form-label">Middle Name</label>
-                    <input type="email" class="form-control" id="" placeholder="name@example.com">
-                  </div>
-                <div class="mb-3">
-                    <label for="" class="form-label">Last Name</label>
-                    <input type="email" class="form-control" id="" placeholder="name@example.com">
-                  </div>
-                <div class="mb-3">
-                    <label for="" class="form-label">Country</label>
-                    <input type="email" class="form-control" id="" placeholder="name@example.com">
-                  </div>
-                <div class="mb-3">
-                    <label for="" class="form-label">Province</label>
-                    <input type="email" class="form-control" id="" placeholder="name@example.com">
-                  </div>
-                <div class="mb-3">
-                    <label for="" class="form-label">Municipality</label>
-                    <input type="email" class="form-control" id="" placeholder="name@example.com">
-                  </div>
-                <div class="mb-3">
-                    <label for="" class="form-label">BArangay</label>
-                    <input type="email" class="form-control" id="" placeholder="name@example.com">
-                  </div>
-                <div class="mb-3">
-                    <label for="" class="form-label">Street</label>
-                    <input type="email" class="form-control" id="" placeholder="name@example.com">
-                  </div>
-                <div class="mb-3">
-                    <label for="" class="form-label">Zipcode</label>
-                    <input type="email" class="form-control" id="" placeholder="name@example.com">
-                  </div>
-
-        </div>
-      </div>
-      </div>
-    </div>
+    <h1>Book Visit</h1>
+    {{-- @if(session('success'))
+    <span style="color: green">{{session('success')}}</span>
+    @elseif (session('failed'))
+    <span style="color: red">{{session('failed')}}</span>
+    @endif --}}
+    <form action="" method="POST">
+        <input type="text" placeholder="First Name" name="first_name" value="{{old('first_name')}}" autocomplete="on">
+        <input type="text" placeholder="Email" name="user_email" value="{{old('user_email')}}" autocomplete="on">
+        <input type="text" placeholder="Email" name="user_email" value="{{old('user_email')}}" autocomplete="on">
+        <input type="text" placeholder="Email" name="user_email" value="{{old('user_email')}}" autocomplete="on">
+        <input type="text" placeholder="Email" name="user_email" value="{{old('user_email')}}" autocomplete="on">
+        <input type="text" placeholder="Email" name="user_email" value="{{old('user_email')}}" autocomplete="on">
+        <input type="text" placeholder="Email" name="user_email" value="{{old('user_email')}}" autocomplete="on">
+    </form>
 </body>
 </html>

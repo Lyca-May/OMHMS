@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Admin\Visit_Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -26,4 +27,9 @@ class users extends Model
         'account_status',
         'role',
     ];
+
+    public function visits()
+    {
+        return $this->hasMany(Visit_Model::class);
+    }
 }

@@ -16,9 +16,9 @@ use App\Http\Controllers\Authentication\AuthController;
 |
 */
 
-Route::get('/', function () {
-    return view('auth.register');
-});
+// Route::get('/', function () {
+//     return view('auth.register');
+// });
 
 //Auth
 Route::view('auth/signin', 'auth.login');
@@ -29,7 +29,16 @@ Route::view('auth/reset-form', 'auth.reset-form');
 Route::view('admin/home', 'admin.pages.home');
 Route::view('admin/form', 'admin.pages.form');
 Route::view('admin/advance', 'admin.pages.advance');
-
+Route::view('admin/my-profile', 'admin.pages.profile.profile');
+// Route::view('/', 'auth.login');
+// Route::get('admin/logout', function () {
+//    if (session()->has('Admin')){
+//     session()->pull('Admin');
+//    }
+//    return redirect('/');
+// });
+Route::get('admin/logout', [AuthController::class, 'logout']);
+Route::get('/', [AuthController::class, 'log']);
 
 //User Page
 Route::view('user/my-profile', 'user.pages.my-profile');
