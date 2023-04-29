@@ -33,7 +33,7 @@ Route::view('admin/advance', 'admin.pages.advance');
 
 //User Page
 Route::view('user/my-profile', 'user.pages.my-profile');
-Route::view('user/home', 'user.pages.home');
+Route::view('user/home', 'user.pages.userhome');
 Route::view('user/visit', 'user.pages.book-visitation.book');
 
 

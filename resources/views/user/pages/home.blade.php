@@ -11,6 +11,8 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <link rel="stylesheet" href="{{ asset('assets/css/homestyle.css') }}">
+
     <!-- bootstrap -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
@@ -37,7 +39,7 @@
             <!-- search bar -->
             <div class="input-group ms-2" type="button">
               <!-- mobile -->
-              {{-- <span
+              <span
                 class="input-group-prepend d-lg-none"
                 id="searchMenu"
                 data-bs-toggle="dropdown"
@@ -50,9 +52,9 @@
                 >
                   <i class="fas fa-search text-muted"></i>
                 </div>
-              </span> --}}
+              </span>
               <!-- desktop -->
-              {{-- <span
+              <span
                 class="input-group-prepend d-none d-lg-block"
                 id="searchMenu"
                 data-bs-toggle="dropdown"
@@ -66,7 +68,7 @@
                   <i class="fas fa-search me-2 text-muted"></i>
                   <p class="m-0 fs-7 text-muted">Search </p>
                 </div>
-              </span> --}}
+              </span>
               <!-- search menu -->
               <ul
                 class="dropdown-menu overflow-auto border-0 shadow p-3"
@@ -276,7 +278,7 @@
               <!-- menu -->
               <div>
                 <!-- header -->
-                {{-- <li class="p-1 mx-2">
+                <li class="p-1 mx-2">
                   <h2>Menu</h2>
                 </li>
                 <!-- search -->
@@ -551,7 +553,7 @@
                   </a>
                 </li>
               </div>
-              <hr /> --}}
+              <hr />
               <!-- create -->
               <div>
                 <!-- header -->
@@ -617,7 +619,7 @@
                   </a>
                 </li>
                 <!-- c-3 -->
-                {{-- <li class="my-2 p-1">
+                <li class="my-2 p-1">
                   <a
                     href="#"
                     class="
@@ -821,9 +823,9 @@
                   </a>
                 </li>
               </div>
-            </ul> --}}
+            </ul>
             <!-- chat -->
-            {{-- <div
+            <div
               class="
                 rounded-circle
                 p-1
@@ -841,9 +843,9 @@
               data-bs-auto-close="outside"
             >
               <i class="fas fa-comment"></i>
-            </div> --}}
+            </div>
             <!-- chat  dd -->
-            {{-- <ul
+            <ul
               class="dropdown-menu border-0 shadow p-3 overflow-auto"
               aria-labelledby="chatMenu"
               style="width: 23em; max-height: 600px"
@@ -1059,9 +1061,9 @@
                     placeholder="Search Messenger"
                   />
                 </div>
-              </li> --}}
+              </li>
               <!-- message 1 -->
-              {{-- <li
+              <li
                 class="my-2 p-1"
                 type="button"
                 data-bs-toggle="modal"
@@ -1272,9 +1274,9 @@
               class="dropdown-menu border-0 shadow p-3"
               aria-labelledby="notMenu"
               style="width: 23em; max-height: 600px; overflow-y: auto"
-            > --}}
+            >
               <!-- header -->
-              {{-- <li class="p-1">
+              <li class="p-1">
                 <div class="d-flex justify-content-between">
                   <h2>Notifications</h2>
                   <div>
@@ -1482,7 +1484,7 @@
                   <i class="fas fa-circle fs-7 text-primary"></i>
                 </a>
               </li>
-            </ul> --}}
+            </ul>
             <!-- secondary menu -->
             <div
               class="
@@ -3819,7 +3821,87 @@
             </div>
           </div>
         </div>
+
+        {{-- =============== Left =================== --}}
+        <div class="left">
+
+            <div class="img">
+                <img src="image/profile.png">
+                <p>John Deo</p>
+            </div>
+
+            <div class="img">
+                <img src="image/friend.png">
+                <p>Friends</p>
+            </div>
+
+            <div class="img">
+                <img src="image/saved.png">
+                <p>Saved</p>
+            </div>
+
+            <div class="img">
+                <img src="image/group.png">
+                <p>Groups</p>
+            </div>
+
+            <div class="img">
+                <img src="image/marketplace.png">
+                <p>Marketplace</p>
+            </div>
+
+            <div class="img">
+                <img src="image/watch.png">
+                <p>Watch</p>
+            </div>
+
+            <div class="img">
+                <img src="image/down_arrow.png">
+                <p>See more</p>
+            </div>
+
+            <hr>
+
+            <h2>You shortcuts</h2>
+            <p class="edit">Edit</p>
+
+            <div class="shortcuts">
+                <img src="image/shortcuts_1.png">
+                <p>MOBILE GAMES</p>
+            </div>
+
+            <div class="shortcuts">
+                <img src="image/shortcuts_2.jpeg">
+                <p>Online Education</p>
+            </div>
+
+            <div class="shortcuts">
+                <img src="image/shortcuts_3.webp">
+                <p>Food Lovers</p>
+            </div>
+
+            <div class="shortcuts">
+                <img src="image/shortcuts_4.png">
+                <p>Social Media Academy</p>
+            </div>
+
+            <div class="shortcuts">
+                <img src="image/shortcuts_5.webp">
+                <p>PC Shop</p>
+            </div>
+
+            <div class="shortcuts">
+                <img src="image/down_arrow.png">
+                <p>See more</p>
+            </div>
+
+        </div>
+
+
         <!-- ================= Timeline ================= -->
+        <div class="center">
+
+
         <div class="col-12 col-lg-6 pb-5">
           <div
             class="d-flex flex-column justify-content-center w-100 mx-auto"
@@ -6362,6 +6444,7 @@
           </div>
         </div>
       </div>
+    </div>
     </div>
 
     <!-- ================= Chat Icon ================= -->
