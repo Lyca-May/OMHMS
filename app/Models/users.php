@@ -24,5 +24,6 @@ class users extends Model
         'status',
         'user_phonenum',
         'account_status',
+        'role',
     ];
 }

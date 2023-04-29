@@ -51,7 +51,7 @@ class AuthController extends Controller
                         // 'account_status'=>$user->account_status,
                     ];
                     session()->put('User', $data);
-                    return redirect('/')->with('success', "Login Success");
+                    return redirect('user/home')->with('success', "Login Success");
                 }
                 else{
                  return redirect()->back()->with('failed', "Wrong Password");
@@ -64,8 +64,6 @@ class AuthController extends Controller
         else{
             return redirect()->back()->with('failed', "Account does not exist");
         }
-
-
     }
     public function register(Request $request)
     {
@@ -83,7 +81,6 @@ class AuthController extends Controller
             'user_street' => 'required',
             'user_zipcode' => 'required',
             'user_phonenum' => 'required|min:11|max:11',
-
         ];
         $message = [
             'user_fname.required' => 'First name is required',
@@ -132,6 +129,7 @@ class AuthController extends Controller
         $user_password=$request->user_password;
         $account_status='NOT VERIFIED';
         $status='OFFLINE';
+        $role='user';
 
         $user =new users();
         $user->user_fname=strtoupper($user_fname);
@@ -149,6 +147,7 @@ class AuthController extends Controller
         $user->account_status =$account_status;
         $user->status = $status;
         $user->remember_token= $token;
+        $user->role= $role;
 
         $mail=[
             'token' => $token

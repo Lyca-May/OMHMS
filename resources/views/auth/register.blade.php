@@ -39,17 +39,18 @@
                 </div>
                 <div class="login-form">
                     @if (session('success'))
-                    <span style="color: green">{{$message}}</span>
+                    <span style="color: green">{{session('success')}}</span>
                     @elseif (session('failed'))
-                    <span style="color: red">{{$message}}</span>
+                    <span style="color: red">{{session('failed')}}</span>
                     @endif
 
-                    <form action="{{route('register')}}" method="POST" style="width:700px; height:400px">
+                    <form action="{{route('register')}}" method="POST">
                         @csrf
                         {{-- <div class="form-group">
                             <label>User Name</label>
                             <input type="email" class="form-control" placeholder="User Name">
                         </div> --}}
+                     <div class = "row">
                         <div class="form-group">
                             <label for="">First Name</label>
                             <input type="text" class="form-control" placeholder="User Name" name="user_fname" value="{{old('user_fname')}}" class="@error('user_fname') is-invalid @enderror" autocomplete="on">
@@ -71,6 +72,10 @@
                             <span style="color: red">{{$message}}</span>
                             @enderror
                         </div>
+                    </div>
+
+                    <div class = "row">
+
                         <div class="form-group">
                             <label for="">Country</label>
                             <input type="text" class="form-control" placeholder="User Name" name="user_country" value="{{old('user_country')}}" class="@error('user_country') is-invalid @enderror" autocomplete="on">
@@ -92,6 +97,10 @@
                             <span style="color: red">{{$message}}</span>
                             @enderror
                         </div>
+                    </div>
+
+                    <div class = "row">
+
                         <div class="form-group">
                             <label for="">Barangay</label>
                             <input type="text" class="form-control" placeholder="User Name" name="user_barangay" value="{{old('user_barangay')}}" class="@error('user_barangay') is-invalid @enderror" autocomplete="on">
@@ -113,6 +122,9 @@
                             <span style="color: red">{{$message}}</span>
                             @enderror
                         </div>
+                    </div>
+
+
                         <div class="form-group">
                             <label for="">Phone Number</label>
                             <input type="text" class="form-control" placeholder="User Name" name="user_phonenum" value="{{old('user_phonenum')}}" class="@error('user_phonenum') is-invalid @enderror" autocomplete="on">

@@ -22,12 +22,14 @@ return new class extends Migration
             $table->string('visits_brgy');
             $table->string('visits_street');
             $table->string('visits_zipcode');
-            $table->string('visits_intended_date');
-            $table->string('visits_time');
-            $table->string('visits_birthdate');
-            $table->string('visits_contactno');
-            $table->string('visits_no_of_visitors');
+            $table->date('visits_intended_date');
+            $table->time('visits_time');
+            $table->date('visits_birthdate');
+            $table->integer('visits_contactno');
+            $table->integer('visits_no_of_visitors');
             $table->string('visits_name_of_institution');
+            $table->string('visits_status');
+            $table->string('role');
             $table->timestamps();
         });
     }
