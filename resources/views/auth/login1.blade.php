@@ -31,11 +31,10 @@
         border-radius: 20px;
         box-shadow: 0 0 25px -15px rgba(0, 0, 0, 0.3);
         /* margin-top: 30px; */
-        margin-left: 320px;
+        margin-left: 225px;
         /* align-items: center; */
-        max-width: 40%;
+        max-width: 60%;
         margin-bottom: 30px;
-        margin-top: 80px;
 
     }
 
@@ -76,7 +75,6 @@
         padding: 0 8px;
         margin: 0 0 15px;
         display: inline-block;
-        width: 380px;
     }
 
     .form-container .form-horizontal .form-group:nth-child(4) {
@@ -162,7 +160,7 @@
     .form-container .signin-link {
         color: #333;
         font-size: 14px;
-        /* width: calc(100% - 190px); */
+        width: calc(100% - 190px);
         margin-right: 30px;
         display: inline-block;
         vertical-align: top;
@@ -196,7 +194,6 @@
         text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
         box-shadow: 3px 3px rgba(0, 0, 0, 0.15), 5px 5px rgba(0, 0, 0, 0.1);
         outline: none;
-
     }
 
     @media only screen and (max-width:479px) {
@@ -216,9 +213,9 @@
     <div class="container mt-3 pt-3">
         <div class="form-container">
             <div class="row">
-                <h3 class="title">Login</h3>
+                <h3 class="title">Register</h3>
                 <form class="form-horizontal">
-                    <div class="form-group">
+                    <div class="form-group" style="width: 610px">
                         <label>Email ID</label>
                         <input type="email" class="form-control" placeholder="Email Address">
                     </div>
@@ -226,11 +223,40 @@
                         <label>Password</label>
                         <input type="password" class="form-control" placeholder="Password">
                     </div>
-                    <div>
-                        <a href="{{ url('user/home') }}"><button class="btn signup" style="margin-left: 120px" >Login</button></a>
-                        </div>
-
-                    <span class="signin-link" style="margin-top: 20px">Already have an account? Click here to <a href="{{url('/')}}">Register</a></span>
+                    <div class="form-group">
+                        <label>Confirm Password</label>
+                        <input type="password" class="form-control" placeholder="Confirm Password">
+                    </div>
+                    <h4 class="sub-title">Personal Information</h4>
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" class="form-control" placeholder="Phone Number">
+                    </div>
+                    <div class="form-group">
+                        <label>Middle Name</label>
+                        <input type="text" class="form-control" placeholder="Phone Number">
+                    </div>
+                    <div class="form-group">
+                        <label>Surname</label>
+                        <input type="text" class="form-control" placeholder="Phone Number">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone No.</label>
+                        <input type="text" class="form-control" placeholder="Phone Number">
+                    </div>
+                    <div class="form-group">
+                        <label>City</label>
+                        <select class="form-control">
+                            <option value="paris">Paris</option>
+                            <option value="new york">New York</option>
+                        </select>
+                    </div>
+                    <div class="check-terms">
+                        <input type="checkbox" class="checkbox">
+                        <span class="check-label">I agree to the terms</span>
+                    </div>
+                    <span class="signin-link">Already have an account? Click here to <a href="">Login</a></span>
+                    <button class="btn signup">Create Account</button>
                 </form>
             </div>
         </div>

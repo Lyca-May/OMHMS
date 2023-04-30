@@ -21,7 +21,7 @@ Route::get('/', function () {
 });
 
 //Auth
-Route::view('auth/signin', 'auth.login');
+Route::view('auth/login', 'auth.login');
 Route::view('auth/forgot', 'auth.forgot_account');
 Route::view('auth/reset-form', 'auth.reset-form');
 
@@ -35,6 +35,11 @@ Route::view('admin/advance', 'admin.pages.advance');
 Route::view('user/my-profile', 'user.pages.my-profile');
 Route::view('user/home', 'user.pages.userhome');
 Route::view('user/visit', 'user.pages.book-visitation.book');
+
+//booked reservation
+Route::view('user/bookedvisit', 'user.pages.booked.bookedvisit');
+Route::view('user/rentedhall', 'user.pages.booked.rentedhall');
+
 
 
 Route::post('auth/register/verify', [AuthController::class, 'register'])->name('register'); //register

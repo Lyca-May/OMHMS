@@ -59,7 +59,7 @@ nav .left .search_bar input{
 
 nav .center{
     position: relative;
-    right: 45px;
+    right: 55px;
 }
 
 nav .center i{
@@ -212,7 +212,6 @@ nav .right img{
     padding: 20px 20px 0 20px;
     background: #f5f5f5;
     margin-left: 25%;
-
 }
 
 .main .center::-webkit-scrollbar{
