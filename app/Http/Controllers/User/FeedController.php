@@ -11,14 +11,11 @@ class FeedController extends Controller
 {
         public function index()
         {
-            $user = session()->get('User')['user_id'];
-            // add a check to ensure that $user is not null before accessing its values
-            if (!$user) {
-                return redirect()->back()->with('failed', "User not found");
-            }else{
-                return view('user.pages.userhome');
+            $user_id = session('User')['user_id'];
+            $posts = Newsfeed_Model::where('userid', $user_id)->get();
 
-            }
+            return view('user.pages.userhome', ['newsfeed' => $posts]);
+
         }
 
         public function create()

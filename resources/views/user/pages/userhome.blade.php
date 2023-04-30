@@ -4346,9 +4346,12 @@ data-bs-backdrop="false"
                         <!-- content -->
                         <div>
                             <p>
-                                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                                Quae fuga incidunt consequatur tenetur doloremque officia
-                                corrupti provident tempore vitae labore?
+                                @foreach ($newsfeed as $post)
+                                <div class="post">
+                                    <p>{{ $post->post }}</p>
+                                </div>
+                                @endforeach
+
                             </p>
                             <img src="https://source.unsplash.com/random/12" alt="post image"
                                 class="img-fluid rounded" />
