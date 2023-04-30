@@ -563,7 +563,7 @@
                 <!-- c-1 -->
                 <li class="my-2 p-1">
                   <a
-                    href="{{url('user/visit')}}"
+                    href="{{url('user/visit-form')}}"
                     class="
                       text-decoration-none text-dark
                       d-flex
@@ -2026,7 +2026,7 @@
                 <ul class="navbar-nav">
                   <li class="nav-item">
                     <a
-                      href="./index.html"
+                      href="{{url('logout')}}"
                       class="d-flex text-decoration-none text-dark"
                     >
                       <i class="fas fa-cog bg-gray p-2 rounded-circle"></i>
@@ -3137,7 +3137,7 @@
                     />
                   </div>
                   <div>
-                    <p class="m-0">John</p>
+                    <p class="m-0">Hi, <span>{{session('Admin')['user_fname']}}</span></p>
                   </div>
                 </a>
               </li>

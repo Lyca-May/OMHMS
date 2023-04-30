@@ -1,5 +1,3 @@
-
-
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -11,10 +9,12 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('visits', function (Blueprint $table) {
             $table->id('visits_id');
+            $table->unsignedBigInteger('userid');
+            $table->foreign('userid')->references('user_id')->on('users')->onDelete('cascade');
             $table->string('visits_fname');
             $table->string('visits_mname');
             $table->string('visits_lname');
@@ -29,18 +29,20 @@ return new class extends Migration
             $table->date('visits_birthdate');
             $table->integer('visits_contactno');
             $table->integer('visits_no_of_visitors');
-            $table->string('visits_name_of_institution');
+            $table->string('visits_name_of_institution')->nullable();
             $table->string('visits_status');
-            $table->string('role');
             $table->timestamps();
         });
     }
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('visits');
     }
 };
+

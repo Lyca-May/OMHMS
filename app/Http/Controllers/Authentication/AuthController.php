@@ -13,58 +13,79 @@ use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
-    public function login(Request $request){
-        $rules=[
-            'user_email' => 'required',
-            'user_password' => 'required',
-        ];
-        $message=[
-            'user_email.required' => 'Email is required',
-            'user_password.required' => 'Password is required',
-        ];
-        $validator = Validator::make($request->all(), $rules, $message);
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+    public function log(){
+        $data['data'] = 'Login';
+        if (session()->has('Admin.role')=="admin"){
+            return redirect('admin/home');
+        }elseif(session()->has('User.role')=="user"){
+            return redirect('user/home');
         }
+        return view('auth.login', $data);
+    }
+    public function login(Request $request)
+{
+    $rules=[
+        'user_email' => 'required',
+        'user_password' => 'required',
+    ];
+    $message=[
+        'user_email.required' => 'Email is required',
+        'user_password.required' => 'Password is required',
+    ];
+    $validator = Validator::make($request->all(), $rules, $message);
+    if ($validator->fails()) {
+        return redirect()->back()->withErrors($validator)->withInput();
+    }
 
-        $email =$request->user_email;
-        $password =$request->user_password;
+    $email =$request->user_email;
+    $password =$request->user_password;
 
-        $user = DB::table('users')->where('user_email', $email)->first();
-        if($user){
-            if($user->account_status=='VERIFIED'){
-                if(password_verify($password, $user->user_password)){
-                    $data =[
-                        'user_id'=>$user->user_id,
-                        'user_fname'=>$user->user_fname,
-                        'user_mname'=>$user->user_mname,
-                        'user_lname'=>$user->user_lname,
-                        'user_country'=>$user->user_country,
-                        'user_province'=>$user->user_province,
-                        'user_municipality'=>$user->user_municipality,
-                        'user_barangay'=>$user->user_barangay,
-                        'user_street'=>$user->user_street,
-                        'user_zipcode'=>$user->user_zipcode,
-                        'user_phonenum'=>$user->user_phonenum,
-                        'user_email'=>$user->user_email,
-                        'user_password'=>$user->user_password,
-                        // 'account_status'=>$user->account_status,
-                    ];
+    $user = DB::table('users')->where('user_email', $email)->first();
+    if($user){
+        if($user->account_status=='VERIFIED'){
+            if(password_verify($password, $user->user_password)){
+                $data =[
+                    'user_id'=>$user->user_id,
+                    'user_fname'=>$user->user_fname,
+                    'user_mname'=>$user->user_mname,
+                    'user_lname'=>$user->user_lname,
+                    'user_country'=>$user->user_country,
+                    'user_province'=>$user->user_province,
+                    'user_municipality'=>$user->user_municipality,
+                    'user_barangay'=>$user->user_barangay,
+                    'user_street'=>$user->user_street,
+                    'user_zipcode'=>$user->user_zipcode,
+                    'user_phonenum'=>$user->user_phonenum,
+                    'user_email'=>$user->user_email,
+                    'user_password'=>$user->user_password,
+                    'account_status'=>$user->account_status,
+                ];
+
+                if($user->role == 'user') {
                     session()->put('User', $data);
                     return redirect('user/home')->with('success', "Login Success");
                 }
-                else{
-                 return redirect()->back()->with('failed', "Wrong Password");
+                else if($user->role == 'admin') {
+                    session()->put('Admin', $data);
+                    return redirect('admin/home')->with('success', "Login Success");
+                }
+                else {
+                    return redirect()->back()->with('failed', "Invalid Role");
                 }
             }
             else{
-                return redirect()->back()->with('failed', "Verify your account first");
+                return redirect()->back()->with('failed', "Wrong Password");
             }
         }
         else{
-            return redirect()->back()->with('failed', "Account does not exist");
+            return redirect()->back()->with('failed', "Verify your account first");
         }
     }
+    else{
+        return redirect()->back()->with('failed', "Account does not exist");
+    }
+}
+
     public function register(Request $request)
     {
         $rules = [
@@ -261,5 +282,10 @@ class AuthController extends Controller
             return redirect()->back()->with('failed', "Account reset failed");
         }
     }
+    public function logout()
+{
+    session()->flush(); // clear all session data
+    return redirect('/'); // redirect to login page
+}
 
 }
