@@ -29,6 +29,7 @@ Route::view('auth/forgot', 'auth.forgot_account');
 Route::view('auth/reset-form', 'auth.reset-form');
 
 
+
 //Admin Page
 Route::view('admin/home', 'admin.pages.home');
 Route::view('admin/form', 'admin.pages.form');
@@ -43,6 +44,7 @@ Route::view('user/visit', 'user.pages.book-visitation.book');
 //booked reservation
 Route::view('user/bookedvisit', 'user.pages.booked.bookedvisit');
 Route::view('user/rentedhall', 'user.pages.booked.rentedhall');
+
 
 
 

@@ -239,6 +239,7 @@ style="min-height: 56px; z-index: 5"
           <i class="fas fa-home text-muted fs-4"></i>
         </button>
 
+
       <!-- main menu -->
       <div
         class="
@@ -1558,7 +1559,10 @@ style="min-height: 56px; z-index: 5"
             <li class="nav-item">
               <a
 
+
               href="{{ url('auth/signin') }}"
+                href="{{url('logout')}}"
+
                 href="{{url('logout')}}"
 
                 class="d-flex text-decoration-none text-dark"
@@ -3369,11 +3373,6 @@ data-bs-backdrop="false"
         <div class="left" >
             <a href="{{url('user/home')}}" class="img-link">
             <div class="img">
-                <img src="{{asset('image/marketplace.png')}}">
-                <p>Newsfeed</p>
-            </div></a>
-            <div>
-        <hr> <h8 class="text-muted">My Bookings<h8>
 
             </div>
             <a href="{{url('user/bookedvisit')}}" class="img-link">
