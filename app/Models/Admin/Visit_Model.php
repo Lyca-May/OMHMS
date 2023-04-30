@@ -11,7 +11,7 @@ class Visit_Model extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
+        'userid',
         'visits_fname',
         'visits_mname',
         'visits_lname',

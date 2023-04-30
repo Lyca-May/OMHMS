@@ -1,16 +1,13 @@
-
-
 <?php
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVisitsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
@@ -32,7 +29,7 @@ class CreateVisitsTable extends Migration
             $table->date('visits_birthdate');
             $table->integer('visits_contactno');
             $table->integer('visits_no_of_visitors');
-            $table->string('visits_name_of_institution');
+            $table->string('visits_name_of_institution')->nullable();
             $table->string('visits_status');
             $table->timestamps();
         });
@@ -47,4 +44,5 @@ class CreateVisitsTable extends Migration
     {
         Schema::dropIfExists('visits');
     }
-}
+};
+

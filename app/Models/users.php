@@ -12,6 +12,7 @@ class users extends Model
 
     // protected $table = 'users';
     protected $fillable =[
+        'user_id',
         'user_fname',
         'user_mname',
         'user_lname',
