@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Admin\Visit_Model;
+use App\Models\Images;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,6 +17,8 @@ class users extends Model
         'user_fname',
         'user_mname',
         'user_lname',
+        'gender',
+        'birthdate',
         'user_country',
         'user_province',
         'user_municipality',
@@ -32,5 +35,9 @@ class users extends Model
     public function visits()
     {
         return $this->hasMany(Visit_Model::class);
+    }
+    public function images()
+    {
+        return $this->hasMany(Images::class);
     }
 }

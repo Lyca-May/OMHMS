@@ -239,7 +239,7 @@ style="min-height: 56px; z-index: 5"
           <i class="fas fa-home text-muted fs-4"></i>
         </button>
 
-
+{{--  --}}
       <!-- main menu -->
       <div
         class="
@@ -1560,8 +1560,8 @@ style="min-height: 56px; z-index: 5"
               <a
 
 
-              href="{{ url('auth/signin') }}"
-                href="{{url('logout')}}"
+              {{-- href="{{ url('auth/login') }}"
+                href="{{url('logout')}}" --}}
 
                 href="{{url('logout')}}"
 
@@ -3373,7 +3373,10 @@ data-bs-backdrop="false"
         <div class="left" >
             <a href="{{url('user/home')}}" class="img-link">
             <div class="img">
-
+                <div class="img">
+                    <img src="{{asset('image/saved.png')}}">
+                    <p>News Feed</p>
+                </div></a>
             </div>
             <a href="{{url('user/bookedvisit')}}" class="img-link">
             <div class="img">
@@ -3659,17 +3662,16 @@ data-bs-backdrop="false"
                             <p class="m-0 text-muted">Live Video</p>
                         </div>
                         <!-- a 2 -->
-                        <div class="
-                    dropdown-item
-                    rounded
-                    d-flex
-                    align-items-center
-                    justify-content-center
-                  "
-                            type="button">
-                            <i class="fas fa-photo-video me-2 text-success"></i>
-                            <p class="m-0 text-muted">Photo/Video</p>
+                        <div class="dropdown-item rounded d-flex align-items-center justify-content-center">
+                            <form action="{{url("user/upload")}}" method="post" enctype="multipart/form-data">
+                                {{ csrf_field() }}
+                                {{-- <input type="hidden" name="user_id" value="{{ Auth::user()->id }}"> --}}
+                                <input type="file" name="image" onchange="this.form.submit()">
+                                <button type="submit" class="fas fa-photo-video me-2 text-success">Photo</button>
+                            </form>
                         </div>
+
+
                         <!-- a 3 -->
                         <div class="
                     dropdown-item
@@ -3697,7 +3699,11 @@ data-bs-backdrop="false"
                                 class="rounded-circle me-2" style="width: 38px; height: 38px; object-fit: cover" />
                             <div>
                                 <p class="m-0 fw-bold"><span>{{session('User')['user_fname']}}</p>
-                                <span class="text-muted fs-7">July 17 at 1:23 pm</span>
+                                <span class="text-muted fs-7">
+                                    @foreach ($newsfeed as $post)
+                                        <p>{{ $post->created_at }}</p>
+                                    @endforeach
+                                </span>
                             </div>
                         </div>
                         <!-- edit -->
@@ -3735,14 +3741,17 @@ data-bs-backdrop="false"
                         <div>
                             <p>
                                 @foreach ($newsfeed as $post)
-                                <div class="post">
+                                {{-- <div class="post"> --}}
                                     <p>{{ $post->post }}</p>
-                                </div>
+                                {{-- </div> --}}
                                 @endforeach
-
                             </p>
-                            <img src="https://source.unsplash.com/random/12" alt="post image"
-                                class="img-fluid rounded" />
+                            @foreach($images as $image)
+                            <li><img src="{{ asset($image->path) }}" alt="Image"
+                                class="img-fluid rounded" /></li>
+                            @endforeach
+
+
                         </div>
                         <!-- likes & comments -->
                         <div class="post__comment mt-3 position-relative">

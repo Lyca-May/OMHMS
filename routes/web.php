@@ -1,27 +1,14 @@
 <?php
 
-use App\Http\Controllers\Admin\Home_Controller;
+// use App\Http\Controllers\Admin\Home_Controller;
 use App\Http\Controllers\User\UserVisitController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Authentication\AuthController;
+use App\Http\Controllers\ImagesController;
 use App\Http\Controllers\User\FeedController;
+use App\Http\Controllers\Admin\VisitController;
 
-// use App\Http\Controllers\Admin\VisitController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
-// Route::get('/', function () {
-//     return view('auth.register');
-// });
 
 //Auth
 Route::view('auth/login', 'auth.login');
@@ -42,7 +29,7 @@ Route::view('user/home', 'user.pages.userhome');
 Route::view('user/visit', 'user.pages.book-visitation.book');
 
 //booked reservation
-Route::view('user/bookedvisit', 'user.pages.booked.bookedvisit');
+// Route::view('user/bookedvisit', 'user.pages.booked.bookedvisit');
 Route::view('user/rentedhall', 'user.pages.booked.rentedhall');
 
 
@@ -63,33 +50,31 @@ Route::view('admin/home', 'admin.pages.home');
 Route::view('admin/form', 'admin.pages.form');
 Route::view('admin/advance', 'admin.pages.advance');
 Route::view('admin/my-profile', 'admin.pages.profile.profile');
-// Route::view('/', 'auth.login');
-// Route::get('admin/logout', function () {
-//    if (session()->has('Admin')){
-//     session()->pull('Admin');
-//    }
-//    return redirect('/');
-// });
-
 
 //manage visit for admin
 Route::get('admin/visit', [VisitController::class,'index']);
-
-
+Route::post('approve-status', [VisitController::class,'approve_status']);
 
 //User Page View
 Route::view('user/my-profile', 'user.pages.my-profile');
-Route::view('user/home', 'user.pages.userhome');
+// Route::view('user/home', 'user.pages.userhome');
 Route::view('user/visit', 'user.pages.book-visitation.book');
 
 
 //Visit for user functions
 Route::get('user/visit-form', [UserVisitController::class,'visit_form']);
+Route::get('user/bookedvisit', [UserVisitController::class,'displayVisit']);
 Route::post('user/book', [UserVisitController::class, 'reserve_visit']);
 
 //Newsfeed for user function
-Route::get('userfeed', [FeedController::class,'index']);
+Route::get('user/home', [FeedController::class,'index']);
 Route::post('post', [FeedController::class, 'post']);
+Route::get('user/image', [FeedController::class, 'retrieve_image']);
+
+
+//Images
+Route::post('user/upload', [ImagesController::class, 'upload']);
+
 
 
 

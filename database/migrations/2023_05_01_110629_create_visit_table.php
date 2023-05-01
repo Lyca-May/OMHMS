@@ -9,15 +9,16 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('visits', function (Blueprint $table) {
+        Schema::create('visit', function (Blueprint $table) {
             $table->id('visits_id');
             $table->unsignedBigInteger('userid');
             $table->foreign('userid')->references('user_id')->on('users')->onDelete('cascade');
             $table->string('visits_fname');
             $table->string('visits_mname');
             $table->string('visits_lname');
+            $table->string('visits_email');
             $table->string('visits_country');
             $table->string('visits_province');
             $table->string('visits_municipality');
@@ -37,12 +38,9 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists('visits');
+        Schema::dropIfExists('visit');
     }
 };
-

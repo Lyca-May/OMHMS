@@ -15,6 +15,7 @@ class Visit_Model extends Model
         'visits_fname',
         'visits_mname',
         'visits_lname',
+        'visits_email',
         'visits_country',
         'visits_province',
         'visits_municipality',
@@ -35,6 +36,6 @@ class Visit_Model extends Model
     {
         return $this->belongsTo(users::class);
     }
-    protected $table = 'visits';
+    protected $table = 'visit';
         use HasFactory;
 }

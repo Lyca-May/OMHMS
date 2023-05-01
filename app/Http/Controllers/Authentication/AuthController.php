@@ -49,6 +49,8 @@ class AuthController extends Controller
                     'user_fname'=>$user->user_fname,
                     'user_mname'=>$user->user_mname,
                     'user_lname'=>$user->user_lname,
+                    'gender'=>$user->gender,
+                    'birthdate'=>$user->birthdate,
                     'user_country'=>$user->user_country,
                     'user_province'=>$user->user_province,
                     'user_municipality'=>$user->user_municipality,
@@ -92,6 +94,8 @@ class AuthController extends Controller
             'user_fname' => 'required',
             'user_mname' => 'required',
             'user_lname' => 'required',
+            'gender' => 'required',
+            'birthdate' => 'required',
             'user_email' => 'required|unique:App\Models\User',
             'user_password' => 'required|min:8|max:16|confirmed',
             'user_password_confirmation' => 'required',
@@ -107,6 +111,8 @@ class AuthController extends Controller
             'user_fname.required' => 'First name is required',
             'user_mname.required' => 'Middle name is required',
             'user_lname.required' => 'Last name is required',
+            'gender.required' => 'Your gender is required',
+            'birthdate.required' => 'Your birthday is required',
             'user_email.required' => 'Email is required',
             'user_email.unique' => 'Email already exist',
             'user_password.required' => 'Password is required',
@@ -139,6 +145,8 @@ class AuthController extends Controller
         $user_fname=$request->user_fname;
         $user_mname=$request->user_mname;
         $user_lname=$request->user_lname;
+        $gender=$request->gender;
+        $birthdate=$request->birthdate;
         $user_country=$request->user_country;
         $user_province = $request->user_province;
         $user_municipality=$request->user_municipality;
@@ -153,17 +161,19 @@ class AuthController extends Controller
         $role='user';
 
         $user =new users();
-        $user->user_fname=strtoupper($user_fname);
-        $user->user_mname=strtoupper($user_mname);
-        $user->user_lname=strtoupper($user_lname);
-        $user->user_country=strtoupper($user_country);
-        $user->user_province = strtoupper($user_province);
-        $user->user_municipality = strtoupper($user_municipality);
-        $user->user_barangay = strtoupper($user_barangay);
-        $user->user_street = strtoupper($user_street);
+        $user->user_fname=$user_fname;
+        $user->user_mname=$user_mname;
+        $user->gender=$gender;
+        $user->birthdate=$birthdate;
+        $user->user_lname=$user_lname;
+        $user->user_country=$user_country;
+        $user->user_province = $user_province;
+        $user->user_municipality =$user_municipality;
+        $user->user_barangay = $user_barangay;
+        $user->user_street = $user_street;
         $user->user_zipcode = $user_zipcode;
         $user->user_phonenum = $user_phonenum;
-        $user->user_email = strtoupper($user_email);
+        $user->user_email = $user_email;
         $user->user_password =password_hash($user_password, PASSWORD_DEFAULT);
         $user->account_status =$account_status;
         $user->status = $status;
@@ -178,7 +188,7 @@ class AuthController extends Controller
             $success= $user->save();
 
             if($success){
-             return redirect('/auth/signin')->with('success', "Kindly check your email to verify your account");
+             return redirect('/auth/login')->with('success', "Kindly check your email to verify your account");
             }
             else{
                 return redirect()->back()->with('failed', "Something went wrong");
@@ -197,10 +207,10 @@ class AuthController extends Controller
         ];
         $success = DB::table('users')->where('remember_token', $token)->update($data);
         if($success){
-            return redirect('auth/signin')->with('success', "Your acccount has been verified");
+            return redirect('auth/login')->with('success', "Your acccount has been verified");
         }
         else{
-            return redirect('auth/signin')->with('failed', "Invalid link");
+            return redirect('auth/login')->with('failed', "Invalid link");
         }
     }
     public function send_email(Request $request){
@@ -282,10 +292,9 @@ class AuthController extends Controller
             return redirect()->back()->with('failed', "Account reset failed");
         }
     }
-    public function logout()
-{
-    session()->flush(); // clear all session data
-    return redirect('/'); // redirect to login page
-}
+    public function logout() {
+        session()->forget('User');
+        return redirect('auth/login');
+    }
 
 }

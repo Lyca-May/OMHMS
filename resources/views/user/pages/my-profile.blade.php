@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1>My profile</h1>
-{{Session::get('User',)}}
+{{-- {{Session::get('User',)}} --}}
 </body>
 </html>
 

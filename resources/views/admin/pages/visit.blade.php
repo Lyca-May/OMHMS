@@ -301,11 +301,11 @@
                                             <th>Zipcode</th>
                                             <th>Date of Visit</th>
                                             <th>Selected Time</th>
-                                            <th>Birthdate</th>
                                             <th>Contact Number</th>
                                             <th>Number of Visitors</th>
                                             <th>Name of Institution</th>
                                             <th>Status</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -321,11 +321,33 @@
                                                 <td>{{ $visits->visits_zipcode }}</td>
                                                 <td>{{ $visits->visits_intended_date }}</td>
                                                 <td>{{ $visits->visits_time }}</td>
-                                                <td>{{ $visits->visits_birthdate }}</td>
                                                 <td>{{ $visits->visits_contactno }}</td>
                                                 <td>{{ $visits->visits_no_of_visitors }}</td>
                                                 <td>{{ $visits->visits_name_of_institution }}</td>
-                                                <td>{{ $visits->visits_status }}</td>
+                                                <td>
+                                                    @if ($visits->visits_status == 'PENDING')
+                                                        <p><span style="color: red">{{ $visits->visits_status }}</span></p>
+                                                    @else
+                                                        <p><span style="color: green">{{ $visits->visits_status }}</span></p>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <form action="{{ url('approve-status') }}" method="POST">
+                                                        @csrf
+                                                        <input type="hidden" name="userid" value={{session('User') ['user_id']}}>
+                                                        <button type="submit" class="btn btn-success">Approve</button>
+                                                    </form>
+                                                    <form action="{{ url('cancel-status') }}" method="POST">
+                                                        @csrf
+                                                        <input type="hidden" name="userid" value={{session('User') ['user_id']}}>
+                                                        <button type="submit" class="btn btn-danger">Cancel</button>
+                                                    </form>
+                                                    @if(session('success'))
+                                                    <span>{{ session('success') }}</span>
+                                                    @elseif (session('failed'))
+                                                        <span>{{ session('failed') }}</span>
+                                                    @endif
+                                                </td>
                                             </tr>
                                         @endforeach
 

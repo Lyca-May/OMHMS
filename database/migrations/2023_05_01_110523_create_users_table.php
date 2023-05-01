@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('user_fname');
             $table->string('user_mname');
             $table->string('user_lname');
+            $table->string('gender');
+            $table->date('birthdate');
             $table->string('user_country');
             $table->string('user_province');
             $table->string('user_municipality');
@@ -41,4 +43,3 @@ return new class extends Migration
         Schema::dropIfExists('users');
     }
 };
-

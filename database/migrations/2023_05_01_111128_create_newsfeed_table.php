@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('comment');
             $table->string('status');
             $table->string('image')->nullable();
-            // $table->date('date_posted');
             $table->timestamps();
         });
     }

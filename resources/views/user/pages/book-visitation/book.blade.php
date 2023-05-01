@@ -19,17 +19,21 @@
     @endif
     <form action="{{url('user/book')}}" method="POST">
         @csrf
-       <input type="text" name="userid" value="{{ old('userid') }}"> <br>
-        <input type="text" placeholder="First Name" @error('visits_fname') is-invalid @enderror" id="visits_fname" name="visits_fname" value="{{ old('visits_fname') }}" >
+       <input type="hidden" name="userid" value="{{ old('userid') }}"> <br>
+        <input type="text" placeholder="First Name" @error('visits_fname') is-invalid @enderror id="visits_fname" name="visits_fname" value={{ session('User')['user_fname'] }} >
         @error('visits_fname')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror <br>
-        <input type="text" placeholder="Middle Name" name="visits_mname"  @error('visits_mname') is-invalid  @enderror id="visits_mname" value="{{ old('visits_mname') }}" >
+        <input type="text" placeholder="Middle Name" name="visits_mname"  @error('visits_mname') is-invalid  @enderror id="visits_mname" value={{ session('User')['user_mname'] }} >
         @error('visits_mname')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror <br>
-        <input type="text" placeholder="Last Name" name="visits_lname"  @error('visits_lname') is-invalid  @enderror id="visits_lname" value="{{ old('visits_lname') }}" >
+        <input type="text" placeholder="Last Name" name="visits_lname"  @error('visits_lname') is-invalid  @enderror id="visits_lname" value={{ session('User')['user_lname'] }} >
         @error('visits_lname')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror <br>
+        <input type="email" placeholder="Email" name="visits_email"  @error('visits_email') is-invalid  @enderror id="visits_email" value={{ session('User')['user_email'] }} >
+        @error('visits_email')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror <br>
         <input type="text" placeholder="Country" name="visits_country"  @error('visits_country') is-invalid  @enderror id="visits_country" value="{{ old('visits_country') }}" >
@@ -60,10 +64,10 @@
         @error('visits_contactno')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror <br>
-        <input type="date" placeholder="Birthdate" name="visits_birthdate" @error('visits_birthdate') is-invalid  @enderror id="visits_birthdate" value="{{ old('visits_birthdate') }}" >
+        {{-- <input type="date" placeholder="Birthdate" name="visits_birthdate" @error('visits_birthdate') is-invalid  @enderror id="visits_birthdate" value="{{ old('visits_birthdate') }}" >
         @error('visits_birthdate')
             <div class="invalid-feedback">{{ $message }}</div>
-        @enderror <br>
+        @enderror <br> --}}
         <input type="date" placeholder="Intended Date" name="visits_intended_date" @error('visits_intended_date') is-invalid  @enderror id="visits_intended_date" value="{{ old('visits_intended_date') }}" >
         @error('visits_intended_date')
             <div class="invalid-feedback">{{ $message }}</div>
