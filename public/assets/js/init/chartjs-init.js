@@ -173,9 +173,6 @@
 
 
 
-
-
-
     //line chart
     var ctx = document.getElementById( "lineChart" );
     ctx.height = 150;

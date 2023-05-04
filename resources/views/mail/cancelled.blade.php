@@ -9,8 +9,8 @@
 <body>
     <p>
         <span>Good day! {{session('User') ['user_fname']}}</span>
-        <p>Your visit has been approved! Click the link below to view your reservation</p>
-        {{-- <p>Please click on the following link to view your reservation:</p> --}}
+        <p>We're sorry to say that your visit has been canclled due to the </p>
+        <p> Click the link below to view your reservation</p>
         <a href="{{ $link }}">{{ $link }}</a>
         <p>Thank you for using our service!</p>
 

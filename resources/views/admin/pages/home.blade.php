@@ -145,7 +145,7 @@
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Charts</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-line-chart"></i><a href="charts-chartjs.html">Chart JS</a></li>
+                            <li><i class="menu-icon fa fa-line-chart"></i><a href="{{url("visits-charts")}}">Chart JS</a></li>
                             <li><i class="menu-icon fa fa-area-chart"></i><a href="charts-flot.html">Flot Chart</a></li>
                             <li><i class="menu-icon fa fa-pie-chart"></i><a href="charts-peity.html">Peity Chart</a></li>
                         </ul>
@@ -297,8 +297,8 @@
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
-                                            <div class="stat-text">$<span class="count">23569</span></div>
-                                            <div class="stat-heading">Revenue</div>
+                                            <div class="stat-text">$<span class="count">{{$visitCount}}</span></div>
+                                            <div class="stat-heading">Done Visits</div>
                                         </div>
                                     </div>
                                 </div>
@@ -315,8 +315,8 @@
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
-                                            <div class="stat-text"><span class="count">3435</span></div>
-                                            <div class="stat-heading">Sales</div>
+                                            <div class="stat-text"><span class="count">{{$membersCount}}</span></div>
+                                            <div class="stat-heading">Total Visitors</div>
                                         </div>
                                     </div>
                                 </div>
@@ -362,7 +362,7 @@
                 </div>
                 <!-- /Widgets -->
                 <!--  Traffic  -->
-                <div class="row">
+                {{-- <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
@@ -411,7 +411,27 @@
                             <div class="card-body"></div>
                         </div>
                     </div><!-- /# column -->
-                </div>
+                </div> --}}
+
+
+
+
+{{-- //CHART --}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 <!--  /Traffic -->
                 <div class="clearfix"></div>
                 <!-- Orders -->

@@ -13,7 +13,7 @@
         integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous" />
     <!-- main style -->
     <link rel="stylesheet" href="{{asset("main1.css" )}}"/>
-    <title>Flexbook</title>
+    <title>OMHMS</title>
 </head>
 <style>
     .bg-image1 {

@@ -3486,13 +3486,16 @@ data-bs-backdrop="false"
                             <img src="https://source.unsplash.com/collection/happy-people" alt="avatar"
                                 class="rounded-circle me-2" style="width: 38px; height: 38px; object-fit: cover" />
                         </div>
-                        <input type="text" class="form-control rounded-pill border-0 bg-gray pointer" disabled
-                            placeholder="What's on your mind, {{session('User')['user_fname']}}?" data-bs-toggle="modal"
-                            data-bs-target="#createModal" />
+                        <a href="{{url('user/add-post')}}">
+                            <button class="btn btn-light" style="width: 50ch">
+                                <input type="text" class="form-control rounded-pill border-0 bg-gray pointer" disabled
+                                placeholder="What's on your mind, {{session('User')['user_fname']}}?"/>
+                            </button>
+                        </a>
                     </div>
 
 
-                    <!-- create modal -->
+                    {{-- <!-- create modal -->
                     <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel"
                         aria-hidden="true" data-bs-backdrop="false">
                         <div class="modal-dialog modal-dialog-centered">
@@ -3637,7 +3640,7 @@ data-bs-backdrop="false"
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
 
 
@@ -3690,6 +3693,7 @@ data-bs-backdrop="false"
 
                 <!-- posts -->
                 <!-- p 1 -->
+
                 <div class="bg-white p-4 rounded shadow mt-3">
                     <!-- author -->
                     <div class="d-flex justify-content-between">
@@ -3698,12 +3702,14 @@ data-bs-backdrop="false"
                             <img src="https://source.unsplash.com/collection/happy-people" alt="avatar"
                                 class="rounded-circle me-2" style="width: 38px; height: 38px; object-fit: cover" />
                             <div>
-                                <p class="m-0 fw-bold"><span>{{session('User')['user_fname']}}</p>
+                                @foreach ($newsfeed as $post)
+                                <p class="m-0 fw-bold"><span>{{$post->name}}</p>
                                 <span class="text-muted fs-7">
-                                    @foreach ($newsfeed as $post)
-                                        <p>{{ $post->created_at }}</p>
-                                    @endforeach
+
+                                        <p>{{ date('F d, Y', strtotime($post->created_at)) }}</p>
+
                                 </span>
+                                @endforeach
                             </div>
                         </div>
                         <!-- edit -->

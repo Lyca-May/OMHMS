@@ -13,7 +13,7 @@
         integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous" />
     <!-- main style -->
     <link rel="stylesheet" href="{{asset('assets/main.css')}}" />
-    <title>Flexbook</title>
+    <title>OMHMS</title>
 </head>
 <style>
     .bg-image1 {
@@ -34,6 +34,7 @@
             @elseif (session('failed'))
             <span style="color: red">{{session('failed')}}</span>
             @endif
+
             <div class="row">
               <h3 class="title">Register</h3>
                 <form class="form-horizontal" action="{{route('register')}}" method="POST">
@@ -89,7 +90,7 @@
                             @enderror
                     </div>
                     <div class="form-group">
-                        <label>Surname</label>
+                        <label>Birthdate</label>
                         <input type="date" class="form-control"  name="birthdate" value="{{old('birthdate')}}" class="@error('birthdate') is-invalid @enderror" autocomplete="on">
                             @error('birthdate')
                             <span style="color: red">{{$message}}</span>

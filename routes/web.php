@@ -1,6 +1,6 @@
 <?php
 
-// use App\Http\Controllers\Admin\Home_Controller;
+use App\Http\Controllers\Admin\Home_Controller;
 use App\Http\Controllers\User\UserVisitController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Authentication\AuthController;
@@ -26,7 +26,7 @@ Route::view('admin/advance', 'admin.pages.advance');
 //User Page
 Route::view('user/my-profile', 'user.pages.my-profile');
 Route::view('user/home', 'user.pages.userhome');
-Route::view('user/visit', 'user.pages.book-visitation.book');
+// Route::view('user/visit', 'user.pages.book-visitation.book');
 
 //booked reservation
 // Route::view('user/bookedvisit', 'user.pages.booked.bookedvisit');
@@ -46,19 +46,25 @@ Route::get('logout', [AuthController::class, 'logout']);
 Route::get('/', [AuthController::class, 'log']);
 
 //Admin Page View
-Route::view('admin/home', 'admin.pages.home');
+Route::get('admin/home', [VisitController::class, 'admin_home']);
 Route::view('admin/form', 'admin.pages.form');
 Route::view('admin/advance', 'admin.pages.advance');
+Route::get('visits-charts', [Home_Controller::class, 'visualizeBookings']);
 Route::view('admin/my-profile', 'admin.pages.profile.profile');
+Route::view('cancel-status-page', 'admin.pages.visit.cancel-status');
 
 //manage visit for admin
 Route::get('admin/visit', [VisitController::class,'index']);
 Route::post('approve-status', [VisitController::class,'approve_status']);
+Route::post('cancel_status', [VisitController::class,'cancel_status']);
+Route::post('approved', [VisitController::class,'approved_visit'])->name('approved');
+Route::post('cancelled', [VisitController::class,'cancelled_visit']);
+Route::post('booking-history', [VisitController::class,'booking_history']);
 
 //User Page View
 Route::view('user/my-profile', 'user.pages.my-profile');
-// Route::view('user/home', 'user.pages.userhome');
-Route::view('user/visit', 'user.pages.book-visitation.book');
+Route::view('user/add-post', 'user.pages.newsfeed.add-post');
+Route::get('user/visit',[UserVisitController::class,'user_visit'] );
 
 
 //Visit for user functions
@@ -68,8 +74,8 @@ Route::post('user/book', [UserVisitController::class, 'reserve_visit']);
 
 //Newsfeed for user function
 Route::get('user/home', [FeedController::class,'index']);
-Route::post('post', [FeedController::class, 'post']);
-Route::get('user/image', [FeedController::class, 'retrieve_image']);
+Route::post('post', [FeedController::class, 'add_post']);
+// Route::get('user/image', [FeedController::class, 'retrieve_image']);
 
 
 //Images

@@ -34,7 +34,7 @@ class ImagesController extends Controller
         $imagePath = 'images/' . $imageName;
         DB::table('images')->insert(['userid' => $user_id, 'path' => $imagePath]);
 
-        return redirect('user/image')->with('success', 'Image uploaded successfully');
+        return redirect('user/home')->with('success', 'Image uploaded successfully');
     }
 
 

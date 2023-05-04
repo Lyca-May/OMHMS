@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Admin\Visit_Model;
 use App\Models\Images;
+use App\Models\User\Newsfeed_Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -39,5 +40,9 @@ class users extends Model
     public function images()
     {
         return $this->hasMany(Images::class);
+    }
+    public function feed()
+    {
+        return $this->hasMany(Feed_Model::class);
     }
 }
