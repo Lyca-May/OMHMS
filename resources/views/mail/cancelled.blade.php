@@ -8,11 +8,13 @@
 </head>
 <body>
     <p>
-        <span>Good day! {{session('User') ['user_fname']}}</span>
-        <p>We're sorry to say that your visit has been canclled due to the </p>
+        <span>Good day!</span>
+        <p>We're sorry to say that your visit has been canclled</p>
         <p> Click the link below to view your reservation</p>
         <a href="{{ $link }}">{{ $link }}</a>
-        <p>Thank you for using our service!</p>
+        Thank you for using our service.
+Best regards,
+Oriental Mindoro Heritage Museum
 
 </body>
 </html>

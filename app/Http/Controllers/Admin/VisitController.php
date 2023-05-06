@@ -51,7 +51,7 @@ class VisitController extends Controller
 
         ///
     }
-    public function approve_status($user_email){
+    public function approve_status(){
         $user = DB::table('users')->first();
         $user_id = $user->user_id;
         $visit = DB::table('visit')->where('userid', $user_id)->where('visits_status', 'PENDING')->first();
@@ -86,17 +86,22 @@ class VisitController extends Controller
     public function cancel_status(Request $request)
     {
 
-        $user_id = session('User')['user_id'];
-        $visits_email = session('User')['user_email'];
+        $user = DB::table('users')->first();
+        $user_id = $user->user_id;
         $visit = DB::table('visit')->where('userid', $user_id)->where('visits_status', 'PENDING')->first();
         if($visit){
             $reason = $request->input('cancel_reason');
             $status=['visits_status' => 'CANCELLED', 'cancel_reason' => $reason];
             $success=DB::table('visit')->where('userid', $user_id)->where('visits_status', 'PENDING')->update($status);
             if($success){
-                $link = 'http://127.0.0.1:8000/user/bookedvisit/';
-                if(!empty($visits_email)){
-                    Mail::to($visits_email)->send(new VisitCancelled($link));
+                $loggedUser = session()->get('User');
+                if($loggedUser){ // if user is logged in
+                    $link = 'http://127.0.0.1:8000/user/bookedvisit/';
+                }else{ // if user is not logged in
+                    $link = 'http://127.0.0.1:8000/';
+                }
+                if(!empty($user->user_email)){
+                    Mail::to($user->user_email)->send(new VisitCancelled($link));
                 }
                 return redirect()->back()->with('success', "Reservation cancelled and email notification sent to user.");
             }else{
