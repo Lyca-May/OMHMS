@@ -2893,6 +2893,7 @@
                                                 <div class="input-group">
                                                     <div class="input-group-addon"></div>
                                                     <input type="hidden"  name="visits_email" value="{{ session('User') ['user_email'] }}">
+                                                    <input type="hidden"  name="gender" value="{{ session('User') ['gender'] }}">
                                                     <input type="text"  class="form-control" placeholder="(Optional)" name="visits_name_of_institution" @error('visits_name_of_institution') is-invalid  @enderror id="visits_name_of_institution" value="{{ old('visits_name_of_institution') }}" >
                                                     @error('visits_name_of_institution')
                                                         <div class="invalid-feedback">{{ $message }}</div>

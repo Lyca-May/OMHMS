@@ -8,7 +8,7 @@
 </head>
 <body>
     <p>
-        <span>Good day! {{session('User') ['user_fname']}}</span>
+        <span>Good day!</span>
         <p>Your visit has been approved! Click the link below to view your reservation</p>
         {{-- <p>Please click on the following link to view your reservation:</p> --}}
         <a href="{{ $link }}">{{ $link }}</a>

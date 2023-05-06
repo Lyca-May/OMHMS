@@ -324,7 +324,7 @@
                                             <th>Zipcode</th>
                                             <th>Date of Visit</th>
                                             <th>Selected Time</th>
-                                            <th>Contact Number</th>
+                                            {{-- <th>Contact Number</th> --}}
                                             <th>Number of Visitors</th>
                                             <th>Name of Institution</th>
                                             <th>Status</th>
@@ -344,7 +344,7 @@
                                                 <td>{{ $visits->visits_zipcode }}</td>
                                                 <td>{{ $visits->visits_intended_date }}</td>
                                                 <td>{{ $visits->visits_time }}</td>
-                                                <td>{{ session('User') ['user_phonenum']}}</td>
+                                                {{-- <td>{{ session('User') ['user_phonenum']}}</td> --}}
                                                 <td>{{ $visits->visits_no_of_visitors }}</td>
                                                 <td>{{ $visits->visits_name_of_institution }}</td>
                                                 <td>
@@ -355,7 +355,7 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <form action="{{ url('approve-status') }}" method="POST">
+                                                    <form action="{{ url('/approve-status/{user_email}') }}" method="GET">
                                                         @csrf
                                                         {{-- <input type="hidden" name="userid" value={{session('User') ['user_id']}}> --}}
                                                         <button type="submit" class="btn btn-success">Approve</button>

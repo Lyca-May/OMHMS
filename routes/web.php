@@ -60,6 +60,8 @@ Route::post('cancel_status', [VisitController::class,'cancel_status']);
 Route::post('approved', [VisitController::class,'approved_visit'])->name('approved');
 Route::post('cancelled', [VisitController::class,'cancelled_visit']);
 Route::post('booking-history', [VisitController::class,'booking_history']);
+Route::get('/approve-status/{user_email}', [VisitController::class,'approve_status']);
+
 
 //User Page View
 Route::view('user/my-profile', 'user.pages.my-profile');

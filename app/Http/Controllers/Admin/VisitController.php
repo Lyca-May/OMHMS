@@ -51,36 +51,41 @@ class VisitController extends Controller
 
         ///
     }
-    public function approve_status(){
-        $visits_email = session('User')['user_email'];
-        $user_id = session('User')['user_id'];
+    public function approve_status($user_email){
+        $user = DB::table('users')->first();
+        $user_id = $user->user_id;
         $visit = DB::table('visit')->where('userid', $user_id)->where('visits_status', 'PENDING')->first();
 
-
-            if($visit){
+        if($visit){
             $status=['visits_status' => 'APPROVED'];
-                $success=DB::table('visit')->where('userid', $user_id)->where('visits_status', 'PENDING')->update($status);
-                if($success){
-                    // Generate link and send to visitor's email
+            $success=DB::table('visit')->where('userid', $user_id)->where('visits_status', 'PENDING')->update($status);
+
+            if($success){
+                // Generate link and send to visitor's email
+                $loggedUser = session()->get('User');
+                if($loggedUser){ // if user is logged in
                     $link = 'http://127.0.0.1:8000/user/bookedvisit/';
-                    if(!empty($visits_email)){
-                        Mail::to($visits_email)->send(new VisitApproved($link));
-                        return redirect()->back()->with('success', "You have approved the reserved visit and sent an email to the user with a link");
-                    }else{
-                        return redirect()->back()->with('failed', "Empty email");
-                    }
-                }else{
-                    return redirect()->back()->with('failed', "Something went wrong. Please check your internet connection");
+                }else{ // if user is not logged in
+                    $link = 'http://127.0.0.1:8000/';
                 }
+
+                if($user){
+                    Mail::to($user->user_email)->send(new VisitApproved($link));
+                    return redirect()->back()->with('success', "You have approved the reserved visit and sent an email to the user with a link");
+                }else{
+                    return redirect()->back()->with('failed', "Empty email");
+                }
+            }else{
+                return redirect()->back()->with('failed', "Something went wrong. Please check your internet connection");
             }
-            else{
-                return redirect()->back()->with('failed', "Failed to send email to the user");
-            }
+        }else{
+            return redirect()->back()->with('failed', "Failed to send email to the user");
+        }
     }
 
     public function cancel_status(Request $request)
     {
-        
+
         $user_id = session('User')['user_id'];
         $visits_email = session('User')['user_email'];
         $visit = DB::table('visit')->where('userid', $user_id)->where('visits_status', 'PENDING')->first();

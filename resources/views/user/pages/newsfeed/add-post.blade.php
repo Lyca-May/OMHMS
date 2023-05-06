@@ -3407,66 +3407,7 @@ data-bs-backdrop="false"
                 <img src="{{asset('image/down_arrow.png')}}">
                 <p>See more</p>
             </div>
-            {{-- <div class="img">
-                <img src="{{asset('image/saved.png')}}">
-                <p>Saved</p>
-            </div>
-
-            <div class="img">
-                <img src="{{asset('image/group.png')}}">
-                <p>Groups</p>
-            </div>
-            <div class="img">
-                <img src="{{asset('image/watch.png')}}">
-                <p>Watch</p>
-            </div> --}}
-            {{-- <div class="img">
-                <img src="{{asset('image/profile.png')}}">
-                <p>John Deo</p>
-            </div> --}}
-            {{-- <div class="img">
-                <img src="{{asset('image/down_arrow.png')}}">
-                <p>See more</p>
-            </div> --}}
-
-
-            {{-- <hr>
-
-            <h2>You shortcuts</h2>
-            <p class="edit">Edit</p>
-
-            <div class="shortcuts">
-                <img src="{{asset('image/shortcuts_1.png')}}">
-                <p>MOBILE GAMES</p>
-            </div>
-
-            <div class="shortcuts">
-                <img src="{{asset('image/shortcuts_2.jpeg')}}">
-                <p>Online Education</p>
-            </div>
-
-            <div class="shortcuts">
-                <img src="{{asset('image/shortcuts_3.webp')}}">
-                <p>Food Lovers</p>
-            </div>
-
-            <div class="shortcuts">
-                <img src="{{asset('image/shortcuts_4.png')}}">
-                <p>Social Media Academy</p>
-            </div>
-
-            <div class="shortcuts">
-                <img src="{{asset('image/shortcuts_5.webp')}}">
-                <p>PC Shop</p>
-            </div>
-
-            <div class="shortcuts">
-                <img src="{{asset('image/down_arrow.png')}}">
-                <p>See more</p>
-            </div>
-             --}}
-
-        </div>
+         </div>
 
 
 
