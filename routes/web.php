@@ -89,8 +89,8 @@ Route::post('user/rent-submit', [UserFunctionalRoomController::class, 'rent_room
 Route::get('user/rentedhall', [UserFunctionalRoomController::class,'displayRent']);
 Route::post('rent/approve-status', [FunctionalHallController::class,'approve_status']);
 Route::post('rent/cancel_status', [FunctionalHallController::class,'cancel_status']);
-Route::post('rent/approved', [FunctionalHallController::class,'approved_visit']);
-Route::post('rent/cancelled', [FunctionalHallController::class,'cancelled_visit']);
+Route::post('rent/approved', [FunctionalHallController::class,'approved_rent']);
+Route::post('rent/cancelled', [FunctionalHallController::class,'cancelled_rent']);
 Route::post('rent/history', [FunctionalHallController::class,'rent_history']);
 Route::view('rent-cancel-status-page', 'admin.pages.visit.rent-cancel-status');
 

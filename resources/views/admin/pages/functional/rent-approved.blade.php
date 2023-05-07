@@ -97,7 +97,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Bookings</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-table"></i><a href="{{url('admin/visit')}}">Visit</a></li>
-                            <li><i class="fa fa-table"></i><a href="{{url('admin/visit')}}">Function Hall</a></li>
+                            <li><i class="fa fa-table"></i><a href="{{url('admin/functional')}}">Function Hall</a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
@@ -261,17 +261,20 @@
 
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           <div>
+                            <span>Hi, {{session('Admin')['user_fname']}} </span>
                             <img class="user-avatar rounded-circle" src="{{asset('images/admin.jpg')}}" alt="User Avatar">
+                           </div>
                         </a>
 
                         <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a>
+                            <a class="nav-link"href="{{ url('admin/my-profile')}}"><i class="fa fa- user"></i>My Profile</a>
 
                             <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>
 
                             <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
 
-                            <a class="nav-link" href="#"><i class="fa fa-power -off"></i>Logout</a>
+                            <a class="nav-link" href="{{url('logout')}}"><i class="fa fa-power -off"></i>Logout</a>
                         </div>
                     </div>
 
@@ -282,21 +285,17 @@
         <br>
        <div class="row" style="margin-left: 30px">
             <div class="col">
-                <form action="{{url('approved')}}" method="POST">
-                    @csrf
-                    <button type="submit" class="btn btn-primary">View Approved Bookings</button>
-                </form>
-            </div>
-
-            <div class="col">
-                <form action="{{url('cancelled')}}" method="POST">
+                <form action="{{url('rent/cancelled')}}" method="POST">
                     @csrf
                     <button type="submit" class="btn btn-primary">View Cancelled Bookings</button>
                 </form>
-            </div>
-
-            <div class="col">
-                <form action="{{url('booking-history')}}" method="POST">
+                <br>
+                <form action="{{url('rent/approved')}}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-primary">View Approved Bookings</button>
+                </form>
+                <br>
+                <form action="{{url('rent/history')}}" method="POST">
                     @csrf
                     <button type="submit" class="btn btn-primary">View Booking History</button>
                 </form>
@@ -351,10 +350,10 @@
                                                 <td>{{ $functional->functional_contactno }}</td>
                                                 <td>{{ $functional->functional_no_of_participants }}</td>
                                                 <td>{{ $functional->functional_event_name }}</td>
-                                                <td>{{ $functional->reference }}</td>
                                                 <td>{{ $functional->functional_name_of_institution }}</td>
+                                                <td>{{ $functional->reference }}</td>
                                                 <td>
-                                                    <p><span style="color: green">{{ $functional->functional_status }}</span></p>
+                                                    <p><span style="background-color: green; text-color: black">{{ $functional->functional_status }}</span></p>
                                                 </td>
 
                                             </tr>

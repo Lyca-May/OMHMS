@@ -21,25 +21,25 @@ class FunctionalHallController extends Controller
         $rent = DB::table('functional_hall')->where('functional_status', 'PENDING')->get();
         return view('admin.pages.functional.functional-table', ['functional' => $rent]);
     }
-    public function approved_visit()
+    public function approved_rent()
     {
         $rent = DB::table('functional_hall')->where('functional_status', 'APPROVED')->get();
         return view('admin.pages.functional.rent-approved', ['rent' => $rent]);
     }
-    public function cancelled_visit()
+    public function cancelled_rent()
     {
-        $visits = DB::table('visit')->where('visits_status', 'CANCELLED')->get();
-        return view('admin.pages.visit.cancelled', ['visit' => $visits]);
+        $rent = DB::table('functional_hall')->where('functional_status', 'CANCELLED')->get();
+        return view('admin.pages.functional.rent-cancelled', ['rent' => $rent]);
     }
     public function rent_history()
     {
         $currentDate = date('Y-m-d');
-        $visits = DB::table('visit')
-                    ->where('visits_status', 'CANCELLED')
-                    ->orWhere('visits_status', 'APPROVED')
-                    ->whereDate('visits_intended_date', '<  ', $currentDate)
+        $rent = DB::table('functional_hall')
+                    ->where('functional_status', 'CANCELLED')
+                    ->orWhere('functional_status', 'APPROVED')
+                    ->whereDate('functional_intended_date', '<  ', $currentDate)
                     ->get();
-        return view('admin.pages.visit.history', ['visit' => $visits]);
+        return view('admin.pages.functional.rent-history', ['rent' => $rent]);
     }
 
 
@@ -64,7 +64,7 @@ class FunctionalHallController extends Controller
 
                 if($user){
                     Mail::to($user->user_email)->send(new RentApproved($link));
-                    return redirect()->back()->with('success', "You have approved the reserved visit and sent an email to the user with a link");
+                    return redirect()->back()->with('success', "You have approved the reserved room and sent an email to the user with a link");
                 }else{
                     return redirect()->back()->with('failed', "Empty email");
                 }

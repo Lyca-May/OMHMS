@@ -97,7 +97,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Bookings</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-table"></i><a href="{{url('admin/visit')}}">Visit</a></li>
-                            <li><i class="fa fa-table"></i><a href="{{url('admin/visit')}}">Function Hall</a></li>
+                            <li><i class="fa fa-table"></i><a href="{{url('admin/functional')}}">Function Hall</a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
@@ -261,17 +261,20 @@
 
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           <div>
+                            <span>Hi, {{session('Admin')['user_fname']}} </span>
                             <img class="user-avatar rounded-circle" src="{{asset('images/admin.jpg')}}" alt="User Avatar">
+                           </div>
                         </a>
 
                         <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a>
+                            <a class="nav-link"href="{{ url('admin/my-profile')}}"><i class="fa fa- user"></i>My Profile</a>
 
                             <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>
 
                             <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
 
-                            <a class="nav-link" href="#"><i class="fa fa-power -off"></i>Logout</a>
+                            <a class="nav-link" href="{{url('logout')}}"><i class="fa fa-power -off"></i>Logout</a>
                         </div>
                     </div>
 
@@ -280,26 +283,31 @@
         </header><!-- /header -->
         <!-- Header-->
         <br>
-       <div class="row" style="margin-left: 30px">
+        <div class="row" style="margin-left: 30px">
             <div class="col">
-                <form action="{{url('approved')}}" method="POST">
-                    @csrf
-                    <button type="submit" class="btn btn-primary">View Approved Bookings</button>
-                </form>
-            </div>
-
-            <div class="col">
-                <form action="{{url('cancelled')}}" method="POST">
+                <form action="{{url('rent/cancelled')}}" method="POST">
                     @csrf
                     <button type="submit" class="btn btn-primary">View Cancelled Bookings</button>
                 </form>
-            </div>
-
-            <div class="col">
-                <form action="{{url('booking-history')}}" method="POST">
+                <br>
+                <form action="{{url('rent/approved')}}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-primary">View Approved Bookings</button>
+                </form>
+                <br>
+                <form action="{{url('rent/history')}}" method="POST">
                     @csrf
                     <button type="submit" class="btn btn-primary">View Booking History</button>
                 </form>
+            </div>
+
+            <div class="col">
+
+
+            </div>
+
+            <div class="col">
+
             </div>
        </div>
 
@@ -327,35 +335,38 @@
                                             <th>Date of Visit</th>
                                             <th>Selected Time</th>
                                             <th>Contact Number</th>
-                                            <th>Number of Visitors</th>
+                                            <th>Number of Participants</th>
+                                            <th>Number of Event</th>
                                             <th>Name of Institution</th>
+                                            <th>Gcash Reference Number</th>
                                             <th>Status</th>
 
                                         </tr>
                                     </thead>
                                     <tbody>
 
-                                        @foreach($visit as $visits)
+                                        @foreach($rent as $functional)
                                             <tr>
-                                                <td>{{ $visits->visits_lname }}, {{ $visits->visits_fname }} {{ $visits->visits_mname }}.</td>
-                                                <td>{{ $visits->visits_country }}</td>
-                                                <td>{{ $visits->visits_province }}</td>
-                                                <td>{{ $visits->visits_municipality }}</td>
-                                                <td>{{ $visits->visits_brgy }}</td>
-                                                <td>{{ $visits->visits_street }}</td>
-                                                <td>{{ $visits->visits_zipcode }}</td>
-                                                <td>{{ $visits->visits_intended_date }}</td>
-                                                <td>{{ $visits->visits_time }}</td>
-                                                <td>{{ $visits->visits_contactno }}</td>
-                                                <td>{{ $visits->visits_no_of_visitors }}</td>
-                                                <td>{{ $visits->visits_name_of_institution }}</td>
+                                                <td>{{ $functional->functional_lname }}, {{ $functional->functional_fname }} {{ $functional->functional_mname }}.</td>
+                                                <td>{{ $functional->functional_country }}</td>
+                                                <td>{{ $functional->functional_province }}</td>
+                                                <td>{{ $functional->functional_municipality }}</td>
+                                                <td>{{ $functional->functional_brgy }}</td>
+                                                <td>{{ $functional->functional_street }}</td>
+                                                <td>{{ $functional->functional_zipcode }}</td>
+                                                <td>{{ $functional->functional_intended_date }}</td>
+                                                <td>{{ $functional->functional_time }}</td>
+                                                <td>{{ $functional->functional_contactno }}</td>
+                                                <td>{{ $functional->functional_no_of_participants }}</td>
+                                                <td>{{ $functional->functional_event_name }}</td>
+                                                <td>{{ $functional->functional_name_of_institution }}</td>
+                                                <td>{{ $functional->reference }}</td>
                                                 <td>
-                                                    <p><span style="color: red">{{ $visits->visits_status }}</span></p>
+                                                    <p><span style="background-color: green; text-color: black">{{ $functional->functional_status }}</span></p>
                                                 </td>
 
                                             </tr>
                                         @endforeach
-
                                     </tbody>
                                 </table>
                             </div>
