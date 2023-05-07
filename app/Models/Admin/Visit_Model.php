@@ -24,8 +24,8 @@ class Visit_Model extends Model
         'visits_zipcode',
         'visits_intended_date',
         'visits_time',
-        // 'visits_birthdate',
-        // 'visits_contactno',
+        'gender',
+        'contact_no',
         'visits_no_of_visitors',
         'visits_members',
         'visits_name_of_institution',
@@ -37,6 +37,12 @@ class Visit_Model extends Model
     {
         return $this->belongsTo(users::class);
     }
+
+    public function members()
+    {
+        return $this->hasMany(MembersModel::class);
+    }
+
     protected $table = 'visit';
         use HasFactory;
 }

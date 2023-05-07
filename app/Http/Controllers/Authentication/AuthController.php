@@ -294,7 +294,7 @@ class AuthController extends Controller
     }
     public function logout() {
         session()->forget('User');
-        return redirect('auth/login');
+        return redirect('/');
     }
 
 }

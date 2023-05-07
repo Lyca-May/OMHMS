@@ -279,174 +279,113 @@
             </div>
         </header><!-- /header -->
         <!-- Header-->
-        <br>
-       <div class="row" style="margin-left: 30px">
-            <div class="col">
-                <form action="{{url('cancelled')}}" method="POST">
-                    @csrf
-                    <button type="submit" class="btn btn-primary">View Cancelled Bookings</button>
-                </form>
-                <br>
-                <form action="{{url('approved')}}" method="POST">
-                    @csrf
-                    <button type="submit" class="btn btn-primary">View Approved Bookings</button>
-                </form>
-                <br>
-                <form action="{{url('booking-history')}}" method="POST">
-                    @csrf
-                    <button type="submit" class="btn btn-primary">View Booking History</button>
-                </form>
-            </div>
 
-            <div class="col">
-
-
-            </div>
-
-            <div class="col">
-
-            </div>
-       </div>
-
-        <div class="content">
-            <div class="animated fadeIn">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <strong class="card-title">Visitation Table</strong>
-                            </div>
-                            <div class="card-body">
-                                <table id="bootstrap-data-table" class="table table-striped table-bordered ml-auto"  >
-                                    <thead class="table" style="font-size:10px; text-align:center ">
-                                        <tr>
-                                            <th>Full Name</th>
-                                            <th>Contact Number</th>
-                                            <th>Gender</th>
-                                            <th>Email</th>
-                                            <th>Country</th>
-                                            <th>Province</th>
-                                            <th>Municipality</th>
-                                            <th>Barangay</th>
-                                            <th>Street</th>
-                                            <th>Zipcode</th>
-                                            <th>Date to Rent</th>
-                                            <th>Selected Time</th>
-                                            <th>Number of Participants</th>
-                                            <th>Number of Event</th>
-                                            <th>Name of Institution</th>
-                                            <th>Gcash Reference Number</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                        @foreach($functional as $rent)
-                                            <tr>
-                                                <td>{{ $rent->functional_lname }}, {{ $rent->functional_fname }} {{ $rent->functional_mname }}.</td>
-                                                <td>{{ $rent->functional_contactno }}</td>
-                                                <td>{{ $rent->functional_gender }}</td>
-                                                <td>{{ $rent->functional_email}}</td>
-                                                <td>{{ $rent->functional_country }}</td>
-                                                <td>{{ $rent->functional_province }}</td>
-                                                <td>{{ $rent->functional_municipality }}</td>
-                                                <td>{{ $rent->functional_brgy }}</td>
-                                                <td>{{ $rent->functional_street }}</td>
-                                                <td>{{ $rent->functional_zipcode }}</td>
-                                                <td>{{ $rent->functional_intended_date }}</td>
-                                                <td>{{ $rent->functional_time }}</td>
-                                                <td>{{ $rent->functional_no_of_participants }}</td>
-                                                <td>{{ $rent->functional_event_name }}</td>
-                                                <td>{{ $rent->reference }}</td>
-                                                <td>{{ $rent->functional_name_of_institution }}</td>
-                                                <td>
-                                                    @if ($rent->functional_status == 'PENDING')
-                                                        <p><span style="background-color: black">{{ $rent->functional_status }}</span></p>
-                                                    @else
-                                                        <p><span style="background-color: green">{{ $rent->functional_status }}</span></p>
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    <form action="{{ url('rent/approved') }}" method="POST">
-                                                        @csrf
-                                                        {{-- <input type="hidden" name="userid" value={{session('User') ['user_id']}}> --}}
-                                                        <button type="submit" class="btn btn-success">Approve</button>
-                                                    </form>
-                                                    {{-- <form action="{{ url('cancel-status-page') }}"> --}}
-
-                                                        {{-- <input type="hidden" name="userid" value={{session('User') ['user_id']}}> --}}
-                                                      <a href="{{url('rent-cancel-status-page')}}">
-                                                        <button type="submit" class="btn btn-danger">Cancel</button>
-                                                      </a>
-                                                    {{-- </form> --}}
-                                                    @if(session('success'))
-                                                    <span>{{ session('success') }}</span>
-                                                    @elseif (session('failed'))
-                                                        <span>{{ session('failed') }}</span>
-                                                    @endif
-                                                </td>
-                                            </tr>
-                                        @endforeach
-
-                                    </tbody>
-                                </table>
+        {{-- <div class="breadcrumbs">
+            <div class="breadcrumbs-inner">
+                <div class="row m-0">
+                    <div class="col-sm-4">
+                        <div class="page-header float-left">
+                            <div class="page-title">
+                                <h1>Dashboard</h1>
                             </div>
                         </div>
                     </div>
-
-
-                </div>
-            </div><!-- .animated -->
-        </div><!-- .content -->
-
-
-        <div class="clearfix"></div>
-
-        <footer class="site-footer">
-            <div class="footer-inner bg-white">
-                <div class="row">
-                    <div class="col-sm-6">
-                        Copyright &copy; 2018 Ela Admin
-                    </div>
-                    <div class="col-sm-6 text-right">
-                        Designed by <a href="https://colorlib.com">Colorlib</a>
+                    <div class="col-sm-8">
+                        <div class="page-header float-right">
+                            <div class="page-title">
+                                <ol class="breadcrumb text-right">
+                                    <li><a href="#">Dashboard</a></li>
+                                    <li><a href="#">Forms</a></li>
+                                    <li class="active">Advanced</li>
+                                </ol>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </footer>
+        </div> --}}
 
-    </div><!-- /#right-panel -->
+        <div class="content">
+            <div class="animated fadeIn">
 
-    <!-- Right Panel -->
+                <div class="row">
+
+                    <div class="col-xs-6 col-sm-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>Add Reason for Cancellation</strong>
+                            </div>
+                            @if(session('success'))
+                            <span>{{ session('success') }}</span>
+                            @elseif (session('failed'))
+                                <span>{{ session('failed') }}</span>
+                            @endif
+                            <form action="{{url('cancel_status')}}" method="POST">
+                                @csrf
+                                <div class="card-body card-block">
+                                    <div class="form-group">
+                                        {{-- <label class=" form-control-label">Date input</label>? --}}
+                                        <div class="input-group">
+                                            {{-- <div class="input-group-addon"></div> --}}
+                                            <textarea class="form-control" name="cancel_reason" @error('cancel_reason') is-invalid  @enderror id="cancel_reason" value="{{ old('cancel_reason') }}" id="cancel_reason">
+                                                @error('cancel_reason')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </textarea>
+                                        </div>
+                                        <br>
+                                <button type="submit" class="btn btn-danger">Confirm Cancel</button>
+
+                                        {{-- <small class="form-text text-muted">ex. 99/99/9999</small> --}}
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+  </div>
 
 
+</div><!-- .animated -->
+</div><!-- .content -->
+    <div class="clearfix"></div>
 
+    <footer class="site-footer">
+        <div class="footer-inner bg-white">
+            <div class="row">
+                <div class="col-sm-6">
+                    Copyright &copy; 2018 Ela Admin
+                </div>
+                <div class="col-sm-6 text-right">
+                    Designed by <a href="https://colorlib.com">Colorlib</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+</div><!-- /#right-panel -->
+
+<!-- Right Panel -->
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
+<script src="{{asset('assets/js/main.js')}}"></script>
+<script src="{{asset('assets/js/lib/chosen/chosen.jquery.min.js')}}"></script>
+
+<script>
+    jQuery(document).ready(function() {
+        jQuery(".standardSelect").chosen({
+            disable_search_threshold: 10,
+            no_results_text: "Oops, nothing found!",
+            width: "100%"
+        });
+    });
+</script>
 
 </body>
- <!-- Scripts -->
- <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
- <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
- <script src="{{asset('assets/js/main.js')}}"></script>
-
-
- <script src="{{asset('assets/js/lib/data-table/datatables.min.js')}}"></script>
- <script src="{{asset('assets/js/lib/data-table/dataTables.bootstrap.min.js')}}"></script>
- <script src="{{asset('assets/js/lib/data-table/dataTables.buttons.min.js')}}"></script>
- <script src="{{asset('assets/js/lib/data-table/buttons.bootstrap.min.js')}}"></script>
- <script src="{{asset('assets/js/lib/data-table/jszip.min.js')}}"></script>
- <script src="{{asset('assets/js/lib/data-table/vfs_fonts.js')}}"></script>
- <script src="{{asset('assets/js/lib/data-table/buttons.html5.min.js')}}"></script>
- <script src="{{asset('assets/js/lib/data-table/buttons.print.min.js')}}"></script>
- <script src="{{asset('assets/js/lib/data-table/buttons.colVis.min.js')}}"></script>
- <script src="{{asset('assets/js/init/datatables-init.js')}}"></script>
-
-
- <script type="text/javascript">
-     $(document).ready(function() {
-       $('#bootstrap-data-table-export').DataTable();
-   } );
-</script>
 </html>

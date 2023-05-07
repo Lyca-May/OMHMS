@@ -304,7 +304,7 @@ style="min-height: 56px; z-index: 5"
           <!-- c-2 -->
           <li class="my-2 p-1">
             <a
-              href=""
+              href="{{url('user/rent')}}"
               class="
                 text-decoration-none text-dark
                 d-flex

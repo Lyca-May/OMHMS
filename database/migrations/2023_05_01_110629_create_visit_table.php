@@ -25,11 +25,13 @@ return new class extends Migration
             $table->string('visits_brgy');
             $table->string('visits_street');
             $table->string('visits_zipcode');
+            $table->string('contact_no');
             $table->date('visits_intended_date')->nullable();
             $table->time('visits_time')->nullable();
             $table->string('gender');
             $table->integer('visits_no_of_visitors')->nullable();
             $table->string('visits_name_of_institution')->nullable();
+            $table->string('cancel_reason')->nullable();
             $table->string('visits_status');
             $table->timestamps();
         });
@@ -38,8 +40,4 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down(): void
-    {
-        Schema::dropIfExists('visit');
-    }
 };

@@ -23,6 +23,7 @@ class users extends Model
         'user_country',
         'user_province',
         'user_municipality',
+        'user_barangay',
         'user_street',
         'user_zipcode',
         'user_email',
@@ -44,5 +45,9 @@ class users extends Model
     public function feed()
     {
         return $this->hasMany(Feed_Model::class);
+    }
+    public function rent()
+    {
+        return $this->hasMany(FunctionalHall::class);
     }
 }

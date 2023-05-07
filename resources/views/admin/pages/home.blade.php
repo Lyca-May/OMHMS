@@ -97,7 +97,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Bookings</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-table"></i><a href="{{url('admin/visit')}}">Visit</a></li>
-                            <li><i class="fa fa-table"></i><a href="{{url('admin/visit')}}">Function Hall</a></li>
+                            <li><i class="fa fa-table"></i><a href="{{url('admin/functional')}}">Function Hall</a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">

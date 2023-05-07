@@ -282,31 +282,28 @@
         <br>
        <div class="row" style="margin-left: 30px">
             <div class="col">
-                <form action="{{url('cancelled')}}" method="POST">
-                    @csrf
-                    <button type="submit" class="btn btn-primary">View Cancelled Bookings</button>
-                </form>
-                <br>
                 <form action="{{url('approved')}}" method="POST">
                     @csrf
                     <button type="submit" class="btn btn-primary">View Approved Bookings</button>
                 </form>
-                <br>
+            </div>
+
+            <div class="col">
+                <form action="{{url('cancelled')}}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-primary">View Cancelled Bookings</button>
+                </form>
+            </div>
+
+            <div class="col">
                 <form action="{{url('booking-history')}}" method="POST">
                     @csrf
                     <button type="submit" class="btn btn-primary">View Booking History</button>
                 </form>
             </div>
-
-            <div class="col">
-
-
-            </div>
-
-            <div class="col">
-
-            </div>
        </div>
+
+
 
         <div class="content">
             <div class="animated fadeIn">
@@ -317,75 +314,49 @@
                                 <strong class="card-title">Visitation Table</strong>
                             </div>
                             <div class="card-body">
-                                <table id="bootstrap-data-table" class="table table-striped table-bordered ml-auto"  >
-                                    <thead class="table" style="font-size:10px; text-align:center ">
+                                <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                                    <thead>
                                         <tr>
                                             <th>Full Name</th>
-                                            <th>Contact Number</th>
-                                            <th>Gender</th>
-                                            <th>Email</th>
                                             <th>Country</th>
                                             <th>Province</th>
                                             <th>Municipality</th>
                                             <th>Barangay</th>
                                             <th>Street</th>
                                             <th>Zipcode</th>
-                                            <th>Date to Rent</th>
+                                            <th>Date of Visit</th>
                                             <th>Selected Time</th>
+                                            <th>Contact Number</th>
                                             <th>Number of Participants</th>
                                             <th>Number of Event</th>
                                             <th>Name of Institution</th>
                                             <th>Gcash Reference Number</th>
                                             <th>Status</th>
-                                            <th>Action</th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
 
-                                        @foreach($functional as $rent)
+                                        @foreach($rent as $functional)
                                             <tr>
-                                                <td>{{ $rent->functional_lname }}, {{ $rent->functional_fname }} {{ $rent->functional_mname }}.</td>
-                                                <td>{{ $rent->functional_contactno }}</td>
-                                                <td>{{ $rent->functional_gender }}</td>
-                                                <td>{{ $rent->functional_email}}</td>
-                                                <td>{{ $rent->functional_country }}</td>
-                                                <td>{{ $rent->functional_province }}</td>
-                                                <td>{{ $rent->functional_municipality }}</td>
-                                                <td>{{ $rent->functional_brgy }}</td>
-                                                <td>{{ $rent->functional_street }}</td>
-                                                <td>{{ $rent->functional_zipcode }}</td>
-                                                <td>{{ $rent->functional_intended_date }}</td>
-                                                <td>{{ $rent->functional_time }}</td>
-                                                <td>{{ $rent->functional_no_of_participants }}</td>
-                                                <td>{{ $rent->functional_event_name }}</td>
-                                                <td>{{ $rent->reference }}</td>
-                                                <td>{{ $rent->functional_name_of_institution }}</td>
+                                                <td>{{ $functional->functional_lname }}, {{ $functional->functional_fname }} {{ $functional->functional_mname }}.</td>
+                                                <td>{{ $functional->functional_country }}</td>
+                                                <td>{{ $functional->functional_province }}</td>
+                                                <td>{{ $functional->functional_municipality }}</td>
+                                                <td>{{ $functional->functional_brgy }}</td>
+                                                <td>{{ $functional->functional_street }}</td>
+                                                <td>{{ $functional->functional_zipcode }}</td>
+                                                <td>{{ $functional->functional_intended_date }}</td>
+                                                <td>{{ $functional->functional_time }}</td>
+                                                <td>{{ $functional->functional_contactno }}</td>
+                                                <td>{{ $functional->functional_no_of_participants }}</td>
+                                                <td>{{ $functional->functional_event_name }}</td>
+                                                <td>{{ $functional->reference }}</td>
+                                                <td>{{ $functional->functional_name_of_institution }}</td>
                                                 <td>
-                                                    @if ($rent->functional_status == 'PENDING')
-                                                        <p><span style="background-color: black">{{ $rent->functional_status }}</span></p>
-                                                    @else
-                                                        <p><span style="background-color: green">{{ $rent->functional_status }}</span></p>
-                                                    @endif
+                                                    <p><span style="color: green">{{ $functional->functional_status }}</span></p>
                                                 </td>
-                                                <td>
-                                                    <form action="{{ url('rent/approved') }}" method="POST">
-                                                        @csrf
-                                                        {{-- <input type="hidden" name="userid" value={{session('User') ['user_id']}}> --}}
-                                                        <button type="submit" class="btn btn-success">Approve</button>
-                                                    </form>
-                                                    {{-- <form action="{{ url('cancel-status-page') }}"> --}}
 
-                                                        {{-- <input type="hidden" name="userid" value={{session('User') ['user_id']}}> --}}
-                                                      <a href="{{url('rent-cancel-status-page')}}">
-                                                        <button type="submit" class="btn btn-danger">Cancel</button>
-                                                      </a>
-                                                    {{-- </form> --}}
-                                                    @if(session('success'))
-                                                    <span>{{ session('success') }}</span>
-                                                    @elseif (session('failed'))
-                                                        <span>{{ session('failed') }}</span>
-                                                    @endif
-                                                </td>
                                             </tr>
                                         @endforeach
 
@@ -420,33 +391,32 @@
 
     <!-- Right Panel -->
 
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
+    <script src="{{asset('assets/js/main.js')}}"></script>
 
+
+    <script src="{{asset('assets/js/lib/data-table/datatables.min.js')}}"></script>
+    <script src="{{asset('assets/js/lib/data-table/dataTables.bootstrap.min.js')}}"></script>
+    <script src="{{asset('assets/js/lib/data-table/dataTables.buttons.min.js')}}"></script>
+    <script src="{{asset('assets/js/lib/data-table/buttons.bootstrap.min.js')}}"></script>
+    <script src="{{asset('assets/js/lib/data-table/jszip.min.js')}}"></script>
+    <script src="{{asset('assets/js/lib/data-table/vfs_fonts.js')}}"></script>
+    <script src="{{asset('assets/js/lib/data-table/buttons.html5.min.js')}}"></script>
+    <script src="{{asset('assets/js/lib/data-table/buttons.print.min.js')}}"></script>
+    <script src="{{asset('assets/js/lib/data-table/buttons.colVis.min.js')}}"></script>
+    <script src="{{asset('assets/js/init/datatables-init.js')}}"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+          $('#bootstrap-data-table-export').DataTable();
+      } );
+  </script>
 
 
 </body>
- <!-- Scripts -->
- <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
- <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
- <script src="{{asset('assets/js/main.js')}}"></script>
-
-
- <script src="{{asset('assets/js/lib/data-table/datatables.min.js')}}"></script>
- <script src="{{asset('assets/js/lib/data-table/dataTables.bootstrap.min.js')}}"></script>
- <script src="{{asset('assets/js/lib/data-table/dataTables.buttons.min.js')}}"></script>
- <script src="{{asset('assets/js/lib/data-table/buttons.bootstrap.min.js')}}"></script>
- <script src="{{asset('assets/js/lib/data-table/jszip.min.js')}}"></script>
- <script src="{{asset('assets/js/lib/data-table/vfs_fonts.js')}}"></script>
- <script src="{{asset('assets/js/lib/data-table/buttons.html5.min.js')}}"></script>
- <script src="{{asset('assets/js/lib/data-table/buttons.print.min.js')}}"></script>
- <script src="{{asset('assets/js/lib/data-table/buttons.colVis.min.js')}}"></script>
- <script src="{{asset('assets/js/init/datatables-init.js')}}"></script>
-
-
- <script type="text/javascript">
-     $(document).ready(function() {
-       $('#bootstrap-data-table-export').DataTable();
-   } );
-</script>
 </html>

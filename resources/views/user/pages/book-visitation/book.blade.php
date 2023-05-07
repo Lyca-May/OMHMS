@@ -2729,7 +2729,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <div class="form-group">
-                                            <label class=" form-control-label">Middle Name</label>
+                                            <label class=" form-control-label">First Name</label>
                                             <div class="input-group">
                                                 <div class="input-group-addon"></div>
                                                 <input type="text" class="form-control" placeholder="First Name" name="visits_fname"  @error('visits_fname') is-invalid  @enderror id="visits_fname" value="{{ session('User')['user_fname'] }}" >
@@ -2836,6 +2836,7 @@
                                                 <label class=" form-control-label">Zip Code</label>
                                                 <div class="input-group">
                                                     <div class="input-group-addon"></div>
+                                                    <input type="text"  class="form-control" placeholder="Zipcode" name="contact_no" @error('contact_no') is-invalid  @enderror id="contact_no" value={{ session('User')['user_phonenum'] }} >
                                                     <input type="text"  class="form-control" placeholder="Zipcode" name="visits_zipcode" @error('visits_zipcode') is-invalid  @enderror id="visits_zipcode" value={{ session('User')['user_zipcode'] }} >
                                                     @error('visits_zipcode')
                                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -2880,11 +2881,16 @@
                                                 <label class=" form-control-label">Number of Visitors</label>
                                                 <div class="input-group">
                                                     <div class="input-group-addon"></div>
-                                                    <input type ="text" class="form-control" placeholder="(Optional)" name="visits_no_of_visitors" @error('visits_no_of_visitors') is-invalid  @enderror id="visits_no_of_visitors" value="{{ old('visits_no_of_visitors') }}" id="visits_no_of_visitors">
+                                                    <input type ="text" class="form-control" placeholder="(Optional)" name="visits_no_of_visitors" @error('visits_no_of_visitors') is-invalid  @enderror id="num_of_members" value="{{ old('visits_no_of_visitors') }}">
                                                     @error('visits_no_of_visitors')
                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                     @enderror <br>
+                                                    <a href="{{url('add-members')}}"  type="button" class="btn btn-primary">Add members</a>
                                                 </div>
+
+
+
+
                                             </div>
                                         </div>
                                         <div class="col">
@@ -4060,10 +4066,28 @@
                         data-bs-toggle="modal" data-bs-target="#newChat">
                         <i class="fas fa-edit bg-white rounded-circle p-3 shadow"></i>
                     </div>
-                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
-                        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous">
-                    </script>
-                    <script src="{{ asset('main.js') }}"></script>
+
+
+
+
+
 </body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous">
+</script>
+<script src="{{ asset('main.js') }}"></script>
+
+<!-- jQuery library (required for Bootstrap JavaScript plugins) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Popper.js library (required for Bootstrap tooltips and popovers) -->
+<script src="https://unpkg.com/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+
+<!-- Bootstrap JavaScript bundle (includes all Bootstrap JavaScript plugins) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Your HTML code here -->
+
 
 </html>
