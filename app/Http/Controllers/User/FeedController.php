@@ -20,6 +20,8 @@ class FeedController extends Controller
         return view('user.pages.userhome', ['newsfeed' => $posts, 'images' => $images]);
     }
 
+
+
      public function retrieve_image(){
 
             $images = Images::all();
@@ -28,15 +30,16 @@ class FeedController extends Controller
     }
 
     public function add_post(Request $request){
-        $userid = session('User')['user_id'];
+        // $userid = session('User')['user_id'];
 
+        $userid = DB::table('users')->first();
         $postText = $request->post;
         $name = $request->name;
         $comment = $request->comment;
         $status = 'posted';
 
         $post = new Newsfeed_Model();
-        $post->userid = $userid;
+        $post->userid = $userid->user_id;
         $post->name = $name;
         $post->post = $postText;
         $post->comment = $comment;

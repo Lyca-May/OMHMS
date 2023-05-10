@@ -117,20 +117,11 @@
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Announcement</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-th"></i><a href="{{url('admin/visit')}}">Announcement Table</a></li>
-                            <li><i class="menu-icon fa fa-th"></i><a href="{{url('admin/advance')}}">Add Announcement</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a href="{{url('admin/announcements')}}">Announcements</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a href="{{url('admin/add-announcement')}}">Add Announcement</a></li>
                         </ul>
                     </li>
-
                     <li class="menu-title">Reports</li><!-- /.menu-title -->
-
-                    {{-- <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Icons</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-fort-awesome"></i><a href="font-fontawesome.html">Font Awesome</a></li>
-                            <li><i class="menu-icon ti-themify-logo"></i><a href="font-themify.html">Themefy Icons</a></li>
-                        </ul>
-                    </li> --}}
 
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Attendance</a>
@@ -268,7 +259,7 @@
                         </a>
 
                         <div class="user-menu dropdown-menu">
-                            <a class="nav-link"href="{{ url('admin/my-profile')}}"><i class="fa fa- user"></i>My Profile</a>
+                            <a class="nav-link"href="{{ url('admin-myprofile')}}"><i class="fa fa- user"></i>My Profile</a>
 
                             <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>
 
@@ -360,77 +351,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- /Widgets -->
-                <!--  Traffic  -->
-                {{-- <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="box-title">Traffic </h4>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-8">
-                                    <div class="card-body">
-                                        <!-- <canvas id="TrafficChart"></canvas>   -->
-                                        <div id="traffic-chart" class="traffic-chart"></div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="card-body">
-                                        <div class="progress-box progress-1">
-                                            <h4 class="por-title">Visits</h4>
-                                            <div class="por-txt">96,930 Users (40%)</div>
-                                            <div class="progress mb-2" style="height: 5px;">
-                                                <div class="progress-bar bg-flat-color-1" role="progressbar" style="width: 40%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
-                                        <div class="progress-box progress-2">
-                                            <h4 class="por-title">Bounce Rate</h4>
-                                            <div class="por-txt">3,220 Users (24%)</div>
-                                            <div class="progress mb-2" style="height: 5px;">
-                                                <div class="progress-bar bg-flat-color-2" role="progressbar" style="width: 24%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
-                                        <div class="progress-box progress-2">
-                                            <h4 class="por-title">Unique Visitors</h4>
-                                            <div class="por-txt">29,658 Users (60%)</div>
-                                            <div class="progress mb-2" style="height: 5px;">
-                                                <div class="progress-bar bg-flat-color-3" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
-                                        <div class="progress-box progress-2">
-                                            <h4 class="por-title">Targeted  Visitors</h4>
-                                            <div class="por-txt">99,658 Users (90%)</div>
-                                            <div class="progress mb-2" style="height: 5px;">
-                                                <div class="progress-bar bg-flat-color-4" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
-                                    </div> <!-- /.card-body -->
-                                </div>
-                            </div> <!-- /.row -->
-                            <div class="card-body"></div>
-                        </div>
-                    </div><!-- /# column -->
-                </div> --}}
-
-
-
-
-{{-- //CHART --}}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
 
                 <!--  /Traffic -->
                 <div class="clearfix"></div>

@@ -1052,8 +1052,10 @@ style="min-height: 56px; z-index: 5"
             style="width: 45px; height: 45px; object-fit: cover"
           />
           <div>
+            <a href="{{url('myprofile')}}">
             <p class="m-0"><span>{{session('User')['user_fname']}}</p>
             <p class="m-0 text-muted">See your profile</p>
+        </a>
           </div>
         </li>
         <hr />

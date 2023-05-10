@@ -23,70 +23,71 @@ class AuthController extends Controller
         return view('auth.login', $data);
     }
     public function login(Request $request)
-{
-    $rules=[
-        'user_email' => 'required',
-        'user_password' => 'required',
-    ];
-    $message=[
-        'user_email.required' => 'Email is required',
-        'user_password.required' => 'Password is required',
-    ];
-    $validator = Validator::make($request->all(), $rules, $message);
-    if ($validator->fails()) {
-        return redirect()->back()->withErrors($validator)->withInput();
-    }
+    {
+        $rules=[
+            'user_email' => 'required',
+            'user_password' => 'required',
+        ];
+        $message=[
+            'user_email.required' => 'Email is required',
+            'user_password.required' => 'Password is required',
+        ];
+        $validator = Validator::make($request->all(), $rules, $message);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
-    $email =$request->user_email;
-    $password =$request->user_password;
+        $email =$request->user_email;
+        $password =$request->user_password;
 
-    $user = DB::table('users')->where('user_email', $email)->first();
-    if($user){
-        if($user->account_status=='VERIFIED'){
-            if(password_verify($password, $user->user_password)){
-                $data =[
-                    'user_id'=>$user->user_id,
-                    'user_fname'=>$user->user_fname,
-                    'user_mname'=>$user->user_mname,
-                    'user_lname'=>$user->user_lname,
-                    'gender'=>$user->gender,
-                    'birthdate'=>$user->birthdate,
-                    'user_country'=>$user->user_country,
-                    'user_province'=>$user->user_province,
-                    'user_municipality'=>$user->user_municipality,
-                    'user_barangay'=>$user->user_barangay,
-                    'user_street'=>$user->user_street,
-                    'user_zipcode'=>$user->user_zipcode,
-                    'user_phonenum'=>$user->user_phonenum,
-                    'user_email'=>$user->user_email,
-                    'user_password'=>$user->user_password,
-                    'account_status'=>$user->account_status,
-                ];
+        $user = DB::table('users')->where('user_email', $email)->first();
+        if($user){
+            if($user->account_status=='VERIFIED'){
+                if(password_verify($password, $user->user_password)){
+                    $data =[
+                        'user_id'=>$user->user_id,
+                        'user_fname'=>$user->user_fname,
+                        'user_mname'=>$user->user_mname,
+                        'user_lname'=>$user->user_lname,
+                        'gender'=>$user->gender,
+                        'birthdate'=>$user->birthdate,
+                        'user_country'=>$user->user_country,
+                        'user_province'=>$user->user_province,
+                        'user_municipality'=>$user->user_municipality,
+                        'user_barangay'=>$user->user_barangay,
+                        'user_street'=>$user->user_street,
+                        'user_zipcode'=>$user->user_zipcode,
+                        'user_phonenum'=>$user->user_phonenum,
+                        'user_email'=>$user->user_email,
+                        'user_password'=>$user->user_password,
+                        'account_status'=>$user->account_status,
+                        'avatar'=>$user->avatar,
+                    ];
 
-                if($user->role == 'user') {
-                    session()->put('User', $data);
-                    return redirect('user/home')->with('success', "Login Success");
+                    if($user->role == 'USER') {
+                        session()->put('User', $data);
+                        return redirect('user/landlog')->with('success', "Login Success");
+                    }
+                    else if($user->role == 'ADMIN') {
+                        session()->put('Admin', $data);
+                        return redirect('admin/home')->with('success', "Login Success");
+                    }
+                    else {
+                        return redirect()->back()->with('failed', "Invalid Role");
+                    }
                 }
-                else if($user->role == 'admin') {
-                    session()->put('Admin', $data);
-                    return redirect('admin/home')->with('success', "Login Success");
-                }
-                else {
-                    return redirect()->back()->with('failed', "Invalid Role");
+                else{
+                    return redirect()->back()->with('failed', "Wrong Password");
                 }
             }
             else{
-                return redirect()->back()->with('failed', "Wrong Password");
+                return redirect()->back()->with('failed', "Verify your account first");
             }
         }
         else{
-            return redirect()->back()->with('failed', "Verify your account first");
+            return redirect()->back()->with('failed', "Account does not exist");
         }
     }
-    else{
-        return redirect()->back()->with('failed', "Account does not exist");
-    }
-}
 
     public function register(Request $request)
     {
@@ -106,6 +107,7 @@ class AuthController extends Controller
             'user_street' => 'required',
             'user_zipcode' => 'required',
             'user_phonenum' => 'required|min:11|max:11',
+            'role' => 'required',
         ];
         $message = [
             'user_fname.required' => 'First name is required',
@@ -129,6 +131,7 @@ class AuthController extends Controller
             'user_phonenum.required' => 'Phone Nummber is required',
             'user_phonenum.min' => 'Invalid phone number',
             'user_phonenum.max' => 'Invalid phone number',
+            'role.required' => 'Role is required',
             'user_phonenum.numeric' => 'This field do not accept characters',
         ];
 
@@ -158,7 +161,7 @@ class AuthController extends Controller
         $user_password=$request->user_password;
         $account_status='NOT VERIFIED';
         $status='OFFLINE';
-        $role='user';
+        $role=$request->role;
 
         $user =new users();
         $user->user_fname=$user_fname;
@@ -178,7 +181,8 @@ class AuthController extends Controller
         $user->account_status =$account_status;
         $user->status = $status;
         $user->remember_token= $token;
-        $user->role= $role;
+        $user->role = strtoupper($role);
+
 
         $mail=[
             'token' => $token
@@ -188,7 +192,7 @@ class AuthController extends Controller
             $success= $user->save();
 
             if($success){
-             return redirect('/auth/login')->with('success', "Kindly check your email to verify your account");
+             return redirect('/')->with('success', "Kindly check your email to verify your account");
             }
             else{
                 return redirect()->back()->with('failed', "Something went wrong");
@@ -207,10 +211,10 @@ class AuthController extends Controller
         ];
         $success = DB::table('users')->where('remember_token', $token)->update($data);
         if($success){
-            return redirect('auth/login')->with('success', "Your acccount has been verified");
+            return redirect('/')->with('success', "Your acccount has been verified");
         }
         else{
-            return redirect('auth/login')->with('failed', "Invalid link");
+            return redirect('/')->with('failed', "Invalid link");
         }
     }
     public function send_email(Request $request){
@@ -292,6 +296,110 @@ class AuthController extends Controller
             return redirect()->back()->with('failed', "Account reset failed");
         }
     }
+
+    public function updateProfile(Request $request)
+    {
+        // Get the authenticated user
+        $user_id = session('User')['user_id'];
+        $user = DB::table('users')->where('user_id', $user_id)->first();
+
+        // Update the user's profile information
+        $user->user_fname = $request->input('user_fname');
+        $user->user_mname = $request->input('user_mname');
+        $user->user_lname = $request->input('user_lname');
+        $user->user_province = $request->input('user_province');
+        $user->user_municipality = $request->input('user_municipality');
+        $user->user_barangay = $request->input('user_barangay');
+        $user->user_street = $request->input('user_street');
+        $user->user_zipcode = $request->input('user_zipcode');
+        $user->user_email = $request->input('user_email');
+        $user->user_password = $request->input('user_password');
+        $user->user_phonenum = $request->input('user_phonenum');
+        $user->gender = $request->input('gender');
+        $user->birthdate = $request->input('birthdate');
+
+        // Handle the avatar upload
+        if ($request->hasFile('avatar')) {
+            // Get the uploaded file
+            $avatar = $request->file('avatar');
+
+            // Generate a unique filename for the uploaded file
+            $filename = time() . '_' . $avatar->getClientOriginalName();
+
+            // Save the file to the storage/app/public/avatars directory
+            // $avatar->storeAs('avatars', $filename, 'public');
+            $avatar->move(public_path('avatars'), $filename);
+
+            // Update the user's avatar column with the filename
+            $user->avatar = $filename;
+        }
+
+        // Save the updated user profile information to the database
+        DB::table('users')->where('user_id', $user_id)->update((array) $user);
+
+        // Redirect the user to their profile page
+        return redirect('myprofile')->with('success', 'Profile updated successfully');
+    }
+
+    public function displayProfile(){
+        $user_id = session('User')['user_id'];
+        $users = DB::table('users')->where('user_id', $user_id)->get();
+        return view('user.pages.profile.my-profile', ['users' => $users]);
+    }
+    public function updateAdminProfile(Request $request)
+    {
+        // Get the authenticated user
+        $user_id = session('Admin')['user_id'];
+        $user = DB::table('users')->where('user_id', $user_id)->first();
+
+        // Update the user's profile information
+        $user->user_fname = $request->input('user_fname');
+        $user->user_mname = $request->input('user_mname');
+        $user->user_lname = $request->input('user_lname');
+        $user->user_province = $request->input('user_province');
+        $user->user_municipality = $request->input('user_municipality');
+        $user->user_barangay = $request->input('user_barangay');
+        $user->user_street = $request->input('user_street');
+        $user->user_zipcode = $request->input('user_zipcode');
+        $user->user_email = $request->input('user_email');
+        $user->user_password = $request->input('user_password');
+        $user->user_phonenum = $request->input('user_phonenum');
+        $user->gender = $request->input('gender');
+        $user->birthdate = $request->input('birthdate');
+
+        // Handle the avatar upload
+        if ($request->hasFile('avatar')) {
+            // Get the uploaded file
+            $avatar = $request->file('avatar');
+
+            // Generate a unique filename for the uploaded file
+            $filename = time() . '_' . $avatar->getClientOriginalName();
+
+            // Save the file to the storage/app/public/avatars directory
+            // $avatar->storeAs('avatars', $filename, 'public');
+            $avatar->move(public_path('avatars'), $filename);
+
+            // Update the user's avatar column with the filename
+            $user->avatar = $filename;
+        }
+
+        // Save the updated user profile information to the database
+        DB::table('users')->where('user_id', $user_id)->update((array) $user);
+
+        // Redirect the user to their profile page
+        return redirect('admin-myprofile')->with('success', 'Profile updated successfully');
+    }
+
+    public function displayAdminProfile(){
+        $user_id = session('Admin')['user_id'];
+        $users = DB::table('users')->where('user_id', $user_id)->get();
+        return view('admin.pages.profile.profile', ['users' => $users]);
+    }
+
+
+
+
+
     public function logout() {
         session()->forget('User');
         return redirect('/');

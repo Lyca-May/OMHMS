@@ -105,8 +105,5 @@ class FunctionalHallController extends Controller
             return redirect()->back()->with('failed', "Failed to cancel reservation.");
         }
     }
-
-
-
 }
 

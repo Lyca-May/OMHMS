@@ -21,3 +21,4 @@ if (window.location.pathname === "/") {
     genderSelect.classList.remove("d-none");
   });
 }
+

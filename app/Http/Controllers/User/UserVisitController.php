@@ -9,7 +9,10 @@ use App\Models\MembersModel;
 use Illuminate\Http\Request;
 use Illuminate\support\facades\DB;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Auth;
+// use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use App\Mail\UserVisitCancelled;
+use Illuminate\Support\Facades\Mail;
+
 
 class UserVisitController extends Controller
 {
@@ -24,7 +27,8 @@ class UserVisitController extends Controller
         return view('user.pages.booked.bookedvisit', ['visit' => $visit]);
     }
 
-        public function reserve_visit(Request $request)
+
+    public function reserve_visit(Request $request)
         {
             $user = session()->get('User');
             $userid = $user['user_id']; // add a check to ensure that $user is not null before accessing its values
@@ -60,8 +64,8 @@ class UserVisitController extends Controller
 
                 'visits_time' => 'required',
                 'visits_no_of_visitors' => [
-                    'integer',
-                    'between:1,5'
+                    // 'integer',
+                    'between:0,100'
                 ],
 
             ];
@@ -72,8 +76,8 @@ class UserVisitController extends Controller
                 'visits_intended_date.after_or_equal' => 'The intended date must be on or after today',
                 'visits_intended_date.before_or_equal' => 'The intended date must be before or equal to 3 days after today',
                 'visits_time.required' => 'Please select the intended time for reservation',
-                'visits_no_of_visitors.integer' => 'The number of visitors must be an integer',
-                'visits_no_of_visitors.between' => 'The number of visitors must be between 0 and 100',
+                // 'visits_no_of_visitors.integer' => 'The number of visitors must be an integer',
+                'visits_no_of_visitors.between' => 'The number of visitors must not be greater than 100',
             ];
 
             $validator = Validator::make($request->all(), $rules, $message);
@@ -90,7 +94,6 @@ class UserVisitController extends Controller
             if ($selectedYear < $currentYear) {
                 return redirect()->back()->with('failed', 'The intended date must be in the current year or later.');
             }
-
 
             $visits_fname=$request->visits_fname;
             $visits_mname=$request->visits_mname;
@@ -111,15 +114,12 @@ class UserVisitController extends Controller
             $cancel_reason=$request->cancel_reason;
             $visits_status='PENDING';
 
-
             //limit the number of visitors
             $exceedNumberOfVisitors = Visit_Model::sum('visits_no_of_visitors');
 
             if ($exceedNumberOfVisitors > 100) {
             return redirect()->back()->with('failed', 'Sorry, We only accept 100 visitors a day');
             }
-
-
 
             $existing_booking2 = Visit_Model::where('visits_time', $visits_time)
             // ->where('visits_time', $visits_time)
@@ -146,9 +146,18 @@ class UserVisitController extends Controller
             $visit->visits_name_of_institution=$visits_name_of_institution;
             $visit->visits_time=$visits_time;
             $visit->contact_no=$contact_no;
-            $visit->visits_status=$visits_status;
             $visit->cancel_reason=$cancel_reason;
-            $visit->save(); // save the visit record to the database
+            $visit->visits_status=$visits_status;
+
+            // QrCode::setDefaultDriver('gd');
+
+            // $text = "$visits_fname $visits_mname $visits_lname\nGender: $gender\nEmail: $visits_email\nCountry: $visits_country\nProvince: $visits_province\nMunicipality: $visits_municipality";
+            // QrCode::size(250)
+            // ->format('png')
+            // ->generate($text, public_path('qrcodes/visit-' . $visit->id . '.png'));
+
+            // $visit->qr_code = 'qrcodes/visit-' . $visit->id . '.png';
+            $visit->save();
 
 
             $sesVisit =[
@@ -163,6 +172,7 @@ class UserVisitController extends Controller
                 return redirect('user/book')->with('failed', 'There is an error in processing your reservation. Please try again later.');
             }
     }
+
 
     public function add_members(Request $request)
     {
@@ -201,7 +211,6 @@ class UserVisitController extends Controller
                 return redirect()->back()->withErrors($validator)->withInput();
             }
 
-
             $members_fname=$request->members_fname;
             $members_mname=$request->members_mname;
             $members_lname=$request->members_lname;
@@ -223,11 +232,35 @@ class UserVisitController extends Controller
             }
     }
 
-
-
     public function user_visit(){
         $user_id = session('User')['user_id'];
         $visithist = DB::table('visit')->where('userid', $user_id)->get();
         return view('user.pages.book-visitation.book', ['visit' => $visithist]);
+    }
+
+    public function cancel_visit(Request $request)
+    {
+        $admin = DB::table('users')->first();
+        $admin_id = $admin->user_id;
+        $visit = DB::table('visit')->where('user_id', $admin_id)->where('visits_status', 'PENDING')->first();
+        if($visit){
+            $reason = $request->input('cancel_reason');
+            $status=['visits_status' => 'CANCELLED', 'cancel_reason' => $reason];
+            $success=DB::table('visit')->where('user_id', $admin_id)->where('visits_status', 'PENDING')->update($status);
+            if($success){
+                $admin_email = 'noblezalycamay18@gmail.com'; // replace with the email address of the admin
+                $visit_id = $visit->visit_id;
+                $visit_link = url("http://127.0.0.1:8000/admin/visit/$visit_id"); // replace with the URL of the admin page to approve/cancel visits
+                if(!empty($admin_email)){
+                    Mail::to($admin_email)->send(new UserVisitCancelled($visit_link));
+                }
+                return redirect()->back()->with('success', "Reservation cancelled and email notification sent to admin.");
+            }else{
+                return redirect()->back()->with('failed', "Something went wrong. Please check your internet connection");
+            }
+        }
+        else{
+            return redirect()->back()->with('failed', "Failed to cancel reservation.");
+        }
     }
 }
