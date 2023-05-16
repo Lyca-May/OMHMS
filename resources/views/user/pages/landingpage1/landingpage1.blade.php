@@ -55,7 +55,7 @@
 
                             </ul>
                         </li>
-                        <li class="nav-item"><a class="nav-link" href="{{url("user/testimonials1")}}">Testimonials</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{url("user/reviews")}}">Testimonials</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url('user/services1') }}">Services</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url('user/feed1') }}">Feed</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url('user/contact1') }}">Contact</a></li>
@@ -63,7 +63,7 @@
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
                                 aria-haspopup="true" aria-expanded="false">My Account</a>
                             <ul class="dropdown-menu">
-                                <li class="nav-item"><a class="nav-link" href="{{ url('user/profile') }}">Profile</a>
+                                <li class="nav-item"><a class="nav-link" href="{{url('myprofile')}}">{{session('User')['user_fname']}}'s Profile</a>
                                 </li>
                                 <li class="nav-item"><a class="nav-link" href="{{ url('logout') }}">Log out</a></li>
                             </ul>

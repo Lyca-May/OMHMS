@@ -2,7 +2,6 @@ body{margin-top:20px;
     background:#eee;
     }
 
-    /*Invoice*/
     .invoice .top-left {
         font-size:65px;
         color:#3ba0ff;
@@ -52,7 +51,7 @@ body{margin-top:20px;
         top:-2px;
         right:18px;
         padding:7px 0;
-        /* word-spacing: 40px; */
+
 
     }
 

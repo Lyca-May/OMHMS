@@ -18,13 +18,18 @@
 
 
 <!------ Include the above in your HEAD tag ---------->
-
-<div class="container emp-profile">
+@foreach ($users as $user)
+        <div class="container emp-profile">
             <form method="post">
                 <div class="row">
                     <div class="col-md-4">
                         <div class="profile-img">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt=""/>
+                            {{-- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt=""/> --}}
+
+                            @if ($user->avatar)
+                            <img src="{{ asset('avatars/' .$user->avatar) }}" alt="{{$user->user_fname}}"
+                            class="avatar-image" />
+                            @endif
                             <div class="file btn btn-lg btn-primary">
                                 Change Photo
                                 <input type="file" name="file"/>
@@ -34,12 +39,12 @@
                     <div class="col-md-6">
                         <div class="profile-head">
                                     <h5>
-                                        Kshiti Ghelani
+                                        {{ $user->user_fname }} {{ $user->user_lname }}
                                     </h5>
                                     <h6>
-                                        Web Developer and Designer
+                                        {{-- Web Developer and Designer --}}
                                     </h6>
-                                    <p class="proile-rating">RANKINGS : <span>8/10</span></p>
+                                    {{-- <p class="proile-rating">RANKINGS : <span>8/10</span></p> --}}
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
@@ -74,15 +79,18 @@
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label>User Id</label>
-                                            </div>
+                                                <label>Name</label>
+                                            <input type="text" name="user_fname" value="{{session('User') ['user_fname']}}" placeholder="First Name">
+                                            <input type="text" name="user_mname" value="{{session('User') ['user_mname']}}" placeholder="First Name">
+                                            <input type="text" name="user_lname" value="{{session('User') ['user_lname']}}" placeholder="First Name">
+                                        </div>
                                             <div class="col-md-6">
-                                                <p>Kshiti123</p>
+                                                <p>{{ $user->user_fname }} {{ $user->user_lname }}</p>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label>Name</label>
+                                                <label>Emaail</label>
                                             </div>
                                             <div class="col-md-6">
                                                 <p>Kshiti Ghelani</p>
@@ -90,7 +98,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label>Email</label>
+                                                <label>Contact Number</label>
                                             </div>
                                             <div class="col-md-6">
                                                 <p>kshitighelani@gmail.com</p>
@@ -166,7 +174,6 @@
                 </div>
             </form>
         </div>
-
-
+        @endforeach
 </body>
 </html>

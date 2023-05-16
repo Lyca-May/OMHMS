@@ -50,7 +50,7 @@
 
                             </ul>
                         </li>
-                        <li class="nav-item"><a class="nav-link" href="{{url("user/testimonials1")}}">Testimonials</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{url("user/reviews")}}">Testimonials</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url('user/services1') }}">Services</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url('user/feed1') }}">Feed</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url('user/contact1') }}">Contact</a></li>

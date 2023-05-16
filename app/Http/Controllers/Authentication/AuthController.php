@@ -344,7 +344,7 @@ class AuthController extends Controller
     public function displayProfile(){
         $user_id = session('User')['user_id'];
         $users = DB::table('users')->where('user_id', $user_id)->get();
-        return view('user.pages.profile.my-profile', ['users' => $users]);
+        return view('user.pages.profile.userprofile', ['users' => $users]);
     }
     public function updateAdminProfile(Request $request)
     {
@@ -404,5 +404,4 @@ class AuthController extends Controller
         session()->forget('User');
         return redirect('/');
     }
-
 }

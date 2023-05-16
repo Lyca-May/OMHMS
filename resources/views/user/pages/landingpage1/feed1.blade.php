@@ -21,6 +21,9 @@
       integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
       crossorigin="anonymous"
     />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('vendors/linericon/style.css') }}">
@@ -65,7 +68,7 @@
 
                             </ul>
                         </li>
-                        <li class="nav-item"><a class="nav-link" href="{{url("user/testimonials1")}}">Testimonials</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{url("user/reviews")}}">Testimonials</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url('user/services1') }}">Services</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url('user/feed1') }}">Feed</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url('user/contact1') }}">Contact</a></li>
@@ -89,6 +92,8 @@
     <!--================Blog Categorie Area =================-->
     <section class="blog_categorie_area">
         <div class="container">
+            <form action="{{url("post")}}" method="POST">
+            @csrf
             <div class="bg-gray p-2 mt-4 rounded border shadow">
                 <!-- avatar -->
                 <div class="d-flex" type="button">
@@ -96,434 +101,131 @@
                         <img src="https://source.unsplash.com/collection/happy-people" alt="avatar"
                             class="rounded-circle me-4" style="width: 42px; height: 42px; object-fit: cover; margin-left: 8px; margin-top:10px" />
                     </div>
+                    <input type="hidden" name="name" value="{{session('User') ['user_fname']}}">
                     <textarea type="text" class="form-control rounded-pill border-0 bg-gray pointer"
                         style="margin-left:20px; " placeholder="Create Post" data-bs-toggle="modal"
-                        data-bs-target="#createModal"></textarea>
+                        data-bs-target="#createModal" name="post"></textarea>
                 </div>
                 <hr>
                 <input type="file" style="margin-left: 80px" name="image" onchange="this.form.submit()">
-                <a href="{{asset("auth/login")}}" class="genric-btn primary circle text-right" style="margin-left: 630px">Post it!</a>
+                <button href="" class="genric-btn primary circle text-right" style="margin-left: 630px" type="submit">Post it!</button>
             </div>
+        </form>
     </section>
     <!--================Blog Categorie Area =================-->
 
     <!--================Blog Area =================-->
     <section class="blog_area">
 
-        <h4 style="text-align:center; font-weight:200px; font-size: 40px"> FEED </h4>
 
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    {{-- <div class="blog_left_sidebar"> --}}
-                    <article class="row blog_item">
-                        <div class="col-md-3">
-                            <div class="blog_info text-right">
-                                {{-- <div class="post_tag">
-                                    <a href="#">Food,</a>
-                                    <a href="#">Technology,</a>
-                                    <a href="#">Politics,</a>
-                                    <a href="#">Lifestyle</a>
-                                </div> --}}
-                                <ul class="blog_meta list_style">
-                                    <li><a href="#">Mark wiens<i class="lnr lnr-user"></i></a></li>
-                                    <li><a href="#">12 Dec, 2017<i class="lnr lnr-calendar-full"></i></a></li>
-                                    <li><a href="#">1.2M Views<i class="lnr lnr-eye"></i></a></li>
-                                    <li><a href="#">06 Comments<i class="lnr lnr-bubble"></i></a></li>
-                                </ul>
+    <h4 style="text-align:center; font-weight:200px; font-size: 40px"> FEED </h4>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                {{-- <div class="blog_left_sidebar"> --}}
+
+
+
+
+                    @foreach ($posts as $post)
+                    <div class="card rounded shadow-sm mb-4">
+                        <article class="row blog_item">
+                            <div class="col-md-3">
+                                <div class="blog_info text-right">
+                                    <ul class="blog_meta list_style">
+                                        <li><a href="#">{{$post->name}}<i class="lnr lnr-user"></i></a></li>
+                                        <li><a href="#">{{ date('F d, Y', strtotime($post->created_at)) }}<i class="lnr lnr-calendar-full"></i></a></li>
+                                        <li>
+                                            <a href="#" data-toggle="modal" data-target="#post-{{$post->feed_id}}-comments">
+                                                {{$post->comment_count}}<i class="lnr lnr-bubble"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="blog_post">
-                                <img src="{{ asset('images/1683146024.jpg') }}" alt=""
-                                    style=" width: 600px; height: auto;">
-                                <div class="blog_details">
-                                    <a href="#">
-                                        <h2>Astronomy Binoculars A Great Alternative</h2>
-                                    </a>
-                                    <p>MCSE boot camps have its supporters and its detractors. Some people do not
-                                        understand why you should have to spend money on boot camp when you can get the
-                                        MCSE study materials yourself at a fraction.</p>
-
-                                        <div class="post__comment mt-3 position-relative bg-gray">
-                                            <!-- likes -->
-                                            <div
-                                              class="
-                                                d-flex
-                                                align-items-center
-                                                top-0
-                                                start-0
-                                                position-absolute
-                                              "
-                                              style="height: 50px; z-index: 5"
-                                            >
-                                              <div class="me-2">
-                                                <i class="text-primary fas fa-thumbs-up"></i>
-                                                <i class="text-danger fab fa-gratipay"></i>
-                                                <i class="text-warning fas fa-grin-squint"></i>
-                                              </div>
-                                              <p class="m-0 text-muted fs-7">Phu, Tuan, and 3 others</p>
-                                            </div>
-                                            <!-- comments start-->
-                                            <div class="accordion" id="accordionExample">
-                                              <div class="accordion-item border-0">
-                                                <!-- comment collapse -->
-                                                <h2 class="accordion-header" id="headingTwo">
-                                                  <div
-                                                    class="
-                                                      accordion-button
-                                                      collapsed
-                                                      pointer
-                                                      d-flex
-                                                      justify-content-end
-                                                    "
-                                                    data-bs-toggle="collapse"
-                                                    data-bs-target="#collapsePost1"
-                                                    aria-expanded="false"
-                                                    aria-controls="collapsePost1"
-                                                  >
-                                                  </div>
-                                                </h2>
-                                                <hr />
-                                                <!-- comment & like bar -->
-                                                <div class="d-flex justify-content-around">
-                                                  <div
-                                                    class="
-                                                      dropdown-item
-                                                      rounded
-                                                      d-flex
-                                                      justify-content-center
-                                                      align-items-center
-                                                      pointer
-                                                      text-muted
-                                                      p-1
-                                                    "
-                                                  >
-                                                    <i class="fas fa-thumbs-up me-3"></i>
-                                                    <p class="m-0">Like</p>
-                                                  </div>
-                                                  <div
-                                                    class="
-                                                      dropdown-item
-                                                      rounded
-                                                      d-flex
-                                                      justify-content-center
-                                                      align-items-center
-                                                      pointer
-                                                      text-muted
-                                                      p-1
-                                                    "
-                                                    data-bs-toggle="collapse"
-                                                    data-bs-target="#collapsePost1"
-                                                    aria-expanded="false"
-                                                    aria-controls="collapsePost1"
-                                                  >
-                                                    <i class="fas fa-comment-alt me-3"></i>
-                                                    <p class="m-0">Comment</p>
-                                                  </div>
-                                                </div>
-                                                <!-- comment expand -->
-                                                <div
-                                                  id="collapsePost1"
-                                                  class="accordion-collapse collapse"
-                                                  aria-labelledby="headingTwo"
-                                                  data-bs-parent="#accordionExample"
-                                                >
-                                                  <hr />
-                                                  <div class="accordion-body">
-                                                    <!-- comment 1 -->
-                                                    <div class="d-flex align-items-center my-1">
-                                                      <!-- avatar -->
-                                                      <img
-                                                        src="https://source.unsplash.com/collection/happy-people"
-                                                        alt="avatar"
-                                                        class="rounded-circle me-2"
-                                                        style="
-                                                          width: 38px;
-                                                          height: 38px;
-                                                          object-fit: cover;
-                                                        "
-                                                      />
-                                                      <!-- comment text -->
-                                                      <div class="p-3 rounded comment__input w-100">
-                                                        <!-- comment menu of author -->
-                                                        <div class="d-flex justify-content-end">
-                                                          <!-- icon -->
-                                                          <i
-                                                            class="fas fa-ellipsis-h text-blue pointer"
-                                                            id="post1CommentMenuButton"
-                                                            data-bs-toggle="dropdown"
-                                                            aria-expanded="false"
-                                                          ></i>
-                                                          <!-- menu -->
-                                                          <ul
-                                                            class="dropdown-menu border-0 shadow"
-                                                            aria-labelledby="post1CommentMenuButton"
-                                                          >
-                                                            <li class="d-flex align-items-center">
-                                                              <a
-                                                                class="
-                                                                  dropdown-item
-                                                                  d-flex
-                                                                  justify-content-around
-                                                                  align-items-center
-                                                                  fs-7
-                                                                "
-                                                                href="#"
-                                                              >
-                                                                Edit Comment</a
-                                                              >
-                                                            </li>
-                                                            <li class="d-flex align-items-center">
-                                                              <a
-                                                                class="
-                                                                  dropdown-item
-                                                                  d-flex
-                                                                  justify-content-around
-                                                                  align-items-center
-                                                                  fs-7
-                                                                "
-                                                                href="#"
-                                                              >
-                                                                Delete Comment</a
-                                                              >
-                                                            </li>
-                                                          </ul>
-                                                        </div>
-                                                        <p class="fw-bold m-0">John</p>
-                                                        <p class="m-0 fs-7 bg-gray p-2 rounded">
-                                                          Lorem ipsum dolor sit amet, consectetur
-                                                          adipiscing elit.
-                                                        </p>
-                                                      </div>
-                                                    </div>
-                                                    <!-- comment 2 -->
-                                                    <div class="d-flex align-items-center my-1">
-                                                      <!-- avatar -->
-                                                      <img
-                                                        src="https://source.unsplash.com/random/2"
-                                                        alt="avatar"
-                                                        class="rounded-circle me-2"
-                                                        style="
-                                                          width: 38px;
-                                                          height: 38px;
-                                                          object-fit: cover;
-                                                        "
-                                                      />
-                                                      <!-- comment text -->
-                                                      <div class="p-3 rounded comment__input w-100">
-                                                        <p class="fw-bold m-0">Jerry</p>
-                                                        <p class="m-0 fs-7 bg-gray p-2 rounded">
-                                                          Lorem ipsum dolor sit amet, consectetur
-                                                          adipiscing elit.
-                                                        </p>
-                                                      </div>
-                                                    </div>
-                                                    <!-- create comment -->
-                                                    <form class="d-flex my-1">
-                                                      <!-- avatar -->
-                                                      <div>
-                                                        <img
-                                                          src="https://source.unsplash.com/collection/happy-people"
-                                                          alt="avatar"
-                                                          class="rounded-circle me-2"
-                                                          style="
-                                                            width: 38px;
-                                                            height: 38px;
-                                                            object-fit: cover;
-                                                          "
-                                                        />
-                                                      </div>
-                                                      <!-- input -->
-                                                      <input
-                                                        type="text"
-                                                        class="form-control border-0 rounded-pill bg-gray"
-
-                                                        placeholder="Write a comment"
-                                                      />
-                                                      <a href="{{asset("auth/login")}}" class="genric-btn primary circle">Comment</a>
-                                                    </form>
-                                                    <!-- end -->
-                                                  </div>
-                                                </div>
-                                              </div>
-                                            </div>
-                                            <!-- end -->
-                                          </div>
+                            <div class="col-md-9">
+                                <div class="blog_post">
+                                    <div class="row">
+                                        <div class="col">
+                                            <img src="" alt="" style="width: 600px; height: auto;">
                                         </div>
-                                      </div>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-
-
-
-                    <article class="row blog_item">
-                        <div class="col-md-3">
-                            <div class="blog_info text-right">
-                                {{-- <div class="post_tag">
-                                    <a href="#">Food,</a>
-                                    <a href="#">Technology,</a>
-                                    <a href="#">Politics,</a>
-                                    <a href="#">Lifestyle</a>
-                                </div> --}}
-                                <ul class="blog_meta list_style">
-                                    <li><a href="#">Mark wiens<i class="lnr lnr-user"></i></a></li>
-                                    <li><a href="#">12 Dec, 2017<i class="lnr lnr-calendar-full"></i></a></li>
-                                    <li><a href="#">1.2M Views<i class="lnr lnr-eye"></i></a></li>
-                                    <li><a href="#">06 Comments<i class="lnr lnr-bubble"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="blog_post">
-                                <div class="row">
-                                    <div class="col">
-                                <img src="{{asset("images/heritage.png")}}" alt=""
-                                style=" width: 600px; height: auto;">
+                                        <div class="col">
+                                            <img src="" alt="" style="width: 600px; height: auto;">
+                                        </div>
                                     </div>
-                                    <div class="col">
-                                <img src="{{asset("images/heritage.png")}}" alt=""
-                                style=" width: 600px; height: auto;">
+                                    <div class="blog_details">
+                                        <a href="#">
+                                            <h2 class="font-weight-bold">{{$post->name}}</h2>
+                                        </a>
+                                        <p class="font-weight-normal">{{$post->post}}</p>
                                     </div>
-                                </div>
-                                <div class="blog_details">
-                                    <a href="#">
-                                        <h2>The Basics Of Buying A Telescope</h2>
-                                    </a>
-                                    <p>MCSE boot camps have its supporters and its detractors. Some people do not
-                                        understand why you should have to spend money on boot camp when you can get the
-                                        MCSE study materials yourself at a fraction.</p>
-                                    <a href="#" class="view_btn button_hover">View More</a>
+                                    <a href="#" class="genric-btn primary circle text-right">View More</a>  
                                 </div>
                             </div>
-                        </div>
-                    </article>
-                    <article class="row blog_item">
-                        <div class="col-md-3">
-                            <div class="blog_info text-right">
-                                <div class="post_tag">
-                                    <a href="#">Food,</a>
-                                    <a href="#">Technology,</a>
-                                    <a href="#">Politics,</a>
-                                    <a href="#">Lifestyle</a>
+                        </article>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="post-{{$post->feed_id}}-comments" tabindex="-1" role="dialog" aria-labelledby="post-{{$post->feed_id}}-comments-label" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="post-{{$post->feed_id}}-comments-label">Comments for {{$post->name}}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
-                                <ul class="blog_meta list_style">
-                                    <li><a href="#">Mark wiens<i class="lnr lnr-user"></i></a></li>
-                                    <li><a href="#">12 Dec, 2017<i class="lnr lnr-calendar-full"></i></a></li>
-                                    <li><a href="#">1.2M Views<i class="lnr lnr-eye"></i></a></li>
-                                    <li><a href="#">06 Comments<i class="lnr lnr-bubble"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="blog_post">
-                                <img src="image/blog/main-blog/m-blog-3.jpg" alt="">
-                                <div class="blog_details">
-                                    <a href="#">
-                                        <h2>The Glossary Of Telescopes</h2>
-                                    </a>
-                                    <p>MCSE boot camps have its supporters and its detractors. Some people do not
-                                        understand why you should have to spend money on boot camp when you can get the
-                                        MCSE study materials yourself at a fraction.</p>
-                                    <a href="#" class="view_btn button_hover">View More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="row blog_item">
-                        <div class="col-md-3">
-                            <div class="blog_info text-right">
-                                <div class="post_tag">
-                                    <a href="#">Food,</a>
-                                    <a href="#">Technology,</a>
-                                    <a href="#">Politics,</a>
-                                    <a href="#">Lifestyle</a>
-                                </div>
-                                <ul class="blog_meta list_style">
-                                    <li><a href="#">Mark wiens<i class="lnr lnr-user"></i></a></li>
-                                    <li><a href="#">12 Dec, 2017<i class="lnr lnr-calendar-full"></i></a></li>
-                                    <li><a href="#">1.2M Views<i class="lnr lnr-eye"></i></a></li>
-                                    <li><a href="#">06 Comments<i class="lnr lnr-bubble"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="blog_post">
-                                <img src="image/blog/main-blog/m-blog-4.jpg" alt="">
-                                <div class="blog_details">
-                                    <a href="#">
-                                        <h2>The Night Sky</h2>
-                                    </a>
-                                    <p>MCSE boot camps have its supporters and its detractors. Some people do not
-                                        understand why you should have to spend money on boot camp when you can get the
-                                        MCSE study materials yourself at a fraction.</p>
-                                    <a href="#" class="view_btn button_hover">View More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="row blog_item">
-                        <div class="col-md-3">
-                            <div class="blog_info text-right">
-                                <div class="post_tag">
-                                    <a href="#">Food,</a>
-                                    <a href="#">Technology,</a>
-                                    <a href="#">Politics,</a>
-                                    <a href="#">Lifestyle</a>
-                                </div>
-                                <ul class="blog_meta list_style">
-                                    <li><a href="#">Mark wiens<i class="lnr lnr-user"></i></a></li>
-                                    <li><a href="#">12 Dec, 2017<i class="lnr lnr-calendar-full"></i></a></li>
-                                    <li><a href="#">1.2M Views<i class="lnr lnr-eye"></i></a></li>
-                                    <li><a href="#">06 Comments<i class="lnr lnr-bubble"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="blog_post">
-                                <img src="image/blog/main-blog/m-blog-5.jpg" alt="">
-                                <div class="blog_details">
-                                    <a href="#">
-                                        <h2>Telescopes 101</h2>
-                                    </a>
-                                    <p>MCSE boot camps have its supporters and its detractors. Some people do not
-                                        understand why you should have to spend money on boot camp when you can get the
-                                        MCSE study materials yourself at a fraction.</p>
-                                    <a href="#" class="view_btn button_hover">View More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                    <nav class="blog-pagination justify-content-center d-flex">
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a href="#" class="page-link" aria-label="Previous">
-                                    <span aria-hidden="true">
-                                        <span class="lnr lnr-chevron-left"></span>
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="page-item"><a href="#" class="page-link">01</a></li>
-                            <li class="page-item active"><a href="#" class="page-link">02</a></li>
-                            <li class="page-item"><a href="#" class="page-link">03</a></li>
-                            <li class="page-item"><a href="#" class="page-link">04</a></li>
-                            <li class="page-item"><a href="#" class="page-link">09</a></li>
-                            <li class="page-item">
-                                <a href="#" class="page-link" aria-label="Next">
-                                    <span aria-hidden="true">
-                                        <span class="lnr lnr-chevron-right"></span>
-                                    </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                    {{-- </div> --}}
-                </div>
+                                <div class="modal-body">
+                                    <ul class="list-group">
 
+                                    </ul>
+                                    <hr>
+                                    <form action="{{ url('create-comment/' .$post->feed_id) }}" method="POST">
+                                        @csrf
+                                        <div class="form-group">
+                                            <label for="comment-text">Add Comment</label>
+                                            <input type="hidden" class="form-control" id="comment-text" rows="3" name="userid" value="{{session('User') ['user_id']}}">
+                                            <input type="text" class="form-control" id="comment-text" rows="3" name="comment_text" value="{{old('comment_text')}}">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+
+
+                <nav class="blog-pagination justify-content-center d-flex">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a href="#" class="page-link" aria-label="Previous">
+                                <span aria-hidden="true">
+                                    <span class="lnr lnr-chevron-left"></span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="page-item"><a href="#" class="page-link">01</a></li>
+                        <li class="page-item active"><a href="#" class="page-link">02</a></li>
+                        <li class="page-item"><a href="#" class="page-link">03</a></li>
+                        <li class="page-item"><a href="#" class="page-link">04</a></li>
+                        <li class="page-item"><a href="#" class="page-link">09</a></li>
+                        <li class="page-item">
+                            <a href="#" class="page-link" aria-label="Next">
+                                <span aria-hidden="true">
+                                    <span class="lnr lnr-chevron-right"></span>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
+
         </div>
+    </div>
+
+
     </section>
     <!--================Blog Area =================-->
 
@@ -639,6 +341,66 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
     crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+
+    {{-- sweet-alert --}}
+    @if (session('success'))
+    <script>
+        Swal.fire({
+            title: 'Success!',
+            text: '{{ session('success') }}',
+            icon: 'success',
+            showCloseButton: true,
+            confirmButtonText: 'OK',
+            timer: 5000
+        })
+    </script>
+    @endif
+
+    @if (session('failed'))
+        <script>
+            Swal.fire({
+                title: 'Error!',
+                text: '{{ session('failed') }}',
+                icon: 'error',
+                showCloseButton: true,
+                confirmButtonText: 'OK',
+                timer: 5000
+            })
+        </script>
+    @endif
+
+
+
+    @if (session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: '{{ session('success') }}'
+        });
+    </script>
+    @endif
+
+    @if (session('error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: '{{ session('error') }}'
+            });
+        </script>
+    @endif
+
+
+
 </body>
 
 </html>

@@ -135,7 +135,7 @@
                         </div>
                         <div class="col-md-9">
                             <div class="blog_post">
-                                <img src="{{ asset('images/1683146024.jpg') }}" alt=""
+                                <img src="" alt=""
                                     style=" width: 600px; height: auto;">
                                 <div class="blog_details">
                                     <a href="#">
@@ -380,11 +380,11 @@
                             <div class="blog_post">
                                 <div class="row">
                                     <div class="col">
-                                <img src="{{asset("images/heritage.png")}}" alt=""
+                                <img src="" alt=""
                                 style=" width: 600px; height: auto;">
                                     </div>
                                     <div class="col">
-                                <img src="{{asset("images/heritage.png")}}" alt=""
+                                <img src="" alt=""
                                 style=" width: 600px; height: auto;">
                                     </div>
                                 </div>

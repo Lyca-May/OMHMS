@@ -48,6 +48,6 @@ class users extends Model
     }
     public function rent()
     {
-        return $this->hasMany(FunctionalHall::class);
+        return $this->hasMany(Function_Hall::class);
     }
 }

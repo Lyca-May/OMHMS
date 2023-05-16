@@ -25,4 +25,8 @@ class Newsfeed_Model extends Model
     {
         return $this->belongsTo(users::class);
     }
+    public function comments()
+    {
+        return $this->belongsTo(Comments_Model::class);
+    }
 }

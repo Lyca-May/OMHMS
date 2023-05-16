@@ -10,8 +10,8 @@ use App\Http\Controllers\Admin\FunctionalHallController;
 use App\Http\Controllers\Admin\Home_Controller;
 use App\Http\Controllers\User\UserVisitController;
 use App\Http\Controllers\User\UserFunctionalRoomController;
-
-
+use App\Http\Controllers\User\Comments_Controller;
+use App\Http\Controllers\User\SouvenirsController;
 
 //Auth
 // Route::view('auth/login', 'auth.login');
@@ -54,7 +54,9 @@ Route::view('user/vnm1', 'user.pages.landingpage1.aboutpages.v&mis1');
 Route::view('user/oper1', 'user.pages.landingpage1.aboutpages.operation1');
 
 //Feed Nav Pages
-Route::view('user/feed1', 'user.pages.landingpage1.feed1');
+// Route::view('user/feed1', 'user.pages.landingpage1.feed1');
+
+
 
 //Contact Nav Pages
 Route::view('user/contact1', 'user.pages.landingpage1.contactus1');
@@ -168,9 +170,18 @@ Route::view('rent-cancel-status-page', 'admin.pages.visit.rent-cancel-status');
 
 
 //Newsfeed for user function
-Route::get('user/home', [FeedController::class,'index']);
+// Route::get('user/home', [FeedController::class,'index']);
 Route::post('post', [FeedController::class, 'add_post']);
 // Route::get('user/image', [FeedController::class, 'retrieve_image']);
+// Route::get('user/feed1', [FeedController::class, 'index']);
+Route::get('user/reviews', [FeedController::class, 'index']);
+// Route::get('user/feed1', [FeedController::class, 'index_for_feed']);
+Route::get('user/feed1', [FeedController::class, 'displayPostandComments']);
+
+//Comments
+Route::post('create-comment/{feed_id}', [Comments_Controller::class, 'create_comment']);
+// Route::get('/feed/{post_id}', [Comments_Controller::class, 'displayComments']);
+
 
 
 //Images
@@ -186,4 +197,8 @@ Route::get('edit-announcement-form/{announcement_id}', [AnnouncementController::
 Route::put('update-announcement/{announcement_id}', [AnnouncementController::class, 'updateAnnouncement']);
 
 
+//Souvenir
+Route::post('/add-souvenir', [SouvenirsController::class, 'store']);
 
+
+ 

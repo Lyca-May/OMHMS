@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,12 +8,12 @@
 </head>
 <body>
     <h1>Rent the Functional Hall</h1>
-    @if(session('success'))
+    {{-- @if(session('success'))
     <span style="color: green">{{session('success')}}</span>
     @elseif (session('failed'))
     <span style="color: red">{{session('failed')}}</span>
-    @endif
-    <form action="{{url('user/rent-submit')}}" method="post">
+    @endif --}}
+    {{-- <form action="{{url('user/rent-submit')}}" method="post">
         @csrf
         <div class="row">
             <div class="col">
@@ -143,5 +143,120 @@
             <button type="submit">Submit</button>
         </div>
     </form>
+</body> --}}
+
+{{--
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+ --}}
+
+
+<!-- Your HTML code here -->
+{{-- @if ($errors->any())
+    <script>
+        swal({
+            icon: 'error',
+            title: 'Validation Error',
+            text: '{{ $errors->first() }}',
+            timer: 3000,
+            buttons: false,
+        });
+    </script>
+@endif
+@if(Session::has('failed'))
+    <script>
+        swal({
+            title: "Error!",
+            text: "{{ Session::get('failed') }}",
+            type: "error",
+            timer: 3000,
+            showConfirmButton: false
+        });
+    </script>
+@endif
+</html> --}}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>OMHMS</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<div class="container">
+		<h1>Rent a Function Hall</h1>
+		<table>
+			<thead>
+				<tr>
+					<th>Item Name</th>
+					<th>Price</th>
+					<th>Quantity</th>
+					<th>Total</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Event Type: </td>
+					<td colspan="3"><select id="eventType">
+						<option value="wedding">Wedding</option>
+						<option value="seminar">Seminar</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td>Preparation/Setup Time:</td>
+					<td colspan="3"><input type="time" id="prepTime"></td>
+				</tr>
+				<tr>
+					<td>Date of Setup:</td>
+					<td colspan="3"><input type="date" id="setupDate"></td>
+				</tr>
+				<tr>
+					<td>Number of Tables and Chairs:</td>
+					<td colspan="3"><input type="number" id="numTablesChairs"></td>
+				</tr>
+				<tr>
+					<td>Other Requests:</td>
+					<td colspan="3"><textarea id="otherRequests"></textarea></td>
+				</tr>
+				<tr>
+					<td>Add-Ons/Other Services:</td>
+					<td>PHP 3,000.00</td>
+					<td><input type="number" id="addOnsQuantity" value="0"></td>
+					<td id="addOnsTotal">PHP 0.00</td>
+				</tr>
+				<tr>
+					<td>Sound System:</td>
+					<td colspan="2">
+						<input type="radio" id="speaker" name="soundSystem" value="speaker">
+  						<label for="speaker">Speaker</label>
+  						<input type="radio" id="otherSound" name="soundSystem" value="otherSound">
+  						<label for="otherSound">Other</label>
+					</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>Number of Microphones:</td>
+					<td colspan="2"><input type="number" id="numMicrophones"></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>LED TV:</td>
+					<td colspan="2"><input type="checkbox" id="ledTv"></td>
+					<td></td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="3">Total:</td>
+					<td id="cartTotal">PHP 0.00</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+	<script src="script.js"></script>
 </body>
 </html>

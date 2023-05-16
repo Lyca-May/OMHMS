@@ -34,7 +34,7 @@ class UserVisitController extends Controller
             $userid = $user['user_id']; // add a check to ensure that $user is not null before accessing its values
             // $user = auth()->user();
             if (!$user) {
-                return redirect()->back()->with('failed', "User not found");
+                return redirect()->back()->with('error', "User not found");
             }
 
             // Check if user's bookings is not expired
@@ -42,7 +42,7 @@ class UserVisitController extends Controller
                                             ->where('visits_intended_date', '>=', date('Y-m-d'))
                                             ->first();
             if ($uncompleteVisit) {
-                return redirect()->back()->with('failed', 'You are not yet complete with your visitation. Please complete your previous reservation before booking another one.');
+                return redirect()->back()->with('error', 'You are not yet complete with your visitation. Please complete your previous reservation before booking another one.');
             }
 
             // Check if user already has a pending reservation
@@ -92,7 +92,7 @@ class UserVisitController extends Controller
 
             // check if the selected year is less than the current year
             if ($selectedYear < $currentYear) {
-                return redirect()->back()->with('failed', 'The intended date must be in the current year or later.');
+                return redirect()->back()->with('error', 'The intended date must be in the current year or later.');
             }
 
             $visits_fname=$request->visits_fname;
@@ -118,14 +118,14 @@ class UserVisitController extends Controller
             $exceedNumberOfVisitors = Visit_Model::sum('visits_no_of_visitors');
 
             if ($exceedNumberOfVisitors > 100) {
-            return redirect()->back()->with('failed', 'Sorry, We only accept 100 visitors a day');
+            return redirect()->back()->with('error', 'Sorry, We only accept 100 visitors a day');
             }
 
             $existing_booking2 = Visit_Model::where('visits_time', $visits_time)
             // ->where('visits_time', $visits_time)
             ->first();
             if($existing_booking2){
-                return redirect()->back()->with('failed', ' Sorry, that booking slot is already taken. Please choose a different date/time.');
+                return redirect()->back()->with('error', ' Sorry, that booking slot is already taken. Please choose a different date/time.');
             }
 
             $visit = new Visit_Model();
@@ -167,9 +167,9 @@ class UserVisitController extends Controller
             session()->put('visit', $sesVisit);
 
             if($visit){
-                return redirect('user/home')->with('success', 'Visit added successfully');
+                return redirect()->back()->with('success', 'Visit added successfully');
             }else{
-                return redirect('user/book')->with('failed', 'There is an error in processing your reservation. Please try again later.');
+                return redirect('user/book')->with('error', 'There is an error in processing your reservation. Please try again later.');
             }
     }
 
@@ -262,5 +262,16 @@ class UserVisitController extends Controller
         else{
             return redirect()->back()->with('failed', "Failed to cancel reservation.");
         }
+    }
+
+    public function booking_history()
+    {
+        $currentDate = date('Y-m-d');
+        $visits = DB::table('visit')
+                    ->where('visits_status', 'CANCELLED')
+                    ->orWhere('visits_status', 'APPROVED')
+                    ->whereDate('visits_intended_date', '<  ', $currentDate)
+                    ->get();
+        return view('admin.pages.visit.history', ['visit' => $visits]);
     }
 }

@@ -13,12 +13,29 @@ class FeedController extends Controller
 {
     public function index()
     {
-        $user_id = session('User')['user_id'];
-        $posts = DB::table('newsfeed')->where('userid', $user_id)->get();
-        $images = Images::all();
-
-        return view('user.pages.userhome', ['newsfeed' => $posts, 'images' => $images]);
+        // $user_id = session('User')['user_id'];
+        $posts = DB::table('newsfeed')->get();
+        // $images = Images::all();
+        return view('user.pages.landingpage1.reviewpages.testimonials1', ['posts' => $posts]);
     }
+    public function index_for_feed()
+    {
+        // $user_id = session('User')['user_id'];
+        $posts = DB::table('newsfeed')->get();
+        // $images = Images::all();
+        return view('user.pages.landingpage1.feed1', ['posts' => $posts]);
+    }
+
+    public function displayPostandComments()
+{
+    $posts = DB::table('newsfeed')
+        ->leftJoin('comments', 'newsfeed.feed_id', '=', 'comments.feed_id')
+        ->select('newsfeed.*', DB::raw('COUNT(comments.comments_id) as comment_count'))
+        ->groupBy('newsfeed.feed_id', 'newsfeed.userid', 'newsfeed.name', 'newsfeed.post', 'newsfeed.comment', 'newsfeed.status', 'newsfeed.image', 'newsfeed.created_at', 'newsfeed.updated_at')
+        ->orderBy('newsfeed.created_at', 'DESC')
+        ->get();
+    return view('user.pages.landingpage1.feed1', compact('posts'));
+}
 
 
 
@@ -30,8 +47,6 @@ class FeedController extends Controller
     }
 
     public function add_post(Request $request){
-        // $userid = session('User')['user_id'];
-
         $userid = DB::table('users')->first();
         $postText = $request->post;
         $name = $request->name;
@@ -47,11 +62,16 @@ class FeedController extends Controller
         $post->save(); // save the post record to the database
 
         if($post){
-            return redirect('user/home')->with('success', 'Post added successfully');
+            return redirect()->back()->with('success', 'Post added successfully');
         }else{
             return redirect()->back()->with('failed', 'Something went wrong. Please try again later.');
         }
     }
 
-
+    public function displayFeed(){
+        $user_id = session('User')['user_id'];
+        $feed = DB::table('newsfeed')->where('userid', $user_id)->get();
+        // $feed = DB::table('comments')->where('userid', $user_id)->get();
+        return view('user.pages.landingpage1.feed1', ['feed' => $feed]);
+    }
 }

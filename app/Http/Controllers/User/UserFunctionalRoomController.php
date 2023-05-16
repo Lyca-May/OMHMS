@@ -55,7 +55,10 @@ class UserFunctionalRoomController extends Controller
             'functional_time' => 'required',
             'functional_event_name' => 'required',
             'functional_name_of_institution' => 'required',
-            'reference' => 'required',
+            'reference' => [
+                'integer',
+                'required'
+            ],
             'functional_no_of_participants' => [
                 'integer',
                 'between:1,100'
@@ -65,6 +68,7 @@ class UserFunctionalRoomController extends Controller
 
         $message = [
             'reference.required' => 'Please input the reference number of the payment',
+            'reference.integer' => 'The reference must be integer only',
             'functional_event_name.required' => 'Please input the Name of the Event',
             'functional_name_of_institution.required' => 'Please input the Name of your Institution',
             'functional_intended_date.required' => 'Please input the intended date for reservation',
@@ -161,7 +165,7 @@ class UserFunctionalRoomController extends Controller
         session()->put('functional', $sesRent);
 
         if($functional){
-            return redirect('user/home')->with('success', 'Functional Hall has been rent successfully');
+            return redirect()->back()->with('success', 'Functional Hall has been rent successfully');
         }else{
             return redirect()->back()->with('failed', 'There is an error in processing your request. Please try again later.');
         }

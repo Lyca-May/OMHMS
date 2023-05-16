@@ -42,18 +42,18 @@
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
                                 aria-haspopup="true" aria-expanded="false">About Us</a>
                             <ul class="dropdown-menu">
-                                <li class="nav-item"><a class="nav-link" href="{{ url('user/history') }}">History</a>
+                                <li class="nav-item"><a class="nav-link" href="{{ url('user/history1') }}">History</a>
                                 </li>
-                                <li class="nav-item"><a class="nav-link" href="{{ url('user/vnm') }}">Vision &
+                                <li class="nav-item"><a class="nav-link" href="{{ url('user/vnm1') }}">Vision &
                                         Mission</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="{{url("user/oper")}}">Operation</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="{{url("user/oper1")}}">Operation</a></li>
 
                             </ul>
                         </li>
-                        <li class="nav-item"><a class="nav-link" href="{{url("user/testimonials")}}">Testimonials</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url('user/services') }}">Services</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url('user/feed') }}">Feed</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url('user/contact') }}">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{url("user/reviews")}}">Testimonials</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url('user/services1') }}">Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url('user/feed1') }}">Feed</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url('user/contact1') }}">Contact</a></li>
                         <li class="nav-item submenu dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
                                 aria-haspopup="true" aria-expanded="false">My Account</a>
@@ -93,54 +93,28 @@
                 <h2 class="title_color">Testimonial from our Visitors</h2>
                 <p>Here are some testimonials from our visitors who have shared their experiences and feedback about our service and facilities.</p>
             </div>
+            {{-- @foreach ($posts as $post ) --}}
+            <div class="media testimonial_item">
+                <img class="rounded-circle" src="image/testtimonial-1.jpg" alt="">
+                <div class="media-body">
+                    {{-- <p><i>"{{$post->post}}"</i></p> --}}
+                    {{-- <a href="#"><h4 class="sec_h4">{{$post->name}}</h4></a> --}}
+                    {{-- <div class="star">
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star-half-o"></i></a>
+                    </div> --}}
+                </div>
+            </div>
+
             <div class="testimonial_slider owl-carousel">
                 <div class="media testimonial_item">
                     <img class="rounded-circle" src="image/testtimonial-1.jpg" alt="">
                     <div class="media-body">
-                        <p><i>"I absolutely loved my visit to the museum! The exhibits were so engaging and informative. I learned so much about the history of the area and the artifacts on display were absolutely breathtaking."</i></p>
-                        <a href="#"><h4 class="sec_h4">- Anonymous</h4></a>
-                        {{-- <div class="star">
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#"><i class="fa fa-star-half-o"></i></a>
-                        </div> --}}
-                    </div>
-                </div>
-                <div class="media testimonial_item">
-                    <img class="rounded-circle" src="image/testtimonial-1.jpg" alt="">
-                    <div class="media-body">
-                        <p><i>"As a history buff, I was thrilled to visit this museum and it did not disappoint. The collection of artifacts was truly impressive. I learned so much about the local history and the displays really brought it to life."</i></p>
-                        <a href="#"><h4 class="sec_h4">- Dars Fajarts</h4></a>
-                        {{-- <div class="star">
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#"><i class="fa fa-star-half-o"></i></a>
-                        </div> --}}
-                    </div>
-                </div>
-                <div class="media testimonial_item">
-                    <img class="rounded-circle" src="image/testtimonial-1.jpg" alt="">
-                    <div class="media-body">
-                        <p><i>"I had an amazing time at the museum and would highly recommend it to anyone visiting the area. The exhibits were fascinating and I appreciated the diversity of topics covered. The staff were also incredibly knowledgeable and helpful."</i></p>
-                        <a href="#"><h4 class="sec_h4">- Lycs Nobs</h4></a>
-                        {{-- <div class="star">
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#"><i class="fa fa-star"></i></a>
-                            <a href="#"><i class="fa fa-star-half-o"></i></a>
-                        </div> --}}
-                    </div>
-                </div>
-                <div class="media testimonial_item">
-                    <img class="rounded-circle" src="image/testtimonial-1.jpg" alt="">
-                    <div class="media-body">
-                        <p><i>"I was blown away by the quality of the exhibits at this museum. I particularly enjoyed the audio guides, which provided additional context and really enhanced my understanding of the exhibits."</i></p>
-                        <a href="#"><h4 class="sec_h4">Pams Dels</h4></a>
+                        <p><i>"{{$posts[0]->post}}"</i></p>
+                        <a href="#"><h4 class="sec_h4">- {{$posts[0]->name}}</h4></a>
                         {{-- <div class="star">
                             <a href="#"><i class="fa fa-star"></i></a>
                             <a href="#"><i class="fa fa-star"></i></a>
@@ -151,6 +125,8 @@
                     </div>
                 </div>
             </div>
+
+
         </div>
     </section>
      <!--================ Testimonial Area  =================-->
@@ -176,15 +152,15 @@
                         <div class="row">
                             <div class="col-4">
                                 <ul class="list_style">
-                                    <li><a href="{{url("user/landing")}}">Home</a></li>
-                                    <li><a href="{{url("user/history")}}">About us</a></li>
+                                    <li><a href="{{url("user/landlog")}}">Home</a></li>
+                                    <li><a href="{{url("user/history1")}}">About us</a></li>
                                     <li><a href="{{url("user/gallery")}}">Gallery</a></li>
                                 </ul>
                             </div>
                             <div class="col-4">
                                 <ul class="list_style">
                                     <li><a href="{{url("user/services")}}">Services</a></li>
-                                    <li><a href="{{url("user/testimonials")}}">Reviews</a></li>
+                                    <li><a href="{{url("user/reviews")}}">Reviews</a></li>
                                     <li><a href="{{url("user/contact")}}">Contact</a></li>
 
                                 </ul>
