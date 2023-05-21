@@ -27,7 +27,7 @@
         <input type="text" name="user_mname" value="{{session('Admin') ['user_mname']}}" placeholder="First Name">
         <input type="text" name="user_lname" value="{{session('Admin') ['user_lname']}}" placeholder="First Name">
         <input type="email" name="user_email" value="{{session('Admin') ['user_email']}}" placeholder="First Name">
-        <input type="password" name="user_password" value="{{session('Admin') ['user_password']}}" placeholder="First Name">
+         <input type="password" name="user_password" value="{{session('Admin') ['user_password']}}" placeholder="First Name">
         <input type="text" name="user_phonenum" value="{{session('Admin') ['user_phonenum']}}" placeholder="First Name">
         <input type="date" name="birthdate" value="{{session('Admin') ['birthdate']}}" placeholder="First Name">
         <input type="text" name="gender" value="{{session('Admin') ['gender']}}" placeholder="First Name">

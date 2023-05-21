@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id('souvenir_id');
             $table->unsignedBigInteger('userid');
             $table->foreign('userid')->references('user_id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('category_id')->references('category_id')->on('category')->onDelete('cascade');
             $table->string('souvenir_name');
             $table->string('souvenir_description');
             $table->integer('souvenir_qty');

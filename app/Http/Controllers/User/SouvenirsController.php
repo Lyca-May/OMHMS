@@ -46,4 +46,10 @@ class SouvenirsController extends Controller
         // Redirect or return a response
         return redirect()->back()->with('success', 'Souvenir created successfully.');
     }
+
+    public function displaySouvenirs(){
+        $user_id = session('Admin')['user_id'];
+        $users = DB::table('users')->where('user_id', $user_id)->get();
+        return view('admin.pages.inventory.inventory-table', ['users' => $users]);
+    }
 }

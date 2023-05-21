@@ -18,8 +18,23 @@ class VisitController extends Controller
     //get
     public function index()
     {
-        $visits = DB::table('visit')->where('visits_status', 'PENDING')->get();
-        return view('admin.pages.visit.visit', ['visit' => $visits]);
+
+        // $visits = Visit_Model::with('user.avatar')->where('visits_status', 'PENDING')->get();
+        // $visits = DB::table('visit')->where('visits_status', 'PENDING')->get();
+        // $user_id = session('Admin')['user_id'];
+        // $users = DB::table('users')->where('user_id', $user_id)->get();
+        // return view('admin.pages.visit.visit', ['visit' => $visits, 'users'=>$users]);
+        // return view('admin.pages.visit.visit', compact('visit', 'users' ));
+
+        $user_id = session('Admin')['user_id'];
+        $users = DB::table('users')->where('user_id', $user_id)->get();
+        $visit = DB::table('visit')
+        ->join('users', 'visit.userid', '=', 'users.user_id')
+        ->select('visit.*', 'users.avatar')
+        ->where('visit.visits_status', 'PENDING')
+        ->get();
+
+    return view('admin.pages.visit.visit', ['visit' => $visit, 'users'=>$users]);
     }
     public function approved_visit()
     {
@@ -46,7 +61,9 @@ class VisitController extends Controller
     public function admin_home(){
         $visitCount = DB::table('visit')->where('visits_intended_date', '<', now())->count();
         $membersCount = DB::table('visit')->sum('visits_no_of_visitors');
-        return view('admin.pages.home', compact('visitCount', 'membersCount'));
+        $user_id = session('Admin')['user_id'];
+        $users = DB::table('users')->where('user_id', $user_id)->get();
+        return view('admin.pages.home', compact('visitCount', 'membersCount', 'users' ));
 
 
         ///

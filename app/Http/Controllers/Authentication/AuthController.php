@@ -62,6 +62,7 @@ class AuthController extends Controller
                         'user_password'=>$user->user_password,
                         'account_status'=>$user->account_status,
                         'avatar'=>$user->avatar,
+                        'role'=>$user->role,
                     ];
 
                     if($user->role == 'USER') {
@@ -362,7 +363,7 @@ class AuthController extends Controller
         $user->user_street = $request->input('user_street');
         $user->user_zipcode = $request->input('user_zipcode');
         $user->user_email = $request->input('user_email');
-        $user->user_password = $request->input('user_password');
+        // $user->user_password = $request->input('user_password');
         $user->user_phonenum = $request->input('user_phonenum');
         $user->gender = $request->input('gender');
         $user->birthdate = $request->input('birthdate');
@@ -376,8 +377,7 @@ class AuthController extends Controller
             $filename = time() . '_' . $avatar->getClientOriginalName();
 
             // Save the file to the storage/app/public/avatars directory
-            // $avatar->storeAs('avatars', $filename, 'public');
-            $avatar->move(public_path('avatars'), $filename);
+            $avatar->move(public_path('avatar'), $filename);
 
             // Update the user's avatar column with the filename
             $user->avatar = $filename;
@@ -387,13 +387,13 @@ class AuthController extends Controller
         DB::table('users')->where('user_id', $user_id)->update((array) $user);
 
         // Redirect the user to their profile page
-        return redirect('admin-myprofile')->with('success', 'Profile updated successfully');
+        return redirect()->back()->with('success', 'Profile updated successfully');
     }
 
     public function displayAdminProfile(){
         $user_id = session('Admin')['user_id'];
         $users = DB::table('users')->where('user_id', $user_id)->get();
-        return view('admin.pages.profile.profile', ['users' => $users]);
+        return view('admin.pages.profile', ['users' => $users]);
     }
 
 

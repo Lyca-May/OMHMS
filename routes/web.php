@@ -8,6 +8,8 @@ use App\Http\Controllers\User\FeedController;
 use App\Http\Controllers\Admin\VisitController;
 use App\Http\Controllers\Admin\FunctionalHallController;
 use App\Http\Controllers\Admin\Home_Controller;
+use App\Http\Controllers\Category;
+use App\Http\Controllers\Inventory;
 use App\Http\Controllers\User\UserVisitController;
 use App\Http\Controllers\User\UserFunctionalRoomController;
 use App\Http\Controllers\User\Comments_Controller;
@@ -75,6 +77,12 @@ Route::view('user/rentconhall', 'user.pages.landingpage1.booking.rentconhall');
 
 // ----------------LANDING PAGE 1------------------ //
 
+// ----------------ADMIN SIDEBAR------------------ //
+
+// Route::view('admin/home', 'admin.pages.home');
+// Route::view('admin/profile', 'admin.pages.profile');
+Route::view('admin/calendar', 'admin.pages.calendar');
+Route::view('admin/inventory', 'admin.pages.inventory.inventory-table');
 
 //---------------- User Profile ---------------------//
 
@@ -83,7 +91,7 @@ Route::view('user/profile', 'user.pages.profile.userprofile');
 
 
 //Admin Page
-Route::view('admin/home', 'admin.pages.home');
+// Route::view('admin/home', 'admin.pages.home');
 Route::view('admin/form', 'admin.pages.form');
 
 
@@ -114,9 +122,9 @@ Route::post('auth/login/user', [AuthController::class, 'login']); //login the us
 Route::get('logout', [AuthController::class, 'logout']);
 Route::get('auth/login', [AuthController::class, 'log']);
 Route::post('update-profile', [AuthController::class, 'updateProfile']);
-Route::post('admin-update-profile', [AuthController::class, 'updateAdminProfile']);
+Route::post('/update-profile', [AuthController::class, 'updateAdminProfile']);
 Route::get('myprofile', [AuthController::class, 'displayProfile']);
-Route::get('admin-myprofile', [AuthController::class, 'displayAdminProfile']);
+Route::get('admin/profile', [AuthController::class, 'displayAdminProfile']);
 
 
 //Admin Page View
@@ -199,6 +207,18 @@ Route::put('update-announcement/{announcement_id}', [AnnouncementController::cla
 
 //Souvenir
 Route::post('/add-souvenir', [SouvenirsController::class, 'store']);
+Route::get('/souvenirs', [SouvenirsController::class, 'displaySouvenirs']);
 
 
- 
+
+
+//Artifcats
+Route::get('/artifacts', [Inventory::class, 'displayArtifacts']);
+
+
+//Category
+Route::get('/category', [Category::class, 'displayCategory']);
+Route::post('/add-category', [Category::class, 'add_category']);
+Route::post('/edit-category/{category_id}', [Category::class, 'edit_category']);
+Route::post('/archive-category/{category_id}', [Category::class, 'archive_category']);
+

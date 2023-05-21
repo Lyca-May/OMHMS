@@ -161,7 +161,7 @@
                                         </a>
                                         <p class="font-weight-normal">{{$post->post}}</p>
                                     </div>
-                                    <a href="#" class="genric-btn primary circle text-right">View More</a>  
+                                    <a href="#" class="genric-btn primary circle text-right">View More</a>
                                 </div>
                             </div>
                         </article>
@@ -376,8 +376,6 @@
             })
         </script>
     @endif
-
-
 
     @if (session('success'))
     <script>
