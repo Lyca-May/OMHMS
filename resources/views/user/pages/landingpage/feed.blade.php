@@ -21,6 +21,9 @@
       integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
       crossorigin="anonymous"
     />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-********" crossorigin="anonymous" />
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('vendors/linericon/style.css') }}">
@@ -78,6 +81,11 @@
                                 <li class="nav-item"><a class="nav-link" href="{{ url('auth/login') }}">Login</a></li>
                             </ul>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ url('user/souvenirs') }}" style="margin-top: 25px; display: inline-block;" class="shop-icon-btn">
+                              <i class="fas fa-shopping-cart"></i>
+                            </a>
+                          </li>
                     </ul>
                 </div>
             </nav>

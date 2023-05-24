@@ -242,260 +242,234 @@
 
         <div class="clearfix"></div>
 
+
         <div class="content-wrapper">
             <div class="container-fluid">
 
                 <!--Start Dashboard Content-->
                 <!--End sidebar-wrapper-->
-                <div class="row">
-                    <ul class="nav nav-tabs nav-tabs-primary top-icon nav-justified">
-                        <li class="nav-item">
-                            <a href="javascript:void();" data-target="#list" data-toggle="pill" class="nav-link" onclick="toggleSection('list')"><i class="zmdi zmdi-edit"></i> <span class="hidden-xs">Edit</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="javascript:void();" data-target="#archived" data-toggle="pill" class="nav-link" onclick="toggleSection('archived')"><i class="zmdi zmdi-archive"></i> <span class="hidden-xs">Archived Category</span></a>
-                        </li>
-                    </ul>
-
-                    {{-- <div id="archived" style="height: 500px; background-color: #f0f0f0; display: none;">
-                        Archived Category
-                    </div> --}}
-
-                    <br>
-                    <br>
-
                     <div class="row">
-                        <div class="col-12 col-lg-12" id="list">
-                            <div class="card">
-                                <div class="card-header">List of Category
-                                    <br>
-                                    <br>
-                                    <div class="col-sm-4">
-                                        <a class="btn btn-success" style="float:left;margin-right:20px;" data-toggle="modal" data-target="#addItemModal">+ Add</a>
-                                        <div class="search-box">
-                                            <input type="text" class="form-control" id="searchInput" placeholder="Search">
+                        <div class="col-12 col-lg-12">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" style="float:right;margin-right:20px;" aria-expanded="false">Filter Bookings</a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item"><a class="nav-link filter-option" data-target="pending-table">List of Categories</a></li>
+                                <li class="nav-item"><a class="nav-link filter-option" data-target="cancelled-table">Archived Categories</a></li>
+                                {{-- <li class="nav-item"><a class="nav-link filter-option" data-target="approved-table">Approved Bookings</a></li> --}}
+                            </ul>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="row">
+                            <div class="col-12 col-lg-12">
+                                <div class="card">
+                                    <div class="card-header">List of Artifacts
+                                        <br>
+                                        <br>
+                                        <div class="col-sm-4">
+                                            <a class="btn btn-success" style="float:left;margin-right:20px;" data-toggle="modal" data-target="#addItemModal">+ Add</a>
+                                            <div class="search-box">
+                                                <input type="text" class="form-control" id="searchInput" placeholder="Search">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="table-responsive">
-                                    <table class="table align-items-center table-flush table-borderless table-smaller" id="categoryTable">
-                                        <thead>
-                                            <tr>
-                                                <th>Category ID</th>
-                                                <th>Name</th>
-                                                <th>Description</th>
-                                                <th>Type</th>
-                                                <th>Date Listed</th>
-                                                <th>Date Updated</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($category as $categories)
-                                            <tr>
-                                                <td>{{ $categories->category_id }}</td>
-                                                <td>{{ $categories->category_name }}</td>
-                                                <td>{{ $categories->category_description }}</td>
-                                                <td>{{ $categories->category_type }}</td>
-                                                <td>{{ date('F d, Y H:i:s', strtotime($categories->created_at)) }}</td>
-                                                <td>{{ date('F d, Y H:i:s', strtotime($categories->updated_at)) }}</td>
-                                                <td>
-                                                    <!-- Edit button -->
-                                                    <button class="custom-button" data-toggle="modal" data-target="#editItemModal{{ $categories->category_id }}">Edit</button>
-                                                    <button class="custom-button1" data-toggle="modal" data-target="#archiveItemModal{{ $categories->category_id }}">Archive</button>
-                                                    {{-- <button class="custom-button" id="editItemButton" data-toggle="modal" data-target="#editItemModal" >Edit</button> --}}
-                                                    <!-- Archive button -->
-                                                </td>
-                                            </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    {{-- ARCHIVE --}}
-                    <div class="row" id="archiveRow" style="display: none;">
-                        <div class="col-12 col-lg-12" id="archived">
-                            <div class="card">
-                                <div class="card-header">List of Archived Category
-                                    <br>
-                                    <br>
-                                    <div class="col-sm-4">
-                                        {{-- <a class="btn btn-success" style="float:left;margin-right:20px;" data-toggle="modal" data-target="#addItemModal">+ Add</a> --}}
-                                        <div class="search-box">
-                                            <input type="text" class="form-control" id="searchInput" placeholder="Search">
-                                        </div>
+                                    <div class="table-responsive">
+                                        <table class="table align-items-center table-flush table-borderless" id="pending-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Category ID</th>
+                                                    <th>Name</th>
+                                                    <th>Description</th>
+                                                    <th>Type</th>
+                                                    <th>Date Listed</th>
+                                                    <th>Date Updated</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($category as $categories)
+                                                <tr>
+                                                    <td>{{ $categories->category_id }}</td>
+                                                    <td>{{ $categories->category_name }}</td>
+                                                    <td>{{ $categories->category_description }}</td>
+                                                    <td>{{ $categories->category_type }}</td>
+                                                    <td>{{ date('F d, Y H:i:s', strtotime($categories->created_at)) }}</td>
+                                                    <td>{{ date('F d, Y H:i:s', strtotime($categories->updated_at)) }}</td>
+                                                    <td>
+                                                        <!-- Edit button -->
+                                                        <button class="custom-button" data-toggle="modal" data-target="#editItemModal{{ $categories->category_id }}">Edit</button>
+                                                        <button class="custom-button1" data-toggle="modal" data-target="#archiveItemModal{{ $categories->category_id }}">Archive</button>
+                                                        {{-- <button class="custom-button" id="editItemButton" data-toggle="modal" data-target="#editItemModal" >Edit</button> --}}
+                                                        <!-- Archive button -->
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                        <table class="table align-items-center table-flush table-borderless" id="cancelled-table" style="display: none;">
+                                            <thead>
+                                                <tr>
+                                                    <th>Item ID</th>
+                                                    <th>Name</th>
+                                                    <th>Category</th>
+                                                    <th>Description</th>
+                                                    <th>Quantity</th>
+                                                    <th>Image</th>
+                                                    {{-- <th>Date Listed</th>
+                                                    <th>Date Updated</th> --}}
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($archived as $archive)
+                                                <tr>
+                                                    <td>{{ $archive->category_id }}</td>
+                                                    <td>{{ $archive->category_name }}</td>
+                                                    <td>{{ $archive->category_description }}</td>
+                                                    <td>{{ $archive->category_type }}</td>
+                                                    {{-- <td>{{ date('F d, Y H:i:s', strtotime($archive->created_at)) }}</td>
+                                                    <td>{{ date('F d, Y H:i:s', strtotime($archive->updated_at)) }}</td> --}}
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
-                                <div class="table-responsive">
-                                    <table class="table align-items-center table-flush table-borderless table-smaller" id="archivedCategoryTable">
-                                        <thead>
-                                            <tr>
-                                                <th>Category ID</th>
-                                                <th>Name</th>
-                                                <th>Description</th>
-                                                <th>Type</th>
-                                                <th>Date Listed</th>
-                                                <th>Date Updated</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($archived as $archive)
-                                            <tr>
-                                                <td>{{ $archive->category_id }}</td>
-                                                <td>{{ $archive->category_name }}</td>
-                                                <td>{{ $archive->category_description }}</td>
-                                                <td>{{ $archive->category_type }}</td>
-                                                <td>{{ date('F d, Y H:i:s', strtotime($archive->created_at)) }}</td>
-                                                <td>{{ date('F d, Y H:i:s', strtotime($archive->updated_at)) }}</td>
-                                            </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
                             </div>
                         </div>
                     </div>
 
+                   <!-- Add Item Modal -->
+                   <div class="modal fade" id="addItemModal" tabindex="-1" role="dialog"
+                   aria-labelledby="addItemModalLabel" aria-hidden="true">
+                   <div class="modal-dialog" role="document">
+                       <div class="modal-content" style="background-color: rgb(3, 34, 3);">
+                           <div class="modal-header    ">
+                               <h5 class="modal-title" id="addItemModalLabel">Add Item</h5>
+                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                   <span aria-hidden="true">&times;</span>
+                               </button>
+                           </div>
+                           <div class="modal-body">
+                               <form action="{{ url('/add-category') }}" method="POST"
+                                   enctype="multipart/form-data">
+                                   @csrf
+                                   <div class="form-group">
+                                       <label for="name">Name</label>
+                                       <input type="hidden" class="form-control" id="name" name="userid"
+                                           value="{{ session('Admin')['user_id'] }}">
+                                       <input type="text" class="form-control" id="name"
+                                           name="category_name" placeholder="Category Name">
+                                       @error('category_name')
+                                           <span class="text-danger">{{ $message }}</span>
+                                       @enderror
+                                   </div>
+                                   <div class="form-group">
+                                       <label for="description">Description</label>
+                                       <textarea class="form-control" id="description" name="category_description" placeholder="Category Name"></textarea>
+                                       @error('category_description')
+                                           <span class="text-danger">{{ $message }}</span>
+                                       @enderror
+                                   </div>
+                                   <div class="form-group">
+                                       <label for="type">Type</label>
+                                       <select class="form-control" id="type" name="category_type">
+                                           <option value="Choose type">Choose type</option>
+                                           <option value="Souvenir">Souvenir</option>
+                                           <option value="Artifact">Artifact</option>
+                                       </select>
+                                       @error('category_type')
+                                           <span class="text-danger">{{ $message }}</span>
+                                       @enderror
+                                   </div>
+                                   <button type="submit" class="btn btn-primary">Save Category</button>
+                               </form>
+                           </div>
+                           <div class="modal-footer">
+                               <button type="button" class="btn btn-secondary"
+                                   data-dismiss="modal">Close</button>
+                           </div>
+
+                       </div>
+                   </div>
+               </div>
 
 
-
-                    <!-- Add Item Modal -->
-                    <div class="modal fade" id="addItemModal" tabindex="-1" role="dialog"
-                        aria-labelledby="addItemModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content" style="background-color: rgb(3, 34, 3);">
-                                <div class="modal-header    ">
-                                    <h5 class="modal-title" id="addItemModalLabel">Add Item</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="{{ url('/add-category') }}" method="POST"
-                                        enctype="multipart/form-data">
-                                        @csrf
-                                        <div class="form-group">
-                                            <label for="name">Name</label>
-                                            <input type="hidden" class="form-control" id="name" name="userid"
-                                                value="{{ session('Admin')['user_id'] }}">
-                                            <input type="text" class="form-control" id="name"
-                                                name="category_name" placeholder="Category Name">
-                                            @error('category_name')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="description">Description</label>
-                                            <textarea class="form-control" id="description" name="category_description" placeholder="Category Name"></textarea>
-                                            @error('category_description')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="type">Type</label>
-                                            <select class="form-control" id="type" name="category_type">
-                                                <option value="Choose type">Choose type</option>
-                                                <option value="Souvenir">Souvenir</option>
-                                                <option value="Artifact">Artifact</option>
-                                            </select>
-                                            @error('category_type')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Save Category</button>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-dismiss="modal">Close</button>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
+               <!-- Edit Category Modal -->
+               @foreach ($category as $categories)
+               <div class="modal fade" id="editItemModal{{ $categories->category_id }}" tabindex="-1" role="dialog" aria-labelledby="editItemModalLabel" aria-hidden="true">
+                   <div class="modal-dialog" role="document">
+                       <div class="modal-content" style="background-color: rgb(3, 34, 3);">
+                           <div class="modal-header">
+                               <h5 class="modal-title" id="editItemModalLabel">Edit Category</h5>
+                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                   <span aria-hidden="true">&times;</span>
+                               </button>
+                           </div>
+                           <div class="modal-body">
+                               <form action="{{ url('/edit-category/' . $categories->category_id) }}" method="POST">
+                                   @csrf
+                                   <!-- Form fields -->
+                                   <div class="form-group">
+                                       <label for="editName">Name</label>
+                                       <input type="hidden" class="form-control" rows="3" name="userid" value="{{ $categories->userid }}">
+                                       <input type="text" class="form-control" id="editName" name="category_name" placeholder="Enter name" value="{{ $categories->category_name }}">
+                                   </div>
+                                   <div class="form-group">
+                                       <label for="editDescription">Description</label>
+                                       <textarea class="form-control" id="editDescription" name="category_description" placeholder="Enter description">{{ $categories->category_description }}</textarea>
+                                   </div>
+                                   <div class="form-group">
+                                       <label for="type">Type</label>
+                                       <select class="form-control" id="type" name="category_type">
+                                           <option value="{{ $categories->category_type }}">{{ $categories->category_type }}</option>
+                                           <option value="Souvenir">Souvenir</option>
+                                           <option value="Artifact">Artifact</option>
+                                       </select>
+                                       @error('category_type')
+                                           <span class="text-danger">{{ $message }}</span>
+                                       @enderror
+                                   </div>
+                                   <div class="modal-footer">
+                                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                       <button type="submit" class="btn btn-primary">Save Changes</button>
+                                   </div>
+                               </form>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+               @endforeach
 
 
-                    <!-- Edit Category Modal -->
-                    @foreach ($category as $categories)
-                    <div class="modal fade" id="editItemModal{{ $categories->category_id }}" tabindex="-1" role="dialog" aria-labelledby="editItemModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content" style="background-color: rgb(3, 34, 3);">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="editItemModalLabel">Edit Category</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="{{ url('/edit-category/' . $categories->category_id) }}" method="POST">
-                                        @csrf
-                                        <!-- Form fields -->
-                                        <div class="form-group">
-                                            <label for="editName">Name</label>
-                                            <input type="hidden" class="form-control" rows="3" name="userid" value="{{ $categories->userid }}">
-                                            <input type="text" class="form-control" id="editName" name="category_name" placeholder="Enter name" value="{{ $categories->category_name }}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="editDescription">Description</label>
-                                            <textarea class="form-control" id="editDescription" name="category_description" placeholder="Enter description">{{ $categories->category_description }}</textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="type">Type</label>
-                                            <select class="form-control" id="type" name="category_type">
-                                                <option value="{{ $categories->category_type }}">{{ $categories->category_type }}</option>
-                                                <option value="Souvenir">Souvenir</option>
-                                                <option value="Artifact">Artifact</option>
-                                            </select>
-                                            @error('category_type')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Save Changes</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
+               <!-- Archive Category Modal -->
+               @foreach ($category as $categories)
+               <div class="modal fade" id="archiveItemModal{{ $categories->category_id }}" tabindex="-1" role="dialog" aria-labelledby="archiveItemModalLabel" aria-hidden="true">
+                   <div class="modal-dialog" role="document">
+                       <div class="modal-content" style="background-color: rgb(3, 34, 3);">
+                           <div class="modal-header">
+                               <h5 class="modal-title" id="editItemModalLabel">Archive Category</h5>
+                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                   <span aria-hidden="true">&times;</span>
+                               </button>
+                           </div>
+                           <div class="modal-body">
+                               {{-- <form action="{{ url('/edit-category/' . $categories->category_id) }}" method="POST"> --}}
+                                   {{-- @csrf --}}
+                                   <p>Are you sure you want to archive the category: {{ $categories->category_name }}?</p>
+                                   <div class="modal-footer">
+                                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                       <form action="{{ url('/archive-category/'. $categories->category_id) }}" method="POST">
+                                           @csrf
+                                           <button type="submit" class="btn btn-primary">Archive</button>
 
+                                       </form>
+                                   </div>
+                               {{-- </form> --}}
+                           </div>
+                       </div>
+                   </div>
+               </div>
+               @endforeach
 
-                    <!-- Archive Category Modal -->
-                    @foreach ($category as $categories)
-                    <div class="modal fade" id="archiveItemModal{{ $categories->category_id }}" tabindex="-1" role="dialog" aria-labelledby="archiveItemModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content" style="background-color: rgb(3, 34, 3);">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="editItemModalLabel">Archive Category</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    {{-- <form action="{{ url('/edit-category/' . $categories->category_id) }}" method="POST"> --}}
-                                        {{-- @csrf --}}
-                                        <p>Are you sure you want to archive the category: {{ $categories->category_name }}?</p>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                            <form action="{{ url('/archive-category/'. $categories->category_id) }}" method="POST">
-                                                @csrf
-                                                <button type="submit" class="btn btn-primary">Archive</button>
-
-                                            </form>
-                                        </div>
-                                    {{-- </form> --}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
 
 
                     <!--End Row-->
@@ -519,7 +493,7 @@
             <footer class="footer">
                 <div class="container">
                     <div class="text-center">
-                        Copyright © 2023 OMHMS Admin
+                        Copyright © 2018 Dashtreme Admin
                     </div>
                 </div>
             </footer>
@@ -602,10 +576,10 @@
         </script>
         <!-- jQuery -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
         <!-- Bootstrap JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
-
 
         @if (session('success'))
             <script>
@@ -680,6 +654,25 @@
             document.getElementById("searchInput").addEventListener("keyup", filterTable);
         </script>
 
+        <script>
+            $(document).ready(function() {
+                $("#searchInput").on("keyup", function() {
+                    var value = $(this).val().toLowerCase();
+                    $("#pending-table tbody tr").filter(function() {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    });
+                    $("#cancelled-table tbody tr").filter(function() {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    });
+                    $("#approved-table tbody tr").filter(function() {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    });
+                });
+            });
+        </script>
+
+
+
   <script>
    $(document).ready(function() {
         // Show list table, hide archive table initially
@@ -696,6 +689,15 @@
         $("#showArchiveBtn").click(function() {
             $("#list").hide();
             $("#archiveRow").show();
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('.filter-option').click(function() {
+            var target = $(this).data('target');
+            $('.table-responsive table').hide();
+            $('#' + target).show();
         });
     });
 </script>

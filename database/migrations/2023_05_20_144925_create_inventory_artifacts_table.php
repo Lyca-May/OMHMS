@@ -20,9 +20,10 @@ return new class extends Migration
             $table->string('artifact_name');
             $table->text('artifact_description');
             $table->integer('quantity');
+            $table->string('artifact_category');
             $table->string('artifact_image');
+            $table->boolean('is_archived')->default(true);
             $table->timestamps();
-
         });
     }
 

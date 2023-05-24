@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="{{ asset('omhms.png') }}" type="image/png">
     <title>OMHMS</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-********" crossorigin="anonymous" />
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('vendors/linericon/style.css') }}">
@@ -60,11 +63,16 @@
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
                                 aria-haspopup="true" aria-expanded="false">My Account</a>
                             <ul class="dropdown-menu">
-                                <li class="nav-item"><a class="nav-link" href="{{ url('user/profile') }}">Profile</a>
+                                <li class="nav-item"><a class="nav-link" href="{{url('user/profile')}}">{{session('User')['user_fname']}}'s Profile</a>
                                 </li>
                                 <li class="nav-item"><a class="nav-link" href="{{ url('logout') }}">Log out</a></li>
                             </ul>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ url('user/souvenirs1') }}" style="margin-top: 25px; display: inline-block;" class="shop-icon-btn">
+                              <i class="fas fa-shopping-cart"></i>
+                            </a>
+                          </li>
                     </ul>
                 </div>
             </nav>
@@ -226,25 +234,48 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 
-    @if (session('success'))
-    <script>
-        Swal.fire({
-            icon: 'success',
-            title: 'Success!',
-            text: '{{ session('success') }}'
-        });
-    </script>
-    @endif
 
-    @if (session('error'))
-        <script>
-            Swal.fire({
-                icon: 'error',
-                title: 'Error!',
-                text: '{{ session('error') }}'
-            });
-        </script>
-    @endif
+@if (session('success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: '{{ session('success') }}',
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        background: '#8cc63f',
+        iconColor: '#ffffff',
+        customClass: {
+            title: 'text-white',
+            content: 'text-white'
+        }
+    });
+</script>
+@endif
+
+@if (session('error'))
+<script>
+    Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: '{{ session('error') }}',
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        background: '#dc3545',
+        iconColor: '#ffffff',
+        customClass: {
+            title: 'text-white',
+            content: 'text-white'
+        }
+    });
+</script>
+@endif
 </body>
 </body>
 

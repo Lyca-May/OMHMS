@@ -1,0 +1,91 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\CartItem;
+use App\Models\Souvenir_Reserved;
+use App\Models\SouvenirsModel;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+
+class CartController extends Controller
+{
+    public function displaySouvenir()
+    {
+        // Fetch cart items
+        $cartItems = CartItem::with('souvenir')->get();
+        $souvenirs = SouvenirsModel::with('category')->where('souvenir_status','posted')->get();
+        return view('user.pages.landingpage1.souvenirs.souvenirs1', compact('souvenirs', 'cartItems'));
+    }
+
+    public function addToCart(Request $request)
+    {
+        // Validate the request data
+        $request->validate([
+            'souvenir_id' => 'required|exists:souvenirs,id',
+            'quantity' => 'required|integer|min:1',
+        ]);
+
+        $souvenir = SouvenirsModel::findOrFail($request->souvenir_id);
+
+        // Check if the item already exists in the cart
+        $cartItem = CartItem::where('souvenir_id', $souvenir->id)->first();
+
+        if ($cartItem) {
+            // Update the quantity of the existing cart item
+            $cartItem->quantity += $request->quantity;
+            $cartItem->save();
+        } else {
+            // Create a new cart item
+            $cartItem = new CartItem();
+            $cartItem->souvenir_id = $souvenir->id;
+            $cartItem->quantity = $request->quantity;
+            $cartItem->save();
+        }
+
+        return redirect()->back()->with('success', 'Item added to cart successfully!');
+    }
+
+    public function removeFromCart(Request $request)
+    {
+        // Validate the request data
+        $request->validate([
+            'cart_item_id' => 'required|exists:cart_items,id',
+        ]);
+
+        $cartItem = CartItem::findOrFail($request->cart_item_id);
+        $cartItem->delete();
+
+        return redirect()->back()->with('success', 'Item removed from cart successfully!');
+    }
+
+    public function reserve(Request $request)
+    {
+        // Fetch cart items
+        $cartItems = CartItem::all();
+
+        // Reserve each cart item
+        foreach ($cartItems as $cartItem) {
+            // Check if the item is available in the required quantity
+            $souvenir = SouvenirsModel::findOrFail($cartItem->souvenir_id);
+
+            if ($souvenir->quantity >= $cartItem->quantity) {
+                // Create a new reservation
+                $reservation = new Souvenir_Reserved();
+                $reservation->souvenir_id = $souvenir->id;
+                $reservation->quantity = $cartItem->quantity;
+                $reservation->save();
+
+                // Update the souvenir quantity
+                $souvenir->quantity -= $cartItem->quantity;
+                $souvenir->save();
+
+                // Delete the cart item
+                $cartItem->delete();
+            }
+        }
+
+        return redirect()->route('reservations.index')->with('success', 'Items reserved successfully!');
+    }
+}

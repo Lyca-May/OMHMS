@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="{{asset("omhms.png")}}" type="image/png">
         <title>OMHMS</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-********" crossorigin="anonymous" />
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{asset("vendors/linericon/style.css")}}">
@@ -63,6 +66,11 @@
                                 <li class="nav-item"><a class="nav-link" href="{{ url('') }}">Log out</a></li>
                             </ul>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ url('user/souvenirs1') }}" style="margin-top: 25px; display: inline-block;" class="shop-icon-btn">
+                              <i class="fas fa-shopping-cart"></i>
+                            </a>
+                          </li>
                     </ul>
                 </div>
             </nav>

@@ -10,17 +10,17 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Models\users;
 use Illuminate\Support\Facades\Mail;
-
+use Carbon\Carbon;
 class AuthController extends Controller
 {
     public function log(){
-        $data['data'] = 'Login';
-        if (session()->has('Admin.role')=="admin"){
-            return redirect('admin/home');
-        }elseif(session()->has('User.role')=="user"){
-            return redirect('user/home');
-        }
-        return view('auth.login', $data);
+        // $data['data'] = 'Login';
+        // if (session()->has('Admin.role')=="ADMIN"){
+        //     return redirect('admin/home');
+        // }elseif(session()->has('User.role')=="USER"){
+        //     return redirect('user/landlog');
+        // }
+        return view('auth.login');
     }
     public function login(Request $request)
     {
@@ -67,11 +67,11 @@ class AuthController extends Controller
 
                     if($user->role == 'USER') {
                         session()->put('User', $data);
-                        return redirect('user/landlog')->with('success', "Login Success");
+                        return redirect('user/landlog')->with('success', "You are now logged in. Welcome to our Official Website");
                     }
                     else if($user->role == 'ADMIN') {
                         session()->put('Admin', $data);
-                        return redirect('admin/home')->with('success', "Login Success");
+                        return redirect('admin/home')->with('success', "Welcome Admin!");
                     }
                     else {
                         return redirect()->back()->with('failed', "Invalid Role");
@@ -260,7 +260,12 @@ class AuthController extends Controller
         else{
             echo 'dito';
         }
+    }
 
+    public function displayProfile(){
+        $user_id = session('User')['user_id'];
+        $users = DB::table('users')->where('user_id', $user_id)->get();
+        return view('user.pages.profile.userprofile', ['users' => $users]);
     }
 
     public function confirm_reset(Request $request){
@@ -314,7 +319,7 @@ class AuthController extends Controller
         $user->user_street = $request->input('user_street');
         $user->user_zipcode = $request->input('user_zipcode');
         $user->user_email = $request->input('user_email');
-        $user->user_password = $request->input('user_password');
+        // $user->user_password = $request->input('user_password');
         $user->user_phonenum = $request->input('user_phonenum');
         $user->gender = $request->input('gender');
         $user->birthdate = $request->input('birthdate');
@@ -329,7 +334,7 @@ class AuthController extends Controller
 
             // Save the file to the storage/app/public/avatars directory
             // $avatar->storeAs('avatars', $filename, 'public');
-            $avatar->move(public_path('avatars'), $filename);
+            $avatar->move(public_path('avatar'), $filename);
 
             // Update the user's avatar column with the filename
             $user->avatar = $filename;
@@ -339,14 +344,10 @@ class AuthController extends Controller
         DB::table('users')->where('user_id', $user_id)->update((array) $user);
 
         // Redirect the user to their profile page
-        return redirect('myprofile')->with('success', 'Profile updated successfully');
+        return redirect()->back()->with('success', 'Profile updated successfully');
     }
 
-    public function displayProfile(){
-        $user_id = session('User')['user_id'];
-        $users = DB::table('users')->where('user_id', $user_id)->get();
-        return view('user.pages.profile.userprofile', ['users' => $users]);
-    }
+
     public function updateAdminProfile(Request $request)
     {
         // Get the authenticated user
@@ -391,17 +392,29 @@ class AuthController extends Controller
     }
 
     public function displayAdminProfile(){
+        $currentDateTime = Carbon::now()->tz('UTC');
         $user_id = session('Admin')['user_id'];
         $users = DB::table('users')->where('user_id', $user_id)->get();
-        return view('admin.pages.profile', ['users' => $users]);
+        return view('admin.pages.profile', ['users' => $users, 'currentDateTime' => $currentDateTime]);
     }
-
-
-
-
 
     public function logout() {
         session()->forget('User');
-        return redirect('/');
+
+        if (!session()->has('User')) {
+            return redirect('/')->with('success', 'Welcome to our Official Website');
+        }
+        return redirect()->back()->with('failed', 'There was a problem logging out your account. Please try again.');
+    }
+
+    public function logoutAdmin()
+    {
+        session()->forget('Admin');
+
+        if (!session()->has('Admin')) {
+            return redirect('/')->with('success', 'Welcome to our Official Website');
+        }
+
+        return redirect()->back()->with('failed', 'There was a problem logging out your account. Please try again.');
     }
 }

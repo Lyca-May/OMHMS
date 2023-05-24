@@ -12,7 +12,7 @@ class Category extends Controller
 {
     public function displayCategory()
     {
-        $category = DB::table('category')->get();
+        $category = DB::table('category')->where('is_archived','0')->get();
         $archived = DB::table('category')->where('is_archived','1')->get();
         $user_id = session('Admin')['user_id'];
         $users = DB::table('users')->where('user_id', $user_id)->get();
@@ -113,6 +113,7 @@ class Category extends Controller
             return redirect()->back()->with('error', 'Failed to update category.');
         }
     }
+
     public function archive_category($category_id)
 {
     // Find the category to archive

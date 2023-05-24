@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="{{asset("omhms.png")}}" type="image/png">
     <title>OMHMS</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-********" crossorigin="anonymous" />
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{asset("vendors/linericon/style.css")}}">
@@ -63,6 +66,11 @@
                                 <li class="nav-item"><a class="nav-link" href="{{ url('auth/login') }}">Login</a></li>
                             </ul>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ url('user/souvenirs') }}" style="margin-top: 25px; display: inline-block;" class="shop-icon-btn">
+                              <i class="fas fa-shopping-cart"></i>
+                            </a>
+                          </li>
                     </ul>
                 </div>
             </nav>
@@ -99,16 +107,13 @@
                     <div class="about_content ">
                         <h2 class="title title_color">Our Vision and Mission</h2>
                         <h4>About the Museum</h4>
-                        <p>The Oriental Mindoro Heritage Museum (OMHM), Calapan, exhibits the province’s rich culture
-                            and history. Its construction was spearheaded by Governor Bonz Dolor and funded thru the
-                            General Appropriations Act of 2020 by the National Government. The museum opened its doors
-                            to the public during the 71st Founding Anniversary Celebration of the province on November
-                            15, 2021.
-                            Like its exhibits, the facility was constructed in a historic site Cal-kuta, an abandoned
-                            Spaniard fortress located at the Old Provincial Capitol of Oriental Mindoro in Brgy. Ibaba
-                            East, Calapan City. The museum features a fusion of classic and modern designs, influenced
-                            by the “MAHAL TANA” concept, focusing on Oriental Mindoro iconic symbols – Mangyan, Halcon,
-                            Tamaraw, and Naujan Lake.
+                        <hr>
+                        {{-- <h5><b>Vision</b></h5> --}}
+                        <p>A province with healthy, upright and empowered citizenry living in a safe and green environment,
+                             prepared and resilient to climate change and disaster risks and goverened by a dynamic and
+                             responsive leadership.
+                             By 2020, Oriental Mindoro is Luzon and Visayas' FOOD BASE, PREMIER TOURISM DESTINATION and
+                             CENTER FOR INVESTMENTS.
                         </p>
                     </div>
                 </div>
@@ -116,16 +121,11 @@
             <div class="row">
                 <div class="col-md-6 d_flex align-items-center">
                     <div class="about_content ">
-                        <p>The Oriental Mindoro Heritage Museum (OMHM), Calapan, exhibits the province’s rich culture
-                            and history. Its construction was spearheaded by Governor Bonz Dolor and funded thru the
-                            General Appropriations Act of 2020 by the National Government. The museum opened its doors
-                            to the public during the 71st Founding Anniversary Celebration of the province on November
-                            15, 2021.
-                            Like its exhibits, the facility was constructed in a historic site Cal-kuta, an abandoned
-                            Spaniard fortress located at the Old Provincial Capitol of Oriental Mindoro in Brgy. Ibaba
-                            East, Calapan City. The museum features a fusion of classic and modern designs, influenced
-                            by the “MAHAL TANA” concept, focusing on Oriental Mindoro iconic symbols – Mangyan, Halcon,
-                            Tamaraw, and Naujan Lake.
+                        {{-- <h5><b>Mission</b></h5>x --}}
+                        <p>The Provincial Government of Oriental Mindoro, as an improved and responsive organization, shall
+                           enhance the capabilities of its elected officials and workforce, improve financial stability,
+                           judiciously utilize its resources, and strengthen its linkages with other government units/agencies,
+                           private sector and civil society groups.
                         </p>
                     </div>
                 </div>

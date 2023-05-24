@@ -14,6 +14,9 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-********" crossorigin="anonymous" />
+
     <!-- bootstrap -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
@@ -76,11 +79,16 @@
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
                                 aria-haspopup="true" aria-expanded="false">My Account</a>
                             <ul class="dropdown-menu">
-                                <li class="nav-item"><a class="nav-link" href="{{ url('user/profile') }}">Profile</a>
+                                <li class="nav-item"><a class="nav-link" href="{{url('myprofile')}}">{{session('User')['user_fname']}}'s Profile</a>
                                 </li>
                                 <li class="nav-item"><a class="nav-link" href="{{ url('logout') }}">Log out</a></li>
                             </ul>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ url('user/souvenirs1') }}" style="margin-top: 25px; display: inline-block;" class="shop-icon-btn">
+                              <i class="fas fa-shopping-cart"></i>
+                            </a>
+                          </li>
                     </ul>
                 </div>
             </nav>

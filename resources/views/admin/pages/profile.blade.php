@@ -79,7 +79,7 @@
           </li>
 
           <li>
-            <a href="forms.html">
+            <a href="{{ url('admin/announcement') }}">
               <i class="zmdi zmdi-info-outline"></i> <span>Announcements</span>
             </a>
           </li>
@@ -92,7 +92,7 @@
           </li>
 
           <li>
-            <a href="{{asset("admin/calendar")}}">
+            <a href="{{url("admin/calendar")}}">
               <i class="zmdi zmdi-calendar-check"></i> <span>Calendar</span>
               {{-- <small class="badge float-right badge-light">New</small> --}}
             </a>
@@ -139,7 +139,12 @@
       <a class="nav-link dropdown-toggle dropdown-toggle-nocaret waves-effect" data-toggle="dropdown" href="javascript:void();">
       <i class="fa fa-bell-o"></i></a>
     </li>
-    <li class="nav-item language">
+
+    <div id="clock">
+        <i class="zmdi zmdi-time">{{ $currentDateTime }}</i>
+    </div>
+
+    {{-- <li class="nav-item language">
       <a class="nav-link dropdown-toggle dropdown-toggle-nocaret waves-effect" data-toggle="dropdown" href="javascript:void();"><i class="fa fa-flag"></i></a>
       <ul class="dropdown-menu dropdown-menu-right">
           <li class="dropdown-item"> <i class="flag-icon flag-icon-gb mr-2"></i> English</li>
@@ -147,7 +152,7 @@
           <li class="dropdown-item"> <i class="flag-icon flag-icon-cn mr-2"></i> Chinese</li>
           <li class="dropdown-item"> <i class="flag-icon flag-icon-de mr-2"></i> German</li>
         </ul>
-    </li>
+    </li> --}}
     @foreach ($users as $user)
     <li class="nav-item">
         <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown"
@@ -526,6 +531,32 @@
 
   <!-- Index js -->
   <script src="{{asset("assets/js/jsadmin/index.js")}}"></script>
+
+
+  <script>
+    function updateTime() {
+        var now = new Date();
+        var hours = now.getHours();
+        var minutes = now.getMinutes();
+        var seconds = now.getSeconds();
+
+        // Convert 24-hour format to 12-hour format
+        var ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12;
+
+        var timeString = hours.toString().padStart(2, '0') + ':' +
+                         minutes.toString().padStart(2, '0') + ':' +
+                         seconds.toString().padStart(2, '0') + ' ' + ampm;
+
+        document.getElementById('clock').innerHTML = timeString;
+
+        // Update the time every second
+        setTimeout(updateTime, 1000);
+    }
+
+    updateTime();
+</script>
 
 </body>
 </html>

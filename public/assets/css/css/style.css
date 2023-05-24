@@ -110,7 +110,7 @@ button:focus {
 }
 
 .section_gap {
-  padding: 120px 0;
+  padding: 100px 0;
 }
 
 .d_flex {
@@ -126,18 +126,37 @@ button:focus {
   flex-direction: row-reverse;
 }
 
+
 .mb_30 {
   margin-bottom: -30px;
 }
 
+/* @media (min-width: 1200px) {
+  .container1 {
+    max-width: 1170px;
+  }
+}
+
+.section_gap1 {
+  padding: 90px 0;
+} */
+
+.sectioncat {
+    text-align: center;
+    background: transparent;
+    padding: 0px;
+    display: inline-block;
+  }
+
 .section_title {
-  margin-bottom: 75px;
+  margin-bottom: 35px;
 }
 
 .section_title h2 {
   font-size: 36px;
   line-height: 45px;
   font-weight: 600;
+  /* text-align:left */
 }
 
 .section_title p {
@@ -145,6 +164,7 @@ button:focus {
   line-height: 30px;
   color: #777777;
   margin-bottom: 0px;
+  text-align: justify;
 }
 
 .title_color {
@@ -155,6 +175,11 @@ button:focus {
 
 .title_w {
   color: #fff;
+}
+.title_w1 {
+  color: #2b2828;
+  margin-top: 25px;
+
 }
 
 
@@ -703,6 +728,19 @@ button:focus {
 
 .breadcrumb_area1 .bg-parallax1 {
   background: url("../../../images/whattosee/vnm.jpg") no-repeat scroll center 0/cover;
+  opacity: 0.50;
+  z-index: -1;
+}
+.breadcrumb_area3 {
+  position: relative;
+  padding: 172px 0px 84px;
+  background: #04091e;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.breadcrumb_area3 .bg-parallax3 {
+  background: url("../../../images/whattosee/souven.jpg") no-repeat scroll center 0/cover;
   opacity: 0.50;
   z-index: -1;
 }
@@ -3910,3 +3948,6 @@ h1, h2, h3, h4, h5, h6 {
 /*---------------------------------------------------- */
 
 /*# sourceMappingURL=style.css.map */
+.shop-icon-btn{
+    color: #f3c300;
+}

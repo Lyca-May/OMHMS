@@ -50,4 +50,8 @@ class users extends Model
     {
         return $this->hasMany(Function_Hall::class);
     }
+    public function inventory()
+    {
+        return $this->hasMany(InventoryModel::class);
+    }
 }

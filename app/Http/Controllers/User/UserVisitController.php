@@ -82,7 +82,7 @@ class UserVisitController extends Controller
 
             $validator = Validator::make($request->all(), $rules, $message);
             if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator)->withInput();
+                return redirect()->back()->with('validationMessages', $message);
             }
 
             // get the current year
@@ -122,7 +122,6 @@ class UserVisitController extends Controller
             }
 
             $existing_booking2 = Visit_Model::where('visits_time', $visits_time)
-            // ->where('visits_time', $visits_time)
             ->first();
             if($existing_booking2){
                 return redirect()->back()->with('error', ' Sorry, that booking slot is already taken. Please choose a different date/time.');
@@ -149,14 +148,6 @@ class UserVisitController extends Controller
             $visit->cancel_reason=$cancel_reason;
             $visit->visits_status=$visits_status;
 
-            // QrCode::setDefaultDriver('gd');
-
-            // $text = "$visits_fname $visits_mname $visits_lname\nGender: $gender\nEmail: $visits_email\nCountry: $visits_country\nProvince: $visits_province\nMunicipality: $visits_municipality";
-            // QrCode::size(250)
-            // ->format('png')
-            // ->generate($text, public_path('qrcodes/visit-' . $visit->id . '.png'));
-
-            // $visit->qr_code = 'qrcodes/visit-' . $visit->id . '.png';
             $visit->save();
 
 
@@ -167,9 +158,9 @@ class UserVisitController extends Controller
             session()->put('visit', $sesVisit);
 
             if($visit){
-                return redirect()->back()->with('success', 'Visit added successfully');
+                return redirect()->back()->with('success', 'Your visition to a museum has been successful booked. Please wait for the email confirmation for the status of your booking.');
             }else{
-                return redirect('user/book')->with('error', 'There is an error in processing your reservation. Please try again later.');
+                return redirect()->back()->with('error', 'There is an error in processing your reservation. Please try again later.');
             }
     }
 

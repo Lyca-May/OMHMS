@@ -873,6 +873,7 @@ body.bg-theme15 {
 }
 .profile-card-2 .card-body{
     position:relative;
+    margin-left: 90px;
 }
 .profile-card-2 .profile {
   border-radius: 50%;

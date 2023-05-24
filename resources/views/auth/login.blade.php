@@ -33,11 +33,7 @@
             <div class="form-content">
                 <div class="login-form">
                     <div class="title">Login</div>
-                    @if (session('success'))
-                        <span style="color: green">{{ session('success') }}</span>
-                    @elseif (session('failed'))
-                        <span style="color: red">{{ session('failed') }}</span>
-                    @endif
+
                     <form action="{{ url('auth/login/user') }}" method="POST" class="form-horizontal">
                         @csrf
                         <div class="input-boxes">
@@ -70,7 +66,68 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+        </script>
+        <!-- jQuery -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <!-- Bootstrap JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+        @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '{{ session('success') }}',
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: '#8cc63f',
+                iconColor: '#ffffff',
+                customClass: {
+                    title: 'text-white',
+                    content: 'text-white'
+                }
+            });
+        </script>
+    @endif
+
+    @if (session('failed'))
+        <script>
+            Swal.fire({
+                icon: 'failed',
+                title: 'failed!',
+                text: '{{ session('failed') }}',
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: '#dc3545',
+                iconColor: '#ffffff',
+                customClass: {
+                    title: 'text-white',
+                    content: 'text-white'
+                }
+            });
+        </script>
+    @endif
+
 
 </body>
+
 
 </html>

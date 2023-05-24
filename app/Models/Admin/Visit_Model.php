@@ -3,8 +3,10 @@
 namespace App\Models\Admin;
 
 use App\Http\Controllers\Authentication\AuthController;
+use App\Models\users;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+// use App\Models\Admin\users;
 
 class Visit_Model extends Model
 {
@@ -30,12 +32,13 @@ class Visit_Model extends Model
         'visits_members',
         'visits_name_of_institution',
         'visits_status',
+        'avatar'
     ];
 
 
-    public function user()
+    public function users()
     {
-        return $this->belongsTo(users::class);
+       return $this->belongsTo(users::class, 'userid', 'user_id');
     }
 
     public function members()
@@ -44,5 +47,6 @@ class Visit_Model extends Model
     }
 
     protected $table = 'visit';
+    protected $primaryKey = 'visits_id';
         use HasFactory;
 }

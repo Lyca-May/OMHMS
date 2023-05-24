@@ -15,6 +15,7 @@ class AnnouncementModel extends Model
         'announcer',
         'announcer_avatar',
         'announcement_content',
+        'announcement_image',
         'announcement_status',
         'created_at',
         'updated_at',
