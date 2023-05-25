@@ -74,4 +74,11 @@ class FeedController extends Controller
         // $feed = DB::table('comments')->where('userid', $user_id)->get();
         return view('user.pages.landingpage1.feed1', ['feed' => $feed]);
     }
+
+    public function displayReview(){
+        $user_id = session('User')['user_id'];
+        $users = DB::table('users')->where('user_id', $user_id)->get();
+        return view('user.pages.profile.myreview', ['users' => $users]);
+
+    }
 }

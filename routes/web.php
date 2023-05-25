@@ -91,6 +91,11 @@ Route::view('admin/inventory', 'admin.pages.inventory.inventory-table');
 //---------------- User Profile ---------------------//
 
 Route::view('user/profile', 'user.pages.profile.userprofile');
+Route::view('user/mybookings', 'user.pages.profile.mybookings');
+Route::view('user/visithistory', 'user.pages.profile.visithistory');
+
+//---------------- User Profile ---------------------//
+
 
 
 
@@ -189,6 +194,8 @@ Route::post('post', [FeedController::class, 'add_post']);
 Route::get('user/reviews', [FeedController::class, 'index']);
 // Route::get('user/feed1', [FeedController::class, 'index_for_feed']);
 Route::get('user/feed1', [FeedController::class, 'displayPostandComments']);
+Route::get('user/myreview', [FeedController::class, 'displayReview']);
+
 
 //Comments
 Route::post('create-comment/{feed_id}', [Comments_Controller::class, 'create_comment']);
