@@ -14,38 +14,45 @@ class CartController extends Controller
     public function displaySouvenir()
     {
         // Fetch cart items
+        $addedItem = DB::table('cart_items')->where('is_archived', 0)->count();
         $cartItems = CartItem::with('souvenir')->get();
         $souvenirs = SouvenirsModel::with('category')->where('souvenir_status','posted')->get();
-        return view('user.pages.landingpage1.souvenirs.souvenirs1', compact('souvenirs', 'cartItems'));
+        return view('user.pages.landingpage1.souvenirs.souvenirs1', compact('souvenirs', 'cartItems', 'addedItem'));
     }
 
     public function addToCart(Request $request)
-    {
-        // Validate the request data
-        $request->validate([
-            'souvenir_id' => 'required|exists:souvenirs,id',
-            'quantity' => 'required|integer|min:1',
-        ]);
+{
+    $user_id = session('User')['user_id'];
+    // Validate the request data
+    $request->validate([
+        'souvenir_id' => 'required|exists:souvenirs,souvenir_id',
+        'quantity' => 'required|integer|min:1',
+    ]);
 
-        $souvenir = SouvenirsModel::findOrFail($request->souvenir_id);
+    // Check if the item already exists in the cart
+    $cartItem = CartItem::where('souvenir_id', $request->souvenir_id)->first();
 
-        // Check if the item already exists in the cart
-        $cartItem = CartItem::where('souvenir_id', $souvenir->id)->first();
-
-        if ($cartItem) {
-            // Update the quantity of the existing cart item
-            $cartItem->quantity += $request->quantity;
-            $cartItem->save();
-        } else {
-            // Create a new cart item
-            $cartItem = new CartItem();
-            $cartItem->souvenir_id = $souvenir->id;
-            $cartItem->quantity = $request->quantity;
-            $cartItem->save();
-        }
-
-        return redirect()->back()->with('success', 'Item added to cart successfully!');
+    if ($cartItem) {
+        // Update the quantity of the existing cart item
+        $cartItem->quantity += $request->quantity;
+        $cartItem->save();
+    } else {
+        // Create a new cart item
+        $cartItem = new CartItem();
+        $cartItem->userid = $user_id;
+        $cartItem->souvenir_id = $request->souvenir_id;
+        $cartItem->quantity = $request->quantity;
+        $cartItem->price = $request->price;
+        $cartItem->is_archived = false;
+        $cartItem->save();
     }
+    if($cartItem){
+    return redirect()->back()->with('success', 'Item added to cart successfully!');
+
+    }
+    return redirect()->back()->with('failed', 'ops');
+}
+
 
     public function removeFromCart(Request $request)
     {

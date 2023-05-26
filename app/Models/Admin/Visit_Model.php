@@ -10,8 +10,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Visit_Model extends Model
 {
-    use HasFactory;
 
+
+    protected $table = 'visits';
+    protected $primaryKey = 'visits_id';
     protected $fillable = [
         'userid',
         'visits_fname',
@@ -46,7 +48,6 @@ class Visit_Model extends Model
         return $this->hasMany(MembersModel::class);
     }
 
-    protected $table = 'visit';
-    protected $primaryKey = 'visits_id';
+
         use HasFactory;
 }

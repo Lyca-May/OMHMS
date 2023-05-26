@@ -40,7 +40,7 @@ class SouvenirsController extends Controller
         'souvenir_price' => 'required|numeric',
         'souvenir_description' => 'required',
         'souvenir_municipality' => 'required',
-        'souvenir_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'souvenir_image' => 'required|image|mimes:jpeg,png,jpg,gif',
     ];
 
     $messages = [
@@ -54,7 +54,7 @@ class SouvenirsController extends Controller
         'souvenir_image.required' => 'The souvenir image is required.',
         'souvenir_image.image' => 'The souvenir image must be an image file.',
         'souvenir_image.mimes' => 'The souvenir image must be a file of type: jpeg, png, jpg, gif.',
-        'souvenir_image.max' => 'The souvenir image may not be greater than 2 MB.',
+        // 'souvenir_image.max' => 'The souvenir image may not be greater than 2 MB.',
     ];
 
     $validator = Validator::make($request->all(), $rules, $messages);
@@ -174,7 +174,7 @@ class SouvenirsController extends Controller
         'souvenir_price' => 'required|numeric',
         'souvenir_description' => 'required',
         'souvenir_municipality' => 'required',
-        'souvenir_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'souvenir_image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
     ];
 
     $messages = [
@@ -187,7 +187,7 @@ class SouvenirsController extends Controller
         'souvenir_municipality.required' => 'The souvenir municipality is required.',
         'souvenir_image.image' => 'The souvenir image must be an image file.',
         'souvenir_image.mimes' => 'The souvenir image must be a file of type: jpeg, png, jpg, gif.',
-        'souvenir_image.max' => 'The souvenir image may not be greater than 2 MB.',
+        // 'souvenir_image.max' => 'The souvenir image may not be greater than 2 MB.',
     ];
 
     $validator = Validator::make($request->all(), $rules, $messages);

@@ -40,6 +40,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> --}}
 
 
+
 </head>
 
 <body class="bg-theme">
@@ -156,27 +157,52 @@
 
 
         <div class="clearfix"></div>
+        @foreach ($history as $hist)
         <div class="content-wrapper1">
             <div class="courses-container">
                 <div class="course">
                     <div class="course-preview">
-                        <h6>Course</h6>
-                        <h2>JavaScript Fundamentals</h2>
+                        <h2>Logo and OMHMS</h2>
                     </div>
                     <div class="course-info">
-                        <div class="progress-container"  src="{{ asset('omhms.png') }}" alt="">
-
+                        <div class="progress-container">
+                            <img src="{{ asset('omhms.png') }}" alt="">
                         </div>
-                        <h6>Chapter 4</h6>
-                        <h2>Callbacks & Closures</h2>
-                        <a href="#"><button class="btn">View</button></a>
+                        <h6>{{$hist->visits_intended_date}}</h6>
+                        <h2>{{$hist->visits_status}}</h2>
+                        <a href="#" data-toggle="modal" data-target="#viewModal{{$hist->visits_id}}"><button class="btn">View</button></a>
+                    </div>
+                </div>
+            </div>
+            <!-- View Modal -->
+            <div class="modal fade" id="viewModal{{$hist->visits_id}}" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel{{$hist->visits_id}}" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content" style="background-color: rgb(9, 82, 9);">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editItemModalLabel">Visit Details</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Full Name: {{$hist->visits_fname}} {{$hist->visits_mname}} {{$hist->visits_lname}} <br>
+                            Your Email: {{$hist->visits_email}} <br>
+                            Your Address: {{$hist->visits_street}}, {{$hist->visits_brgy}}, {{$hist->visits_municipality}}, {{$hist->visits_province}}, {{$hist->visits_country}} <br>
+                            Zipcode: {{$hist->visits_zipcode}} <br>
+                            Gender: {{$hist->gender}} <br>
+                            Number of Visitors: {{$hist->visits_no_of_visitors}} <br>
+                            Name of Institution: {{$hist->visits_name_of_institution}} <br>
+                            Date selected: {{ date('F d, Y', strtotime($hist->visits_intended_date)) }} <br>
+                            Time selected: {{$hist->visits_time}}
+                        </div>
+                        {{-- <div class="modal-footer">
+                            <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                        </div> --}}
                     </div>
                 </div>
             </div>
         </div>
-
-
-
+    @endforeach
         <!--start overlay-->
         <div class="overlay toggle-menu"></div>
         <!--end overlay-->

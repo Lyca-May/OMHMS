@@ -281,7 +281,7 @@
                     <div class="row">
                         <div class="col-12 col-lg-12">
                             <div class="card">
-                                <div class="card-header">List of Artifacts
+                                <div class="card-header">List of Souvenirs
                                     <br>
                                     <br>
                                     <div class="col-sm-4">
@@ -439,11 +439,13 @@
                                         <label for="description">Description</label>
                                         <textarea type="text" class="form-control" id="name" name="souvenir_description"
                                             @error('souvenir_description') is-invalid @enderror value="{{ old('souvenir_description') }}"
-                                            placeholder="Item Name"></textarea>
+                                            placeholder="Description..."></textarea>
                                         @error('souvenir_description')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
+                                    {{-- <label for="Municipality">Municipality</label> --}}
+                                    <br>
                                     <select name="souvenir_municipality" id="souvenir_municipality" class="form-control">
                                         <option value="">Select Category</option>
                                         <option value="Baco">Baco</option>
@@ -462,11 +464,12 @@
                                         <option value="Socorro">Socorro</option>
                                         <option value="Victoria">Victoria</option>
                                     </select>
+                                    <br>
                                     <div class="form-group">
-                                        <label for="souvenir_qty">souvenir_qty</label>
+                                        <label for="souvenir_qty">Quantity</label>
                                         <input type="text" class="form-control" id="name" name="souvenir_qty"
                                             @error('souvenir_qty') is-invalid @enderror value="{{ old('souvenir_qty') }}"
-                                            placeholder="Item Name">
+                                            placeholder="Quantity">
                                         @error('souvenir_qty')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -475,7 +478,7 @@
                                         <label for="souvenir_qty">Price</label>
                                         <input type="text" class="form-control" id="name" name="souvenir_price"
                                             @error('souvenir_price') is-invalid @enderror value="{{ old('souvenir_price') }}"
-                                            placeholder="Item Name">
+                                            placeholder="Price">
                                         @error('souvenir_price')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror

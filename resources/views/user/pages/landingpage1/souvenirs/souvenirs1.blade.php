@@ -36,6 +36,113 @@
         background-size: cover;
         background-repeat: no-repeat;
     }
+    .modal-content {
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-body {
+        text-align: center;
+    }
+
+    .modal-title {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .modal-body img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+
+    .modal-body p {
+        font-size: 16px;
+        line-height: 1.5;
+        margin-bottom: 15px;
+    }
+
+    .date {
+        font-size: 14px;
+        color: #888;
+        margin-bottom: 10px;
+    }
+
+    .tags {
+        margin-bottom: 20px;
+    }
+
+    .tag {
+        display: inline-block;
+        background-color: #f1f1f1;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 14px;
+        color: #555;
+        margin-right: 10px;
+    }
+
+    .quantity {
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    .qty-input {
+        width: 40px;
+        text-align: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 5px;
+        font-size: 14px;
+    }
+
+    .minus-btn,
+    .plus-btn {
+        width: 30px;
+        height: 30px;
+        background-color: #ccc;
+        border: none;
+        color: #fff;
+        font-size: 18px;
+        cursor: pointer;
+    }
+
+    .minus-btn:hover,
+    .plus-btn:hover {
+        background-color: #555;
+    }
+
+    .modal-footer {
+        border-top: none;
+        text-align: right;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: #fff;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+        color: #fff;
+    }
+
+    .btn-secondary:hover {
+        background-color: #555;
+        border-color: #555;
+    }
+
         </style>
 
 <body>
@@ -88,7 +195,8 @@
                         <li class="nav-item">
                             <a href="{{ url('user/souvenirs1') }}" style="margin-top: 25px; display: inline-block;"
                                 class="shop-icon-btn">
-                                <i class="fas fa-shopping-cart"></i>
+                                <i class="fas fa-shopping-cart"><span style="color: rgb(255, 251, 1)">
+                                    {{$addedItem}}</span></i>
                             </a>
                         </li>
                     </ul>
@@ -174,63 +282,66 @@
     <br>
     <section class="cards-wrapper">
         @foreach ($souvenirs as $souvenir)
-            <div class="card-button">
-                <form action="">
-                    <div class="card-grid-space">
-                        {{-- <div class="num">01</div> --}}
-                        <a class="card" id="card1" data-toggle="modal" data-target="#myModal1"
-                        @if ($souvenir->souvenir_image)
-                        href="#" class="image-link" data-toggle="modal" data-target="#imageModal"
-                        style="background-image: url('{{ asset('souvenir_image/' . $souvenir->souvenir_image) }}');  display: flex; align-items: center; text-align: left; "
-                        @endif
-                    >
-                        <div style="margin-top: 120px">
-                            <h1>{{ $souvenir->souvenir_name }}</h1>
-                            <p>{{ $souvenir->souvenir_description }}</p>
-                            {{-- <p>{{ $souvenir->souvenir_price }}</p>
-                            <p>{{ $souvenir->souvenir_qty }}</p> --}}
+        <div class="card-button">
+            <div class="card-grid-space">
+                <a class="card" id="card1" data-toggle="modal" data-target="#myModal{{ $souvenir->souvenir_id }}">
+                    @if ($souvenir->souvenir_image)
+                        <div class="image-link" style="background-image: url('{{ asset('souvenir_image/' . $souvenir->souvenir_image) }}'); display: flex; align-items: center; text-align: left;">
+                            <div style="margin-top: 120px">
+                                <h1>{{ $souvenir->souvenir_name }}</h1>
+                                <p>{{ $souvenir->souvenir_description }}</p>
+                            </div>
                         </div>
-                    </a>
-                </div>
+                    @endif
+                </a>
+            </div>
 
-
-                            <!-- Modal -->
-                            <div class="modal fade" id="myModal1" tabindex="-1" role="dialog"
-                                aria-labelledby="myModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="myModalLabel">HTML Syntax</h5>
-                                            <button type="button" class="close" data-dismiss="modal"
-                                                aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="myModal{{ $souvenir->souvenir_id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="myModalLabel">{{ $souvenir->souvenir_name }}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ url('/add-to-cart') }}" method="post">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <img src="{{ asset('souvenir_image/' . $souvenir->souvenir_image) }}"
+                                            alt="{{ $souvenir->souvenir_name }}" style="max-width: 100%; height: auto;">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>{{ $souvenir->souvenir_description }}</p>
+                                        <div class="date">Stocks: {{ $souvenir->souvenir_qty }}</div>
+                                        <div class="tags">
+                                            <div class="tag">{{ $souvenir->souvenir_price }}</div>
                                         </div>
-                                        <div class="modal-body">
-                                            <img src="https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/html-syntax/cover.jpg"
-                                                alt="HTML Syntax Image" style="max-width: 100%; height: auto;">
-                                            <p>The syntax of a language is how it works. How to actually write it. Learn
-                                                HTML syntax…</p>
-                                            <div class="date">6 Oct 2017</div>
-                                            <div class="tags">
-                                                <div class="tag">HTML</div>
-                                            </div>
+                                        <div class="quantity">
+                                            <button class="btn btn-primary minus-btn">-</button>
+                                            <input type="text" class="qty-input" name="quantity" value="1" readonly>
+                                            <button class="btn btn-primary plus-btn">+</button>
                                         </div>
-                                        <div>
-                                            <button class="btn btn-primary" data-toggle="modal"
-                                                data-target="#myModal1">Add to your Cart</button>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Close</button>
-                                        </div>
+                                        <input type="hidden" name="souvenir_id" value="{{ $souvenir->souvenir_id }}">
+                                        <input type="hidden" name="price" value="{{ $souvenir->souvenir_price }}">
                                     </div>
                                 </div>
-                            </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Add to Cart</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                </form>
+                </div>
             </div>
+        </div>
         @endforeach
+    </section>
+
 
 
 
@@ -351,6 +462,88 @@
     <script src="{{ asset('assets/js/js/custom.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+
+
+    @if (session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: '{{ session('success') }}',
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            background: '#8cc63f',
+            iconColor: '#ffffff',
+            customClass: {
+                title: 'text-white',
+                content: 'text-white'
+            }
+        });
+    </script>
+@endif
+
+@if (session('failed'))
+    <script>
+        Swal.fire({
+            icon: 'failed',
+            title: 'failed!',
+            text: '{{ session('failed') }}',
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            background: '#dc3545',
+            iconColor: '#ffffff',
+            customClass: {
+                title: 'text-white',
+                content: 'text-white'
+            }
+        });
+    </script>
+@endif
+    <script>
+        $(document).ready(function () {
+            $('.minus-btn').click(function (event) {
+                event.preventDefault(); // Prevent page reload
+                var inputField = $(this).siblings('.qty-input');
+                var currentValue = parseInt(inputField.val());
+                if (currentValue > 1) {
+                    inputField.val(currentValue - 1);
+                }
+            });
+
+            $('.plus-btn').click(function (event) {
+                event.preventDefault(); // Prevent page reload
+                var inputField = $(this).siblings('.qty-input');
+                var currentValue = parseInt(inputField.val());
+                inputField.val(currentValue + 1);
+            });
+        });
+    </script>
+
 </body>
 
 </html>

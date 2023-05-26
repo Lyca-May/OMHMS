@@ -105,7 +105,7 @@
         <!--End sidebar-wrapper-->
 
         <!--Start topbar header-->
-        {{-- <header class="topbar-nav">
+        <header class="topbar-nav">
             <nav class="navbar navbar-expand fixed-top">
                 <ul class="navbar-nav mr-auto align-items-center">
                     <li class="nav-item">
@@ -173,7 +173,7 @@
                     @endforeach
                 </ul>
             </nav>
-        </header> --}}
+        </header>
         <!--End topbar header-->
 
         <div class="clearfix"></div>
@@ -209,155 +209,176 @@
                     <div class="indicator"></div>
                 </div>
                 <div class="content">
-                    <section>
-                        <div class="container bootdey" >
-                            <div class="row invoice row-printable">
-                                <div class="col-md-11">
-                                    <!-- col-lg-12 start here -->
-
-                                    <div class="panel panel-default plain" id="dash_0" style="margin-left:30px; box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2); border-radius: 10px">
-                                        <!-- Start .panel -->
-                                        <div class="panel-body p30" style="background-color:rgba(204, 198, 198, 0.27)">
-                                            <div class="row">
-                                                <!-- Start .row -->
-                                                <div class="col-lg-6">
-                                                    <!-- col-lg-6 start here -->
-                                                    <div class="invoice-logo"><img width="100"
-                                                            src="{{ asset('omhms.png') }}" alt="">
-                                                        <strong>ORIENTAL MINDORO HERITAGE MUSEUM</strong></div>
-
-                                                </div>
-                                                <!-- col-lg-6 end here -->
-                                                <div class="col-lg-6">
-                                                    <!-- col-lg-6 start here -->
-                                                    <div class="invoice-from">
-                                                        <ul class="list-unstyled text-right"  style="margin-top: 20px; margin-left:350px">
-                                                            <li><strong>Status:</strong> <span
-                                                                class="label label-success">DONE</span></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <!-- col-lg-6 end here -->
-                                                <div class="col-lg-12">
-                                                    <!-- col-lg-12 start here -->
-                                                    <hr style="color:black">
+                    @if ($visit->isEmpty())
+                        <section style="margin-left:20px">
+                            <p>You have no active booking</p>
+                        </section>
+                    @else
+                        @foreach ($visit as $visits)
+                            <section>
+                                <div class="container bootdey">
+                                    <div class="row invoice row-printable">
+                                        <div class="col-md-11">
+                                            <div class="panel panel-default plain" id="dash_0"
+                                                style="margin-left:30px; box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2); border-radius: 10px">
+                                                <div class="panel-body p30"
+                                                    style="background-color:rgba(204, 198, 198, 0.27)">
                                                     <div class="row">
-
-                                                        <div class="col-xs-4 from">
-                                                            <p class="lead marginbottom">From : Dynofy</p>
-                                                            <p>350 Rhode Island Street</p>
-                                                            <p>Suite 240, San Francisco</p>
-                                                            <p>California, 94103</p>
-                                                            <p>Phone: 415-767-3600</p>
-                                                            <p>Email: contact@dynofy.com</p>
+                                                        <div class="col-lg-6">
+                                                            <div class="invoice-logo">
+                                                                <img width="100" src="{{ asset('omhms.png') }}"
+                                                                    alt="">
+                                                                <strong>ORIENTAL MINDORO HERITAGE MUSEUM</strong>
+                                                            </div>
                                                         </div>
-
-                                                        <div class="col-xs-4 to">
-                                                            <p class="lead marginbottom">To : John Doe</p>
-                                                            <p>425 Market Street</p>
-                                                            <p>Suite 2200, San Francisco</p>
-                                                            <p>California, 94105</p>
-                                                            <p>Phone: 415-676-3600</p>
-                                                            <p>Email: john@doe.com</p>
-
+                                                        <div class="col-lg-6">
+                                                            <div class="invoice-from">
+                                                                <ul class="list-unstyled text-right"
+                                                                    style="margin-top: 20px; margin-left:350px">
+                                                                    <p>
+                                                                        <li><strong>Status:</strong>
+                                                                            <span
+                                                                                class="label label-success">{{ $visits->visits_status }}</span>
+                                                                        </li>
+                                                                    </p>
+                                                                </ul>
+                                                            </div>
                                                         </div>
+                                                        <div class="col-lg-12">
+                                                            <hr style="color:black">
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <strong></strong>
+                                                                    <p class="lead marginbottom">From : Oriental
+                                                                        Mindoro
+                                                                        Heritage Museum</p>
+                                                                    @if ($visits->gender == 'Female')
+                                                                        <p>Hi, Ms. {{ $visits->visits_lname }},
+                                                                            {{ $visits->visits_fname }}
+                                                                            {{ $visits->visits_mname }}.</p>
+                                                                    @else
+                                                                        <p>Hi, Mr. {{ $visits->visits_lname }},
+                                                                            {{ $visits->visits_fname }}
+                                                                            {{ $visits->visits_mname }}.</p>
+                                                                    @endif
+                                                                    <p>This is your Reservation for Visitation</p>
+                                                                    <p>You are from {{ $visits->visits_street }},
+                                                                        {{ $visits->visits_brgy }},
+                                                                        {{ $visits->visits_municipality }},
+                                                                        {{ $visits->visits_province }},
+                                                                        {{ $visits->visits_country }}, with the zipcode
+                                                                        {{ $visits->visits_zipcode }}.</p>
+                                                                    <p>Your selected date is
+                                                                        {{ date('F d, Y', strtotime($visits->visits_intended_date)) }}
+                                                                        at {{ $visits->visits_time }}.</p>
+                                                                    @if ($visits->visits_name_of_institution != null)
+                                                                        <p>You are from
+                                                                            {{ $visits->visits_name_of_institution }}
+                                                                            Institution and you're with your</p>
+                                                                    @endif
+                                                                    @if ($visits->visits_no_of_visitors != null)
+                                                                        <p>{{ $visits->visits_no_of_visitors }} members
+                                                                        </p>
+                                                                    @endif
 
-                                                        <div class="col-xs-4 text-right payment-details">
-                                                            <p class="lead marginbottom payment-info">Payment details
-                                                            </p>
-                                                            <p>Date: 14 April 2014</p>
-                                                            <p>VAT: DK888-777 </p>
-                                                            <p>Total Amount: $1019</p>
-                                                            <p>Account Name: Flatter</p>
-                                                        </div>
+                                                                    <p>We will send you an email notification for the
+                                                                        status of
+                                                                        your reservation. If you have a clarification
+                                                                        with your
+                                                                        booking information, please contact us at our
+                                                                        contact
+                                                                        number or email account</p>
+                                                                    {{-- <p>Contact Number: 09151949345</p> --}}
+                                                                    {{-- <p>Email: omhms@gmail.com</p> --}}
+                                                                </div>
+                                                            </div>
+                                                            </div>
 
-                                                    </div>
-                                                    <hr>
-                                                    <div class="invoice-items">
-                                                        <div class="table-responsive"
-                                                            style="overflow: hidden; outline: none;" tabindex="0">
-                                                            <table class="table table-bordered">
-                                                                <thead style="color: black;" class="mt25">
-                                                                    <tr>
-                                                                        <th class="text-center" style="width:5%">#
-                                                                        </th>
-                                                                        <th style="width:50%">Item</th>
-                                                                        <th class="text-right" style="width:15%">
-                                                                            Quantity</th>
-                                                                        <th class="text-right" style="width:15%">Unit
-                                                                            Price</th>
-                                                                        <th class="text-right" style="width:15%">Total
-                                                                            Price</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody style="color: black">
-                                                                    <tr>
-                                                                        <td class="text-center">1</td>
-                                                                        <td>Flatter Theme</td>
-                                                                        <td class="text-right">10</td>
-                                                                        <td class="text-right">$18</td>
-                                                                        <td class="text-right">$180</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td class="text-center">2</td>
-                                                                        <td>Flat Icons</td>
-                                                                        <td class="text-right">6</td>
-                                                                        <td class="text-right">$59</td>
-                                                                        <td class="text-right">$254</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td class="text-center">3</td>
-                                                                        <td>Wordpress version</td>
-                                                                        <td class="text-right">4</td>
-                                                                        <td class="text-right">$95</td>
-                                                                        <td class="text-right">$285</td>
-                                                                    </tr>
-                                                                    <tr class="last-row">
-                                                                        <td class="text-center">4</td>
-                                                                        <td>Server Deployment</td>
-                                                                        <td class="text-right">1</td>
-                                                                        <td class="text-right">$300</td>
-                                                                        <td class="text-right">$300</td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-xs-6 margintop">
-                                                            <p class="lead marginbottom">THANK YOU!</p>
 
-                                                            <a href="{{url("user/visithistory")}}"><button class="btn btn-success" id="invoice-print"><i
-                                                                    class="fa fa-history"></i> View History</button></a>
-                                                            {{-- <button class="btn btn-danger"><i
-                                                                    class="fa fa-envelope-o"></i> Mail Invoice</button> --}}
-                                                        </div>
-                                                        <div class="col-xs-6 text-right pull-right invoice-total">
-                                                            <p>Subtotal : $1019</p>
-                                                            <p>Discount (10%) : $101 </p>
-                                                            <p>VAT (8%) : $73 </p>
-                                                            <p>Total : $991 </p>
+                                                            <hr>
+                                                            <div class="invoice-items" style="width: 900px">
+                                                                <div class="table-responsive"
+                                                                    style="overflow: hidden; outline: none;"
+                                                                    tabindex="0">
+                                                                    <table class="table table-bordered">
+                                                                        <thead style="color: black;" class="mt25">
+                                                                            <tr>
+                                                                                <th class="text-center"
+                                                                                    style="width:5%">#</th>
+                                                                                <th style="width:50%">Item</th>
+                                                                                <th class="text-right"
+                                                                                    style="width:15%">Quantity</th>
+                                                                                <th class="text-right"
+                                                                                    style="width:15%">Unit Price</th>
+                                                                                <th class="text-right"
+                                                                                    style="width:15%">Total Price</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody style="color: black">
+                                                                            <tr>
+                                                                                <td class="text-center">1</td>
+                                                                                <td>Flatter Theme</td>
+                                                                                <td class="text-right">10</td>
+                                                                                <td class="text-right">$18</td>
+                                                                                <td class="text-right">$180</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td class="text-center">2</td>
+                                                                                <td>Flat Icons</td>
+                                                                                <td class="text-right">6</td>
+                                                                                <td class="text-right">$59</td>
+                                                                                <td class="text-right">$254</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td class="text-center">3</td>
+                                                                                <td>Wordpress version</td>
+                                                                                <td class="text-right">4</td>
+                                                                                <td class="text-right">$95</td>
+                                                                                <td class="text-right">$285</td>
+                                                                            </tr>
+                                                                            <tr class="last-row">
+                                                                                <td class="text-center">4</td>
+                                                                                <td>Server Deployment</td>
+                                                                                <td class="text-right">1</td>
+                                                                                <td class="text-right">$300</td>
+                                                                                <td class="text-right">$300</td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-xs-6 margintop">
+                                                                    <p class="lead marginbottom">THANK YOU!</p>
+                                                                    <a href="{{ url('user/visithistory') }}">
+                                                                        <button class="btn btn-success"
+                                                                            id="invoice-print">
+                                                                            <i class="fa fa-history"></i> View History
+                                                                        </button>
+                                                                    </a>
+                                                                    {{-- <button class="btn btn-danger"><i class="fa fa-envelope-o"></i> Mail Invoice</button> --}}
+                                                                </div>
+                                                                <div
+                                                                    class="col-xs-6 text-right pull-right invoice-total">
+                                                                    <p>Subtotal : $1019</p>
+                                                                    <p>Discount (10%) : $101</p>
+                                                                    <p>VAT (8%) : $73</p>
+                                                                    <p>Total : $991</p>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!-- col-lg-12 end here -->
                                             </div>
-                                            <!-- End .row -->
                                         </div>
                                     </div>
-                                    <!-- End .panel -->
                                 </div>
-                                <!-- col-lg-12 end here -->
-                            </div>
-                        </div>
-                    </section>
-                    <section style="margin-left:20px">
-                        {{-- <h2>Delivery Contents</h2> --}}
-                       You have no active booking
-                    </section>
-
-                    {{-- </div> --}}
+                            </section>
+                        @endforeach
+                    @endif
                 </div>
+
+
 
 
             </div>

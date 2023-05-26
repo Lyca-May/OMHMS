@@ -8,11 +8,9 @@
 </head>
 <body>
     <p>
-        <span>Good day!</span>
-        <p>Your visit has been approved! Click the link below to view your reservation</p>
-        {{-- <p>Please click on the following link to view your reservation:</p> --}}
-        <a href="{{ $link }}">{{ $link }}</a>
-        <p>Thank you for using our service!</p>
+        <p>Dear user,</p>
+        <p>Your visit has been approved. Please click the link below to access your profile:</p>
+        <a href="{{ $link }}">Visit Profile</a>
 
 </body>
 </html>

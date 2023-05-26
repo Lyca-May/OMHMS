@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Validator;
 // use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Mail\UserVisitCancelled;
 use Illuminate\Support\Facades\Mail;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Carbon\Carbon;
+
 
 
 class UserVisitController extends Controller
@@ -22,9 +25,27 @@ class UserVisitController extends Controller
     }
 
     public function displayVisit(){
+        $currentDate = date('Y-m-d');
         $user_id = session('User')['user_id'];
-        $visit = DB::table('visit')->where('userid', $user_id)->get();
-        return view('user.pages.booked.bookedvisit', ['visit' => $visit]);
+        $visit = DB::table('visits')->where('userid', $user_id)
+        ->whereRaw('DATE(visits_intended_date) >= ?', [$currentDate])
+        ->get();
+        $users = DB::table('users')->where('user_id', $user_id)->get();
+        $currentDateTime = Carbon::now()->tz('UTC');
+        return view('user.pages.profile.mybookings', ['visit' => $visit, 'users' => $users, 'currentDateTime' => $currentDateTime]);
+    }
+
+    public function displayVisitHistory(){
+        $currentDate = date('Y-m-d');
+        $user_id = session('User')['user_id'];
+        $history = DB::table('visit')
+        ->where('userid', $user_id)
+        ->where('visits_status', '!=', 'PENDING')
+        ->whereRaw('DATE(visits_intended_date) <= ?', [$currentDate])
+        ->get();
+        $users = DB::table('users')->where('user_id', $user_id)->get();
+        $currentDateTime = Carbon::now()->tz('UTC');
+        return view('user.pages.profile.visithistory', ['users' => $users, 'history' => $history]);
     }
 
 
@@ -151,14 +172,14 @@ class UserVisitController extends Controller
             $visit->save();
 
 
-            $sesVisit =[
-                'visits_id' => $visit ->visits_id,
-                'visits_no_of_visitors'=>$visit->visits_no_of_visitors,
-            ];
-            session()->put('visit', $sesVisit);
+            // $sesVisit =[
+            //     'visits_id' => $visit ->visits_id,
+            //     'visits_no_of_visitors'=>$visit->visits_no_of_visitors,
+            // ];
+            // session()->put('visit', $sesVisit);
 
-            if($visit){
-                return redirect()->back()->with('success', 'Your visition to a museum has been successful booked. Please wait for the email confirmation for the status of your booking.');
+            if ($visit) {
+                return redirect()->back()->with('success', 'Book successfully. Wait for the email for your status');
             }else{
                 return redirect()->back()->with('error', 'There is an error in processing your reservation. Please try again later.');
             }

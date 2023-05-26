@@ -258,7 +258,6 @@
                                         <thead>
                                             <tr>
                                                 <th>Full Name</th>
-                                                <th>Avatar</th>
                                                 <th>Country</th>
                                                 <th>Province</th>
                                                 <th>Municipality</th>
@@ -267,7 +266,6 @@
                                                 <th>Zipcode</th>
                                                 <th>Date of Visit</th>
                                                 <th>Selected Time</th>
-                                                {{-- <th>Contact Number</th> --}}
                                                 <th>Number of Visitors</th>
                                                 <th>Name of Institution</th>
                                                 <th>Status</th>
@@ -275,107 +273,69 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach ($visit as $visits)
                                             <tr>
-                                                @foreach ($visit as $visits)
-                                                    <td>{{ $visits->visits_lname }}, {{ $visits->visits_fname }}
-                                                        {{ $visits->visits_mname }}.</td>
-                                                        <td>
-                                                            @if ($visits->users && $visits->users->avatar)
-                                                                <img src="{{ asset('avatar/' . $visits->users->avatar) }}" alt="Avatar" class="avatar-image">
-                                                            @else
-                                                                <img src="{{ asset('avatar/default-avatar.jpg') }}" alt="Default Avatar" class="avatar-image">
-                                                            @endif
-                                                        </td>
-                                                    <td>{{ $visits->visits_country }}</td>
-                                                    <td>{{ $visits->visits_province }}</td>
-                                                    <td>{{ $visits->visits_municipality }}</td>
-                                                    <td>{{ $visits->visits_brgy }}</td>
-                                                    <td>{{ $visits->visits_street }}</td>
-                                                    <td>{{ $visits->visits_zipcode }}</td>
-                                                    <td>{{ $visits->visits_intended_date }}</td>
-                                                    <td>{{ $visits->visits_time }}</td>
-                                                    {{-- <td>{{ session('User') ['user_phonenum']}}</td> --}}
-                                                    <td>{{ $visits->visits_no_of_visitors }}</td>
-                                                    <td>{{ $visits->visits_name_of_institution }}</td>
-                                                    <td>
-                                                        @if ($visits->visits_status == 'PENDING')
-                                                            <p><span
-                                                                    style="color: gray">{{ $visits->visits_status }}</span>
-                                                            </p>
-                                                        @else
-                                                            <p><span
-                                                                    style="color: green">{{ $visits->visits_status }}</span>
-                                                            </p>
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        <form action="{{ url('/approve-status/{user_email}') }}"
-                                                            method="GET">
-                                                            @csrf
-                                                            {{-- <input type="hidden" name="userid" value={{session('User') ['user_id']}}> --}}
-                                                            <button type="submit"
-                                                                class="btn btn-success">Approve</button>
-                                                        </form>
-                                                        {{-- <form action="{{ url('cancel-status-page') }}"> --}}
+                                                <td>{{ $visits->visits_lname }}, {{ $visits->visits_fname }} {{ $visits->visits_mname }}.</td>
+                                                <td>{{ $visits->visits_country }}</td>
+                                                <td>{{ $visits->visits_province }}</td>
+                                                <td>{{ $visits->visits_municipality }}</td>
+                                                <td>{{ $visits->visits_brgy }}</td>
+                                                <td>{{ $visits->visits_street }}</td>
+                                                <td>{{ $visits->visits_zipcode }}</td>
+                                                <td>{{ $visits->visits_intended_date }}</td>
+                                                <td>{{ $visits->visits_time }}</td>
+                                                <td>{{ $visits->visits_no_of_visitors }}</td>
+                                                <td>{{ $visits->visits_name_of_institution }}</td>
+                                                <td>
+                                                    @if ($visits->visits_status == 'PENDING')
+                                                        <p><span style="color: gray">{{ $visits->visits_status }}</span></p>
+                                                    @else
+                                                        <p><span style="color: green">{{ $visits->visits_status }}</span></p>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <form action="{{ url('/approve-status/' . $visits->userid) }}" method="post">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-success">Approve</button>
+                                                    </form>
+                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#cancelModal">Cancel</button>
 
-                                                        {{-- <input type="hidden" name="userid" value={{session('User') ['user_id']}}> --}}
-                                                        <!-- Button Triggering the Modal -->
-                                                        <button type="button" class="btn btn-danger" data-toggle="modal"
-                                                            data-target="#cancelModal">Cancel</button>
-
-                                                        <!-- Modal -->
-                                                        <div class="modal fade" id="cancelModal" tabindex="-1"
-                                                            role="dialog" aria-labelledby="cancelModalLabel"
-                                                            aria-hidden="true">
-                                                            <div class="modal-dialog" role="document">
-                                                                <div class="modal-content custom-modal">
-                                                                    <form action="{{ url('cancel_status') }}"
-                                                                        method="POST">
-                                                                        @csrf
-                                                                        <div class="modal-header">
-                                                                            <h5 class="modal-title" id="cancelModalLabel">
-                                                                                Confirm Cancel</h5>
-                                                                            <button type="button" class="close"
-                                                                                data-dismiss="modal" aria-label="Close">
-                                                                                <span aria-hidden="true">&times;</span>
-                                                                            </button>
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelModalLabel"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content custom-modal">
+                                                                <form action="{{ url('/cancel_status/' . $visits->userid) }}" method="POST">
+                                                                    @csrf
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="cancelModalLabel">Confirm Cancel</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <div class="form-group">
+                                                                            <label for="cancel_reason">Reason for cancellation</label>
+                                                                            <textarea class="form-control @error('cancel_reason') is-invalid @enderror" name="cancel_reason" id="cancel_reason" rows="3">{{ old('cancel_reason') }}</textarea>
+                                                                            @error('cancel_reason')
+                                                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                                            @enderror
                                                                         </div>
-                                                                        <div class="modal-body">
-                                                                            <div class="form-group">
-                                                                                <label for="cancel_reason">Reason for
-                                                                                    cancellation</label>
-                                                                                <textarea class="form-control @error('cancel_reason') is-invalid @enderror" name="cancel_reason" id="cancel_reason"
-                                                                                    rows="3">{{ old('cancel_reason') }}</textarea>
-                                                                                @error('cancel_reason')
-                                                                                    <div class="invalid-feedback">
-                                                                                        {{ $message }}</div>
-                                                                                @enderror
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="modal-footer">
-                                                                            <button type="button"
-                                                                                class="btn btn-secondary"
-                                                                                data-dismiss="modal">Close</button>
-                                                                            <button type="submit"
-                                                                                class="btn btn-success">Confirm
-                                                                                Cancel</button>
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                        <button type="submit" class="btn btn-success">Confirm Cancel</button>
+                                                                    </div>
+                                                                </form>
                                                             </div>
                                                         </div>
-
-                                                        {{-- </form> --}}
-                                                        {{-- @if (session('success'))
-                                                            <span>{{ session('success') }}</span>
-                                                        @elseif (session('failed'))
-                                                            <span>{{ session('failed') }}</span>
-                                                        @endif --}}
-                                                    </td>
+                                                    </div>
+                                                </td>
                                             </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
+
                                     <table class="table align-items-center table-flush table-borderless" id="approved-table"
                                         style="display: none;">
                                         <thead>
@@ -401,13 +361,13 @@
                                             @foreach($approved as $visits)
                                                 <tr>
                                                     <td>{{ $visits->visits_lname }}, {{ $visits->visits_fname }} {{ $visits->visits_mname }}.</td>
-                                                    <td>
+                                                    {{-- <td>
                                                         @if ($visits->users && $visits->users->avatar)
                                                             <img src="{{ asset('avatar/' . $visits->users->avatar) }}" alt="Avatar" class="avatar-image">
                                                         @else
                                                             <img src="{{ asset('avatar/default-avatar.jpg') }}" alt="Default Avatar" class="avatar-image">
                                                         @endif
-                                                    </td>
+                                                    </td> --}}
                                                     <td>{{ $visits->visits_country }}</td>
                                                     <td>{{ $visits->visits_province }}</td>
                                                     <td>{{ $visits->visits_municipality }}</td>
@@ -450,13 +410,13 @@
                                             @foreach($history as $visits)
                                                 <tr>
                                                     <td>{{ $visits->visits_lname }}, {{ $visits->visits_fname }} {{ $visits->visits_mname }}.</td>
-                                                    <td>
+                                                    {{-- <td>
                                                         @if ($visits->users && $visits->users->avatar)
                                                             <img src="{{ asset('avatar/' . $visits->users->avatar) }}" alt="Avatar" class="avatar-image">
                                                         @else
                                                             <img src="{{ asset('avatar/default-avatar.jpg') }}" alt="Default Avatar" class="avatar-image">
                                                         @endif
-                                                    </td>
+                                                    </td> --}}
                                                     <td>{{ $visits->visits_country }}</td>
                                                     <td>{{ $visits->visits_province }}</td>
                                                     <td>{{ $visits->visits_municipality }}</td>

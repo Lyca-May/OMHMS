@@ -16,7 +16,12 @@ class AnnouncementController extends Controller
         $users = DB::table('users')->where('user_id', $user_id)->get();
         $announcement = AnnouncementModel::all();
         return view('admin.pages.announcement.announcement', compact('announcement', 'users'));
-
+    }
+    public function UserdisplayAnnouncement(){
+        // $user_id = session('Admin')['user_id'];
+        // $users = DB::table('users')->where('user_id', $user_id)->get();
+        $announcement = AnnouncementModel::all();
+        return view('', compact('announcement'));
     }
     public function create_announcement(Request $request)
 {

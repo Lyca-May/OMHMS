@@ -15,7 +15,7 @@ use App\Http\Controllers\User\UserVisitController;
 use App\Http\Controllers\User\UserFunctionalRoomController;
 use App\Http\Controllers\User\Comments_Controller;
 use App\Http\Controllers\User\SouvenirsController;
-
+use App\Http\Middleware\VerifyCsrfToken;
 //Auth
 // Route::view('auth/login', 'auth.login');
 Route::view('auth/forgot', 'auth.forgot_account');
@@ -91,8 +91,9 @@ Route::view('admin/inventory', 'admin.pages.inventory.inventory-table');
 //---------------- User Profile ---------------------//
 
 Route::view('user/profile', 'user.pages.profile.userprofile');
-Route::view('user/mybookings', 'user.pages.profile.mybookings');
-Route::view('user/visithistory', 'user.pages.profile.visithistory');
+// Route::view('user/mybookings', 'user.pages.profile.mybookings');
+// Route::view('user/visithistory', 'user.pages.profile.visithistory');
+
 
 //---------------- User Profile ---------------------//
 
@@ -145,12 +146,12 @@ Route::view('cancel-status-page', 'admin.pages.visit.cancel-status');
 
 //manage visit for admin
 Route::get('admin/visit', [VisitController::class,'index']);
-Route::post('approve-status', [VisitController::class,'approve_status']);
-Route::post('cancel_status', [VisitController::class,'cancel_status']);
+Route::post('approve-status/{user_id}', [VisitController::class,'approve_status']);
+Route::post('/cancel_status/{user_id}', [VisitController::class,'cancel_status']);
 Route::post('approved', [VisitController::class,'approved_visit'])->name('approved');
 Route::post('cancelled', [VisitController::class,'cancelled_visit']);
 Route::post('booking-history', [VisitController::class,'booking_history']);
-Route::get('/approve-status/{user_email}', [VisitController::class,'approve_status']);
+// Route::POST('/approve-status', [VisitController::class,'approve_status']);
 
 //manage rent for admin
 Route::get('admin/functional', [FunctionalHallController::class,'index']);
@@ -164,8 +165,9 @@ Route::view('add-members', 'user.pages.book-visitation.members');
 
 
 //Visit for user functions
+Route::get('user/visithistory', [UserVisitController::class,'displayVisitHistory']);
 Route::get('user/visit-form', [UserVisitController::class,'visit_form']);
-Route::get('user/bookedvisit', [UserVisitController::class,'displayVisit']);
+Route::get('user/mybookings', [UserVisitController::class,'displayVisit']);
 Route::post('user/book', [UserVisitController::class, 'reserve_visit']);
 Route::post('add-members', [UserVisitController::class, 'add_members']);
 Route::get('user/visit',[UserVisitController::class,'user_visit'] );
@@ -222,6 +224,7 @@ Route::get('/souvenirs', [SouvenirsController::class, 'displaySouvenirs']);
 Route::put('/update-souvenir/{souvenir_id}', [SouvenirsController::class, 'update_souvenir']);
 Route::post('/archive-souvenir/{souvenir_id}', [SouvenirsController::class, 'archive_souvenir']);
 Route::get('user/souvenirs1', [CartController::class, 'displaySouvenir']);
+Route::post('/add-to-cart', [CartController::class, 'addToCart']);
 
 
 

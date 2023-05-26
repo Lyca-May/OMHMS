@@ -639,6 +639,45 @@ body.bg-theme15 {
   display: none
 }
 
+/* ------------for mybookings and booking history---------- */
+.dropdown-menu1 {
+	border: 0px solid rgba(0,0,0,.15);
+	-webkit-box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08)!important;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08)!important;
+    font-size:15px;
+	background-color: #000;
+    color: #ffffff;
+}
+
+.dropdown-menu1 ul{
+  margin-top: 0px;
+}
+
+.dropdown-divider1{
+    margin: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.dropdown-item1{
+	padding: .70rem 1.5rem;
+	color: #ffffff;
+}
+
+.dropdown-item1:hover{
+	padding: .70rem 1.5rem;
+	background-color: #000;
+	color: #ffffff;
+}
+
+.dropdown-item1.active, .dropdown-item:active {
+    color: #fff;
+    text-decoration: none;
+    background-color: #000000;
+}
+.dropdown-toggle-nocaret1:after {
+  display: none
+}
+
 /* User Details */
 .user-profile img {
 	width:35px;

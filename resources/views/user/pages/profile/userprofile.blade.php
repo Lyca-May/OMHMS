@@ -342,7 +342,7 @@
 
                                         {{-- EDIT PROFILE --}}
                                         <div class="tab-pane" id="edit">
-                                            <form action="/update-profile" method="post"
+                                            <form action="/update-user-profile" method="post"
                                                 enctype="multipart/form-data">
                                                 @csrf
                                                 <br>
