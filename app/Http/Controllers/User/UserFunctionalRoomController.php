@@ -158,6 +158,8 @@ class UserFunctionalRoomController extends Controller
     $rentPayment->downpayment = $validatedData['downpayment'];
     $rentPayment->full_payment = $validatedData['full_payment'];
     $rentPayment->gcash_reference = $validatedData['gcash_reference'];
+
+
     // Handle file upload
     if ($request->hasFile('proof_of_payment')) {
         $file = $request->file('proof_of_payment');
@@ -175,9 +177,11 @@ class UserFunctionalRoomController extends Controller
     // Save the updated rent payment
     $rentPayment->save();
     if($rentPayment){
-        return redirect()->back()->with('success', 'Payment submitted successfully. Please wait for the verification of admin');
+        if($rentPayment->others_payment ==0){
+            return redirect()->back()->with('success', 'Payment submitted successfully. Payment for the other service requested is to be determined. Please wait for the verification of admin');
+        }
     }
-    return redirect()->back()->with('failed', 'Rent payment updated successfully.');
+    return redirect()->back()->with('failed', 'There is a problem submitting your payment');
 
     // Redirect the user with a success message
 }

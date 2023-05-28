@@ -9,7 +9,8 @@
     <title>OMHMS</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-        integrity="sha512-********" crossorigin="anonymous" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/css/bootstrap.css') }}">
@@ -24,7 +25,85 @@
     <link rel="stylesheet" href="{{ asset('assets/css/css/responsive.css') }}">
     {{-- <link rel="stylesheet" href="{{ asset('assets/css/css/payment.css') }}"> --}}
 </head>
+<style>
+    .payment-slip-form {
+        max-width: 500px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
 
+    .payment-slip-form label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    .payment-slip-form input[type="text"],
+    .payment-slip-form input[type="number"],
+    .payment-slip-form input[type="file"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-bottom: 15px;
+    }
+
+    .payment-slip-form .invalid-feedback {
+        color: red;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+
+    .payment-slip-form .btn-primary {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+
+    .payment-slip-form .btn-primary:hover {
+        background-color: #0069d9;
+    }
+
+    .payment-slip-form .breadcrumb {
+        background-color: transparent;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .payment-slip-form .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin-right: -15px;
+        margin-left: -15px;
+    }
+
+    .payment-slip-form .col {
+        flex: 0 0 50%;
+        max-width: 50%;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+    .payment-slip-form .gcash-details {
+        background-color: #f8f9fa;
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 4px;
+    }
+
+    .payment-slip-form .gcash-details p {
+        margin: 0;
+    }
+</style>
 <body>
     <!--================Header Area =================-->
     <header class="header_area">
@@ -96,102 +175,135 @@
     </section>
     <section>
         @foreach ($rents as $rent)
-            <div class="hotel_booking_area position">
-                <div class="container">
-                    <div class="hotel_booking_table">
-                        <div class="col">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="{{ url('user/rentconhall') }}">Rent</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Rent Payment</li>
-                                </ol>
-                            </nav>
-                            <br>
+        <div class="hotel_booking_area position">
+            <div class="container">
+                <div class="hotel_booking_table">
+                    <div class="col">
+                        <nav aria-label="breadcrumb" class="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{{ url('user/rentconhall') }}">Rent</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Rent Payment</li>
+                            </ol>
+                        </nav>
 
-                            <form method="POST" action="{{ url('/rent-payment/update/' . $rent->rent_id) }}" enctype="multipart/form-data">
+                        <div class="payment-slip-form">
+                            <form method="POST" action="{{ url('/rent-payment/update/' . $rent->rent_id) }}"
+                                enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
+                                <div class="gcash-details">
+                                    <p style="font-size: 15px">Gcash Name: Aristeo Ahorro</p>
+                                    <p style="font-size: 15px">Gcash Number: 09151949345</p>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
 
-                                <div class="form-group">
-                                    <label for="add_service_payment">Add On Payment</label>
-                                    <input type="text" class="form-control" id="add_service_payment"
-                                        name="add_service_payment" value="{{ $rent->add_service_payment }}" required>
-                                </div>
-                                @error('add_service_payment')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                 @enderror
-
-                                <div class="form-group">
-                                    <label for="others_payment">Others' Payment</label>
-                                    <input type="text" class="form-control" id="others_payment"
-                                        name="others_payment" value="{{ $rent->others_payment }}" required>
-                                </div>
-                                @error('others_payment')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                 @enderror
-
-                                <div class="form-group">
-                                    <label for="total_payment">Total Payment</label>
-                                    <input type="text" class="form-control" id="total_payment"
-                                        name="total_payment" value="{{ $rent->total_payment }}" required>
-                                </div>
-                                @error('total_payment')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                 @enderror
-                                <div class="form-group">
-                                    <label for="downpayment">Downpayment</label>
-                                    <input type="number" class="form-control" id="downpayment" name="downpayment"
-                                        value="{{ $rent->downpayment }}" required>
-                                </div>
-                                @error('downpayment')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                                <div class="form-group">
-                                    <label for="full_payment">Full Payment</label>
-                                    <input type="text" class="form-control" id="full_payment" name="full_payment"
-                                        value="{{ $rent->full_payment }}">
-                                </div>
-                                @error('full_payment')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                                <div class="form-group">
-                                    <label for="gcash_reference">Gcash Reference</label>
-                                    <input type="number" class="form-control" id="gcash_reference"
-                                        name="gcash_reference" value="{{ $rent->gcash_reference }}" required>
-                                </div>
-                                @error('gcash_reference')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                                <div class="form-group">
-                                    <label for="proof_of_payment">Proof of Payment</label>
-                                    <input type="file" class="form-control @error('proof_of_payment') is-invalid @enderror" id="proof_of_payment" name="proof_of_payment" required>
-                                    @error('proof_of_payment')
+                                        <div class="form-group">
+                                            <label for="add_service_payment">Payment for Rent</label>
+                                                <input type="text" class="form-control" id="payment_rent"
+                                                name="payment_rent" value="{{ $rent->payment_rent }}" required>
+                                            @error('payment_rent')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                            </span>
+                                            <input type="hidden" class="form-control" id="full_payment"
+                                                name="full_payment" value="{{ $rent->full_payment }}" >
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="add_service_payment"><i class="fa fa-plus"></i> Add On Payment</label>
+                                            <input type="text" class="form-control" id="add_service_payment"
+                                                name="add_service_payment" value="{{ $rent->add_service_payment }}" required>
+                                            @error('add_service_payment')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="total_payment"><i class="fa fa-money"></i> Total Payment</label>
+                                            <input type="text" class="form-control" id="total_payment"
+                                                name="total_payment" value="{{ $rent->total_payment }}" required>
+                                        </div>
+                                        @error('total_payment')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
-                                    @enderror
-                                </div>
+                                         @enderror
+                                        <div class="form-group">
+                                            {{-- <label for="others_payment">Others' Payment</label> --}}
+                                            <input type="hidden" class="form-control" id="others_payment"
+                                                name="others_payment" value="{{ $rent->others_payment }}" required>
+                                        </div>
+                                        @error('others_payment')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                         @enderror
 
-                                <button type="submit" class="btn btn-primary">Update</button>
+                                        <!-- Other form fields in the first column -->
+                                    </div>
+
+                                    <div class="col">
+                                        <!-- Form fields in the second column -->
+                                        <div class="form-group">
+                                            <label for="downpayment"><i class="bi bi-arrow-down"></i> Downpayment</label>
+                                            <input type="number" class="form-control" id="downpayment" name="downpayment"
+                                                value="{{ $rent->downpayment }}" required>
+                                        </div>
+                                        @error('downpayment')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                        <div class="form-group">
+                                            <label for="gcash_reference"><i class="lnr lnr-credit-card"></i> Gcash Reference</label>
+                                            <input type="number" class="form-control" id="gcash_reference"
+                                                name="gcash_reference" value="{{ $rent->gcash_reference }}" required>
+                                        </div>
+                                        @error('gcash_reference')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                        <div class="form-group">
+                                            <label for="proof_of_payment"><i class="fa fa-file"></i> Proof of Payment</label>
+                                            <input type="file" class="form-control @error('proof_of_payment') is-invalid @enderror"
+                                                id="proof_of_payment" name="proof_of_payment" required>
+                                            @error('proof_of_payment')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                @if(session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                                <a href="{{ url('user/mybookings') }}">Click to see reservation details</a>
+                                 @endif
+
+                                @if(session('failed'))
+                                    <span style="color: red">
+                                        {{session('failed')}}
+                                    </span>
+                                @endif
+
+
+
+                                <button type="submit" class="btn btn-primary">Submit your Payment</button>
                             </form>
-                            <br>
-                            <div></div>
                         </div>
+
+                        <br>
+                        <div></div>
                     </div>
                 </div>
             </div>
+        </div>
         @endforeach
 
 
