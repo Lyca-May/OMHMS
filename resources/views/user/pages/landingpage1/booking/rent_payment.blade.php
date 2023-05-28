@@ -8,7 +8,8 @@
     <link rel="icon" href="{{ asset('omhms.png') }}" type="image/png">
     <title>OMHMS</title>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-********" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-********" crossorigin="anonymous" />
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/css/bootstrap.css') }}">
@@ -21,6 +22,7 @@
     <!-- main css -->
     <link rel="stylesheet" href="{{ asset('assets/css/css/stylebook.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/css/responsive.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('assets/css/css/payment.css') }}"> --}}
 </head>
 
 <body>
@@ -63,16 +65,19 @@
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
                                 aria-haspopup="true" aria-expanded="false">My Account</a>
                             <ul class="dropdown-menu">
-                                <li class="nav-item"><a class="nav-link" href="{{url('user/profile')}}">{{session('User')['user_fname']}}'s Profile</a>
+                                <li class="nav-item"><a class="nav-link"
+                                        href="{{ url('user/profile') }}">{{ session('User')['user_fname'] }}'s
+                                        Profile</a>
                                 </li>
                                 <li class="nav-item"><a class="nav-link" href="{{ url('logout') }}">Log out</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('user/souvenirs1') }}" style="margin-top: 25px; display: inline-block;" class="shop-icon-btn">
-                              <i class="fas fa-shopping-cart"></i>
+                            <a href="{{ url('user/souvenirs1') }}" style="margin-top: 25px; display: inline-block;"
+                                class="shop-icon-btn">
+                                <i class="fas fa-shopping-cart"></i>
                             </a>
-                          </li>
+                        </li>
                     </ul>
                 </div>
             </nav>
@@ -90,71 +95,105 @@
         </div>
     </section>
     <section>
-        @foreach ($payment as $payments)
-        <div class="hotel_booking_area position">
-            <div class="container">
-                <div class="hotel_booking_table">
-                    <div class="col">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ url('user/rentconhall') }}">Rent</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Rent Payment</li>
-                            </ol>
-                        </nav>
-                        <form method="POST" action="{{ route('rent.payment.update', ['rentid' => $payment->rentid]) }}">
-                            @csrf
-                            @method('PUT')
+        @foreach ($rents as $rent)
+            <div class="hotel_booking_area position">
+                <div class="container">
+                    <div class="hotel_booking_table">
+                        <div class="col">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="{{ url('user/rentconhall') }}">Rent</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Rent Payment</li>
+                                </ol>
+                            </nav>
+                            <br>
 
-                            <div class="form-group">
-                                <label for="userid">User ID</label>
-                                <input type="text" class="form-control" id="userid" name="userid" value="{{ $payment->userid }}" required>
-                            </div>
+                            <form method="POST" action="{{ url('/rent-payment/update/' . $rent->rent_id) }}" enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
 
-                            <div class="form-group">
-                                <label for="downpayment">Downpayment</label>
-                                <input type="text" class="form-control" id="downpayment" name="downpayment" value="{{ $payment->downpayment }}" required>
-                            </div>
+                                <div class="form-group">
+                                    <label for="add_service_payment">Add On Payment</label>
+                                    <input type="text" class="form-control" id="add_service_payment"
+                                        name="add_service_payment" value="{{ $rent->add_service_payment }}" required>
+                                </div>
+                                @error('add_service_payment')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                 @enderror
 
-                            <div class="form-group">
-                                <label for="add_service_payment">Ad On Payment</label>
-                                <input type="text" class="form-control" id="add_service_payment" name="add_service_payment" value="{{ $payment->add_service_payment }}" required>
-                            </div>
+                                <div class="form-group">
+                                    <label for="others_payment">Others' Payment</label>
+                                    <input type="text" class="form-control" id="others_payment"
+                                        name="others_payment" value="{{ $rent->others_payment }}" required>
+                                </div>
+                                @error('others_payment')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                 @enderror
 
-                            <div class="form-group">
-                                <label for="others_payment">Others' Payment</label>
-                                <input type="text" class="form-control" id="others_payment" name="others_payment" value="{{ $payment->others_payment }}" required>
-                            </div>
+                                <div class="form-group">
+                                    <label for="total_payment">Total Payment</label>
+                                    <input type="text" class="form-control" id="total_payment"
+                                        name="total_payment" value="{{ $rent->total_payment }}" required>
+                                </div>
+                                @error('total_payment')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                 @enderror
+                                <div class="form-group">
+                                    <label for="downpayment">Downpayment</label>
+                                    <input type="number" class="form-control" id="downpayment" name="downpayment"
+                                        value="{{ $rent->downpayment }}" required>
+                                </div>
+                                @error('downpayment')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                                <div class="form-group">
+                                    <label for="full_payment">Full Payment</label>
+                                    <input type="text" class="form-control" id="full_payment" name="full_payment"
+                                        value="{{ $rent->full_payment }}">
+                                </div>
+                                @error('full_payment')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                                <div class="form-group">
+                                    <label for="gcash_reference">Gcash Reference</label>
+                                    <input type="number" class="form-control" id="gcash_reference"
+                                        name="gcash_reference" value="{{ $rent->gcash_reference }}" required>
+                                </div>
+                                @error('gcash_reference')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                                <div class="form-group">
+                                    <label for="proof_of_payment">Proof of Payment</label>
+                                    <input type="file" class="form-control @error('proof_of_payment') is-invalid @enderror" id="proof_of_payment" name="proof_of_payment" required>
+                                    @error('proof_of_payment')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
 
-                            <div class="form-group">
-                                <label for="total_payment">Total Payment</label>
-                                <input type="text" class="form-control" id="total_payment" name="total_payment" value="{{ $payment->total_payment }}" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="full_payment">Full Payment</label>
-                                <input type="text" class="form-control" id="full_payment" name="full_payment" value="{{ $payment->full_payment }}" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="proof_of_payment">Proof of Payment</label>
-                                <input type="text" class="form-control" id="proof_of_payment" name="proof_of_payment" value="{{ $payment->proof_of_payment }}" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="gcash_reference">Gcash Reference</label>
-                                <input type="text" class="form-control" id="gcash_reference" name="gcash_reference" value="{{ $payment->gcash_reference }}" required>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary">Update</button>
-                        </form>
-
-                        <br>
-                        <div></div>
+                                <button type="submit" class="btn btn-primary">Update</button>
+                            </form>
+                            <br>
+                            <div></div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    @endforeach
+        @endforeach
+
 
 
         </div>
@@ -181,53 +220,59 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
 
 
 
-@if (session('success'))
-<script>
-    Swal.fire({
-        icon: 'success',
-        title: 'Success!',
-        text: '{{ session('success') }}',
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        background: '#8cc63f',
-        iconColor: '#ffffff',
-        customClass: {
-            title: 'text-white',
-            content: 'text-white'
-        }
-    });
-</script>
-@endif
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '{{ session('success') }}',
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: '#8cc63f',
+                iconColor: '#ffffff',
+                customClass: {
+                    title: 'text-white',
+                    content: 'text-white'
+                }
+            });
+        </script>
+    @endif
 
-@if (session('error'))
-<script>
-    Swal.fire({
-        icon: 'error',
-        title: 'Error!',
-        text: '{{ session('error') }}',
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        background: '#dc3545',
-        iconColor: '#ffffff',
-        customClass: {
-            title: 'text-white',
-            content: 'text-white'
-        }
-    });
-</script>
-@endif
+    @if (session('failed'))
+        <script>
+            Swal.fire({
+                icon: 'failed',
+                title: 'Error!',
+                text: '{{ session('failed') }}',
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: '#dc3545',
+                iconColor: '#ffffff',
+                customClass: {
+                    title: 'text-white',
+                    content: 'text-white'
+                }
+            });
+        </script>
+    @endif
 </body>
 </body>
 

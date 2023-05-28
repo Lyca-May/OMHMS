@@ -27,13 +27,17 @@ class UserFunctionalRoomController extends Controller
         $users = DB::table('users')->where('user_id', $user_id)->get();
         return view('user.pages.landingpage1.booking.rentconhall', ['users' => $users], ['rent' => $rent],);
     }
-    public function display_payment_form()
+    public function display_payment_form($rent_id)
     {
-            $rent_id = DB::table('rent_function_hall')->first();
+             $rents = DB::table('rent_hall')->where('rent_id', $rent_id)->get();
+               if (!$rents) {
+                    return redirect()->back()->with('failed', 'Rent record not found');
+                }
+
             $user_id = session('User')['user_id'];
             $users = DB::table('users')->where('user_id', $user_id)->get();
-            $payment = DB::table('rent_payment')->where('userid', $user_id)->where('rentid', $rent_id->rent_id)->first();
-            return view('user.pages.landingpage1.booking.rent_payment', compact('users', 'payment'));
+            // $payment = DB::table('rent_payment')->where('userid', $user_id)->where('rentid', $rent_id->rent_id)->first();
+            return view('user.pages.landingpage1.booking.rent_payment', compact('users', 'rents'));
     }
     public function rent_room(Request $request){
         $user = session()->get('User');
@@ -110,7 +114,6 @@ class UserFunctionalRoomController extends Controller
     $function_hall->recorded_by = null;
     $function_hall->approved_by = null;
     $function_hall->payment_rent = 10000.00;
-    $function_hall->total_payment = $function_hall->payment_rent + $function_hall->add_service_payment;
     $function_hall->downpayment = null;
     $function_hall->add_service_payment = (
         $function_hall->microphones ||
@@ -123,12 +126,60 @@ class UserFunctionalRoomController extends Controller
     $function_hall->others_payment = $request->has('others') ? 0.00 : null;
     $function_hall->full_payment = null;
     $function_hall->proof_of_payment = null;
+    $function_hall->total_payment = $function_hall->payment_rent + $function_hall->add_service_payment;
     $function_hall->save();
 
         if($function_hall){
-            return redirect('user/rent-payment-form')->with('success', 'Success');
+            return redirect('user/rent-payment-form/'.$function_hall->rent_id)->with('success', 'Success');
         }
         return redirect()->with('ops', 'Failed');
     }
+
+    public function updateRentPayment(Request $request, $rent_id)
+{
+    // Validate the form data
+    $validatedData = $request->validate([
+        'add_service_payment' => 'required',
+        'others_payment' => 'required',
+        'total_payment' => 'required',
+        'downpayment' => 'required',
+        'full_payment' => 'nullable',
+        'gcash_reference' => 'required',
+        'proof_of_payment' => 'image|mimes:jpeg,png,jpg',
+    ]);
+
+    // Find the rent payment record
+    $rentPayment = Function_Hall::findOrFail($rent_id);
+
+    // Update the rent payment data
+    $rentPayment->add_service_payment = $validatedData['add_service_payment'];
+    $rentPayment->others_payment = $validatedData['others_payment'];
+    $rentPayment->total_payment = $validatedData['total_payment'];
+    $rentPayment->downpayment = $validatedData['downpayment'];
+    $rentPayment->full_payment = $validatedData['full_payment'];
+    $rentPayment->gcash_reference = $validatedData['gcash_reference'];
+    // Handle file upload
+    if ($request->hasFile('proof_of_payment')) {
+        $file = $request->file('proof_of_payment');
+
+        // Validate file
+        if ($file->isValid()) {
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('proof_of_payment'), $filename);
+            $rentPayment->proof_of_payment = $filename;
+        } else {
+            return redirect()->back()->with('failed', 'Invalid file. Please upload a valid file.');
+        }
+    }
+
+    // Save the updated rent payment
+    $rentPayment->save();
+    if($rentPayment){
+        return redirect()->back()->with('success', 'Payment submitted successfully. Please wait for the verification of admin');
+    }
+    return redirect()->back()->with('failed', 'Rent payment updated successfully.');
+
+    // Redirect the user with a success message
+}
 
 }

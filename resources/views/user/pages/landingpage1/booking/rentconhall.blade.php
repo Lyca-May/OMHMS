@@ -465,39 +465,7 @@
                             </div>
                         </form>
 
-                        {{-- @foreach ($rent as $rentPayment)
-                        <div class="rent-payment">
-                            <p>ID: {{ $rentPayment->rent_id }}</p>
-                            <button class="btn btn-primary" data-toggle="modal" data-target="#rentPaymentModal{{ $rentPayment->rent_id }}">
-                                View Details
-                            </button>
-                        </div>
 
-                        <!-- Modal for each rent_payment entry -->
-                        <div class="modal fade" id="rentPaymentModal{{ $rentPayment->rent_id }}" tabindex="-1" role="dialog" aria-labelledby="rentPaymentModalLabel{{ $rentPayment->rent_id }}" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="rentPaymentModalLabel{{ $rentPayment->rent_id }}">Rent Payment Details</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p>ID: {{ $rentPayment->rent_id }}</p>
-                                        <p>Facility: {{ $rentPayment->facility }}</p>
-                                        <p>Agency: {{ $rentPayment->agency }}</p>
-                                        <p>Contact Person: {{ $rentPayment->contact_person }}</p>
-                                        <!-- Add more fields as needed -->
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach --}}
-                        <br>
                         <div></div>
                     </div>
                 </div>

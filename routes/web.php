@@ -185,8 +185,8 @@ Route::post('rent/approved', [FunctionalHallController::class,'approved_rent']);
 Route::post('rent/cancelled', [FunctionalHallController::class,'cancelled_rent']);
 Route::post('rent/history', [FunctionalHallController::class,'rent_history']);
 Route::get('user/rentconhall', [UserFunctionalRoomController::class,'display_form']);
-// Route::get('user/rent-payment-form/{rentid}', [Rent_Payment::class,'edit'])->name('rent.payment.edit');
-// Route::put('/rent-payment/update', [Rent_Payment::class,'update'])->name('rent.payment.update');
+Route::get('user/rent-payment-form/{rent_id}', [UserFunctionalRoomController::class,'display_payment_form']);
+Route::put('/rent-payment/update/{rent_id}', [UserFunctionalRoomController::class,'updateRentPayment']);
 Route::view('rent-cancel-status-page', 'admin.pages.visit.rent-cancel-status');
 
 
