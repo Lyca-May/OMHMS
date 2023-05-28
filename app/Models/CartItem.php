@@ -10,11 +10,15 @@ class CartItem extends Model
     use HasFactory;
 
     protected $table = 'cart_items';
+    protected $primaryKey = 'cart_item_id';
+
     protected $fillable = [
         'userid',
         'souvenir_id',
         'quantity',
-        'price'
+        'price',
+        'total_price',
+        'is_archived'
     ];
 
     public function user()

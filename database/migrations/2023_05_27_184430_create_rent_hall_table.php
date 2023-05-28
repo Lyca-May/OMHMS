@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rent_function_hall', function (Blueprint $table) {
+        Schema::create('rent_hall', function (Blueprint $table) {
             $table->id('rent_id');
             $table->unsignedBigInteger('userid');
             $table->foreign('userid')->references('user_id')->on('users')->onDelete('cascade');
@@ -43,8 +43,9 @@ return new class extends Migration
             $table->float('others_payment')->nullable();
             $table->float('full_payment')->nullable();
             $table->string('proof_of_payment')->nullable();
-            $table->int('gcash_reference')->nullable();
+            $table->integer('gcash_reference')->nullable();
             $table->string('total_payment')->nullable();
+            // $table->string('status');
             $table->timestamps();
         });
     }
@@ -54,6 +55,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rent_function_hall');
+        Schema::dropIfExists('rent_hall');
     }
 };

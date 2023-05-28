@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\Home_Controller;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\Category;
 use App\Http\Controllers\Inventory;
+use App\Http\Controllers\Rent_Payment;
 use App\Http\Controllers\User\UserVisitController;
 use App\Http\Controllers\User\UserFunctionalRoomController;
 use App\Http\Controllers\User\Comments_Controller;
@@ -73,7 +74,7 @@ Route::view('user/testimonials1', 'user.pages.landingpage1.reviewpages.testimoni
 
 //Booking after Login
 Route::view('user/bookvisit', 'user.pages.landingpage1.booking.bookvisit');
-Route::view('user/rentconhall', 'user.pages.landingpage1.booking.rentconhall');
+// Route::view('user/rentconhall', 'user.pages.landingpage1.booking.rentconhall');
 
 // Route::view('user/souvenirs1', 'user.pages.landingpage1.souvenirs.souvenirs1');
 
@@ -183,6 +184,9 @@ Route::post('rent/cancel_status', [FunctionalHallController::class,'cancel_statu
 Route::post('rent/approved', [FunctionalHallController::class,'approved_rent']);
 Route::post('rent/cancelled', [FunctionalHallController::class,'cancelled_rent']);
 Route::post('rent/history', [FunctionalHallController::class,'rent_history']);
+Route::get('user/rentconhall', [UserFunctionalRoomController::class,'display_form']);
+// Route::get('user/rent-payment-form/{rentid}', [Rent_Payment::class,'edit'])->name('rent.payment.edit');
+// Route::put('/rent-payment/update', [Rent_Payment::class,'update'])->name('rent.payment.update');
 Route::view('rent-cancel-status-page', 'admin.pages.visit.rent-cancel-status');
 
 

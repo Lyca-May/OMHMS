@@ -9,9 +9,13 @@ class Function_Hall extends Model
 {
     use HasFactory;
 
-    protected $table = 'rent_function_hall';
+    protected $table = 'rent_hall';
+
+    protected $primaryKey = 'rent_id';
+
     protected $fillable = [
         'userid',
+        'rentid',
         'contact_person',
         'contact_number',
         'agency',
@@ -25,6 +29,8 @@ class Function_Hall extends Model
         'led_tv',
         'microphones',
         'number_of_microphones',
+        'stands',
+        'number_of_stands',
         'tables',
         'number_of_tables',
         'chairs',
@@ -34,12 +40,17 @@ class Function_Hall extends Model
         'downpayment',
         'add_service_payment',
         'others_payment',
+        'full_payment',
         'total_payment',
         'status',
     ];
 
     public function user()
     {
-        return $this->belongsTo(users::class);
+        return $this->belongsTo(users::class, 'userid', 'user_id');
     }
+    // public function rent_payment()
+    // {
+    //     return $this->belongsTo(users::class, 'rent_id', 'rentid');
+    // }
 }

@@ -86,7 +86,7 @@
             <div class="page-cover text-center">
                 <h2 class="page-cover-tittle">Reviews</h2>
                 <ol class="breadcrumb">
-                    <li><a href="{{ url('user/landing') }}">Home</a></li>
+                    <li><a href="{{ url('user/landlog') }}">Home</a></li>
                     <li class="active">Testimonials</li>
                 </ol>
             </div>
@@ -121,8 +121,8 @@
                 <div class="media testimonial_item">
                     <img class="rounded-circle" src="image/testtimonial-1.jpg" alt="">
                     <div class="media-body">
-                        <p><i>"{{$posts[0]->post}}"</i></p>
-                        <a href="#"><h4 class="sec_h4">- {{$posts[0]->name}}</h4></a>
+                        {{-- <p><i>"{{$posts[0]->post}}"</i></p>
+                        <a href="#"><h4 class="sec_h4">- {{$posts[0]->name}}</h4></a> --}}
                         {{-- <div class="star">
                             <a href="#"><i class="fa fa-star"></i></a>
                             <a href="#"><i class="fa fa-star"></i></a>

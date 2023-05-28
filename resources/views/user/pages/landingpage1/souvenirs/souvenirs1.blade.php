@@ -167,20 +167,20 @@
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
                                 aria-haspopup="true" aria-expanded="false">About Us</a>
                             <ul class="dropdown-menu">
-                                <li class="nav-item"><a class="nav-link" href="{{ url('user/history') }}">History</a>
+                                <li class="nav-item"><a class="nav-link" href="{{ url('user/history1') }}">History</a>
                                 </li>
-                                <li class="nav-item"><a class="nav-link" href="{{ url('user/vnm') }}">Vision &
+                                <li class="nav-item"><a class="nav-link" href="{{ url('user/vnm1') }}">Vision &
                                         Mission</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{ url('user/oper') }}">Operation</a>
+                                <li class="nav-item"><a class="nav-link" href="{{ url('user/oper1') }}">Operation</a>
                                 </li>
 
                             </ul>
                         </li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url('user/testimonials') }}">Testimonials</a>
+                        <li class="nav-item"><a class="nav-link" href="{{ url('user/reviews') }}">Testimonials</a>
                         </li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url('user/services') }}">Services</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url('user/feed') }}">Feed</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url('user/contact') }}">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url('user/services1') }}">Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url('user/feed1') }}">Feed</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url('user/contact1') }}">Contact</a></li>
                         <li class="nav-item submenu dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
                                 aria-haspopup="true" aria-expanded="false">My Account</a>
@@ -282,11 +282,13 @@
     <br>
     <section class="cards-wrapper">
         @foreach ($souvenirs as $souvenir)
+
         <div class="card-button">
             <div class="card-grid-space">
                 <a class="card" id="card1" data-toggle="modal" data-target="#myModal{{ $souvenir->souvenir_id }}">
                     @if ($souvenir->souvenir_image)
-                        <div class="image-link" style="background-image: url('{{ asset('souvenir_image/' . $souvenir->souvenir_image) }}'); display: flex; align-items: center; text-align: left;">
+                        <div class="image-link">
+                            <img src="{{ asset('souvenir_image/' . $souvenir->souvenir_image) }}" alt="{{ $souvenir->souvenir_name }}" style="max-width: 100%; height: auto;">
                             <div style="margin-top: 120px">
                                 <h1>{{ $souvenir->souvenir_name }}</h1>
                                 <p>{{ $souvenir->souvenir_description }}</p>
@@ -295,6 +297,7 @@
                     @endif
                 </a>
             </div>
+        </div>
 
             <!-- Modal -->
             <div class="modal fade" id="myModal{{ $souvenir->souvenir_id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -307,6 +310,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
+                            <div id="addToCartForm{{ $souvenir->souvenir_id }}">
                             <form action="{{ url('/add-to-cart') }}" method="post">
                                 @csrf
                                 <div class="row">
@@ -327,6 +331,7 @@
                                         </div>
                                         <input type="hidden" name="souvenir_id" value="{{ $souvenir->souvenir_id }}">
                                         <input type="hidden" name="price" value="{{ $souvenir->souvenir_price }}">
+                                        <input type="hidden" name="total_price" value="{{ $souvenir->souvenir_price }}">
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -334,6 +339,7 @@
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 </div>
                             </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -372,16 +378,16 @@
                         <div class="row">
                             <div class="col-4">
                                 <ul class="list_style">
-                                    <li><a href="{{ url('user/landing') }}">Home</a></li>
-                                    <li><a href="{{ url('user/history') }}">About us</a></li>
+                                    <li><a href="{{ url('user/landlog') }}">Home</a></li>
+                                    <li><a href="{{ url('user/history1') }}">About us</a></li>
                                     <li><a href="{{ url('user/gallery') }}">Gallery</a></li>
                                 </ul>
                             </div>
                             <div class="col-4">
                                 <ul class="list_style">
-                                    <li><a href="{{ url('user/services') }}">Services</a></li>
-                                    <li><a href="{{ url('user/testimonials') }}">Reviews</a></li>
-                                    <li><a href="{{ url('user/contact') }}">Contact</a></li>
+                                    <li><a href="{{ url('user/services1') }}">Services</a></li>
+                                    <li><a href="{{ url('user/testimonials1') }}">Reviews</a></li>
+                                    <li><a href="{{ url('user/contact1') }}">Contact</a></li>
 
                                 </ul>
                             </div>
@@ -430,8 +436,8 @@
                     Copyright &copy;
                     <script>
                         document.write(new Date().getFullYear());
-                    </script> All rights reserved | This template is made with <i class="fa fa-heart-o"
-                        aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                    </script> All rights reserved |<i class="fa fa-heart-o"
+                        aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">OMHMS Official Website</a>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </p>
                 <div class="col-lg-4 col-sm-12 footer-social">
@@ -543,6 +549,41 @@
             });
         });
     </script>
+    {{-- <script>
+        // Handle form submission using AJAX
+        $('.add-to-cart-form').submit(function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            var form = $(this);
+
+            // Send AJAX request
+            $.ajax({
+                url: form.attr('action'),
+                type: form.attr('method'),
+                data: form.serialize(),
+                success: function(response) {
+                    // Handle success response
+
+                    // Update the cart count
+                    var addedItem= response.addedItem;
+                    var cartItemCount = $('#cartItem');
+
+                    cartItemCount.text(addedItem);
+
+                    // Optionally, append the item details to a container
+                    var itemContainer = $('#itemContainer');
+                    var itemDetails = '<div>' + response.souvenir_name + ' - ' + response.souvenir_description + '</div>';
+
+                    itemContainer.append(itemDetails);
+                },
+                error: function(xhr) {
+                    // Handle error response
+                    console.log(xhr.responseText);
+                }
+            });
+        });
+    </script> --}}
+
 
 </body>
 

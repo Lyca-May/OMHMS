@@ -3,171 +3,132 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Function_Hall;
+use App\Models\Rent_Payment_Model;
 use Illuminate\Http\Request;
-use App\Models\FunctionalHall;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\support\facades\DB;
 
 
-
-
 class UserFunctionalRoomController extends Controller
 {
-     public function displayRent(){
+    public function displayRent()
+    {
         $user_id = session('User')['user_id'];
-        $rent = DB::table('functional_hall')->where('userid', $user_id)->get();
+        $rent = DB::table('rent_hall')->where('userid', $user_id)->get();
         return view('user.pages.booked.rentedhall', ['rent' => $rent]);
     }
-    public function rent_room(Request $request)
+    public function display_form()
     {
+        // $rent = Function_Hall::all()->get();
+
+        $rent = DB::table('rent_hall')->get();
+        $user_id = session('User')['user_id'];
+        $users = DB::table('users')->where('user_id', $user_id)->get();
+        return view('user.pages.landingpage1.booking.rentconhall', ['users' => $users], ['rent' => $rent],);
+    }
+    public function display_payment_form()
+    {
+            $rent_id = DB::table('rent_function_hall')->first();
+            $user_id = session('User')['user_id'];
+            $users = DB::table('users')->where('user_id', $user_id)->get();
+            $payment = DB::table('rent_payment')->where('userid', $user_id)->where('rentid', $rent_id->rent_id)->first();
+            return view('user.pages.landingpage1.booking.rent_payment', compact('users', 'payment'));
+    }
+    public function rent_room(Request $request){
         $user = session()->get('User');
-        $userid = $user['user_id']; // add a check to ensure that $user is not null before accessing its values
-        // $user = auth()->user();
-        if (!$user) {
-            return redirect()->back()->with('failed', "User not found");
+    $userid = $user['user_id'];
+    if (!$user) {
+        return redirect()->back()->with('failed', "User not found");
+    }
+
+    $rules = [
+        'facility' => 'required|string',
+        'agency' => 'required|string',
+        'contact_person' => 'required|string',
+        'contact_number' => 'required',
+        'date_requested' => 'required|date',
+        'event_start' => 'required|date_format:H:i',
+        'event_type' => 'required|string',
+        'prep_setup_time' => 'required|date_format:H:i',
+        'date_of_setup' => 'required|date',
+        'others' => 'nullable|string',
+        'number_of_microphones' => 'nullable|integer',
+        'number_of_tables' => 'nullable|integer',
+        'number_of_chairs' => 'nullable|integer',
+    ];
+
+    $messages = [
+        'facility.required' => 'The facility field is required.',
+        'facility.string' => 'The facility field must be a string.',
+        'agency.required' => 'The agency field is required.',
+        'agency.string' => 'The agency field must be a string.',
+        'contact_person.required' => 'The contact person field is required.',
+        'contact_person.string' => 'The contact person field must be a string.',
+        'contact_number.required' => 'The contact number field is required.',
+        'date_requested.required' => 'The date requested field is required.',
+        'date_requested.date' => 'The date requested field must be a valid date.',
+        'event_start.required' => 'The event start field is required.',
+        'event_start.date_format' => 'The event start field must be a valid time format.',
+        'event_type.required' => 'The event type field is required.',
+        'event_type.string' => 'The event type field must be a string.',
+        'prep_setup_time.required' => 'The preparation setup time field is required.',
+        'prep_setup_time.date_format' => 'The preparation setup time field must be a valid time format.',
+        'date_of_setup.required' => 'The date of setup field is required.',
+        'date_of_setup.date' => 'The date of setup field must be a valid date.',
+        'number_of_microphones.integer' => 'The number of microphones field must be an integer.',
+        'number_of_tables.integer' => 'The number of tables field must be an integer.',
+        'number_of_chairs.integer' => 'The number of chairs field must be an integer.',
+    ];
+
+    $validator = Validator::make($request->all(), $rules, $messages);
+    if ($validator->fails()) {
+        return redirect()->back()->withErrors($validator)->withInput();
+    }
+
+    $function_hall = new Function_Hall();
+    $function_hall->userid = $userid;
+    $function_hall->facility = $request->facility;
+    $function_hall->agency = $request->agency;
+    $function_hall->contact_person = $request->contact_person;
+    $function_hall->contact_number = $request->contact_number;
+    $function_hall->date_requested = $request->date_requested;
+    $function_hall->event_start = $request->event_start;
+    $function_hall->event_type = $request->event_type;
+    $function_hall->prep_setup_time = $request->prep_setup_time;
+    $function_hall->date_of_setup = $request->date_of_setup;
+    $function_hall->others = $request->others;
+    $function_hall->sound_system = $request->has('sound_system'); // Set to true if checked, false otherwise
+    $function_hall->led_tv = $request->has('led_tv'); // Set to true if checked, false otherwise
+    $function_hall->microphones = $request->has('microphones'); // Set to true if checked, false otherwise
+    $function_hall->number_of_microphones = $request->number_of_microphones;
+    $function_hall->tables = $request->has('tables'); // Set to true if checked, false otherwise
+    $function_hall->number_of_tables = $request->number_of_tables;
+    $function_hall->chairs = $request->has('chairs'); // Set to true if checked, false otherwise
+    $function_hall->number_of_chairs = $request->number_of_chairs;
+    $function_hall->status = 'pending'; // Set the initial status
+    $function_hall->recorded_by = null;
+    $function_hall->approved_by = null;
+    $function_hall->payment_rent = 10000.00;
+    $function_hall->total_payment = $function_hall->payment_rent + $function_hall->add_service_payment;
+    $function_hall->downpayment = null;
+    $function_hall->add_service_payment = (
+        $function_hall->microphones ||
+        $function_hall->stands ||
+        $function_hall->tables ||
+        $function_hall->chairs ||
+        $function_hall->sound_system ||
+        $function_hall->led_tv
+    ) ? 3000.00 : 0.00;
+    $function_hall->others_payment = $request->has('others') ? 0.00 : null;
+    $function_hall->full_payment = null;
+    $function_hall->proof_of_payment = null;
+    $function_hall->save();
+
+        if($function_hall){
+            return redirect('user/rent-payment-form')->with('success', 'Success');
         }
+        return redirect()->with('ops', 'Failed');
+    }
 
-        // Check if user's bookings is not expired
-        $uncompleteEvent = FunctionalHall::where('userid', $user['user_id'])
-                                        ->where('functional_intended_date', '>=', date('Y-m-d'))
-                                        ->first();
-        if ($uncompleteEvent) {
-            return redirect()->back()->with('failed', 'You are not yet complete with your rent. Please complete your previous reservation before booking another one.');
-        }
-
-        // Check if user already has a pending reservation
-        $pendingRent = FunctionalHall::where('userid', $user['user_id'])
-                                    ->where('functional_status', '=', 'PENDING')
-                                    ->first();
-        if ($pendingRent) {
-        return redirect()->back()->with('failed', 'You already have a pending rent. Please complete your previous reservation before booking another one.');
-        }
-
-        $rules = [
-            'functional_intended_date' => [
-                'required',
-                'date',
-                'date_format:Y-m-d',
-                'after_or_equal:today',
-                'before_or_equal:' . date('Y-m-d', strtotime('+3 days')),
-            ],
-
-            'functional_time' => 'required',
-            'functional_event_name' => 'required',
-            'functional_name_of_institution' => 'required',
-            'reference' => [
-                'integer',
-                'required'
-            ],
-            'functional_no_of_participants' => [
-                'integer',
-                'between:1,100'
-            ],
-
-        ];
-
-        $message = [
-            'reference.required' => 'Please input the reference number of the payment',
-            'reference.integer' => 'The reference must be integer only',
-            'functional_event_name.required' => 'Please input the Name of the Event',
-            'functional_name_of_institution.required' => 'Please input the Name of your Institution',
-            'functional_intended_date.required' => 'Please input the intended date for reservation',
-            'functional_intended_date.date' => 'Please input a valid date',
-            'functional_intended_date.after_or_equal' => 'The intended date must be on or after today',
-            'functional_intended_date.before_or_equal' => 'The intended date must be before or equal to 3 days after today',
-            'functional_time.required' => 'Please select the intended time for reservation',
-            'functional_no_of_participants.integer' => 'The number of visitors must be an integer',
-            'functional_no_of_participants.between' => 'The number of visitors must be between 1 and 100',
-        ];
-
-        $validator = Validator::make($request->all(), $rules, $message);
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-
-        // get the current year
-        $currentYear = date('Y');
-        // extract the year from the intended date input
-        $selectedYear = date('Y', strtotime($request->functional_intended_date));
-
-        // check if the selected year is less than the current year
-        if ($selectedYear < $currentYear) {
-            return redirect()->back()->with('failed', 'The intended date must be in the current year or later.');
-        }
-
-
-        $functional_fname=$request->functional_fname;
-        $functional_mname=$request->functional_mname;
-        $functional_lname=$request->functional_lname;
-        $functional_gender=$request->functional_gender;
-        $functional_email=$request->functional_email;
-        $functional_country=$request->functional_country;
-        $functional_province=$request->functional_province;
-        $functional_municipality=$request->functional_municipality;
-        $functional_brgy=$request->functional_brgy;
-        $functional_street=$request->functional_street;
-        $functional_zipcode=$request->functional_zipcode;
-        $functional_intended_date=$request->functional_intended_date;
-        $functional_no_of_participants=$request->functional_no_of_participants;
-        $functional_event_name=$request->functional_event_name;
-        $functional_name_of_institution=$request->functional_name_of_institution;
-        $functional_time=$request->functional_time;
-        $functional_contactno=$request->functional_contactno;
-        $reference=$request->reference;
-        $functional_cancel_reason=$request->functional_cancel_reason;
-        $functional_status='PENDING';
-        // $functional_members=$request->functional_members;
-
-
-        //limit the number of visitors
-        $exceedNumberOfVisitors = FunctionalHall::sum('functional_no_of_participants');
-
-        if ($exceedNumberOfVisitors > 100) {
-        return redirect()->back()->with('failed', 'Sorry, We only accept 100 participants a day');
-        }
-
-        $existing_booking2 = FunctionalHall::where('functional_time', $functional_time)
-        // ->where('functional_time', $functional_time)
-        ->first();
-        if($existing_booking2){
-            return redirect()->back()->with('failed', ' Sorry, that booking slot is already taken. Please choose a different date/time.');
-        }
-
-        $functional = new FunctionalHall();
-        $functional->userid = $userid;
-        $functional->functional_fname=$functional_fname;
-        $functional->functional_mname=$functional_mname;
-        $functional->functional_lname=$functional_lname;
-        $functional->functional_gender=$functional_gender;
-        $functional->functional_email=$functional_email;
-        $functional->functional_country=$functional_country;
-        $functional->functional_province=$functional_province;
-        $functional->functional_municipality=$functional_municipality;
-        $functional->functional_brgy=$functional_brgy;
-        $functional->functional_street=$functional_street;
-        $functional->functional_zipcode=$functional_zipcode;
-        $functional->functional_intended_date=$functional_intended_date;
-        $functional->functional_no_of_participants=$functional_no_of_participants;
-        $functional->functional_event_name=$functional_event_name;
-        $functional->functional_name_of_institution=$functional_name_of_institution;
-        $functional->functional_time=$functional_time;
-        $functional->functional_contactno=$functional_contactno;
-        $functional->functional_status=$functional_status;
-        $functional->reference=$reference;
-        $functional->functional_cancel_reason=$functional_cancel_reason;
-        $functional->save(); // save the visit record to the database
-
-
-        $sesRent =[
-            'functional_id' => $functional ->functional_id,
-            'functional_no_of_participants'=>$functional->functional_no_of_participants,
-        ];
-        session()->put('functional', $sesRent);
-
-        if($functional){
-            return redirect()->back()->with('success', 'Functional Hall has been rent successfully');
-        }else{
-            return redirect()->back()->with('failed', 'There is an error in processing your request. Please try again later.');
-        }
-}
 }
