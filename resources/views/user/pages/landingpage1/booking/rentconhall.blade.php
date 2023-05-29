@@ -111,12 +111,15 @@
                                 <div class="col">
                                     <div class="form-group row">
                                         <label for="facility" class="col-md-4 col-form-label text-md-right">Facility</label>
-
                                         <div class="col-md-6">
                                             {{-- <input id="facility" type="hidden" class="form-control" name="userid" value="{{session('User') ['user_id']}}"> --}}
-                                            <input id="facility" type="text"
-                                                class="form-control @error('facility') is-invalid @enderror" name="facility"
-                                                value="{{ old('facility') }}" required autofocus>
+                                            <select id="facility" class="form-control @error('facility') is-invalid @enderror" name="facility" required autofocus>
+                                                <option value="">Select a facility</option>
+                                                <option value="Museum Galleries" @if(old('facility') == 'Museum Galleries') selected @endif>Museum Galleries</option>
+                                                <option value="Mangyan Ballroom" @if(old('facility') == 'Mangyan Ballroom') selected @endif>Mangyan Ballroom</option>
+                                                <option value="Halcon Performance Area" @if(old('facility') == 'Halcon Performance Area') selected @endif>Halcon Performance Area</option>
+                                                <!-- Add more options as needed -->
+                                            </select>
 
                                             @error('facility')
                                                 <span class="invalid-feedback" role="alert">
@@ -179,18 +182,24 @@
                                     <div class="form-group row">
                                         <label for="date_requested" class="col-md-4 col-form-label text-md-right">Date
                                             Requested</label>
+                                            {{-- <div class="form-group row"> --}}
+                                                {{-- <label for="date_requested" class="col-md-4 col-form-label text-md-right">Date Requested</label> --}}
+                                                <div class="col-md-6">
+                                                    <input id="date_requested" type="date" class="form-control" name="date_requested" required
+                                                        @if(isset($selectedDate) && $selectedDate === date('Y-m-d'))
+                                                            value="{{ $selectedDate }}"
+                                                            disabled
+                                                        @endif
+                                                    >
+                                                    @error('date_requested')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            {{-- </div> --}}
 
-                                        <div class="col-md-6">
-                                            <input id="date_requested" type="date"
-                                                class="form-control @error('date_requested') is-invalid @enderror"
-                                                name="date_requested" value="{{ old('date_requested') }}" required>
 
-                                            @error('date_requested')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
                                     </div>
 
                                     <div class="form-group row">
@@ -493,6 +502,20 @@
     <script src="{{ asset('assets/js/js/stellar.js') }}"></script>
     <script src="{{ asset('vendor/lightbox/simpleLightbox.min.js') }}"></script>
     <script src="{{ asset('assets/js/js/custom.js') }}"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
 
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

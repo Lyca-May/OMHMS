@@ -39,7 +39,58 @@
 
 
 </head>
+<style>
+     .body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
+        .header {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .logo {
+            width: 100px;
+            height: auto;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .date {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+
+        .content {
+            margin: 20px;
+        }
+
+        .partial {
+            text-align: left;
+            margin-top: 50px;
+            margin-bottom: 20px;
+        }
+
+        .balance {
+            text-align: left;
+        }
+
+        .signature {
+            text-align: left;
+            margin-top: 100px;
+        }
+
+        .signature img {
+            width: 150px;
+            height: auto;
+        }
+</style>
 <body class="bg-theme">
 
     <!-- Start wrapper-->
@@ -189,207 +240,265 @@
                 </ol>
             </div> --}}
             <br>
-            <div class="tabs">
 
-                <input type="radio" id="tab1" name="tab-control" checked>
-                <input type="radio" id="tab2" name="tab-control">
-                {{-- <input type="radio" id="tab3" name="tab-control">
-                <input type="radio" id="tab4" name="tab-control"> --}}
-                <ul>
-                    <li title="Features"><label for="tab1" role="button"><svg viewBox="0 0 24 24">
+            <div>
+                <button id="visit-button">Visit</button>
+            </div>
+            <div>
+                <button id="function-button">Function Hall</button>
+            </div>
 
-                            </svg><br><span>Visits</span></label></li>
-                    <li title="Delivery Contents"><label for="tab2" role="button"><svg viewBox="0 0 24 24">
+            <div id="visit-section">VIST</div>
 
-                            </svg><br><span>Function Hall</span></label></li>
-
-                </ul>
-
-                <div class="slider">
-                    <div class="indicator"></div>
-                </div>
-                <div class="content">
-                    @if ($visit->isEmpty())
-                        <section style="margin-left:20px">
-                            <p>You have no active booking</p>
-                        </section>
+            <div id="function-section">
+                <section>
+                    <span>FUNCTION HALL</span>
+                    @if ($rent->isEmpty())
+                        {{-- <section style="margin-left:20px">
+        <div class="container"> --}}
+                        <p>You have no active booking</p>
+                        {{-- </div>
+    </section> --}}
                     @else
-                        @foreach ($visit as $visits)
-                            <section>
-                                <div class="container bootdey">
-                                    <div class="row invoice row-printable">
-                                        <div class="col-md-11">
-                                            <div class="panel panel-default plain" id="dash_0"
-                                                style="margin-left:30px; box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2); border-radius: 10px">
-                                                <div class="panel-body p30"
-                                                    style="background-color:rgba(204, 198, 198, 0.27)">
-                                                    <div class="row">
-                                                        <div class="col-lg-6">
-                                                            <div class="invoice-logo">
-                                                                <img width="100" src="{{ asset('omhms.png') }}"
-                                                                    alt="">
-                                                                <strong>ORIENTAL MINDORO HERITAGE MUSEUM</strong>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-6">
-                                                            <div class="invoice-from">
-                                                                <ul class="list-unstyled text-right"
-                                                                    style="margin-top: 20px; margin-left:350px">
-                                                                    <p>
-                                                                        <li><strong>Status:</strong>
-                                                                            <span
-                                                                                class="label label-success">{{ $visits->visits_status }}</span>
-                                                                        </li>
-                                                                    </p>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-12">
-                                                            <hr style="color:black">
-                                                            <div class="row">
-                                                                <div class="col">
-                                                                    <strong></strong>
-                                                                    <p class="lead marginbottom">From : Oriental
-                                                                        Mindoro
-                                                                        Heritage Museum</p>
-                                                                    @if ($visits->gender == 'Female')
-                                                                        <p>Hi, Ms. {{ $visits->visits_lname }},
-                                                                            {{ $visits->visits_fname }}
-                                                                            {{ $visits->visits_mname }}.</p>
-                                                                    @else
-                                                                        <p>Hi, Mr. {{ $visits->visits_lname }},
-                                                                            {{ $visits->visits_fname }}
-                                                                            {{ $visits->visits_mname }}.</p>
-                                                                    @endif
-                                                                    <p>This is your Reservation for Visitation</p>
-                                                                    <p>You are from {{ $visits->visits_street }},
-                                                                        {{ $visits->visits_brgy }},
-                                                                        {{ $visits->visits_municipality }},
-                                                                        {{ $visits->visits_province }},
-                                                                        {{ $visits->visits_country }}, with the zipcode
-                                                                        {{ $visits->visits_zipcode }}.</p>
-                                                                    <p>Your selected date is
-                                                                        {{ date('F d, Y', strtotime($visits->visits_intended_date)) }}
-                                                                        at {{ $visits->visits_time }}.</p>
-                                                                    @if ($visits->visits_name_of_institution != null)
-                                                                        <p>You are from
-                                                                            {{ $visits->visits_name_of_institution }}
-                                                                            Institution and you're with your</p>
-                                                                    @endif
-                                                                    @if ($visits->visits_no_of_visitors != null)
-                                                                        <p>{{ $visits->visits_no_of_visitors }} members
-                                                                        </p>
-                                                                    @endif
+                        @foreach ($rent as $visits)
+                            <div class="card">
+                                <div class="col-lg-6">
+                                    <div>
+                                        <div class="invoice-logo">
+                                            <img width="100" src="{{ asset('omhms.png') }}" alt="">
+                                            <strong>ORIENTAL MINDORO HERITAGE MUSEUM</strong>
+                                        </div>
+                                    </div>
+                                    <ul class="list-unstyled text-right" style="margin-top: 20px; margin-left:350px">
+                                        <p>
+                                            <li><strong>Status:</strong>
+                                                <span class="label label-success">{{ $visits->status }}</span>
+                                            </li>
+                                        </p>
+                                    </ul>
 
-                                                                    <p>We will send you an email notification for the
-                                                                        status of
-                                                                        your reservation. If you have a clarification
-                                                                        with your
-                                                                        booking information, please contact us at our
-                                                                        contact
-                                                                        number or email account</p>
-                                                                    {{-- <p>Contact Number: 09151949345</p> --}}
-                                                                    {{-- <p>Email: omhms@gmail.com</p> --}}
-                                                                </div>
-                                                            </div>
-                                                            </div>
+                                </div>
 
-
-                                                            <hr>
-                                                            <div class="invoice-items" style="width: 900px">
-                                                                <div class="table-responsive"
-                                                                    style="overflow: hidden; outline: none;"
-                                                                    tabindex="0">
-                                                                    <table class="table table-bordered">
-                                                                        <thead style="color: black;" class="mt25">
-                                                                            <tr>
-                                                                                <th class="text-center"
-                                                                                    style="width:5%">#</th>
-                                                                                <th style="width:50%">Item</th>
-                                                                                <th class="text-right"
-                                                                                    style="width:15%">Quantity</th>
-                                                                                <th class="text-right"
-                                                                                    style="width:15%">Unit Price</th>
-                                                                                <th class="text-right"
-                                                                                    style="width:15%">Total Price</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody style="color: black">
-                                                                            <tr>
-                                                                                <td class="text-center">1</td>
-                                                                                <td>Flatter Theme</td>
-                                                                                <td class="text-right">10</td>
-                                                                                <td class="text-right">$18</td>
-                                                                                <td class="text-right">$180</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td class="text-center">2</td>
-                                                                                <td>Flat Icons</td>
-                                                                                <td class="text-right">6</td>
-                                                                                <td class="text-right">$59</td>
-                                                                                <td class="text-right">$254</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td class="text-center">3</td>
-                                                                                <td>Wordpress version</td>
-                                                                                <td class="text-right">4</td>
-                                                                                <td class="text-right">$95</td>
-                                                                                <td class="text-right">$285</td>
-                                                                            </tr>
-                                                                            <tr class="last-row">
-                                                                                <td class="text-center">4</td>
-                                                                                <td>Server Deployment</td>
-                                                                                <td class="text-right">1</td>
-                                                                                <td class="text-right">$300</td>
-                                                                                <td class="text-right">$300</td>
-                                                                            </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-xs-6 margintop">
-                                                                    <p class="lead marginbottom">THANK YOU!</p>
-                                                                    <a href="{{ url('user/visithistory') }}">
-                                                                        <button class="btn btn-success"
-                                                                            id="invoice-print">
-                                                                            <i class="fa fa-history"></i> View History
-                                                                        </button>
-                                                                    </a>
-                                                                    {{-- <button class="btn btn-danger"><i class="fa fa-envelope-o"></i> Mail Invoice</button> --}}
-                                                                </div>
-                                                                <div
-                                                                    class="col-xs-6 text-right pull-right invoice-total">
-                                                                    <p>Subtotal : $1019</p>
-                                                                    <p>Discount (10%) : $101</p>
-                                                                    <p>VAT (8%) : $73</p>
-                                                                    <p>Total : $991</p>
-                                                                </div>
-                                                            </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <!-- Booking Details -->
+                                            <h5 class="card-title">Booking Details</h5>
+                                            <p class="card-text">Contact Person: {{ $visits->contact_person }}</p>
+                                            <p class="card-text">Contact Number: {{ $visits->contact_number }}</p>
+                                            <p class="card-text">Agency: {{ $visits->agency }}</p>
+                                            <p class="card-text">Facility: {{ $visits->facility }}</p>
+                                            <p class="card-text">Event Type: {{ $visits->event_type }}</p>
+                                            <p class="card-text">Date Selected:
+                                                {{ date('F d, Y', strtotime($visits->date_requested)) }}</p>
+                                            <p class="card-text">Event Start
+                                                Time:{{ date('H:i', strtotime($visits->event_start)) }}</p>
+                                            <p class="card-text">Date of Setup:
+                                                {{ date('F d, Y', strtotime($visits->date_of_setup)) }}</p>
+                                            <p class="card-text">Preparation Setup
+                                                Time:{{ date('H:i', strtotime($visits->prep_setup_time)) }}</p>
+                                            <div>
+                                                <span>
+                                                    @if ($visits->microphones == 1)
+                                                        <div>
+                                                            <input type="checkbox" id="led-tv" name="product"
+                                                                value="led-tv" checked>
+                                                            <span>Microphones</span>
                                                         </div>
-                                                    </div>
-                                                </div>
+                                                        <span>Number of Microphones{{ $visits->number_of_microphones }}
+                                                        </span>
+                                                    @else
+                                                        <div>
+                                                            <input type="checkbox" id="led-tv" name="product"
+                                                                value="led-tv">
+                                                            <span>Microphones</span>
+                                                        </div>
+                                                    @endif
+                                                </span>
                                             </div>
+                                            <div>
+                                                <span>
+                                                    @if ($visits->stands == 1)
+                                                        <div>
+                                                            <input type="checkbox" id="led-tv" name="product"
+                                                                value="led-tv" checked>
+                                                            <span>Stands</span>
+                                                        </div>
+                                                        <span>Number of Stands{{ $visits->number_of_stands }} </span>
+                                                    @else
+                                                        <div>
+                                                            <input type="checkbox" id="led-tv" name="product"
+                                                                value="led-tv">
+                                                            <span>Stands</span>
+                                                        </div>
+                                                    @endif
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <span>
+                                                    <span>
+                                                        @if ($visits->sound_system == 1)
+                                                            <div>
+                                                                <input type="checkbox" id="led-tv" name="product"
+                                                                    value="led-tv" checked>
+                                                                <span>SOUND SYSTEM</span>
+                                                            </div>
+                                                        @else
+                                                            <div>
+                                                                <input type="checkbox" id="led-tv" name="product"
+                                                                    value="led-tv">
+                                                                <span>SOUND SYSTEM</span>
+                                                            </div>
+                                                        @endif
+                                                    </span>
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <span>
+                                                    @if ($visits->led_tv == 1)
+                                                        <div>
+                                                            <input type="checkbox" id="led-tv" name="product"
+                                                                value="led-tv" checked>
+                                                            <span>LED TV</span>
+                                                        </div>
+                                                    @else
+                                                        <div>
+                                                            <input type="checkbox" id="led-tv" name="product"
+                                                                value="led-tv">
+                                                            <span>LED TV</span>
+                                                        </div>
+                                                    @endif
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <span>
+                                                    @if ($visits->tables == 1)
+                                                        <div>
+                                                            <input type="checkbox" id="led-tv" name="product"
+                                                                value="led-tv" checked>
+                                                            <span>Tables</span>
+                                                        </div>
+                                                        <span>Number of Tables{{ $visits->number_of_tables }} </span>
+                                                    @else
+                                                        <div>
+                                                            <input type="checkbox" id="led-tv" name="product"
+                                                                value="led-tv">
+                                                            <span>Tables</span>
+                                                        </div>
+                                                    @endif
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <span>
+                                                    @if ($visits->chairs == 1)
+                                                        <div>
+                                                            <input type="checkbox" id="led-tv" name="product"
+                                                                value="led-tv" checked>
+                                                            <span>Chairs</span>
+                                                        </div>
+                                                        <span>Number of Chairs{{ $visits->number_of_chairs }} </span>
+                                                    @else
+                                                        <div>
+                                                            <input type="checkbox" id="led-tv" name="product"
+                                                                value="led-tv">
+                                                            <span>Chairs</span>
+                                                        </div>
+                                                    @endif
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <span>
+                                                    @if ($visits->others == 0)
+                                                        <span>Others:
+                                                            <p>Wait for the price to pay</p>
+                                                        </span>
+                                                    @endif
+                                                </span>
+                                            </div>
+
+
+
+
+
+                                        </div>
+                                        <div class="col-md-6">
+                                            <!-- Payment Details -->
+                                            <h5 class="card-title">Payment Details</h5>
+                                            <p class="card-text">Payment for Rent: {{ $visits->payment_rent }}</p>
+                                            <p class="card-text">Downpayment: {{ $visits->downpayment }}</p>
+                                            <p class="card-text">Total Amount to be Paid: {{ $visits->total_payment }}
+                                            </p>
+                                            {{-- <p class="card-text">Transaction ID: {{ $payment->transaction_id }}</p> --}}
+                                            <!-- Add more payment details as needed -->
                                         </div>
                                     </div>
                                 </div>
-                            </section>
+                            </div>
+                            {{-- <div>Kindly wait for the admin to approved your reservation. Thank you</div> --}}
+
                         @endforeach
                     @endif
-                </div>
+                    @foreach ($rent as $visit)
+                    @if ($visit->recorded_by != null)
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#acknowledgementModal">View Acknowledgement Receipt</button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="acknowledgementModal" tabindex="-1" role="dialog" aria-labelledby="acknowledgementModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <img src="{{ asset('omhms.png') }}" alt="Tourism Logo" class="logo">
+                                        {{-- <h2 class="modal-title" id="acknowledgementModalLabel" style="font-size: 30px">Acknowledgement Receipt</h2> --}}
+                                        <h2 style="font-size: 30px; text-align:center">Acknowledgement Receipt</h2>
+                                        <div class="date">{{ date('F d, Y') }}</div>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Received from {{ date('F d, Y') }} the sum of (Php {{$visit->downpayment}}) as partial payment for the
+                                            @if ($visit->facility == 'Mangyan Ballroom')
+                                                Rent of Mangyan Ballroom
+                                            @endif
+                                            @if ($visit->facility == 'Museum Galleries')
+                                                Rent of Museum Galleries
+                                            @endif
+                                            @if ($visit->facility == 'Halcon Performance Area')
+                                                Rent of Halcon Perfomance <Area></Area>
+                                            @endif
+                                            dated {{ date('F d, Y') }} {{ date('F d, Y', strtotime($visit->date_requested)) }}
+                                        </p>
+                                        <div class="partial">
+                                            <p>Partial: {{$visit->downpayment}}</p>
+                                        </div>
+                                        <div class="balance">
+                                            <p>Balance: {{$visit->totalpayment - $visit->downpayment}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <img src="admin_signature.png" alt="Admin Signature">
+                                    </div>
+                                    <span>Admin Signature: {{$visit->approved_by}}</span>
+                                    <button class="btn btn-success">Download</button>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                    @endforeach
 
-
-
-
+                </section>
             </div>
-            <!-- End container-fluid-->
-        </div>
-        <!--End content-wrapper-->
-        <!--Start Back To Top Button-->
-        <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
-        <!--End Back To Top Button-->
 
-        {{-- <!--Start footer-->
+
+
+        </div>
+        <!-- End container-fluid-->
+    </div>
+    <!--End content-wrapper-->
+    <!--Start Back To Top Button-->
+    <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+    <!--End Back To Top Button-->
+
+    {{-- <!--Start footer-->
 	<footer class="footer">
       <div class="container">
         <div class="text-center">
@@ -425,9 +534,40 @@
     <script src="{{ asset('assets/js/js/index1.js') }}"></script>
 
 
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
     {{-- <script src="{{ asset('assets/js/js/mybook.js') }}"></script> --}}
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Hide the function section initially
+            $('#function-section').hide();
 
+            // Show the visit section and hide the function section when the visit button is clicked
+            $('#visit-button').click(function() {
+                $('#visit-section').show();
+                $('#function-section').hide();
+            });
+
+            // Show the function section and hide the visit section when the function hall button is clicked
+            $('#function-button').click(function() {
+                $('#visit-section').hide();
+                $('#function-section').show();
+            });
+        });
+    </script>
 
 
 </body>

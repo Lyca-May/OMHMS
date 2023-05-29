@@ -20,13 +20,16 @@ class UserFunctionalRoomController extends Controller
     }
     public function display_form()
     {
-        // $rent = Function_Hall::all()->get();
-
         $rent = DB::table('rent_hall')->get();
         $user_id = session('User')['user_id'];
         $users = DB::table('users')->where('user_id', $user_id)->get();
-        return view('user.pages.landingpage1.booking.rentconhall', ['users' => $users], ['rent' => $rent],);
+
+        // Fetch the selected date from the database
+        $selectedDate = DB::table('rent_hall')->where('userid', $user_id)->value('date_requested');
+
+        return view('user.pages.landingpage1.booking.rentconhall', compact('users', 'rent', 'selectedDate'));
     }
+
     public function display_payment_form($rent_id)
     {
              $rents = DB::table('rent_hall')->where('rent_id', $rent_id)->get();
@@ -127,6 +130,31 @@ class UserFunctionalRoomController extends Controller
     $function_hall->full_payment = null;
     $function_hall->proof_of_payment = null;
     $function_hall->total_payment = $function_hall->payment_rent + $function_hall->add_service_payment;
+
+    $existing_booking1 = Function_Hall::where('date_requested', $function_hall->date_requested)
+            ->first();
+            if($existing_booking1){
+                return redirect()->back()->with('error', ' Sorry, that booking slot is already taken. Please choose a different date/time.');
+            }
+            $uncompleteVisit = Function_Hall::where('userid', $user['user_id'])
+            ->where('date_requested', '>=', date('Y-m-d'))
+            ->first();
+            if ($uncompleteVisit) {
+            return redirect()->back()->with('error', 'You are not yet complete with your visitation. Please complete your previous reservation before booking another one.');
+            }
+
+            // Check if user already has a pending reservation
+            $pendingVisit = Function_Hall::where('userid', $user['user_id'])
+                    ->where('status', '=', 'pending')
+                    ->first();
+            if ($pendingVisit) {
+            return redirect()->back()->with('failed', 'You already have a pending reservation. Please complete your previous reservation before booking another one.');
+            }
+    $rented = Function_Hall::where('facility', $function_hall->facility)
+            ->first();
+            if($rented){
+                return redirect()->back()->with('error', ' Sorry, that booking slot is already taken. Please choose a different date/time.');
+            }
     $function_hall->save();
 
         if($function_hall){
@@ -173,7 +201,9 @@ class UserFunctionalRoomController extends Controller
             return redirect()->back()->with('failed', 'Invalid file. Please upload a valid file.');
         }
     }
-
+    if($rentPayment->downpayment <2000){
+        return redirect()->back()->with('failed', 'Downpayment must not lower than 2 thousand pesos.');
+    }
     // Save the updated rent payment
     $rentPayment->save();
     if($rentPayment){

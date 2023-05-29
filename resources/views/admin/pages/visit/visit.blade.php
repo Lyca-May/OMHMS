@@ -36,34 +36,54 @@
 
 
 
-<style>
-    .custom-modal {
-      background-color: #031a03; /* Dark green color */
-      color: #fff; /* Text color */
-    }
+    <style>
+        #pending-table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+        .custom-modal {
+            background-color: #031a03;
+            /* Dark green color */
+            color: #fff;
+            /* Text color */
+        }
 
-    .custom-modal .modal-header {
-      border-bottom: none; /* Remove header border */
-    }
+        .custom-modal .modal-header {
+            border-bottom: none;
+            /* Remove header border */
+        }
 
-    .custom-modal .modal-footer {
-      border-top: none; /* Remove footer border */
-    }
+        .custom-modal .modal-footer {
+            border-top: none;
+            /* Remove footer border */
+        }
 
-    .custom-modal .btn-success {
-      background-color: #006400; /* Dark green color for the Confirm Cancel button */
-    }
+        .custom-modal .btn-success {
+            background-color: #006400;
+            /* Dark green color for the Confirm Cancel button */
+        }
 
-    .avatar-image {
-    width: 50px; /* Adjust the size as needed */
-    height: 50px; /* Adjust the size as needed */
-    border-radius: 50%;
-    object-fit: cover;
-    }
+        .avatar-image {
+            width: 50px;
+            /* Adjust the size as needed */
+            height: 50px;
+            /* Adjust the size as needed */
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        @media (max-width: 1707.50px) {
+        #pending-table {
+            width: 100%;
+        }
+}
 
 
 
-  </style>
+
+    </style>
+
 
 </head>
 
@@ -95,7 +115,7 @@
                     </a>
                     <ul id="tablesDrawer" class="drawer-items">
                         <li><a class="zmdi zmdi-building" href="{{ asset('admin/visit') }}">Museum Visit</a></li>
-                        <li><a href="">Function Hall</a></li>
+                        <li><a href="{{url('admin/function')}}">Function Hall</a></li>
                         <!-- Add more link items as needed -->
                     </ul>
                 </li>
@@ -253,7 +273,7 @@
                                         </div>
                                     </div> --}}
                                 </div>
-                                <div class="table-responsive">
+                                <div class="table-responsive" style="width: 1707.50px; overflow-x: auto;">
                                     <table class="table align-items-center table-flush table-borderless" id="pending-table">
                                         <thead>
                                             <tr>

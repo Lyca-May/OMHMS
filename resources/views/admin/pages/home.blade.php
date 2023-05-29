@@ -63,7 +63,7 @@
                     </a>
                     <ul id="tablesDrawer" class="drawer-items">
                         <li><a href="{{ asset('admin/visit') }}">Museum Visit</a></li>
-                        <li><a href="{{url('')}}">Function Hall</a></li>
+                        <li><a href="{{url('admin/function')}}">Function Hall</a></li>
                         <!-- Add more link items as needed -->
                     </ul>
                 </li>
@@ -217,13 +217,13 @@
                             </div>
                             <div class="col-12 col-lg-6 col-xl-3 border-light">
                                 <div class="card-body">
-                                    <h5 class="text-white mb-0">8323 <span class="float-right"><i
-                                                class="fa fa-usd"></i></span></h5>
+                                    <h5 class="text-white mb-0">{{$rentCount}} <span class="float-right"><i
+                                                class="fa fa-account"></i></span></h5>
                                     <div class="progress my-3" style="height:3px;">
                                         <div class="progress-bar" style="width:55%"></div>
                                     </div>
-                                    <p class="mb-0 text-white small-font">Total Revenue <span
-                                            class="float-right">+1.2% <i class="zmdi zmdi-long-arrow-up"></i></span>
+                                    <p class="mb-0 text-white small-font">Total Accounts Rented <span
+                                            class="float-right"><i class="zmdi zmdi-long-arrow-up"></i></span>
                                     </p>
                                 </div>
                             </div>
@@ -378,75 +378,88 @@
                                 </div>
 
                             </div>
-                            <div class="table-responsive">
-                                <table class="table align-items-center table-flush table-borderless">
+                            <div class="table-responsive" style="width: 1707.50px; overflow-x: auto;">
+                                <table class="table align-items-center table-flush table-borderless" id="pending-table">
                                     <thead>
                                         <tr>
-                                            <th>Product</th>
-                                            <th>Photo</th>
-                                            <th>Product ID</th>
-                                            <th>Amount</th>
-                                            <th>Date</th>
+                                            <th>Full Name</th>
+                                            <th>Country</th>
+                                            <th>Province</th>
+                                            <th>Municipality</th>
+                                            <th>Barangay</th>
+                                            <th>Street</th>
+                                            <th>Zipcode</th>
+                                            <th>Date of Visit</th>
+                                            <th>Selected Time</th>
+                                            <th>Number of Visitors</th>
+                                            <th>Name of Institution</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach ($visit as $visits)
                                         <tr>
-                                            <td>Iphone 5</td>
-                                            <td><img src="https://via.placeholder.com/110x110" class="product-img"
-                                                    alt="product img"></td>
-                                            <td>#9405822</td>
-                                            <td>$ 1250.00</td>
-                                            <td>03 Aug 2017</td>
+                                            <td>{{ $visits->visits_lname }}, {{ $visits->visits_fname }} {{ $visits->visits_mname }}.</td>
+                                            <td>{{ $visits->visits_country }}</td>
+                                            <td>{{ $visits->visits_province }}</td>
+                                            <td>{{ $visits->visits_municipality }}</td>
+                                            <td>{{ $visits->visits_brgy }}</td>
+                                            <td>{{ $visits->visits_street }}</td>
+                                            <td>{{ $visits->visits_zipcode }}</td>
+                                            <td>{{ $visits->visits_intended_date }}</td>
+                                            <td>{{ $visits->visits_time }}</td>
+                                            <td>{{ $visits->visits_no_of_visitors }}</td>
+                                            <td>{{ $visits->visits_name_of_institution }}</td>
+                                            <td>
+                                                @if ($visits->visits_status == 'PENDING')
+                                                    <p><span style="color: gray">{{ $visits->visits_status }}</span></p>
+                                                @else
+                                                    <p><span style="color: green">{{ $visits->visits_status }}</span></p>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <form action="{{ url('/approve-status/' . $visits->userid) }}" method="post">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-success">Approve</button>
+                                                </form>
+                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#cancelModal">Cancel</button>
 
-
-                                        <tr>
-                                            <td>Earphone GL</td>
-                                            <td><img src="https://via.placeholder.com/110x110" class="product-img"
-                                                    alt="product img"></td>
-                                            <td>#9405820</td>
-                                            <td>$ 1500.00</td>
-                                            <td>03 Aug 2017</td>
-
-
-                                        <tr>
-                                            <td>HD Hand Camera</td>
-                                            <td><img src="https://via.placeholder.com/110x110" class="product-img"
-                                                    alt="product img"></td>
-                                            <td>#9405830</td>
-                                            <td>$ 1400.00</td>
-                                            <td>03 Aug 2017</td>
-
-
-                                        <tr>
-                                            <td>Clasic Shoes</td>
-                                            <td><img src="https://via.placeholder.com/110x110" class="product-img"
-                                                    alt="product img"></td>
-                                            <td>#9405825</td>
-                                            <td>$ 1200.00</td>
-                                            <td>03 Aug 2017</td>
-
-
-                                        <tr>
-                                            <td>Hand Watch</td>
-                                            <td><img src="https://via.placeholder.com/110x110" class="product-img"
-                                                    alt="product img"></td>
-                                            <td>#9405840</td>
-                                            <td>$ 1800.00</td>
-                                            <td>03 Aug 2017</td>
-
-
-                                        <tr>
-                                            <td>Clasic Shoes</td>
-                                            <td><img src="https://via.placeholder.com/110x110" class="product-img"
-                                                    alt="product img"></td>
-                                            <td>#9405825</td>
-                                            <td>$ 1200.00</td>
-                                            <td>03 Aug 2017</td>
-
-
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelModalLabel"
+                                                    aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content custom-modal">
+                                                            <form action="{{ url('/cancel_status/' . $visits->userid) }}" method="POST">
+                                                                @csrf
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="cancelModalLabel">Confirm Cancel</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="form-group">
+                                                                        <label for="cancel_reason">Reason for cancellation</label>
+                                                                        <textarea class="form-control @error('cancel_reason') is-invalid @enderror" name="cancel_reason" id="cancel_reason" rows="3">{{ old('cancel_reason') }}</textarea>
+                                                                        @error('cancel_reason')
+                                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                                        @enderror
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                    <button type="submit" class="btn btn-success">Confirm Cancel</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        @endforeach
                                     </tbody>
-                                </table>
-                            </div>
+                                </table></div>
                         </div>
                     </div>
                 </div>

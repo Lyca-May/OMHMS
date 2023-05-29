@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\RentApproved;
 use App\Mail\RentCancelled;
-
+use App\Models\Function_Hall;
 
 class FunctionalHallController extends Controller
 {
@@ -42,68 +42,96 @@ class FunctionalHallController extends Controller
         return view('admin.pages.functional.rent-history', ['rent' => $rent]);
     }
 
-
-
-    public function approve_status(){
-        $user = DB::table('users')->first();
-        $user_id = $user->user_id;
-        $rent = DB::table('functional_hall')->where('userid', $user_id)->where('functional_status', 'PENDING')->first();
-
-        if($rent){
-            $status=['functional_status' => 'APPROVED'];
-            $success=DB::table('functional_hall')->where('userid', $user_id)->where('functional_status', 'PENDING')->update($status);
-
-            if($success){
-                // Generate link and send to visitor's email
-                $loggedUser = session()->get('User');
-                if($loggedUser){ // if user is logged in
-                    $link = 'http://127.0.0.1:8000/user/rentedhall/';
-                }else{ // if user is not logged in
-                    $link = 'http://127.0.0.1:8000/';
-                }
-
-                if($user){
-                    Mail::to($user->user_email)->send(new RentApproved($link));
-                    return redirect()->back()->with('success', "You have approved the reserved room and sent an email to the user with a link");
-                }else{
-                    return redirect()->back()->with('failed', "Empty email");
-                }
-            }else{
-                return redirect()->back()->with('failed', "Something went wrong. Please check your internet connection");
-            }
-        }else{
-            return redirect()->back()->with('failed', "Failed to send email to the user");
-        }
+    public function displayRent(){
+        $user_id = session('Admin')['user_id'];
+        $users = DB::table('users')->where('user_id', $user_id)->get();
+        $rent = Function_Hall::with('user')
+            ->where('status', 'pending')
+            ->get();
+        $approved = Function_Hall::with('user')
+            ->where('status', 'approved')
+            ->get();
+        $cancelled = Function_Hall::with('user')
+            ->where('status', 'cancelled')
+            ->get();
+        $currentDate = date('Y-m-d');
+        $history = DB::table('rent_hall')
+            ->where('status', '!=', 'pending')
+            ->whereRaw('DATE(date_requested) < ?', [$currentDate])
+            ->get();
+        return view('admin.pages.function_hall.function_hall', compact('rent', 'users', 'approved', 'cancelled', 'history'));
     }
 
-    public function cancel_status(Request $request)
+    public function approve_rent(Request $request, $rent_id)
     {
+        $rent = Function_Hall::findOrFail($rent_id);
+        $user = users::find($rent->userid);
+        $visit = Function_Hall::where('userid', $user->user_id)->where('status', 'pending')->first();
 
-        $user = DB::table('users')->first();
-        $user_id = $user->user_id;
-        $functional = DB::table('functional_hall')->where('userid', $user_id)->where('functional_status', 'PENDING')->first();
-        if($functional){
-            $reason = $request->input('functional_cancel_reason');
-            $status=['visits_status' => 'CANCELLED', 'functional_cancel_reason' => $reason];
-            $success=DB::table('functional_hall')->where('userid', $user_id)->where('functional_status', 'PENDING')->update($status);
-            if($success){
-                $loggedUser = session()->get('User');
-                if($loggedUser){ // if user is logged in
-                    $link = 'http://127.0.0.1:8000/user/rentedhall/';
-                }else{ // if user is not logged in
-                    $link = 'http://127.0.0.1:8000/';
+        if ($visit) {
+            $recorded_date = $request->input('recorded_date');
+            $recorded_by = $request->input('recorded_by');
+            $approved_by = $request->input('approved_by');
+            $status = [
+                'status' => 'approved',
+                'recorded_date' => $recorded_date,
+                'recorded_by' => $recorded_by,
+                'approved_by' => $approved_by
+            ];
+
+            $success = Function_Hall::where('userid', $user->user_id)
+                ->where('status', 'pending')
+                ->update($status);
+
+            if ($success) {
+                $loggedUserId = session()->get('User');
+                $link = $loggedUserId && $loggedUserId == $user->user_id ? 'http://127.0.0.1:8000/user/profile/' : 'http://127.0.0.1:8000/';
+
+                if (!empty($user->user_email)) {
+                    Mail::to($user->user_email)->send(new RentApproved($link));
                 }
-                if(!empty($user->functional_email)){
-                    Mail::to($user->functional_email)->send(new RentCancelled($link));
-                }
-                return redirect()->back()->with('success', "Reservation cancelled and email notification sent to user.");
-            }else{
-                return redirect()->back()->with('failed', "Something went wrong. Please check your internet connection");
+
+                return redirect()->back()->with('success', "Reservation successfully approved and email notification sent to the user.");
+            } else {
+                return redirect()->back()->with('failed', "Something went wrong. Please check your internet connection.");
             }
-        }
-        else{
-            return redirect()->back()->with('failed', "Failed to cancel reservation.");
+        } else {
+            return redirect()->back()->with('failed', "Failed to cancel the reservation.");
         }
     }
+    public function cancel_rent(Request $request, $rent_id)
+    {
+        $rent = Function_Hall::findOrFail($rent_id);
+        $user = users::find($rent->userid);
+        $visit = Function_Hall::where('userid', $user->user_id)->where('status', 'pending')->first();
+
+        if ($visit) {
+            $reason = $request->input('cancel_reason');
+            $status = [
+                'status' => 'cancelled',
+                'cancel_reason' => $reason
+            ];
+
+            $success = Function_Hall::where('userid', $user->user_id)
+                ->where('status', 'pending')
+                ->update($status);
+
+            if ($success) {
+                $loggedUserId = session()->get('User');
+                $link = $loggedUserId && $loggedUserId == $user->user_id ? 'http://127.0.0.1:8000/user/profile/' : 'http://127.0.0.1:8000/';
+
+                if (!empty($user->user_email)) {
+                    Mail::to($user->user_email)->send(new RentCancelled($link));
+                }
+
+                return redirect()->back()->with('success', "Reservation successfully cancelled and email notification sent to the user.");
+            } else {
+                return redirect()->back()->with('failed', "Something went wrong. Please check your internet connection.");
+            }
+        } else {
+            return redirect()->back()->with('failed', "Failed to cancel the reservation.");
+        }
+    }
+
 }
 

@@ -65,12 +65,17 @@ class VisitController extends Controller
 
     public function admin_home()
     {
+        $visit = Visit_Model::with('users')
+        ->where('visits_status', 'PENDING')
+        ->get();
         $currentDateTime = Carbon::now()->tz('UTC');
+        $rentCount = DB::table('rent_hall')->count();
         $visitCount = DB::table('visit')->where('visits_intended_date', '<', now())->count();
         $membersCount = DB::table('visit')->sum('visits_no_of_visitors');
+        // $visit = DB::table('visit')->get();
         $user_id = session('Admin')['user_id'];
         $users = DB::table('users')->where('user_id', $user_id)->get();
-        return view('admin.pages.home', compact('visitCount', 'membersCount', 'users', 'currentDateTime'));
+        return view('admin.pages.home', compact('visitCount', 'membersCount', 'users', 'currentDateTime', 'rentCount', 'visit'));
     }
 
     public function approve_status($user_id)

@@ -115,7 +115,8 @@
                     </a>
                     <ul id="tablesDrawer" class="drawer-items">
                         <li><a class="zmdi zmdi-building" href="{{ asset('admin/visit') }}">Museum Visit</a></li>
-                        <li><a href="">Function Hall</a></li>
+                        <li><a href="{{url('admin/function')}}">Function Hall</a></li>
+
                         <!-- Add more link items as needed -->
                     </ul>
                 </li>

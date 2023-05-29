@@ -14,6 +14,8 @@ use App\Mail\UserVisitCancelled;
 use Illuminate\Support\Facades\Mail;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Carbon\Carbon;
+use App\Models\Function_Hall;
+
 
 
 
@@ -25,14 +27,17 @@ class UserVisitController extends Controller
     }
 
     public function displayVisit(){
+
         $currentDate = date('Y-m-d');
         $user_id = session('User')['user_id'];
         $visit = DB::table('visits')->where('userid', $user_id)
         ->whereRaw('DATE(visits_intended_date) >= ?', [$currentDate])
         ->get();
+
+        $rent = Function_Hall::with('user')->where('userid', $user_id)->whereRaw('DATE(date_requested) >= ?', [$currentDate])->get();
         $users = DB::table('users')->where('user_id', $user_id)->get();
         $currentDateTime = Carbon::now()->tz('UTC');
-        return view('user.pages.profile.mybookings', ['visit' => $visit, 'users' => $users, 'currentDateTime' => $currentDateTime]);
+        return view('user.pages.profile.mybookings', ['visit' => $visit, 'users' => $users, 'currentDateTime' => $currentDateTime, 'rent' => $rent]);
     }
 
     public function displayVisitHistory(){

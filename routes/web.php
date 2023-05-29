@@ -155,7 +155,9 @@ Route::post('booking-history', [VisitController::class,'booking_history']);
 // Route::POST('/approve-status', [VisitController::class,'approve_status']);
 
 //manage rent for admin
-Route::get('admin/functional', [FunctionalHallController::class,'index']);
+Route::get('admin/function', [FunctionalHallController::class,'displayRent']);
+Route::post('admin/approve/{rent_id}', [FunctionalHallController::class,'approve_rent']);
+Route::post('admin/cancel/{rent_id}', [FunctionalHallController::class,'cancel_rent']);
 
 
 //User Page View

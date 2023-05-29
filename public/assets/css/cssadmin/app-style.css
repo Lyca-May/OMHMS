@@ -1946,6 +1946,7 @@ table.grid td {
 }
 .table-responsive{
 	white-space:nowrap;
+    overflow-x: auto;
 }
 .table .thead-primary th {
     color: #fff;

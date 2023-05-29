@@ -201,7 +201,7 @@
                                         <div class="form-group">
                                             <label for="add_service_payment">Payment for Rent</label>
                                                 <input type="text" class="form-control" id="payment_rent"
-                                                name="payment_rent" value="{{ $rent->payment_rent }}" required>
+                                                name="payment_rent" value="{{ $rent->payment_rent }}" readonly>
                                             @error('payment_rent')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -214,7 +214,7 @@
                                         <div class="form-group">
                                             <label for="add_service_payment"><i class="fa fa-plus"></i> Add On Payment</label>
                                             <input type="text" class="form-control" id="add_service_payment"
-                                                name="add_service_payment" value="{{ $rent->add_service_payment }}" required>
+                                                name="add_service_payment" value="{{ $rent->add_service_payment }}" readonly>
                                             @error('add_service_payment')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -224,7 +224,7 @@
                                         <div class="form-group">
                                             <label for="total_payment"><i class="fa fa-money"></i> Total Payment</label>
                                             <input type="text" class="form-control" id="total_payment"
-                                                name="total_payment" value="{{ $rent->total_payment }}" required>
+                                                name="total_payment" value="{{ $rent->total_payment }}" readonly>
                                         </div>
                                         @error('total_payment')
                                         <span class="invalid-feedback" role="alert">
@@ -248,6 +248,8 @@
                                     <div class="col">
                                         <!-- Form fields in the second column -->
                                         <div class="form-group">
+                                            <small id="notice" class="form-text text-danger" style="display: none;">Minimum downpayment is 2000.</small>
+                                            <small id="notice1" class="form-text text-danger" style="display: none;">Minimum downpayment is 3000.</small>
                                             <label for="downpayment"><i class="bi bi-arrow-down"></i> Downpayment</label>
                                             <input type="number" class="form-control" id="downpayment" name="downpayment"
                                                 value="{{ $rent->downpayment }}" required>
@@ -278,21 +280,27 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    <div class="col">
+                                        <!-- Form fields in the second column -->
+                                        <div class="form-group" style="width: 463px">
+                                            <label for="downpayment"><i class="bi bi-arrow-down"></i> Pending Payment</label>
+                                            <input type="number" class="form-control" id="pendingpayment"
+                                                value="" required>
+                                        </div>
+                                    </div>
                                 </div>
                                 @if(session('success'))
-                                <div class="alert alert-success">
-                                    {{ session('success') }}
-                                </div>
-                                <a href="{{ url('user/mybookings') }}">Click to see reservation details</a>
-                                 @endif
+                                    <div class="alert alert-success">
+                                        {{ session('success') }}
+                                    </div>
+                                    <a href="{{ url('user/mybookings') }}">Click to see reservation details</a>
+                                    @endif
 
                                 @if(session('failed'))
                                     <span style="color: red">
                                         {{session('failed')}}
                                     </span>
                                 @endif
-
-
 
                                 <button type="submit" class="btn btn-primary">Submit your Payment</button>
                             </form>
@@ -385,6 +393,38 @@
             });
         </script>
     @endif
+
+    <script>
+        // Get the input fields
+        var downpaymentInput = document.getElementById('downpayment');
+        var totalPaymentInput = document.getElementById('total_payment');
+        var pendingPaymentInput = document.getElementById('pendingpayment');
+        var notice = document.getElementById('notice');
+        var notice1 = document.getElementById('notice1');
+        // Calculate the pending payment when the downpayment or total payment value changes
+        downpaymentInput.addEventListener('input', calculatePendingPayment);
+        totalPaymentInput.addEventListener('input', calculatePendingPayment);
+
+        // Function to calculate the pending payment
+        function calculatePendingPayment() {
+            var downpayment = parseFloat(downpaymentInput.value);
+            var totalPayment = parseFloat(totalPaymentInput.value);
+
+            // Check if the values are valid numbers
+            if (!isNaN(downpayment) && !isNaN(totalPayment)) {
+                var pendingPayment = totalPayment - downpayment;
+
+                // Update the pending payment input field with the calculated value
+                pendingPaymentInput.value = pendingPayment;
+            }
+            // Show or hide the notice based on the downpayment value
+            if (downpayment < 2000) {
+                notice.style.display = 'block';
+            } else {
+                notice.style.display = 'none';
+            }
+        }
+    </script>
 </body>
 </body>
 
