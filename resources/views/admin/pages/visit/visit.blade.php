@@ -266,12 +266,12 @@
                                 <div class="card-header">List of Bookings
                                     <br>
                                     <br>
-                                    {{-- <div class="col-sm-4">
-                                        <a class="btn btn-success" style="float:left;margin-right:20px;" data-toggle="modal" data-target="#addItemModal">+ Add</a>
+                                    <div class="col-sm-4">
+                                        {{-- <a class="btn btn-success" style="float:left;margin-right:20px;" data-toggle="modal" data-target="#addItemModal">+ Add</a> --}}
                                         <div class="search-box">
                                             <input type="text" class="form-control" id="searchInput" placeholder="Search">
                                         </div>
-                                    </div> --}}
+                                    </div>
                                 </div>
                                 <div class="table-responsive" style="width: 1707.50px; overflow-x: auto;">
                                     <table class="table align-items-center table-flush table-borderless" id="pending-table">

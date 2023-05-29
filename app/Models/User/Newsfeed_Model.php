@@ -9,10 +9,11 @@ use App\Models\users;
 class Newsfeed_Model extends Model
 {
     protected $table = 'newsfeed';
+    protected $primaryKey = 'feed_id';
     use HasFactory;
     protected $fillable = [
         'userid',
-        'name',
+        // 'name',
         'post',
         'comment',
         // 'date_posted',

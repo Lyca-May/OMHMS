@@ -83,6 +83,7 @@
         .table-large {
         font-size: 16px;
     }
+
     </style>
 
 </head>
@@ -273,7 +274,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="table-responsive">
+                                     <div class="table-responsive" style="width: 1707.50px; overflow-x: auto;">
                                         <table class="table align-items-center table-flush table-borderless" id="pending-table">
                                             <thead>
                                                 <tr>

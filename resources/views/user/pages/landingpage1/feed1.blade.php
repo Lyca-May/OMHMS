@@ -143,7 +143,9 @@
                             <div class="col-md-3">
                                 <div class="blog_info text-right">
                                     <ul class="blog_meta list_style">
-                                        <li><a href="#">{{$post->name}}<i class="lnr lnr-user"></i></a></li>
+                                        {{-- @foreach ($post as $posts )
+                                        <li><a href="#">{{$posts->user->user_fname}}<i class="lnr lnr-user"></i></a></li>
+                                        @endforeach --}}
                                         <li><a href="#">{{ date('F d, Y', strtotime($post->created_at)) }}<i class="lnr lnr-calendar-full"></i></a></li>
                                         <li>
                                             <a href="#" data-toggle="modal" data-target="#post-{{$post->feed_id}}-comments">
@@ -165,21 +167,50 @@
                                     </div>
                                     <div class="blog_details">
                                         <a href="#">
-                                            <h2 class="font-weight-bold">{{$post->name}}</h2>
+                                            {{-- @foreach ($post as $posts )
+                                            <h2 class="font-weight-bold">{{$posts->user->user_fname}}</h2>
+
+                                            @endforeach --}}
                                         </a>
                                         <p class="font-weight-normal">{{$post->post}}</p>
                                     </div>
-                                    <a href="#" class="genric-btn primary circle text-right">View More</a>
+                                    <a href="#" class="genric-btn primary circle text-right" data-toggle="modal" data-target="#myModal{{$post->feed_id}}">View More</a>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="myModal{{$post->feed_id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="myModalLabel">Comments</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                {{-- @foreach ($post as $posts )
+                                                <div class="modal-body">
+                                                   <span>{{$posts->user->user_fname}}</span>
+                                                   <span></span>
+                                                </div>
+                                                @endforeach --}}
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="genric-btn primary" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
-                        </article>
                     </div>
                     <!-- Modal -->
                     <div class="modal fade" id="post-{{$post->feed_id}}-comments" tabindex="-1" role="dialog" aria-labelledby="post-{{$post->feed_id}}-comments-label" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="post-{{$post->feed_id}}-comments-label">Comments for {{$post->name}}</h5>
+                                    <h5 class="modal-title" id="post-{{$post->feed_id}}-comments-label">
+                                        {{-- Comments for {{$post->name}} --}}
+                                    </h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -315,8 +346,8 @@
                     Copyright &copy;
                     <script>
                         document.write(new Date().getFullYear());
-                    </script> All rights reserved | This template is made with <i class="fa fa-heart-o"
-                        aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                    </script> All rights reserved | <i class="fa fa-heart-o"
+                        aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">OMHMS</a>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </p>
                 <div class="col-lg-4 col-sm-12 footer-social">

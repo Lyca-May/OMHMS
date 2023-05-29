@@ -73,7 +73,7 @@ Route::view('user/posts1', 'user.pages.landingpage1.reviewpages.posts1');
 Route::view('user/testimonials1', 'user.pages.landingpage1.reviewpages.testimonials1');
 
 //Booking after Login
-Route::view('user/bookvisit', 'user.pages.landingpage1.booking.bookvisit');
+// Route::view('user/bookvisit', 'user.pages.landingpage1.booking.bookvisit');
 // Route::view('user/rentconhall', 'user.pages.landingpage1.booking.rentconhall');
 
 // Route::view('user/souvenirs1', 'user.pages.landingpage1.souvenirs.souvenirs1');
@@ -169,7 +169,7 @@ Route::view('add-members', 'user.pages.book-visitation.members');
 
 //Visit for user functions
 Route::get('user/visithistory', [UserVisitController::class,'displayVisitHistory']);
-Route::get('user/visit-form', [UserVisitController::class,'visit_form']);
+Route::get('user/bookvisit', [UserVisitController::class,'visit_form']);
 Route::get('user/mybookings', [UserVisitController::class,'displayVisit']);
 Route::post('user/book', [UserVisitController::class, 'reserve_visit']);
 Route::post('add-members', [UserVisitController::class, 'add_members']);

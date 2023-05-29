@@ -293,7 +293,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="table-responsive">
+                                <div class="table-responsive" style="width: 1707.50px; overflow-x: auto;">
                                     <table class="table align-items-center table-flush table-borderless" id="pending-table">
                                         <thead>
                                             <tr>
@@ -448,7 +448,7 @@
                                     {{-- <label for="Municipality">Municipality</label> --}}
                                     <br>
                                     <select name="souvenir_municipality" id="souvenir_municipality" class="form-control">
-                                        <option value="">Select Category</option>
+                                        <option value="">Select Municipality</option>
                                         <option value="Baco">Baco</option>
                                         <option value="Bansud">Bansud</option>
                                         <option value="Bongabong">Bongabong</option>

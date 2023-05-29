@@ -69,13 +69,18 @@ class VisitController extends Controller
         ->where('visits_status', 'PENDING')
         ->get();
         $currentDateTime = Carbon::now()->tz('UTC');
+        $souvenirsCount = DB::table('souvenirs')->sum('souvenir_qty');
+        $artifactsCount = DB::table('inventory_artifacts')->sum('quantity');
         $rentCount = DB::table('rent_hall')->count();
-        $visitCount = DB::table('visit')->where('visits_intended_date', '<', now())->count();
+        $visitCount = DB::table('visits')->where('visits_status', "APPROVED")
+        ->whereDate('visits_intended_date', '=', $currentDateTime)
+        ->sum('visits_no_of_visitors');
+
         $membersCount = DB::table('visit')->sum('visits_no_of_visitors');
         // $visit = DB::table('visit')->get();
         $user_id = session('Admin')['user_id'];
         $users = DB::table('users')->where('user_id', $user_id)->get();
-        return view('admin.pages.home', compact('visitCount', 'membersCount', 'users', 'currentDateTime', 'rentCount', 'visit'));
+        return view('admin.pages.home', compact('visitCount', 'membersCount', 'users', 'currentDateTime', 'rentCount', 'visit', 'souvenirsCount', 'artifactsCount'));
     }
 
     public function approve_status($user_id)

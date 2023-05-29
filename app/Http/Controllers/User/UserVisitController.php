@@ -22,8 +22,11 @@ use App\Models\Function_Hall;
 class UserVisitController extends Controller
 {
     public function visit_form(){
-        $userid = session('userid');
-        return view('user.pages.book-visit.book', compact('userid'));
+        $user_id = session('User')['user_id'];
+        $users = DB::table('users')->where('user_id', $user_id)->get();
+        $minDate = date('Y-m-d', strtotime('+3 days'));
+        return view('user.pages.landingpage1.booking.bookvisit', compact('users', 'minDate'));
+
     }
 
     public function displayVisit(){
@@ -85,12 +88,11 @@ class UserVisitController extends Controller
                     'date',
                     'date_format:Y-m-d',
                     'after_or_equal:today',
-                    'before_or_equal:' . date('Y-m-d', strtotime('+3 days')),
+                    'equal:' . date('Y-m-d', strtotime('+3 days')),
                 ],
 
                 'visits_time' => 'required',
                 'visits_no_of_visitors' => [
-                    // 'integer',
                     'between:0,100'
                 ],
 
@@ -100,7 +102,7 @@ class UserVisitController extends Controller
                 'visits_intended_date.required' => 'Please input the intended date for reservation',
                 'visits_intended_date.date' => 'Please input a valid date',
                 'visits_intended_date.after_or_equal' => 'The intended date must be on or after today',
-                'visits_intended_date.before_or_equal' => 'The intended date must be before or equal to 3 days after today',
+                'visits_intended_date.equal' => 'The intended date must be equal to 3 days after today',
                 'visits_time.required' => 'Please select the intended time for reservation',
                 // 'visits_no_of_visitors.integer' => 'The number of visitors must be an integer',
                 'visits_no_of_visitors.between' => 'The number of visitors must not be greater than 100',
@@ -147,10 +149,12 @@ class UserVisitController extends Controller
             return redirect()->back()->with('error', 'Sorry, We only accept 100 visitors a day');
             }
 
-            $existing_booking2 = Visit_Model::where('visits_time', $visits_time)
-            ->first();
-            if($existing_booking2){
-                return redirect()->back()->with('error', ' Sorry, that booking slot is already taken. Please choose a different date/time.');
+            $existing_booking2 = Visit_Model::where('visits_time', $visits_time)->first();
+
+            if ($existing_booking2) {
+                if ($existing_booking2->visits_status == 'APPROVED') {
+                    return redirect()->back()->with('error', 'Sorry, that booking slot is already taken. Please choose a different date/time.');
+                }
             }
 
             $visit = new Visit_Model();

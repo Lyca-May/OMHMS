@@ -142,7 +142,26 @@
         background-color: #555;
         border-color: #555;
     }
+    .search-box {
+            display: flex;
+            align-items: center;
+        }
 
+        .search-box input[type="text"] {
+            padding: 10px;
+            border-radius: 5px 0 0 5px;
+            border: 1px solid #ccc;
+            width: 200px;
+        }
+
+        .search-box button {
+            padding: 10px;
+            border-radius: 0 5px 5px 0;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
         </style>
 
 <body>
@@ -162,7 +181,7 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                     <ul class="nav navbar-nav menu_nav ml-auto">
-                        <li class="nav-item active"><a class="nav-link" href="{{ url('/') }}">Home</a></li>
+                        <li class="nav-item active"><a class="nav-link" href="{{ url('user/landlog') }}">Home</a></li>
                         <li class="nav-item submenu dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
                                 aria-haspopup="true" aria-expanded="false">About Us</a>
@@ -186,7 +205,7 @@
                                 aria-haspopup="true" aria-expanded="false">My Account</a>
                             <ul class="dropdown-menu">
                                 <li class="nav-item"><a class="nav-link"
-                                        href="{{ url('myprofile') }}">{{ session('User')['user_fname'] }}'s
+                                        href="{{url('user/profile')}}">{{ session('User')['user_fname'] }}'s
                                         Profile</a>
                                 </li>
                                 <li class="nav-item"><a class="nav-link" href="{{ url('logout') }}">Log out</a></li>
@@ -273,8 +292,8 @@
 
     <!-- Search Box -->
     <div class="search-box">
-        <input type="text" placeholder="Search...">
-        <button>Search</button>
+        <input type="text" id="search-input" placeholder="Search...">
+        <button id="search-button">Search</button>
     </div>
 
     <br>
@@ -436,8 +455,8 @@
                     Copyright &copy;
                     <script>
                         document.write(new Date().getFullYear());
-                    </script> All rights reserved |<i class="fa fa-heart-o"
-                        aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">OMHMS Official Website</a>
+                    </script> All rights reserved | <i class="fa fa-heart-o"
+                        aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">OMHMS</a>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </p>
                 <div class="col-lg-4 col-sm-12 footer-social">
@@ -583,6 +602,51 @@
             });
         });
     </script> --}}
+    <script>
+        function filterSouvenirs(category) {
+            const souvenirCards = document.querySelectorAll('.card');
+
+            souvenirCards.forEach(card => {
+                const cardCategory = card.getAttribute('data-category');
+
+                if (category === 'all' || cardCategory === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function searchSouvenirs() {
+            const searchInput = document.getElementById('search-input').value.toLowerCase();
+            const souvenirCards = document.querySelectorAll('.card');
+
+            souvenirCards.forEach(card => {
+                const name = card.querySelector('h1').innerText.toLowerCase();
+                const description = card.querySelector('p').innerText.toLowerCase();
+
+                if (name.includes(searchInput) || description.includes(searchInput)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        const searchButton = document.getElementById('search-button');
+        const filterLinks = document.querySelectorAll('.dropdown-content a');
+
+        searchButton.addEventListener('click', searchSouvenirs);
+
+        filterLinks.forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                const category = this.getAttribute('category_id');
+                filterSouvenirs(category);
+            });
+        });
+    </script>
+
 
 
 </body>

@@ -125,11 +125,13 @@
                                 <div class="book_tabel">
                                     <div class="form-group">
                                         <div class='input-group date' id=''>
-                                            <input type='date' class="form-control"
-                                                placeholder="Preferred Date of Visit" name="visits_intended_date" @error('visits_intended_date') is-invalid  @enderror id="visits_intended_date" value="{{ old('visits_intended_date') }}" >
-                                                @error('visits_intended_date')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror <br>
+                                            <input type="date" class="form-control"
+                                            placeholder="Preferred Date of Visit" name="visits_intended_date"
+                                            id="visits_intended_date" value="{{ old('visits_intended_date') }}">
+
+                                            @error('visits_intended_date')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror <br>
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar" aria-hidden="true"></i>
                                             </span>
@@ -276,6 +278,61 @@
     });
 </script>
 @endif
+{{-- <script>
+    const currentDate = new Date();
+    const minDate = new Date();
+    minDate.setDate(currentDate.getDate() + 2); // Adding 3 days to the current date
+
+    const visitsIntendedDateInput = document.getElementById('visits_intended_date');
+
+    visitsIntendedDateInput.min = formatDate(minDate);
+
+    visitsIntendedDateInput.addEventListener('change', function() {
+        const selectedDate = new Date(this.value);
+        if (selectedDate < minDate) {
+            alert('Sorry, you cannot reserve a visit less than 3 days from now.');
+            this.value = ''; // Clear the selected date
+        }
+    });
+
+    function formatDate(date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+</script> --}}
+
+<script>
+    const currentDate = new Date();
+    const allowedDate = new Date();
+    allowedDate.setDate(currentDate.getDate() + 3); // Adding 3 days to the current date
+
+    const visitsIntendedDateInput = document.getElementById('visits_intended_date');
+
+    visitsIntendedDateInput.min = formatDate(allowedDate);
+    visitsIntendedDateInput.max = formatDate(allowedDate);
+
+    visitsIntendedDateInput.addEventListener('change', function() {
+        const selectedDate = new Date(this.value);
+
+        const diffInDays = Math.floor((selectedDate - currentDate) / (1000 * 60 * 60 * 24));
+
+        if (diffInDays !== 3) {
+            alert('Sorry, you can only select a date that is exactly 3 days from now.');
+            this.value = formatDate(allowedDate); // Set the allowed date
+        }
+    });
+
+    function formatDate(date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+</script>
+
+
 </body>
 </body>
 

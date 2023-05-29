@@ -210,8 +210,7 @@
                                     <div class="progress my-3" style="height:3px;">
                                         <div class="progress-bar" style="width:55%"></div>
                                     </div>
-                                    <p class="mb-0 text-white small-font">Total Visitors <span class="float-right">+
-                                            kung ilan nadagdag this day<i class="zmdi zmdi-long-arrow-up"></i></span>
+                                    <p class="mb-0 text-white small-font" class="fa fa-eye">Total Visitors Today<span class="float-right"><i class="zmdi zmdi-long-arrow-up"></i></span>
                                     </p>
                                 </div>
                             </div>
@@ -222,30 +221,30 @@
                                     <div class="progress my-3" style="height:3px;">
                                         <div class="progress-bar" style="width:55%"></div>
                                     </div>
-                                    <p class="mb-0 text-white small-font">Total Accounts Rented <span
+                                    <p class="mb-0 text-white small-font">Account who Reserve a Rent <span
                                             class="float-right"><i class="zmdi zmdi-long-arrow-up"></i></span>
                                     </p>
                                 </div>
                             </div>
                             <div class="col-12 col-lg-6 col-xl-3 border-light">
                                 <div class="card-body">
-                                    <h5 class="text-white mb-0">6200 <span class="float-right"><i
-                                                class="fa fa-eye"></i></span></h5>
+                                    <h5 class="text-white mb-0">{{$souvenirsCount}} <span class="float-right"><i
+                                                ></i></span></h5>
                                     <div class="progress my-3" style="height:3px;">
                                         <div class="progress-bar" style="width:55%"></div>
                                     </div>
-                                    <p class="mb-0 text-white small-font">Visitors <span class="float-right">+5.2% <i
+                                    <p class="mb-0 text-white small-font">Total Souvenir Stocks <span class="float-right"><i
                                                 class="zmdi zmdi-long-arrow-up"></i></span></p>
                                 </div>
                             </div>
                             <div class="col-12 col-lg-6 col-xl-3 border-light">
                                 <div class="card-body">
-                                    <h5 class="text-white mb-0">5630 <span class="float-right"><i
+                                    <h5 class="text-white mb-0">{{$artifactsCount}} <span class="float-right"><i
                                                 class="fa fa-envira"></i></span></h5>
                                     <div class="progress my-3" style="height:3px;">
                                         <div class="progress-bar" style="width:55%"></div>
                                     </div>
-                                    <p class="mb-0 text-white small-font">Messages <span class="float-right">+2.2% <i
+                                    <p class="mb-0 text-white small-font">Total Quantity of Artifacts <span class="float-right"><i
                                                 class="zmdi zmdi-long-arrow-up"></i></span></p>
                                 </div>
                             </div>
@@ -253,7 +252,7 @@
                     </div>
                 </div>
 
-                <div class="row">
+                {{-- <div class="row">
                     <div class="col-12 col-lg-8 col-xl-8">
                         <div class="card">
                             <div class="card-header">Site Traffic
@@ -364,7 +363,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <!--End Row-->
 
                 <div class="row">
@@ -372,8 +371,9 @@
                         <div class="card">
                             <div class="card-header">Pending Bookings
                                 <div class="col-sm-4">
+                                    {{-- <a class="btn btn-success" style="float:left;margin-right:20px;" data-toggle="modal" data-target="#addItemModal">+ Add</a> --}}
                                     <div class="search-box">
-                                        <input type="text" class="form-control" placeholder="Search">
+                                        <input type="text" class="form-control" id="searchInput" placeholder="Search">
                                     </div>
                                 </div>
 
@@ -484,7 +484,7 @@
         <footer class="footer">
             <div class="container">
                 <div class="text-center">
-                    Copyright © 2018 Dashtreme Admin
+                    Copyright © 2023 OMHMS Admin
                 </div>
             </div>
         </footer>
@@ -575,5 +575,36 @@
 
         updateTime();
     </script>
+
+   <script>
+    // Function to filter table rows based on search input
+    function filterTable() {
+        var input = document.getElementById("searchInput");
+        var filter = input.value.toUpperCase();
+        var table = document.getElementById("categoryTable");
+        var rows = table.getElementsByTagName("tr");
+
+        for (var i = 0; i < rows.length; i++) {
+            var rowData = rows[i].getElementsByTagName("td");
+            var match = false;
+
+            for (var j = 0; j < rowData.length; j++) {
+                if (rowData[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    match = true;
+                    break;
+                }
+            }
+
+            if (match) {
+                rows[i].style.display = "";
+            } else {
+                rows[i].style.display = "none";
+            }
+        }
+    }
+
+    // Attach event listener to search input
+    document.getElementById("searchInput").addEventListener("keyup", filterTable);
+</script>
 </body>
 </html>
