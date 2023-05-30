@@ -62,6 +62,21 @@ class FeedController extends Controller
         $post->post = $postText;
         $post->comment = $comment;
         $post->status = $status;
+
+    // Handle the uploaded image
+    if ($request->hasFile('image')) {
+        // Get the uploaded file
+        $image = $request->file('image');
+
+        // Generate a unique filename for the uploaded file
+        $filename = time() . '_' . $image->getClientOriginalName();
+
+        // Save the file to the storage/app/public/image directory
+        $image->move(public_path('image'), $filename);
+
+        // Update the user's avatar column with the filename
+        $post->image = $filename;
+    }
         $post->save(); // save the post record to the database
 
         if($post){

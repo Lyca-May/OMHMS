@@ -14,14 +14,35 @@ class AnnouncementController extends Controller
     public function displayAnnouncement(){
         $user_id = session('Admin')['user_id'];
         $users = DB::table('users')->where('user_id', $user_id)->get();
-        $announcement = AnnouncementModel::all();
+        $announcement = DB::table('announcement')->where('announcement_status', 'POSTED')->get();
         return view('admin.pages.announcement.announcement', compact('announcement', 'users'));
+    }
+
+    public function UserdisplayAnnouncement1(){
+        // $user_id = session('Admin')['user_id'];
+        // $users = DB::table('users')->where('user_id', $user_id)->get();
+        $announcement = DB::table('announcement')->where('announcement_status', 'POSTED')->get();
+        return view('user.pages.landingpage1.reviewpages.testimonials1', compact('announcement'));
+    }
+
+    public function UserdisplayLandinganounce(){
+        // $user_id = session('Admin')['user_id'];
+        // $users = DB::table('users')->where('user_id', $user_id)->get();
+        $announcement = DB::table('announcement')->where('announcement_status', 'POSTED')->get();
+
+        return view('user.pages.landingpage.landingpage', compact('announcement'));
+    }
+    public function UserdisplayLanding1anounce(){
+        // $user_id = session('Admin')['user_id'];
+        // $users = DB::table('users')->where('user_id', $user_id)->get();
+        $announcement = DB::table('announcement')->where('announcement_status', 'POSTED')->get();
+        return view('user.pages.landingpage1.landingpage1', compact('announcement'));
     }
     public function UserdisplayAnnouncement(){
         // $user_id = session('Admin')['user_id'];
         // $users = DB::table('users')->where('user_id', $user_id)->get();
-        $announcement = AnnouncementModel::all();
-        return view('', compact('announcement'));
+        $announcement = DB::table('announcement')->where('announcement_status', 'POSTED')->get();
+        return view('user.pages.landingpage.reviewpages.testimonials', compact('announcement'));
     }
     public function create_announcement(Request $request)
 {
@@ -53,7 +74,7 @@ class AnnouncementController extends Controller
     $announcement->userid = $user_id;
     $announcement->announcer = $announcer;
     $announcement->announcement_content = $announcement_content;
-    $announcement->announcement_status = $announcement_status;
+    $announcement->announcement_status = 'POSTED';
 
     // Handle the uploaded image
     if ($request->hasFile('announcement_image')) {

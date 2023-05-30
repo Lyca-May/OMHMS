@@ -248,7 +248,7 @@
                 <button class="btn btn-success" id="function-button">Function Hall</button>
             </div>
 
-            {{-- <div id="visit-section">VISIT</div> --}}
+            <div id="visit-section">VISIT</div>
             <div class="content">
                 <div class="card">
                         <div class="card-header custom-header">
@@ -418,11 +418,11 @@
                                             <p class="card-text">Date Selected:
                                                 {{ date('F d, Y', strtotime($visits->date_requested)) }}</p>
                                             <p class="card-text">Event Start
-                                                Time:{{ date('H:i', strtotime($visits->event_start)) }}</p>
+                                                Time:{{ date('h:i A', strtotime($visits->event_start)) }}</p>
                                             <p class="card-text">Date of Setup:
                                                 {{ date('F d, Y', strtotime($visits->date_of_setup)) }}</p>
                                             <p class="card-text">Preparation Setup
-                                                Time:{{ date('H:i', strtotime($visits->prep_setup_time)) }}</p>
+                                                Time:{{ date('h:i A', strtotime($visits->prep_setup_time)) }}</p>
                                             <div>
                                                 <span>
                                                     @if ($visits->microphones == 1)
@@ -436,7 +436,7 @@
                                                     @else
                                                         <div>
                                                             <input type="checkbox" id="led-tv" name="product"
-                                                                value="led-tv">
+                                                                value="led-tv" disabled>
                                                             <span>Microphones</span>
                                                         </div>
                                                     @endif
@@ -454,7 +454,7 @@
                                                     @else
                                                         <div>
                                                             <input type="checkbox" id="led-tv" name="product"
-                                                                value="led-tv">
+                                                                value="led-tv" disabled>
                                                             <span>Stands</span>
                                                         </div>
                                                     @endif
@@ -472,7 +472,7 @@
                                                         @else
                                                             <div>
                                                                 <input type="checkbox" id="led-tv" name="product"
-                                                                    value="led-tv">
+                                                                    value="led-tv" disabled>
                                                                 <span>SOUND SYSTEM</span>
                                                             </div>
                                                         @endif
@@ -490,7 +490,7 @@
                                                     @else
                                                         <div>
                                                             <input type="checkbox" id="led-tv" name="product"
-                                                                value="led-tv">
+                                                                value="led-tv" disabled>
                                                             <span>LED TV</span>
                                                         </div>
                                                     @endif
@@ -508,7 +508,7 @@
                                                     @else
                                                         <div>
                                                             <input type="checkbox" id="led-tv" name="product"
-                                                                value="led-tv">
+                                                                value="led-tv" disabled>
                                                             <span>Tables</span>
                                                         </div>
                                                     @endif
@@ -526,7 +526,7 @@
                                                     @else
                                                         <div>
                                                             <input type="checkbox" id="led-tv" name="product"
-                                                                value="led-tv">
+                                                                value="led-tv" disabled>
                                                             <span>Chairs</span>
                                                         </div>
                                                     @endif
@@ -551,8 +551,10 @@
                                             <!-- Payment Details -->
                                             <h5 class="card-title">Payment Details</h5>
                                             <p class="card-text">Payment for Rent: {{ $visits->payment_rent }}</p>
-                                            <p class="card-text">Downpayment: {{ $visits->downpayment }}</p>
+                                            <p class="card-text">Payment for Additional Service: {{ $visits->add_service_payment }}</p>
                                             <p class="card-text">Total Amount to be Paid: {{ $visits->total_payment }}
+                                            <p class="card-text">Downpayment: {{ $visits->downpayment }}</p>
+                                            <p class="card-text">Pending Payment: {{$visits->total_payment - $visits->downpayment }}</p>
                                             </p>
                                             {{-- <p class="card-text">Transaction ID: {{ $payment->transaction_id }}</p> --}}
                                             <!-- Add more payment details as needed -->

@@ -21,61 +21,68 @@
     <!-- main css -->
     <link rel="stylesheet" href="{{ asset('assets/css/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/css/testimonial1.css') }}">
 </head>
 
-<body>
-    <!--================Header Area =================-->
-    <header class="header_area">
-        <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-light">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <a class="navbar logo_h" href="index.html"><b>ORIENTAL MINDORO HERITAGE MUSEUM</b></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
-                    <ul class="nav navbar-nav menu_nav ml-auto">
-                        <li class="nav-item active"><a class="nav-link" href="{{ url('user/landlog') }}">Home</a></li>
-                        <li class="nav-item submenu dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
-                                aria-haspopup="true" aria-expanded="false">About Us</a>
-                            <ul class="dropdown-menu">
-                                <li class="nav-item"><a class="nav-link" href="{{ url('user/history1') }}">History</a>
-                                </li>
-                                <li class="nav-item"><a class="nav-link" href="{{ url('user/vnm1') }}">Vision &
-                                        Mission</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="{{url("user/oper1")}}">Operation</a></li>
+    <body>
+        <!--================Header Area =================-->
+        <header class="header_area">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <img src="{{ asset('omhms.png') }}" class="logo-icon" alt="logo icon"
+                    style="width: 40px; height: 20px;">
+                    <a class="navbar logo_h" href="index.html"><b>ORIENTAL MINDORO HERITAGE MUSEUM</b></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav menu_nav ml-auto">
+                            <li class="nav-item active"><a class="nav-link" href="{{ url('user/landlog') }}">Home</a></li>
+                            <li class="nav-item submenu dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+                                    aria-haspopup="true" aria-expanded="false">About Us</a>
+                                <ul class="dropdown-menu">
+                                    <li class="nav-item"><a class="nav-link" href="{{ url('user/history1') }}">History</a>
+                                    </li>
+                                    <li class="nav-item"><a class="nav-link" href="{{ url('user/vnm1') }}">Vision &
+                                            Mission</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="{{url("user/oper1")}}">Operation</a></li>
 
-                            </ul>
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="{{url("user/testimonials1")}}">Testimonials</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url('user/services1') }}">Services</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url('user/feed1') }}">Feed</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url('user/contact1') }}">Contact</a></li>
-                        <li class="nav-item submenu dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
-                                aria-haspopup="true" aria-expanded="false">My Account</a>
-                            <ul class="dropdown-menu">
-                                <li class="nav-item"><a class="nav-link" href="{{url('myprofile')}}">{{session('User')['user_fname']}}'s Profile</a>
-                                </li>
-                                <li class="nav-item"><a class="nav-link" href="{{ url('logout') }}">Log out</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ url('user/souvenirs1') }}" style="margin-top: 25px; display: inline-block;" class="shop-icon-btn">
-                              <i class="fas fa-shopping-cart"></i>
-                            </a>
-                          </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-    </header>
+                                </ul>
+                            </li>
+                            <li class="nav-item"><a class="nav-link" href="{{url("user/testimonials1")}}">Announcements</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('user/services1') }}">Services</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('user/feed1') }}">Feed</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('user/contact1') }}">Contact</a></li>
+                            <li class="nav-item submenu dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+                                    aria-haspopup="true" aria-expanded="false" style="font-size: 10px">My Account</a>
+                                <ul class="dropdown-menu">
+                                    <li class="nav-item"><a class="nav-link" href="{{url('user/profile')}}">{{session('User')['user_fname']}}'s Profile</a>
+                                    </li>
+                                    <li class="nav-item"><a class="nav-link" href="{{ url('logout') }}">Log out</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item submenu dropdown">
+                                <a href="" style="margin-top: 28px; display: inline-block;" class="shop-icon-btn">
+                                    <i class="fas fa-shopping-cart"></i></a>
+                                    <ul class="dropdown-menu" style="padding-top: 0;">
+                                        <li class="nav-item"><a class="nav-link" href="{{ url('user/souvenirs1') }}">Purchase Souvenirs</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="{{ url('user/cart') }}">My Cart</a></li>
+                                    </ul>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </header>
     <!--================Header Area =================-->
 
     <!--================Breadcrumb Area =================-->

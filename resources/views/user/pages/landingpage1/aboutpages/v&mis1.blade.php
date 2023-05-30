@@ -21,61 +21,99 @@
     <!-- main css -->
     <link rel="stylesheet" href="{{ asset('assets/css/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/css/responsive.css') }}">
-</head>
+    <link rel="stylesheet" href="{{ asset('assets/css/css/testimonial1.css') }}">
 
-<body>
-    <!--================Header Area =================-->
-    <header class="header_area">
-        <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-light">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <a class="navbar logo_h" href="index.html"><b>ORIENTAL MINDORO HERITAGE MUSEUM</b></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
-                    <ul class="nav navbar-nav menu_nav ml-auto">
-                        <li class="nav-item active"><a class="nav-link" href="{{ url('user/landlog') }}">Home</a></li>
-                        <li class="nav-item submenu dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
-                                aria-haspopup="true" aria-expanded="false">About Us</a>
-                            <ul class="dropdown-menu">
-                                <li class="nav-item"><a class="nav-link" href="{{ url('user/history1') }}">History</a>
-                                </li>
-                                <li class="nav-item"><a class="nav-link" href="{{ url('user/vnm1') }}">Vision &
-                                        Mission</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="{{url("user/oper1")}}">Operation</a></li>
 
-                            </ul>
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="{{url("user/reviews")}}">Testimonials</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url('user/services1') }}">Services</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url('user/feed1') }}">Feed</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url('user/contact1') }}">Contact</a></li>
-                        <li class="nav-item submenu dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
-                                aria-haspopup="true" aria-expanded="false">My Account</a>
-                            <ul class="dropdown-menu">
-                                <li class="nav-item"><a class="nav-link" href="{{url('myprofile')}}">{{session('User')['user_fname']}}'s Profile</a>
-                                </li>
-                                <li class="nav-item"><a class="nav-link" href="{{ url('logout') }}">Log out</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ url('user/souvenirs1') }}" style="margin-top: 25px; display: inline-block;" class="shop-icon-btn">
-                              <i class="fas fa-shopping-cart"></i>
-                            </a>
-                          </li>
-                    </ul>
+    <body>
+        <!--================Header Area =================-->
+        <footer class="footer-area1 section_gap">
+            <div class="container">
+                <div class="row">
+                    <div class="col col-md-6 col-sm-6">
+                        <div class="single-footer-widget">
+                            <img  src="{{ asset('omhms.png') }}" class="logo-icon" alt="logo icon" style="width: 150px; height: 100px; margin-left:90px ">
+                            <img src="{{ asset('PGOM.png') }}" class="logo-icon" alt="logo icon" style="width: 115px; height: 120px; ">
+                            <img src="{{ asset('PTO.png') }}" class="logo-icon" alt="logo icon" style="width: 130px; height: 137px; ">
+                            <hr>
+                            <h5 style="text-align: center"><b>ORIENTAL MINDORO HERITAGE MUSEUM</b></h5>
+                            <p style="text-align:justify">It was built at the Old Provincial Capitol of
+                                Oriental Mindoro in Brgy. Ibaba East, Calapan City where the Cal-kuta, an abandoned Spanish
+                                fortress stands. With a combination of classic and modern designs, its features are inspired
+                                by the “MAHAL TANA” theme which highlights the iconic symbols of Oriental Mindoro – Mangyan,
+                                Halcon, Tamaraw and Naujan Lake. </p>
+                        </div>
+                    </div>
+                    <div style="display: flex; justify-content: center;">
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+                            <div class="single-footer-widget">
+                                <h6 class="footer_title1">Navigation Links</h6>
+                                <div class="row">
+                                    <div class="col">
+                                        <ul class="list_style">
+                                            <li><a href="{{url("user/landing1")}}">Home</a></li>
+                                            <li><a href="{{url("user/history1")}}">About</a></li>
+                                            <li><a href="{{url("user/testimonials1")}}">Announcements</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col">
+                                        <ul class="list_style">
+                                            <li><a href="{{url("user/services1")}}">Services</a></li>
+                                            <li><a href="{{url("user/feed1")}}">Feed</a></li>
+                                            <li><a href="{{url("user/contact1")}}">Contact</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 col-sm-6" style="margin-left: 50px">
+                        <div class="single-footer-widget">
+                            <h6 class="footer_title1">Contact Us</h6>
+                            <div class="contact_info">
+                                <div class="info_item">
+                                    <i class="lnr lnr-home"></i>
+                                    <p>Brgy. Ibaba East, Calapan City, Oriental Mindoro, Philippines, Calapan, Philippines</p>
+                                </div>
+                                <div class="info_item">
+                                    <i class="lnr lnr-phone-handset"></i>
+                                    <p> Telephone:(043) 288-6350 <br>
+                                        Mobile: 0968-670-0754</p>
+                                </div>
+                                <div class="info_item">
+                                    <i class="lnr lnr-envelope"></i>
+                                    <p> <a href="{{ url('orientalmindoroheritagemuseum@gmail.com') }}">
+                                        orientalmindoroheritage<br>museum@gmail.com</a></p>
+                                </div>
+                                <div class="info_item">
+                                    <i class="lnr lnr-envelope"></i>
+                                    <p><a href="{{ url('https://www.facebook.com/orientalmindoroheritagemuseum/') }}">
+                                        https://www.facebook.com/<br>orientalmindoroheritagemuseum/</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-            </nav>
-        </div>
-    </header>
+                <div class="border_line"></div>
+                <div class="row footer-bottom d-flex justify-content-between align-items-center">
+                    <p class="col">
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        &copy;
+                        <script>
+                            document.write(new Date().getFullYear());
+                        </script> Oriental Mindoro Heritage Museum. All rights reserved.
+                    </p>
+                    <div class="col-lg-4 col-sm-15  text-right" >
+                        <a href="https://web.facebook.com/orientalmindoroheritagemuseum" style="margin-right: 20px;"><i class="fab fa-facebook fa-lg"></i></a>
+                        <a href="https://www.youtube.com/@travelorientalmindoro" style="margin-right: 20px;"><i class="fab fa-youtube fa-lg"></i></a>
+                        <a href="https://mail.google.com/mail/u/0/#search/orientalmindoroheritagemuseum%40gmail.com?compose=DmwnWrRtsNJQdGbHcQrgFCcZKGKLnMFGWPmLCGtXWTTqQRCGKtcxvFwhwtzcQvBrzfMPRJSTvlPQ" style="margin-right: 20px;"><i class="fas fa-envelope fa-lg"></i></a>
+                        <a href="#https://www.instagram.com/travelorientalmindoro/" style="margin-right: 20px;"><i class="fab fa-instagram fa-lg"></i></a>
+                    </div>
+                </div>
+
+            </div>
+        </footer>
     <!--================Header Area =================-->
 
     <!--================Breadcrumb Area =================-->

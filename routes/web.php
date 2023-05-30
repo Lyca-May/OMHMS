@@ -46,7 +46,7 @@ Route::view('user/services', 'user.pages.landingpage.services');
 Route::view('user/posts', 'user.pages.landingpage.reviewpages.posts');
 Route::view('user/testimonials', 'user.pages.landingpage.reviewpages.testimonials');
 
-Route::view('user/souvenirs', 'user.pages.landingpage.souvenirs.souvenirs');
+// Route::view('user/souvenirs', 'user.pages.landingpage.souvenirs.souvenirs');
 
 // ----------------LANDING PAGE------------------ //
 
@@ -85,7 +85,7 @@ Route::view('user/testimonials1', 'user.pages.landingpage1.reviewpages.testimoni
 // Route::view('admin/home', 'admin.pages.home');
 // Route::view('admin/profile', 'admin.pages.profile');
 Route::view('admin/calendar', 'admin.pages.calendar');
-Route::view('admin/inventory', 'admin.pages.inventory.inventory-table');
+// Route::view('admin/inventory', 'admin.pages.inventory.inventory-table');
 
 // Route::view('admin/announcement', 'admin.pages.announcement.announcement');
 
@@ -223,6 +223,10 @@ Route::post('archive-announcement', [AnnouncementController::class, 'archiveAnno
 Route::get('edit-announcement-form/{announcement_id}', [AnnouncementController::class, 'editAnnouncement']);
 Route::put('update-announcement/{announcement_id}', [AnnouncementController::class, 'updateAnnouncement']);
 
+Route::get('/', [AnnouncementController::class, 'UserdisplayLandinganounce']);
+Route::get('user/landlog', [AnnouncementController::class, 'UserdisplayLanding1anounce']);
+Route::get('user/testimonials', [AnnouncementController::class, 'UserdisplayAnnouncement']);
+Route::get('user/testimonials1', [AnnouncementController::class, 'UserdisplayAnnouncement1']);
 
 //Souvenir
 Route::post('/add-souvenir', [SouvenirsController::class, 'create_souvenir']);
@@ -230,6 +234,7 @@ Route::get('/souvenirs', [SouvenirsController::class, 'displaySouvenirs']);
 Route::put('/update-souvenir/{souvenir_id}', [SouvenirsController::class, 'update_souvenir']);
 Route::post('/archive-souvenir/{souvenir_id}', [SouvenirsController::class, 'archive_souvenir']);
 Route::get('user/souvenirs1', [CartController::class, 'displaySouvenir']);
+Route::get('user/souvenirs', [CartController::class, 'displaySouvenir1']);
 Route::post('/add-to-cart', [CartController::class, 'addToCart']);
 
 

@@ -34,6 +34,7 @@ class Visit_Model extends Model
         'visits_members',
         'visits_name_of_institution',
         'visits_status',
+        'file_of_visitors',
         'avatar'
     ];
 

@@ -128,69 +128,112 @@
         </div>
     </section>
 
-     <!--================ Categories Area  =================-->
 
 
-   <div class="section_title  text-center" style="margin-left: 30px">
-    <h1 class="title_w1">CATEGORIES</h1>
+    <div class="section_title text-center" style="margin-left: 30px">
+        <h1 class="title_w1">SOUVENIR ITEMS</h1>
+    </div>
+    <!-- Dropdown Menu -->>
     <div class="dropdown">
-        <span>Click here</span>
+        <span>Filter Items</span>
         <div class="dropdown-content">
-          <a href="#">Option 1</a>
-          <br>
-          <a href="#">Option 2</a>
-          <br>
-          <a href="#">Option 3</a>
+            <a href="#">All</a>
+            <a href="#">Baskets</a>
+            <a href="#">Bracelets</a>
+            <a href="#">Necklaces</a>
+            <a href="#">Bags</a>
+            <a href="#">Jars</a>
+            <a href="#">Keychains</a>
+            <a href="#">Hats</a>
+            <a href="#">Cloth</a>
+            <a href="#">Foods</a>
         </div>
-      </div>
-    <section class="cards-wrapper" >
-        <div class="card-grid-space">
-            {{-- <div class="num">01</div> --}}
-            <a class="card" href="https://codetheweb.blog/2017/10/06/html-syntax/"
-                style="--bg-img: url(https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/html-syntax/cover.jpg)">
-                <div>
-                    <h1>HTML Syntax</h1>
-                    <p>The syntax of a language is how it works. How to actually write it. Learn HTML syntax…</p>
-                    <div class="date">6 Oct 2017</div>
-                    <div class="tags">
-                        <div class="tag">HTML</div>
+
+    </div>
+
+    <!-- Search Box -->
+    <div class="search-box">
+        <input type="text" id="search-input" placeholder="Search...">
+        <button id="search-button">Search</button>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <section class="cards-wrapper">
+        @foreach ($souvenirs as $souvenir)
+
+        <div class="card-button">
+            <div class="card-grid-space">
+                <a class="card" id="card1" data-toggle="modal" data-target="#myModal{{ $souvenir->souvenir_id }}">
+                    @if ($souvenir->souvenir_image)
+                        <div class="image-link">
+                            <img src="{{ asset('souvenir_image/' . $souvenir->souvenir_image) }}" alt="{{ $souvenir->souvenir_name }}" style="max-width: 100%; height: auto;">
+                            <div style="margin-top: 120px">
+                                <h1>{{ $souvenir->souvenir_name }}</h1>
+                                <p>{{ $souvenir->souvenir_description }}</p>
+                            </div>
+                        </div>
+                    @endif
+                </a>
+            </div>
+        </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal{{ $souvenir->souvenir_id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="myModalLabel">{{ $souvenir->souvenir_name }}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="addToCartForm{{ $souvenir->souvenir_id }}">
+                            <form action="{{ url('/add-to-cart') }}" method="post">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <img src="{{ asset('souvenir_image/' . $souvenir->souvenir_image) }}"
+                                            alt="{{ $souvenir->souvenir_name }}" style="max-width: 100%; height: auto;">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>{{ $souvenir->souvenir_description }}</p>
+                                        <div class="date">Stocks: {{ $souvenir->souvenir_qty }}</div>
+                                        <div class="tags">
+                                            <div class="tag">{{ $souvenir->souvenir_price }}</div>
+                                        </div>
+                                        <div class="quantity">
+                                            <button class="btn btn-primary minus-btn">-</button>
+                                            <input type="text" class="qty-input" name="quantity" value="1" readonly>
+                                            <button class="btn btn-primary plus-btn">+</button>
+                                        </div>
+                                        <input type="hidden" name="souvenir_id" value="{{ $souvenir->souvenir_id }}">
+                                        <input type="hidden" name="price" value="{{ $souvenir->souvenir_price }}">
+                                        <input type="hidden" name="total_price" value="{{ $souvenir->souvenir_price }}">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Add to Cart</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </a>
+            </div>
         </div>
-        <div class="card-grid-space">
-            {{-- <div class="num">02</div> --}}
-            <a class="card" href="https://codetheweb.blog/2017/10/09/basic-types-of-html-tags/"
-                style="--bg-img: url('https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/basic-types-of-html-tags/cover.jpg')">
-                <div>
-                    <h1>Basic types of HTML tags</h1>
-                    <p>Learn about some of the most common HTML tags…</p>
-                    <div class="date">9 Oct 2017</div>
-                    <div class="tags">
-                        <div class="tag">HTML</div>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="card-grid-space">
-            {{-- <div class="num">03</div> --}}
-            <a class="card" href="https://codetheweb.blog/2017/10/14/links-images-about-file-paths/"
-                style="--bg-img: url('https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/links-images-about-file-paths/cover.jpg')">
-                <div>
-                    <h1>Links, images and about file paths</h1>
-                    <p>Learn how to use links and images along with file paths…</p>
-                    <div class="date">14 Oct 2017</div>
-                    <div class="tags">
-                        <div class="tag">HTML</div>
-                    </div>
-                </div>
-            </a>
-        </div>
+        @endforeach
+    </section>
+
+
+
+
         <!-- https://images.unsplash.com/photo-1520839090488-4a6c211e2f94?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=38951b8650067840307cba514b554ba5&auto=format&fit=crop&w=1350&q=80 -->
     </section>
-</div>
-
-
+    </div>
 
 
     <!--================ start footer Area  =================-->

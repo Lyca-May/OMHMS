@@ -19,6 +19,14 @@ class CartController extends Controller
         $souvenirs = SouvenirsModel::with('category')->where('souvenir_status','posted')->get();
         return view('user.pages.landingpage1.souvenirs.souvenirs1', compact('souvenirs', 'cartItems', 'addedItem'));
     }
+    public function displaySouvenir1()
+    {
+        // Fetch cart items
+        $addedItem = DB::table('cart_items')->where('is_archived', 0)->count();
+        $cartItems = CartItem::with('souvenir')->get();
+        $souvenirs = SouvenirsModel::with('category')->where('souvenir_status','posted')->get();
+        return view('user.pages.landingpage.souvenirs.souvenirs', compact('souvenirs', 'cartItems', 'addedItem'));
+    }
 
     public function addToCart(Request $request)
     {

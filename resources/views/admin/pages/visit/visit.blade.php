@@ -464,7 +464,7 @@
                                         <thead>
                                             <tr>
                                                 <th>Full Name</th>
-                                                <th>Avatar</th>
+                                                {{-- <th>Avatar</th> --}}
                                                 <th>Country</th>
                                                 <th>Province</th>
                                                 <th>Municipality</th>

@@ -95,84 +95,84 @@
 
 <body class="bg-theme bg-theme1">
 
-    <!-- Start wrapper-->
-    <div id="wrapper">
+   <!-- Start wrapper-->
+   <div id="wrapper">
 
-        <!--Start sidebar-wrapper-->
-        <div id="sidebar-wrapper" data-simplebar="" data-simplebar-auto-hide="true">
-            <div class="brand-logo">
-                <a href="index.html">
-                    <img src="{{ asset('omhms.png') }}" class="logo-icon" alt="logo icon">
-                    <h5 class="logo-text">OMHMS</h5>
-                </a>
-            </div>
-            <ul class="sidebar-menu do-nicescrol">
-                <li class="sidebar-header">MAIN NAVIGATION</li>
-                <li>
-                    <a href="{{ asset('admin/home') }}">
-                        <i class="zmdi zmdi-view-dashboard"></i> <span>Dashboard</span>
-                    </a>
-                </li>
-
-
-                <li>
-                    <a href="#" id="tablesLink">
-                        <i class="zmdi zmdi-book"></i> <span>Bookings</span>
-                    </a>
-                    <ul id="tablesDrawer" class="drawer-items">
-                        <li><a href="{{ asset('admin/visit') }}">Museum Visit</a></li>
-                        <li><a href="{{url('admin/function')}}">Function Hall</a></li>
-
-                        <!-- Add more link items as needed -->
-                    </ul>
-                </li>
-
-
-                <li>
-                    <a href="" id="inventoryLink">
-                        <i class="zmdi zmdi-archive"></i> <span>Inventory</span>
-                    </a>
-                    <ul id="inventoryDrawer" class="drawer-items">
-                        <li><a href="{{ url('admin/inventory') }}">Items & Artefacts</a></li>
-                        <li><a href="">Souvenirs</a></li>
-                        <!-- Add more link items as needed -->
-                    </ul>
-                </li>
-
-                <li>
-                    <a href="{{ url('admin/announcement') }}">
-                        <i class="zmdi zmdi-info-outline"></i> <span>Announcements</span>
-                    </a>
-                </li>
-
-
-                <li>
-                    <a href="forms.html">
-                        <i class="zmdi zmdi-file-text"></i> <span>Attendance</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{{ asset('admin/calendar') }}">
-                        <i class="zmdi zmdi-calendar-check"></i> <span>Calendar</span>
-                        {{-- <small class="badge float-right badge-light">New</small> --}}
-                    </a>
-                </li>
-
-
-
-                <li class="sidebar-header">LABELS</li>
-                <li>
-                    <a href="{{ asset('admin/profile') }}">
-                        <i class="zmdi zmdi-face"></i> <span>Profile</span>
-                    </a>
-                </li>
-
-
-            </ul>
-
+    <!--Start sidebar-wrapper-->
+    <div id="sidebar-wrapper" data-simplebar="" data-simplebar-auto-hide="true">
+        <div class="brand-logo">
+            <a href="index.html">
+                <img src="{{ asset('omhms.png') }}" class="logo-icon" alt="logo icon">
+                <h5 class="logo-text">OMHMS</h5>
+            </a>
         </div>
-        <!--End sidebar-wrapper-->
+        <ul class="sidebar-menu do-nicescrol">
+            <li class="sidebar-header">MAIN NAVIGATION</li>
+            <li>
+                <a href="{{ asset('admin/home') }}">
+                    <i class="zmdi zmdi-view-dashboard"></i> <span>Dashboard</span>
+                </a>
+            </li>
+
+
+            <li>
+                <a href="#" id="tablesLink">
+                    <i class="zmdi zmdi-book"></i> <span>Bookings</span>
+                </a>
+                <ul id="tablesDrawer" class="drawer-items">
+                    <li><a class="zmdi zmdi-building" href="{{ asset('admin/visit') }}">Museum Visit</a></li>
+                    <li><a href="{{url('admin/function')}}">Function Hall</a></li>
+
+                    <!-- Add more link items as needed -->
+                </ul>
+            </li>
+
+            <li>
+                <a href="#" id="inventoryLink">
+                    <i class="zmdi zmdi-archive"></i> <span>Inventory</span>
+                </a>
+                <ul id="inventoryDrawer" class="drawer-items">
+                    <li><a href="{{ url('/artifacts') }}">Items & Artefacts</a></li>
+                    <li><a href="{{ url('/souvenirs') }}">Souvenirs</a></li>
+                    <li><a href="{{ url('/category') }}">Category</a></li>
+                    <!-- Add more link items as needed -->
+                </ul>
+            </li>
+
+            <li>
+                <a href="forms.html">
+                    <i class="zmdi zmdi-info-outline"></i> <span>Announcements</span>
+                </a>
+            </li>
+
+
+            <li>
+                <a href="forms.html">
+                    <i class="zmdi zmdi-file-text"></i> <span>Attendance</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ asset('admin/calendar') }}">
+                    <i class="zmdi zmdi-calendar-check"></i> <span>Calendar</span>
+                    {{-- <small class="badge float-right badge-light">New</small> --}}
+                </a>
+            </li>
+
+
+
+            <li class="sidebar-header">LABELS</li>
+            <li>
+                <a href="{{ asset('admin/profile') }}">
+                    <i class="zmdi zmdi-face"></i> <span>Profile</span>
+                </a>
+            </li>
+
+
+        </ul>
+
+    </div>
+<!--End sidebar-wrapper-->
 
         <!--Start topbar header-->
         <header class="topbar-nav">
