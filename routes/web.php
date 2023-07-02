@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\About_Us;
 use App\Http\Controllers\Admin\AnnouncementController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Authentication\AuthController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\Category;
 use App\Http\Controllers\Inventory;
 use App\Http\Controllers\Rent_Payment;
+use App\Http\Controllers\Souvenir_Reserved;
 use App\Http\Controllers\User\UserVisitController;
 use App\Http\Controllers\User\UserFunctionalRoomController;
 use App\Http\Controllers\User\Comments_Controller;
@@ -29,7 +31,7 @@ Route::view('auth/reset-form', 'auth.reset-form');
 Route::view('/', 'user.pages.landingpage.landingpage');
 
 //About Nav Pages
-Route::view('user/history', 'user.pages.landingpage.aboutpages.history');
+// Route::view('user/history', 'user.pages.landingpage.aboutpages.history');
 Route::view('user/vnm', 'user.pages.landingpage.aboutpages.v&mis');
 Route::view('user/oper', 'user.pages.landingpage.aboutpages.operation');
 
@@ -55,7 +57,7 @@ Route::view('user/testimonials', 'user.pages.landingpage.reviewpages.testimonial
 //Landing Page
 Route::view('user/landlog', 'user.pages.landingpage1.landingpage1');
 
-Route::view('user/history1', 'user.pages.landingpage1.aboutpages.history1');
+// Route::view('user/history1', 'user.pages.landingpage1.aboutpages.history1');
 Route::view('user/vnm1', 'user.pages.landingpage1.aboutpages.v&mis1');
 Route::view('user/oper1', 'user.pages.landingpage1.aboutpages.operation1');
 
@@ -104,22 +106,7 @@ Route::view('user/profile', 'user.pages.profile.userprofile');
 //Admin Page
 // Route::view('admin/home', 'admin.pages.home');
 Route::view('admin/form', 'admin.pages.form');
-
-
-//User Page
-// Route::view('user/home', 'user.pages.userhome');
-
-// Route::view('myprofile', 'user.pages.profile.my-profile');
-
-
-// Route::view('user/visit', 'user.pages.book-visitation.book');
-
-//booked reservation
-// Route::view('user/bookedvisit', 'user.pages.booked.bookedvisit');
 Route::view('user/rentedhall', 'user.pages.booked.rentedhall');
-// Route::view('admin/add-announcement', 'admin.pages.announcement.announcement');
-
-
 
 
 Route::view('auth/register', 'auth.register');
@@ -159,12 +146,38 @@ Route::get('admin/function', [FunctionalHallController::class,'displayRent']);
 Route::post('admin/approve/{rent_id}', [FunctionalHallController::class,'approve_rent']);
 Route::post('admin/cancel/{rent_id}', [FunctionalHallController::class,'cancel_rent']);
 
+///user about
+Route::get('user/history', [About_Us::class,'display_history_content_user']);
+Route::get('user/history1', [About_Us::class,'display_history_content_user1']);
+
+//wts
+Route::get('user/history', [About_Us::class,'display_history_content_user']);
+Route::get('user/history1', [About_Us::class,'display_history_content_user1']);
+
+
+//admin about us
+//content
+Route::get('about-us/history', [About_Us::class,'display_history_content']);
+Route::post('/add-history-content', [About_Us::class,'add_history_content']);
+Route::put('/update-history-content/{history_id}', [About_Us::class, 'update_history_content']);
+Route::post('/archive-history-content/{history_id}', [About_Us::class, 'archive_history_content']);
+
+//wts
+Route::get('about-us/wts', [About_Us::class,'display_history_wts']);
+Route::post('/add-history-wts', [About_Us::class,'add_history_wts']);
+Route::put('/update-history-wts/{wts_id}', [About_Us::class, 'update_history_wts']);
+Route::post('/archive-history-wts/{wts_id}', [About_Us::class, 'archive_history_wts']);
+
+//footer
+Route::get('about-us/footer', [About_Us::class,'display_history_footer']);
+Route::post('/add-history-footer', [About_Us::class,'add_history_footer']);
+Route::put('/update-history-footer/{footer_id}', [About_Us::class, 'update_history_footer']);
+Route::post('/archive-history-footer/{footer_id}', [About_Us::class, 'archive_history_footer']);
+
 
 //User Page View
 Route::view('user/add-post', 'user.pages.newsfeed.add-post');
 Route::view('add-members', 'user.pages.book-visitation.members');
-
-
 
 
 //Visit for user functions
@@ -235,7 +248,16 @@ Route::put('/update-souvenir/{souvenir_id}', [SouvenirsController::class, 'updat
 Route::post('/archive-souvenir/{souvenir_id}', [SouvenirsController::class, 'archive_souvenir']);
 Route::get('user/souvenirs1', [CartController::class, 'displaySouvenir']);
 Route::get('user/souvenirs', [CartController::class, 'displaySouvenir1']);
-Route::post('/add-to-cart', [CartController::class, 'addToCart']);
+Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');;
+Route::get('user/cart', [CartController::class, 'cartItems']);
+Route::post('/removeFromCart', [CartController::class, 'removeFromCart']);
+
+
+
+Route::post('/addToReserved', [Souvenir_Reserved::class, 'addToReserved'])->name('addToReserved');
+
+// Route::view('user/cart', 'user.pages.landingpage1.souvenirs.mycart');
+
 
 
 

@@ -5,15 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Souvenir_Reserved extends Model
+class Reserved_Souvenir extends Model
 {
     use HasFactory;
 
     protected $table = 'souvenir_reservations';
+    protected $primaryKey = 'souvenir_reservations_id';
     protected $fillable = [
         'userid',
         'souvenir_id',
-        'quantity'
+        'quantity',
+        'total_price',
     ];
 
     public function user()

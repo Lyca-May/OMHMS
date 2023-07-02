@@ -1,6 +1,17 @@
 <!doctype html>
 <html lang="en">
-
+<style>
+    .facilities_item {
+    border: 1px solid #777777;
+    border-radius: 10px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 31px 40px 37px;
+    color: #fff;
+    margin-bottom: 30px;
+    height: 215px;
+}
+</style>
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -108,112 +119,116 @@
 
     <!--================ About History Area  =================-->
     <section class="about_history_area section_gap">
+        @foreach ($contents as $history )
+        @if ($history->history_id == 1)
         <div class="container">
             <div class="row">
                 <div class="col-md-6 d_flex align-items-center">
                     <div class="about_content ">
-                        <h2 class="title title_color">Our History</h2>
-                        <h4>About the Museum</h4>
-                        <p>The Oriental Mindoro Heritage Museum (OMHM), Calapan, exhibits the province’s rich culture
-                            and history. Its construction was spearheaded by Governor Bonz Dolor and funded thru the
-                            General Appropriations Act of 2020 by the National Government. The museum opened its doors
-                            to the public during the 71st Founding Anniversary Celebration of the province on November
-                            15, 2021.
-                            Like its exhibits, the facility was constructed in a historic site Cal-kuta, an abandoned
-                            Spaniard fortress located at the Old Provincial Capitol of Oriental Mindoro in Brgy. Ibaba
-                            East, Calapan City. The museum features a fusion of classic and modern designs, influenced
-                            by the “MAHAL TANA” concept, focusing on Oriental Mindoro iconic symbols – Mangyan, Halcon,
-                            Tamaraw, and Naujan Lake.
+                        <input type="hidden" name="" id="" value="{{$history->history_id==1 }}">
+                        <h2 class="title title_color">{{$history->history_title}}</h2>
+                        <h4>{{$history->history_desc}}</h4>
+                        <p>{{$history->history_info}}
                         </p>
                         {{-- <a href="#" class="button_hover theme_btn_two">Request Custom Price</a> --}}
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <img class="img-fluid" style="margin-top: 90px" src="{{ asset('images/aboutomhms.jpeg') }}"
-                        alt="img">
-                    <p style="text-align:center">Oriental Mindoro Heritage Museum</p>
+                    @if ($history->history_image)
+                        <img class="img-fluid" style="margin-top: 90px" src="{{ asset('history_image/' . $history->history_image) }}"
+                        alt="img" />
+                @endif
                 </div>
             </div>
+            @foreach ($contents as $history )
+            @if ($history->history_id == 2)
             <div class="row">
+                <input type="hidden" name="" id="" value="{{$history->history_id==2 }}">
                 <div class="col-md-6">
-                    <img class="img-fluid" style="margin-top: 60px"
-                        src="{{ asset('images/whattosee/tamaraw.jpeg') }}" alt="img">
-                    <p style="text-align:center">Tamaraw Bones photo via TravelOrientalMindoro.ph</p>
+                    @if ($history->history_image)
+                    <img class="img-fluid" style="margin-top: 90px" src="{{ asset('history_image/' . $history->history_image) }}"
+                    alt="img" />
+                    @endif
                 </div>
                 <div class="col-md-6 d_flex align-items-center">
                     <div class="about_content ">
-                        <p> In addition, the construction of this two-story museum cost P60,000,000, granted by the
-                            former House Speaker Allan Peter Cayetano, which covers a lot of approximately 2,500 square
-                            meters. Currently, the facility presents the true legacy of the province, allowing the new
-                            and future generations to understand the people and society that made Oriental Mindoro what
-                            it is today.
-                            <br>
-                            It also exhibits events in the province from the 18th to 19th century, details on former
-                            governors, how Mindoro got divided into two provinces, the people behind it, and more.
-                            Furthermore, visitors will see exhibits about the province’s rich culture, history articles,
-                            and the number of tribes of native Mangyan. Aside from the museum, the property has coffee
-                            and souvenir shops and a convention hall where weddings, birthdays, and other events are
-                            held.
-                            <br>So if you’re in for some educational trip with your family and friends, add to your
-                            things-to-do the Oriental Mindoro Heritage Museum to learn more about the province. Also, if
-                            you’re looking for a place for big parties and reunions, this place would make a great
-                            venue.
+                        <p>{{$history->history_info}}
                         </p>
                     </div>
                 </div>
             </div>
+            @endif
+            @endforeach
         </div>
+        @endif
+        @endforeach
     </section>
     <!--================ About History Area  =================-->
 
     <!--================ Facilities Area  =================-->
     <section class="facilities_area section_gap">
+        @foreach ($wts as $history )
         <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0"
             data-background="">
         </div>
         <div class="container">
             <div class="section_title text-center">
-                <h2 class="title_w">What to See Inside</h2>
-                <p>Since the Oriental Mindoro Heritage Museum, Calapan, functions as the repository and custodian of
-                    varying representations of legacy, it houses cultural artifacts, historical records, evidence of
-                    abundant biodiversity, and remarkably collected memorabilia throughout the province. Inside the
-                    museum, visitors will see displays of old things used by native Mangyan for their livelihood and
-                    household.
+                @if ($history->wts_id == 1)
+                <h2 class="title_w">{{$history->wts_title}}</h2>
+                <p>{{$history->wts_info}}
                 </p>
+                @endif
             </div>
-            <div class="row mb_30">
-                <div class="col-lg-4 col-md-6">
-                    <div class="facilities_item">
-                        <h4 class="sec_h4">Mangyan Traditional Wear</h4>
+            <div class="row">
+                @if ($history->wts_id == 1 && $history->wts_image)
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="facilities_item" style="background-image: url({{ asset('wts_image/' . $history->wts_image) }});">
+                        <h4 class="sec_h4">{{$history->wts_image_title}}</h4>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="facilities_item1">
-                        <h4 class="sec_h4">Ginaw Bilog</h4>
+                @endif
+
+                @if ($history->wts_id == 2 && $history->wts_image)
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="facilities_item" style="background-image: url({{ asset('wts_image/' . $history->wts_image) }});">
+                        <h4 class="sec_h4">{{$history->wts_image_title}}</h4>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="facilities_item2">
-                        <h4 class="sec_h4">Jars</h4>
+                @endif
+
+                @if ($history->wts_id == 3 && $history->wts_image)
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="facilities_item" style="background-image: url({{ asset('wts_image/' . $history->wts_image) }});">
+                        <h4 class="sec_h4">{{$history->wts_image_title}}</h4>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="facilities_item3">
-                        <h4 class="sec_h4">Various Mangyan artefacts</h4>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="facilities_item4">
-                        <h4 class="sec_h4">Ammonites Stone</h4>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="facilities_item5">
-                        <h4 class="sec_h4">Mangyan Basket Weaving</h4>
-                    </div>
-                </div>
+                @endif
             </div>
+
+
+
+            {{-- <div class="row">
+                @if ($history->wts_id == 4 && $history->wts_image)
+                <div class="col-lg-6">
+                    <div class="facilities_item" style="background-image: url({{ asset('wts_image/' . $history->wts_image) }});">
+                        <h4 class="sec_h4">{{$history->wts_image_title}}</h4>
+                    </div>
+                </div>
+                @endif
+
+                @if ($history->wts_id == 5 && $history->wts_image)
+                <div class="col-lg-6">
+                    <div class="facilities_item" style="background-image: url({{ asset('wts_image/' . $history->wts_image) }});">
+                        <h4 class="sec_h4">{{$history->wts_image_title}}</h4>
+                    </div>
+                </div>
+                @endif
+            </div> --}}
+
+
+
         </div>
+        @endforeach
     </section>
     <!--================ Facilities Area  =================-->
 

@@ -56,4 +56,8 @@ class users extends Model
     {
         return $this->hasMany(InventoryModel::class);
     }
+    public function souvenir_reserved()
+    {
+        return $this->hasMany(Reserved_Souvenir::class);
+    }
 }

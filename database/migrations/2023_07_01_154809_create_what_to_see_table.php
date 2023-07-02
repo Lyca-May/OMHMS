@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('souvenir_reservations', function (Blueprint $table) {
-            $table->id('souvenir_reservations_id');
+        Schema::create('what_to_see', function (Blueprint $table) {
+            $table->id('wts_id');
             $table->unsignedBigInteger('userid');
             $table->foreign('userid')->references('user_id')->on('users')->onDelete('cascade');
-            $table->unsignedBigInteger('souvenir_id');
-            $table->foreign('souvenir_id')->references('souvenir_id')->on('souvenir')->onDelete('cascade');
-            $table->integer('quantity');
-            $table->double('total_price');
-            $table->boolean('is_archived')->default(true);
+            $table->string('wts_title');
+            $table->text('wts_info');
+            $table->string('wts_image_title');
+            $table->string('wts_image');
+            $table->boolean('is_archived')->default(false);
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('souvenir_reservations');
+        Schema::dropIfExists('what_to_see');
     }
 };

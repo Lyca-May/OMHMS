@@ -43,38 +43,40 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                         <ul class="nav navbar-nav menu_nav ml-auto">
-                            <li class="nav-item active"><a class="nav-link" href="{{ url('user/landlog') }}">Home</a></li>
+                            <li class="nav-item active"><a class="nav-link" href="javascript:void(0);" onclick="loadPage('{{ url('user/landlog') }}')">Home</a></li>
                             <li class="nav-item submenu dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
                                     aria-haspopup="true" aria-expanded="false">About Us</a>
                                 <ul class="dropdown-menu">
-                                    <li class="nav-item"><a class="nav-link" href="{{ url('user/history1') }}">History</a>
+                                    <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="loadPage('{{ url('user/history1') }}')">History</a>
                                     </li>
-                                    <li class="nav-item"><a class="nav-link" href="{{ url('user/vnm1') }}">Vision &
+                                    <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="loadPage('{{ url('user/vnm1') }}')">Vision &
                                             Mission</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="{{url("user/oper1")}}">Operation</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="loadPage('{{ url('user/oper1') }}')">Operation</a></li>
 
                                 </ul>
                             </li>
-                            <li class="nav-item"><a class="nav-link" href="{{url("user/testimonials1")}}">Announcements</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ url('user/services1') }}">Services</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ url('user/feed1') }}">Feed</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ url('user/contact1') }}">Contact</a></li>
+                            <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="loadPage('{{ url('user/testimonials1') }}')">Announcements</a></li>
+                            <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="loadPage('{{ url('user/services1') }}')">Services</a></li>
+                            <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="loadPage('{{ url('user/feed1') }}')">Feed</a></li>
+                            <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="loadPage('{{ url('user/contact1') }}')">Contact</a></li>
                             <li class="nav-item submenu dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
                                     aria-haspopup="true" aria-expanded="false" style="font-size: 10px">My Account</a>
                                 <ul class="dropdown-menu">
-                                    <li class="nav-item"><a class="nav-link" href="{{url('user/profile')}}">{{session('User')['user_fname']}}'s Profile</a>
+                                    <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="loadPage('{{ url('user/myprofile') }}')">{{session('User')['user_fname']}}'s Profile</a>
                                     </li>
-                                    <li class="nav-item"><a class="nav-link" href="{{ url('logout') }}">Log out</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="loadPage('{{ url('logout') }}')">Log out</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item submenu dropdown">
                                 <a href="" style="margin-top: 28px; display: inline-block;" class="shop-icon-btn">
-                                    <i class="fas fa-shopping-cart"></i></a>
+                                    <i class="fas fa-shopping-cart">
+                                        {{-- {{$addedItem}} --}}
+                                    </i></a>
                                     <ul class="dropdown-menu" style="padding-top: 0;">
-                                        <li class="nav-item"><a class="nav-link" href="{{ url('user/souvenirs1') }}">Purchase Souvenirs</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="{{ url('user/cart') }}">My Cart</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="loadPage('{{ url('user/souvenirs1') }}')">Purchase Souvenirs</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="loadPage('{{ url('user/cart') }}')">My Cart</a></li>
                                     </ul>
                                 </a>
                             </li>
@@ -331,6 +333,138 @@
     <script src="{{ asset('assets/js/js/stellar.js') }}"></script>
     <script src="{{ asset('vendor/lightbox/simpleLightbox.min.js') }}"></script>
     <script src="{{ asset('assets/js/js/custom.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+    <!-- jQuery -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.minus-btn').click(function (event) {
+                event.preventDefault(); // Prevent page reload
+                var inputField = $(this).siblings('.qty-input');
+                var currentValue = parseInt(inputField.val());
+                if (currentValue > 1) {
+                    inputField.val(currentValue - 1);
+                }
+            });
+
+            $('.plus-btn').click(function (event) {
+                event.preventDefault(); // Prevent page reload
+                var inputField = $(this).siblings('.qty-input');
+                var currentValue = parseInt(inputField.val());
+                inputField.val(currentValue + 1);
+            });
+        });
+
+    </script>
+
+   <script>
+    $(document).ready(function() {
+      // Listen for the form submission event
+      $('form').on('submit', function(e) {
+        e.preventDefault(); // Prevent the default form submission
+
+        var formId = $(this).attr('id'); // Get the form ID
+        var formData = $(this).serialize(); // Serialize the form data
+
+        // Send an AJAX request to the server
+        $.ajax({
+          type: 'POST',
+          url: $(this).attr('action'),
+          data: formData,
+          success: function(response) {
+            // Handle the success response here
+            console.log(response); // You can log the response or perform any other actions
+
+            // Close the modal
+            $('#' + formId).closest('.modal').modal('hide');
+
+            // Show success message
+            $('#successMessage').text('Item added to cart successfully.').show();
+            setTimeout(function() {
+              $('#successMessage').fadeOut();
+            }, 3000);
+          },
+          error: function(error) {
+            // Handle the error response here
+            console.log(error); // You can log the error or perform any other actions
+          }
+        });
+      });
+    });
+    </script>
+
+    <script>
+        // Filter
+        const filterOptions = document.querySelectorAll('.filter-option');
+        const cards = document.querySelectorAll('.card');
+
+        filterOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                const filterValue = option.getAttribute('data-filter');
+
+                cards.forEach(card => {
+                    card.style.display = 'none';
+
+                    if (filterValue === 'all' || card.classList.contains(filterValue)) {
+                        card.style.display = 'block';
+                    }
+                });
+            });
+        });
+
+        // Search
+        const searchInput = document.getElementById('search-input');
+        const searchButton = document.getElementById('search-button');
+
+        searchButton.addEventListener('click', () => {
+            const searchValue = searchInput.value.toLowerCase().trim();
+
+            cards.forEach(card => {
+                const cardTitle = card.querySelector('h1').textContent.toLowerCase();
+
+                if (cardTitle.includes(searchValue)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+<script>
+    function loadPage(url) {
+      $.ajax({
+        url: url,
+        type: 'GET',
+        success: function(response) {
+          $('#content').html(response); // Replace the content of a container element with the loaded page
+        },
+        error: function(error) {
+          console.log(error);
+        }
+      });
+    }
+  </script>
 </body>
 </body>
 

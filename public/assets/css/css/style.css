@@ -910,7 +910,7 @@ button:focus {
 .facilities_item {
   border: 1px solid #777777;
   border-radius: 10px;
-  background-image: url("../../../images/whattosee/mangyan.jpg");
+  /* background-image: url("../../../images/whattosee/mangyan.jpg"); */
   background-repeat: no-repeat;
   background-size: cover;
   padding: 31px 40px 37px;
@@ -936,7 +936,7 @@ button:focus {
 .facilities_item1 {
     border: 1px solid #777777;
     border-radius: 10px;
-    background-image: url("../../../images/whattosee/ginaw.jpeg");
+    /* background-image: url("../../../images/whattosee/ginaw.jpeg"); */
     background-repeat: no-repeat;
     background-size: cover;
     padding: 31px 40px 37px;
@@ -963,7 +963,7 @@ button:focus {
   .facilities_item2 {
     border: 1px solid #777777;
     border-radius: 10px;
-    background-image: url("../../../images/whattosee/jars.jpg");
+    /* background-image: url("../../../images/whattosee/jars.jpg"); */
     background-repeat: no-repeat;
     background-size: cover;
     padding: 31px 40px 37px;
@@ -989,7 +989,7 @@ button:focus {
   .facilities_item3 {
     border: 1px solid #777777;
     border-radius: 10px;
-    background-image: url("../../../images/whattosee/artefacts.jpg");
+    /* background-image: url("../../../images/whattosee/artefacts.jpg"); */
     background-repeat: no-repeat;
     background-size: cover;
     padding: 31px 40px 37px;
@@ -1015,7 +1015,7 @@ button:focus {
   .facilities_item4 {
     border: 1px solid #777777;
     border-radius: 10px;
-    background-image: url("../../../images/whattosee/Stone.jpg");
+    /* background-image: url("../../../images/whattosee/Stone.jpg"); */
     background-repeat: no-repeat;
     background-size: cover;
     padding: 31px 40px 37px;
@@ -1040,7 +1040,7 @@ button:focus {
   .facilities_item5 {
     border: 1px solid #777777;
     border-radius: 10px;
-    background-image: url("../../../images/whattosee/baskets.jpg");
+    /* background-image: url("../../../images/whattosee/baskets.jpg"); */
     background-repeat: no-repeat;
     background-size: cover;
     padding: 31px 40px 37px;

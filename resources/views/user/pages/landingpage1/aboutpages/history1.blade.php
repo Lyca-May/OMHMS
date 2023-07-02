@@ -103,61 +103,49 @@
 
     <!--================ About History Area  =================-->
     <section class="about_history_area section_gap">
+        @foreach ($contents as $history )
+        @if ($history->history_id == 1)
         <div class="container">
             <div class="row">
                 <div class="col-md-6 d_flex align-items-center">
                     <div class="about_content ">
-                        <h2 class="title title_color">Our History</h2>
-                        <h4>About the Museum</h4>
-                        <p>The Oriental Mindoro Heritage Museum (OMHM), Calapan, exhibits the province’s rich culture
-                            and history. Its construction was spearheaded by Governor Bonz Dolor and funded thru the
-                            General Appropriations Act of 2020 by the National Government. The museum opened its doors
-                            to the public during the 71st Founding Anniversary Celebration of the province on November
-                            15, 2021.
-                            Like its exhibits, the facility was constructed in a historic site Cal-kuta, an abandoned
-                            Spaniard fortress located at the Old Provincial Capitol of Oriental Mindoro in Brgy. Ibaba
-                            East, Calapan City. The museum features a fusion of classic and modern designs, influenced
-                            by the “MAHAL TANA” concept, focusing on Oriental Mindoro iconic symbols – Mangyan, Halcon,
-                            Tamaraw, and Naujan Lake.
+                        <input type="hidden" name="" id="" value="{{$history->history_id==1 }}">
+                        <h2 class="title title_color">{{$history->history_title}}</h2>
+                        <h4>{{$history->history_desc}}</h4>
+                        <p>{{$history->history_info}}
                         </p>
                         {{-- <a href="#" class="button_hover theme_btn_two">Request Custom Price</a> --}}
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <img class="img-fluid" style="margin-top: 90px" src="{{ asset('images/aboutomhms.jpeg') }}"
-                        alt="img">
-                    <p style="text-align:center">Oriental Mindoro Heritage Museum</p>
+                    @if ($history->history_image)
+                        <img class="img-fluid" style="margin-top: 90px" src="{{ asset('history_image/' . $history->history_image) }}"
+                        alt="img" />
+                @endif
                 </div>
             </div>
+            @foreach ($contents as $history )
+            @if ($history->history_id == 2)
             <div class="row">
+                <input type="hidden" name="" id="" value="{{$history->history_id==2 }}">
                 <div class="col-md-6">
-                    <img class="img-fluid" style="margin-top: 60px"
-                        src="{{ asset('images/whattosee/tamaraw.jpeg') }}" alt="img">
-                    <p style="text-align:center">Tamaraw Bones photo via TravelOrientalMindoro.ph</p>
+                    @if ($history->history_image)
+                    <img class="img-fluid" style="margin-top: 90px" src="{{ asset('history_image/' . $history->history_image) }}"
+                    alt="img" />
+                    @endif
                 </div>
                 <div class="col-md-6 d_flex align-items-center">
                     <div class="about_content ">
-                        <p> In addition, the construction of this two-story museum cost P60,000,000, granted by the
-                            former House Speaker Allan Peter Cayetano, which covers a lot of approximately 2,500 square
-                            meters. Currently, the facility presents the true legacy of the province, allowing the new
-                            and future generations to understand the people and society that made Oriental Mindoro what
-                            it is today.
-                            <br>
-                            It also exhibits events in the province from the 18th to 19th century, details on former
-                            governors, how Mindoro got divided into two provinces, the people behind it, and more.
-                            Furthermore, visitors will see exhibits about the province’s rich culture, history articles,
-                            and the number of tribes of native Mangyan. Aside from the museum, the property has coffee
-                            and souvenir shops and a convention hall where weddings, birthdays, and other events are
-                            held.
-                            <br>So if you’re in for some educational trip with your family and friends, add to your
-                            things-to-do the Oriental Mindoro Heritage Museum to learn more about the province. Also, if
-                            you’re looking for a place for big parties and reunions, this place would make a great
-                            venue.
+                        <p>{{$history->history_info}}
                         </p>
                     </div>
                 </div>
             </div>
+            @endif
+            @endforeach
         </div>
+        @endif
+        @endforeach
     </section>
     <!--================ About History Area  =================-->
 

@@ -9,7 +9,7 @@ class SouvenirsModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'souvenirs';
+    protected $table = 'souvenir';
     protected $primaryKey = 'souvenir_id';
 
     protected $fillable = [
@@ -29,6 +29,10 @@ class SouvenirsModel extends Model
     public function user()
     {
         return $this->belongsTo(users::class, 'userid', 'user_id');
+    }
+    public function souvenir_reservation()
+    {
+        return $this->belongsTo(Reserved_Souvenir::class, 'souvenir_reservations_id', 'souvenir_id');
     }
     public function category()
     {

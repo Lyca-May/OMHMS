@@ -97,7 +97,7 @@ class UserVisitController extends Controller
             'visits_no_of_visitors' => [
                 'between:0,1000'
             ],
-            'file_of_visitors' => 'required|file|mimes:pdf,xlsx,xls,doc,docx',
+
         ];
 
         $message = [
@@ -108,8 +108,6 @@ class UserVisitController extends Controller
             'visits_time.required' => 'Please select the intended time for reservation',
             // 'visits_no_of_visitors.integer' => 'The number of visitors must be an integer',
             'visits_no_of_visitors.between' => 'The number of visitors must not be greater than 100',
-            'file_of_visitors.required' => 'File of visitors information must be attached',
-            'file_of_visitors.file' => 'it must be a file',
         ];
 
         $validator = Validator::make($request->all(), $rules, $message);
@@ -178,19 +176,6 @@ class UserVisitController extends Controller
                 $visit->cancel_reason = $cancel_reason;
                 $visit->visits_status = $visits_status;
 
-                if ($request->hasFile('file_of_visitors')) {
-                    // Get the uploaded file
-                    $file_of_visitors = $request->file('file_of_visitors');
-
-                    // Generate a unique filename for the uploaded file
-                    $filename = time() . '_' . $file_of_visitors->getClientOriginalName();
-
-                    // Save the file to the storage/app/public/file_of_visitorss directory
-                    $file_of_visitors->move(public_path('file_of_visitors'), $filename);
-
-                    // Update the user's file_of_visitors column with the filename
-                    $visit->file_of_visitors = $filename;
-                }
 
                 $visit->save();
 

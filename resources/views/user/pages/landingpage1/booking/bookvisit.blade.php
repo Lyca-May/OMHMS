@@ -101,114 +101,118 @@
                     <div class="col">
                         <h2 style="color:#f3c300">Schedule a visit</h2>
                         @error('visits_no_of_visitors')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                         @if(session('success'))
-                            <span style="color: green">{{session('success')}}</span>
+                        <span style="color: green">{{session('success')}}</span>
                         @elseif (session('failed'))
-                            <span style="color: red">{{session('failed')}}</span>
+                        <span style="color: red">{{session('failed')}}</span>
                         @endif
                         <form action="{{url("user/book")}}" method="POST">
                             @csrf
-                            <div class="row">
-                                <div class="col">
-                                    <input type="hidden" class="form-control" placeholder="First Name" name="visits_fname" @error('visits_fname') is-invalid @enderror id="visits_fname" value="{{ session('User')['user_fname'] }}" >
-                                    <!-- Add other hidden fields here -->
+                        </div>
+                        <input type="hidden" class="form-control" placeholder="First Name" name="visits_fname"  @error('visits_fname') is-invalid  @enderror id="visits_fname" value="{{ session('User')['user_fname'] }}" >
+                        <input type="hidden" class="form-control" placeholder="First Name" name="visits_mname"  @error('visits_mname') is-invalid  @enderror id="visits_mname" value="{{ session('User')['user_mname'] }}" >
+                        <input type="hidden" class="form-control" placeholder="First Name" name="visits_lname"  @error('visits_lname') is-invalid  @enderror id="visits_lname" value="{{ session('User')['user_lname'] }}" >
+                        <input type="hidden" class="form-control" placeholder="First Name" name="visits_email"  @error('visits_email') is-invalid  @enderror id="visits_email" value="{{ session('User')['user_email'] }}" >
+                        <input type="hidden" class="form-control" placeholder="First Name" name="visits_country"  @error('visits_country') is-invalid  @enderror id="visits_country" value="{{ session('User')['user_country'] }}" >
+                        <input type="hidden" class="form-control" placeholder="First Name" name="visits_province"  @error('visits_province') is-invalid  @enderror id="visits_province" value="{{ session('User')['user_province'] }}" >
+                        <input type="hidden" class="form-control" placeholder="First Name" name="visits_municipality"  @error('visits_municipality') is-invalid  @enderror id="visits_municipality" value="{{ session('User')['user_municipality'] }}" >
+                        <input type="hidden" class="form-control" placeholder="First Name" name="visits_brgy"  @error('visits_brgy') is-invalid  @enderror id="visits_brgy" value="{{ session('User')['user_barangay'] }}" >
+                        <input type="hidden" class="form-control" placeholder="First Name" name="visits_street"  @error('visits_street') is-invalid  @enderror id="visits_street" value="{{ session('User')['user_street'] }}" >
+                        <input type="hidden" class="form-control" placeholder="First Name" name="visits_zipcode"  @error('visits_zipcode') is-invalid  @enderror id="visits_zipcode" value="{{ session('User')['user_zipcode'] }}" >
+                        <input type="hidden" class="form-control" placeholder="First Name" name="gender"  @error('gender') is-invalid  @enderror id="gender" value="{{ session('User')['gender'] }}" >
+                        <input type="hidden" class="form-control" placeholder="First Name" name="contact_no"  @error('contact_no') is-invalid  @enderror id="contact_no" value="{{ session('User')['user_phonenum'] }}" >
+                        {{-- <input type="hidden" class="form-control" placeholder="First Name" name="visits_fname"  @error('visits_fname') is-invalid  @enderror id="visits_fname" value="{{ session('User')['age'] }}" > --}}
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="book_tabel">
+                                    <div class="form-group">
+                                        <div class='input-group date' id=''>
+                                            <input type="date" class="form-control"
+                                            placeholder="Preferred Date of Visit" name="visits_intended_date"
+                                            id="visits_intended_date" value="{{ old('visits_intended_date') }}">
+
+                                            @error('visits_intended_date')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror <br>
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col">
-                                    <div class="book_tabel">
-                                        <div class="form-group">
-                                            <div class='input-group date' id=''>
-                                                <input type="date" class="form-control"
-                                                    placeholder="Preferred Date of Visit" name="visits_intended_date"
-                                                    id="visits_intended_date" value="{{ old('visits_intended_date') }}">
-
-                                                @error('visits_intended_date')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                                <br>
-                                                <span class="input-group-addon">
-                                                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col">
-                                    <div class="book_tabel_">
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <select name="visits_time" class="form-control @error('visits_time') is-invalid @enderror" id="visits_time">
-                                                    <option value="">Select Time</option>
-                                                    <option value="09:30:00">9:30 AM</option>
-                                                    <option value="11:00:00">11:00 AM</option>
-                                                    <option value="13:30:00">1:30 PM</option>
-                                                    <option value="15:00:00">3:00 PM</option>
-                                                </select>
+                            <div class="col">
+                                <div class="book_tabel_">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            {{-- <select class="nice-select">
+                                                <option data-display="Select Time of Visit" name="visits_time" class="form-control" @error('visits_time') is-invalid @enderror ">Select
+                                                    Time of Visit</option>
+                                                <option value="{{old('visits_time')}}">9:30 AM</option>
+                                                <option value="{{old('visits_time')}}">11:00 AM</option>
+                                                <option value="2">1:30 PM</option>
+                                                <option value="3">3:00 PM</option>
                                                 @error('visits_time')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
-                                                <br>
-                                            </div>
+                                            </select> --}}
+
+                                            <select name="visits_time" class="form-control @error('visits_time') is-invalid @enderror" id="visits_time">
+                                                <option value="">Select Time</option>
+                                                {{-- <option value="09:30:00">9:30 AM</option> --}}
+                                                <option value="09:30:00">9:30 AM</option>
+                                                <option value="11:00:00">11:00 AM</option>
+                                                <option value="13:30:00">1:30 PM</option>
+                                                <option value="15:00:00">3:00 PM</option>
+                                            </select>
+                                            @error('visits_time')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror <br>
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="col">
-                                    <div class="book_tabel_">
-                                        <div class="form-group">
-                                            <div class='input-group'>
-                                                <input type='text' class="form-control"
-                                                    placeholder="Number of Visitors (Optional)" name="visits_no_of_visitors" @error('visits_no_of_visitors') is-invalid @enderror id="num_of_members" value="{{ old('visits_no_of_visitors') }}">
+                            </div>
+                            <div class="col">
+                                <div class="book_tabel_">
+                                    <div class="form-group">
+                                        <div class='input-group'>
+                                            <input type='text' class="form-control"
+                                                placeholder="Number of Visitors(Optional)"name="visits_no_of_visitors" @error('visits_no_of_visitors') is-invalid  @enderror id="num_of_members" value="{{ old('visits_no_of_visitors') }}">
                                                 @error('visits_no_of_visitors')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col">
-                                    <div class="book_tabel_">
-                                        <div class="form-group">
-                                            <div class='input-group'>
-                                                <input type='text' class="form-control"
-                                                    placeholder="Name of Institution (Optional)" name="visits_name_of_institution" @error('visits_name_of_institution') is-invalid @enderror id="visits_name_of_institution" value="{{ old('visits_name_of_institution') }}" >
-                                                @error('visits_name_of_institution')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col">
-                                    <div class="book_tabel_">
-                                        <div class="form-group">
-                                            <div class='input-group'>
-                                                <span style="color: yellow">Please upload your member's information</span>
-                                                <input type='file' class="form-control"
-                                                    placeholder="" name="file_of_visitors" @error('file_of_visitors') is-invalid @enderror id="file_of_visitors" value="{{ old('file_of_visitors') }}" >
-                                                @error('file_of_visitors')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <br>
-                            <button class="book_now_btn button_hover" href="#" style="width: 1040px" type="submit">Book Now</button>
+                            <div class="col">
+                                <div class="book_tabel_">
+                                    <div class="form-group">
+                                        <div class='input-group'>
+                                            <input type='text' class="form-control"
+                                                placeholder="Name of Institution(Optional)"name="visits_name_of_institution" @error('visits_name_of_institution') is-invalid  @enderror id="visits_name_of_institution" value="{{ old('visits_name_of_institution') }}" >
+                                                @error('visits_name_of_institution')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <button class="book_now_btn button_hover" href="#" style="width:1040px" type="submit">Book Now</button>
+
+                    </div>
                         </form>
                         <br>
                         <div></div>
-                    </div>
                 </div>
             </div>
+        </div>
         </div>
     </section>
 
