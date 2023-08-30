@@ -266,97 +266,113 @@
                         @if ($visit->count() === 0)
                             <p>You haven't done any booking for visitation</p>
                         @else
-                            @foreach ($visit as $visits)
-                                <form>
-                                    <div class="container bootstrap snippets bootdeys">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <div class="panel panel-default invoice" id="invoice">
-                                                    <div class="panel-body">
-                                                        <div class="invoice-ribbon">
-                                                            <div class="ribbon-inner">
-                                                                @if ($visits->visits_status == 'PENDING')
-                                                                    <p> <span
-                                                                            style="color: black; font-weight:bold">{{ $visits->visits_status }}</span>
-                                                                    </p>
-                                                                @elseif ($visits->visits_status == 'CANCELLED')
-                                                                    <p><span>{{ $visits->visits_status }}</span></p>
-                                                                @else
-                                                                    <p><span
-                                                                            style="color: green">{{ $visits->visits_status }}</span>
-                                                                    </p>
-                                                                @endif
-                                                            </div>
+                        {{-- @foreach ($visit as $visits) --}}
+                        <form>
+                            <div class="container bootstrap snippets bootdeys">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="panel panel-default invoice" id="invoice">
+                                            <div class="panel-body">
+                                                <div class="invoice-ribbon">
+                                                    <div class="ribbon-inner">
+                                                        @if ($visit->visits_status == 'PENDING')
+                                                            <p><span style="color: black; font-weight:bold">{{ $visit->visits_status }}</span></p>
+                                                        @elseif ($visit->visits_status == 'CANCELLED')
+                                                            <p><span>{{ $visit->visits_status }}</span></p>
+                                                        @else
+                                                            <p><span style="color: green">{{ $visits->visits_status }}</span></p>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6 top-left">
+                                                        <img src="{{ asset('omhms.png') }}" alt="" style="width: 90px; height: 70px">
+                                                    </div>
+                                                    <div class="col-sm-6 top-right">
+                                                        <h3 class="marginright" style="margin-top: 10px">RESERVATION OVERVIEW</h3>
+                                                        <span class="marginright">{{ date('l, F j, Y') }}</span>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <p class="lead marginbottom"><strong>From: Oriental Mindoro Heritage Museum</strong></p>
+
+                                                        {{-- QR CODE DISPLAY --}}
+
+                                                        <div class="container">
+                                                            <h2>Your QR Code</h2>
+                                                            <p>Scan this QR code for your reservation details.</p>
+                                                            <img src="{{ asset('qrcodes/' . $visit->visits_id . '.png') }}" alt="QR Code">
                                                         </div>
-                                                        <div class="row">
 
-                                                            <div class="col-sm-6 top-left">
-                                                                {{-- <i class="fa fa-rocket"></i> --}}
-                                                                <img src="{{ asset('omhms.png') }}" alt=""
-                                                                    style="width: 90px; height: 70px"></img>
-                                                            </div>
 
-                                                            <div class="col-sm-6 top-right">
-                                                                <h3 class="marginright" style="margin-top: 10px">RESERVATION
-                                                                    OVERVIEW</h3>
-                                                                <span class="marginright">{{ date('l, F j, Y') }}</span>
-                                                            </div>
-
+                                                        <div class="post" style="line-height: 10px">
+                                                            @if ($visit->gender == 'FEMALE')
+                                                                <p>Hi, Ms. {{ $visit->visits_lname }}, {{ $visit->visits_fname }} {{ $visit->visits_mname }}.</p>
+                                                            @else
+                                                                <p>Hi, Mr. {{ $visit->visits_lname }}, {{ $visit->visits_fname }} {{ $visit->visits_mname }}.</p>
+                                                            @endif
+                                                            <p>This is your Reservation for Visitation.</p>
+                                                            <p>You are from {{ $visit->visits_street }}, {{ $visit->visits_brgy }}, {{ $visit->visits_municipality }}, {{ $visit->visits_province }}, {{ $visit->visits_country }}, with the zipcode {{ $visit->visits_zipcode }}.</p>
+                                                            <p>Your selected date is {{ date('F d, Y', strtotime($visit->visits_intended_date)) }} at {{ $visit->visits_time }}.</p>
+                                                            @if ($visit->visits_name_of_institution != null)
+                                                                <p>You are from {{ $visit->visits_name_of_institution }} Institution and you're with your</p>
+                                                            @endif
+                                                            @if ($visit->visits_no_of_visitors != null)
+                                                                <p>{{ $visit->visits_no_of_visitors }} members.</p>
+                                                            @endif
+                                                            <p>We will send you an email notification for the status of your reservation. If you have any clarifications regarding your booking information, please contact us at our contact number or email account.</p>
                                                         </div>
-                                                        <hr>
-                                                        <div class="row">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h1>Reserved Souvenirs</h1>
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <td colspan="3" class="text-cw" style="color: black"><strong style="color: black">Souvenir Name</strong></td>
+                                                                    <td colspan="3" class="text-cw" style="color: black"><strong style="color: black">Price</strong></td>
+                                                                    <td colspan="3" class="text-cw" style="color: black"><strong style="color: black">Quantity</strong></td>
+                                                                    <td colspan="3" class="text-cw" style="color: black"><strong style="color: black">Total</strong></td>
 
-                                                            {{-- <div class="col from"> --}}
-                                                            <p class="lead marginbottom"><strong>From : Oriental Mindoro
-                                                                    Heritage Museum</strong></p>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @php
+                                                                    $totalAmount = 0;
+                                                                @endphp
+                                                                @foreach ($reservedSouvenir as $souvenirs)
+                                                                    <tr>
+                                                                        <td style="color: black" class="text-cw">{{ $souvenirs->souvenir->souvenir_name }}</td>
+                                                                        <td style="color: black" class="text-cw">{{ $souvenirs->souvenir->souvenir_price }}</td>
+                                                                        <td style="color: black" class="text-cw">{{ $souvenirs->quantity }}</td>
+                                                                        <td style="color: black" class="text-cw">{{ $souvenirs->total_price }}</td>
+                                                                    </tr>
+                                                                    @php
+                                                                        $totalAmount += $souvenirs->total_price;
+                                                                    @endphp
+                                                                @endforeach
+                                                            </tbody>
+                                                            <tfoot>
+                                                                <tr>
+                                                                    <td colspan="3" class="text-right" style="color: black"><strong style="color: black">Total Amount:</strong></td>
+                                                                    <td style="color: black">{{ $totalAmount }}</td>
+                                                                </tr>
+                                                            </tfoot>
+                                                        </table>
+                                                    </div>
 
-                                                            <div class="post" style="line-height: 10px">
-                                                                @if ($visits->gender == 'FEMALE')
-                                                                    <p>Hi, Ms. {{ $visits->visits_lname }},
-                                                                        {{ $visits->visits_fname }}
-                                                                        {{ $visits->visits_mname }}.</p>
-                                                                @else
-                                                                    <p>Hi, Mr. {{ $visits->visits_lname }},
-                                                                        {{ $visits->visits_fname }}
-                                                                        {{ $visits->visits_mname }}.</p>
-                                                                @endif
-                                                                <p>This is your Reservation for Visitation</p>
-                                                                <p>You are from {{ $visits->visits_street }},
-                                                                    {{ $visits->visits_brgy }},
-                                                                    {{ $visits->visits_municipality }},
-                                                                    {{ $visits->visits_province }},
-                                                                    {{ $visits->visits_country }}, with the zipcode
-                                                                    {{ $visits->visits_zipcode }}.</p>
-                                                                <p>Your selected date is
-                                                                    {{ date('F d, Y', strtotime($visits->visits_intended_date)) }}
-                                                                    at {{ $visits->visits_time }}.</p>
-                                                                @if ($visits->visits_name_of_institution != null)
-                                                                    <p>You are from
-                                                                        {{ $visits->visits_name_of_institution }}
-                                                                        Institution and you're with your</p>
-                                                                @endif
-                                                                @if ($visits->visits_no_of_visitors != null)
-                                                                    <p>{{ $visits->visits_no_of_visitors }} members</p>
-                                                                @endif
-
-                                                                {{-- {!! QrCode::size(300)->backgroundColor(255,90,0)->generate($QRcode) !!} --}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        {{-- @endforeach --}}
 
 
 
-                                                                {{-- <p> Due to:</p> --}}
-
-                                                                <p>We will send you an email notification for the status of
-                                                                    your reservation. If you have a clarification with your
-                                                                    booking information, please contact us at our contact
-                                                                    number or email account</p>
-                                                                {{-- <p>Contact Number: 09151949345</p> --}}
-                                                                {{-- <p>Email: omhms@gmail.com</p> --}}
-                                                            </div>
-                                                            {{-- <form action="{{url('user/cancel-visit-form')}}">
-                                                            @csrf
-                                                            <button type="submit" class="btn btn-danger">cancel</button>
-                                                        </form> --}}
-                            @endforeach
                         @endif
                     </div>
 
@@ -615,9 +631,6 @@
 
                 </section>
             </div>
-
-
-
         </div>
         <!-- End container-fluid-->
     </div>

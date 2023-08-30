@@ -25,10 +25,12 @@ class CartController extends Controller
     {
         // Fetch cart items
         $user_id = session('User')['user_id'];
+        $visit = DB::table('visits')->where('userid', $user_id)->where('visits_status', "PENDING")
+        ->get();
         $addedItem = DB::table('cart_items')->where('is_archived', 0)->count();
         $cartItems = CartItem::with('souvenir')->where('userid', $user_id)->where('is_archived', 0)->get();
         $souvenirs = SouvenirsModel::with('category')->where('souvenir_status','posted')->get();
-        return view('user.pages.landingpage1.souvenirs.mycart', compact('souvenirs', 'cartItems', 'addedItem'));
+        return view('user.pages.landingpage1.souvenirs.mycart', compact('souvenirs', 'cartItems', 'addedItem', 'visit'));
     }
     public function displaySouvenir1()
     {
@@ -38,34 +40,6 @@ class CartController extends Controller
         $souvenirs = SouvenirsModel::with('category')->where('souvenir_status','posted')->get();
         return view('user.pages.landingpage.souvenirs.souvenirs', compact('souvenirs', 'cartItems', 'addedItem'));
     }
-    // public function addToCart(Request $request)
-    // {
-    //     $user_id = session('User')['user_id'];
-
-    //     // Validate the request data
-    //     $request->validate([
-    //         'souvenir_id' => 'required|exists:souvenir,souvenir_id',
-    //         'quantity' => 'required|integer|min:1',
-    //         'price' => 'required|numeric',
-    //         'total_price' => 'required|numeric',
-    //     ]);
-
-    //     // Create a new cart item
-    //     $cartItem = new CartItem();
-    //     $cartItem->userid = $user_id; // Assuming 'userid' is passed in the request
-    //     $cartItem->souvenir_id = $request->souvenir_id;
-    //     $cartItem->quantity = $request->quantity;
-    //     $cartItem->price = $request->price;
-    //     $cartItem->total_price = $request->total_price;
-    //     $cartItem->is_archived = false; // Assuming 'is_archived' is passed in the request
-    //     $cartItem->save();
-
-    //     if ($cartItem) {
-    //         return redirect()->back()->with('success', 'Item added to cart successfully.');
-    //     } else {
-    //         return redirect()->back()->with('error', 'Failed to add item to cart.');
-    //     }
-    // }
 
 
     public function addToCart(Request $request)

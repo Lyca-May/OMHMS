@@ -204,30 +204,31 @@
                 <p>We invite you to reserve now and experience the wonders of our museum, where you can discover
                     fascinating exhibits and immerse yourself in a world of knowledge and culture.</p>
             </div>
-            <div class="row mb_30">
-                <div class="col-lg-6col-sm-6">
-                    <div class="accomodation_item text-center">
-                        <div class="hotel_img">
-                            <img src="{{ asset('images/whattosee/stair.jpg') }}" alt="">
-                            <a href="{{ url('user/bookvisit') }}" class="btn theme_btn button_hover">Book Now</a>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="accomodation_item text-center">
+                            <div class="hotel_img">
+                                <img src="{{ asset('images/whattosee/stair.jpg') }}" alt="">
+                                <a href="{{ url('user/bookvisit') }}" class="btn theme_btn button_hover">Book Now</a>
+                            </div>
+                            <a href="#">
+                                <h4 class="sec_h4">Reservation for Museum Visit</h4>
+                            </a>
                         </div>
-                        <a href="#">
-                            <h4 class="sec_h4">Reservation for Museum Visit</h4>
-                        </a>
+                    </div>
+                     <div class="col-lg-6 col-sm-6">
+                        <div class="accomodation_item text-center">
+                            <div class="hotel_img">
+                                <img src="{{ asset('images/whattosee/tam.jpg') }}" alt="">
+                                <a href="{{ url('user/rentconhall') }}" class="btn theme_btn button_hover">Book Now</a>
+                            </div>
+                            <a href="#">
+                                <h4 class="sec_h4">Rent Conference Hall</h4>
+                            </a>
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-6 col-sm-6">
-                    <div class="accomodation_item text-center">
-                        <div class="hotel_img">
-                            <img src="{{ asset('images/whattosee/tam.jpg') }}" alt="">
-                            <a href="{{ url('user/rentconhall') }}" class="btn theme_btn button_hover">Book Now</a>
-                        </div>
-                        <a href="#">
-                            <h4 class="sec_h4">Rent Conference Hall</h4>
-                        </a>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>

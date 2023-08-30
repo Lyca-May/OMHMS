@@ -141,9 +141,9 @@
                 </div>
             </div>
             @foreach ($contents as $history )
-            @if ($history->history_id == 2)
+            @if ($history->history_id == 6)
             <div class="row">
-                <input type="hidden" name="" id="" value="{{$history->history_id==2 }}">
+                <input type="hidden" name="" id="" value="{{$history->history_id==6 }}">
                 <div class="col-md-6">
                     @if ($history->history_image)
                     <img class="img-fluid" style="margin-top: 90px" src="{{ asset('history_image/' . $history->history_image) }}"
@@ -205,25 +205,6 @@
                 @endif
             </div>
 
-
-
-            {{-- <div class="row">
-                @if ($history->wts_id == 4 && $history->wts_image)
-                <div class="col-lg-6">
-                    <div class="facilities_item" style="background-image: url({{ asset('wts_image/' . $history->wts_image) }});">
-                        <h4 class="sec_h4">{{$history->wts_image_title}}</h4>
-                    </div>
-                </div>
-                @endif
-
-                @if ($history->wts_id == 5 && $history->wts_image)
-                <div class="col-lg-6">
-                    <div class="facilities_item" style="background-image: url({{ asset('wts_image/' . $history->wts_image) }});">
-                        <h4 class="sec_h4">{{$history->wts_image_title}}</h4>
-                    </div>
-                </div>
-                @endif
-            </div> --}}
 
 
 

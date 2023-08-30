@@ -289,6 +289,7 @@
                                                 <th>Number of Visitors</th>
                                                 <th>Name of Institution</th>
                                                 <th>Status</th>
+                                                <th>File</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -306,6 +307,13 @@
                                                 <td>{{ $visits->visits_time }}</td>
                                                 <td>{{ $visits->visits_no_of_visitors }}</td>
                                                 <td>{{ $visits->visits_name_of_institution }}</td>
+                                                <td>
+                                                    @if ($visits->file_of_visitors)
+                                                        <a href="{{ asset('uploads/' . $visits->file_of_visitors) }}" target="_blank">View File</a>
+                                                    @else
+                                                        No file available
+                                                    @endif
+                                                </td>
                                                 <td>
                                                     @if ($visits->visits_status == 'PENDING')
                                                         <p><span style="color: gray">{{ $visits->visits_status }}</span></p>

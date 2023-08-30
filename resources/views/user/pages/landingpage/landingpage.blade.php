@@ -31,8 +31,30 @@
     <body>
         <!--================Header Area =================-->
         <header class="header_area">
-            <div class="container">
+            <div class="container-fluid">
                 <nav class="navbar navbar-expand-lg navbar-light">
+
+
+                    <style>
+                        .container-fluid {
+                            padding-left: 0;
+                            padding-right: 0;
+                        }
+
+                        .navbar {
+                            /* overflow-x:hidden; */
+
+                        }
+
+
+
+                        .logo-icon {
+                            width: 40px;
+                            height: 20px;
+                            max-width: 100%; /* Ensure the image doesn't exceed its container */
+                        }
+                    </style>
+
                     <!-- Brand and toggle get grouped for better mobile display -->
                     <img src="{{ asset('omhms.png') }}" class="logo-icon" alt="logo icon"
                         style="width: 40px; height: 20px;">
@@ -190,30 +212,31 @@
                 <p>We invite you to reserve now and experience the wonders of our museum, where you can discover
                     fascinating exhibits and immerse yourself in a world of knowledge and culture.</p>
             </div>
-            <div class="row mb_30">
-                <div class="col-lg-6col-sm-6">
-                    <div class="accomodation_item text-center">
-                        <div class="hotel_img">
-                            <img src="{{ asset('images/whattosee/stair.jpg') }}" alt="">
-                            <a href="{{ url('auth/login') }}" class="btn theme_btn button_hover">Book Now</a>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="accomodation_item text-center">
+                            <div class="hotel_img">
+                                <img src="{{ asset('images/whattosee/stair.jpg') }}" alt="">
+                                <a href="{{ url('auth/login') }}" class="btn theme_btn button_hover">Book Now</a>
+                            </div>
+                            <a href="#">
+                                <h4 class="sec_h4">Reservation for Museum Visit</h4>
+                            </a>
                         </div>
-                        <a href="#">
-                            <h4 class="sec_h4">Reservation for Museum Visit</h4>
-                        </a>
                     </div>
-                </div>
-                <div class="col-lg-6 col-sm-6">
-                    <div class="accomodation_item text-center">
-                        <div class="hotel_img">
-                            <img src="{{ asset('images/whattosee/tam.jpg') }}" alt="">
-                            <a href="{{ url('auth/login') }}" class="btn theme_btn button_hover">Book Now</a>
+                    <div class="col-lg-6 col-sm-6">
+                        <div class="accomodation_item text-center">
+                            <div class="hotel_img">
+                                <img src="{{ asset('images/whattosee/tam.jpg') }}" alt="">
+                                <a href="{{ url('auth/login') }}" class="btn theme_btn button_hover">Book Now</a>
+                            </div>
+                            <a href="#">
+                                <h4 class="sec_h4">Rent Conference Hall</h4>
+                            </a>
                         </div>
-                        <a href="#">
-                            <h4 class="sec_h4">Rent Conference Hall</h4>
-                        </a>
                     </div>
-                </div>
-
+                 </div>
             </div>
         </div>
     </section>

@@ -129,6 +129,11 @@
                         <i class="zmdi zmdi-face"></i> <span>Profile</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ asset('admin/scan-qr') }}">
+                        <i class="zmdi zmdi-camera"></i> <span>Scanner</span>
+                    </a>
+                </li>
 
 
             </ul>

@@ -156,6 +156,7 @@ class VisitController extends Controller
 // }
 
 
+
     public function cancel_status(Request $request, $user_id)
     {
         $user = users::findorFail($user_id);
@@ -184,5 +185,26 @@ class VisitController extends Controller
         } else {
             return redirect()->back()->with('failed', "Failed to cancel reservation.");
         }
+    }
+
+    public function showScanQRPage()
+    {
+        return view('admin.pages.visit.scanner');
+    }
+
+    public function markVisitAsDone(Request $request)
+    {
+        $visitId = $request->input('visitId');
+
+        $visit = Visit_Model::find($visitId);
+        if (!$visit) {
+            return response()->json(['success' => false]);
+        }
+
+        // Update the status to "done" and save
+        $visit->visits_status = 'DONE';
+        $visit->save();
+
+        return response()->json(['success' => true]);
     }
 }

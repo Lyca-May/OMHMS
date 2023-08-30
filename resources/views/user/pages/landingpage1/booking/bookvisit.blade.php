@@ -108,7 +108,7 @@
                         @elseif (session('failed'))
                         <span style="color: red">{{session('failed')}}</span>
                         @endif
-                        <form action="{{url("user/book")}}" method="POST">
+                        <form action="{{url("user/book")}}" method="POST" enctype="multipart/form-data">
                             @csrf
                         </div>
                         <input type="hidden" class="form-control" placeholder="First Name" name="visits_fname"  @error('visits_fname') is-invalid  @enderror id="visits_fname" value="{{ session('User')['user_fname'] }}" >
@@ -149,18 +149,6 @@
                                 <div class="book_tabel_">
                                     <div class="form-group">
                                         <div class="input-group">
-                                            {{-- <select class="nice-select">
-                                                <option data-display="Select Time of Visit" name="visits_time" class="form-control" @error('visits_time') is-invalid @enderror ">Select
-                                                    Time of Visit</option>
-                                                <option value="{{old('visits_time')}}">9:30 AM</option>
-                                                <option value="{{old('visits_time')}}">11:00 AM</option>
-                                                <option value="2">1:30 PM</option>
-                                                <option value="3">3:00 PM</option>
-                                                @error('visits_time')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </select> --}}
-
                                             <select name="visits_time" class="form-control @error('visits_time') is-invalid @enderror" id="visits_time">
                                                 <option value="">Select Time</option>
                                                 {{-- <option value="09:30:00">9:30 AM</option> --}}
@@ -194,8 +182,21 @@
                                     <div class="form-group">
                                         <div class='input-group'>
                                             <input type='text' class="form-control"
-                                                placeholder="Name of Institution(Optional)"name="visits_name_of_institution" @error('visits_name_of_institution') is-invalid  @enderror id="visits_name_of_institution" value="{{ old('visits_name_of_institution') }}" >
+                                                placeholder="Name of Institution(Optional)" name="visits_name_of_institution" @error('visits_name_of_institution') is-invalid  @enderror id="visits_name_of_institution" value="{{ old('visits_name_of_institution') }}" >
                                                 @error('visits_name_of_institution')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="book_tabel_">
+                                    <div class="form-group">
+                                        <div class='input-group'>
+                                            <input type='file' class="form-control"
+                                                placeholder="Upload a file" name="file_of_visitors" @error('file_of_visitors') is-invalid  @enderror id="file_of_visitors" value="{{ old('file_of_visitors') }}" >
+                                                @error('file_of_visitors')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                         </div>

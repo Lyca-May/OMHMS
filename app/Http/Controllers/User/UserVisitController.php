@@ -15,9 +15,7 @@ use Illuminate\Support\Facades\Mail;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Carbon\Carbon;
 use App\Models\Function_Hall;
-
-
-
+use App\Models\Reserved_Souvenir;
 
 class UserVisitController extends Controller
 {
@@ -31,17 +29,16 @@ class UserVisitController extends Controller
 
     public function displayVisit()
     {
-
         $currentDate = date('Y-m-d');
         $user_id = session('User')['user_id'];
         $visit = DB::table('visits')->where('userid', $user_id)
-            ->whereRaw('DATE(visits_intended_date) >= ?', [$currentDate])
+            ->where('visits_status', "PENDING")
             ->get();
-
         $rent = Function_Hall::with('user')->where('userid', $user_id)->whereRaw('DATE(date_requested) >= ?', [$currentDate])->get();
         $users = DB::table('users')->where('user_id', $user_id)->get();
+        $reservedSouvenir = Reserved_Souvenir::with('souvenir')->with('user')->where('userid', $user_id)->where('is_archived', 0)->get();
         $currentDateTime = Carbon::now()->tz('UTC');
-        return view('user.pages.profile.mybookings', ['visit' => $visit, 'users' => $users, 'currentDateTime' => $currentDateTime, 'rent' => $rent]);
+        return view('user.pages.profile.mybookings', ['visit' => $visit, 'users' => $users, 'currentDateTime' => $currentDateTime, 'rent' => $rent, 'reservedSouvenir' => $reservedSouvenir]);
     }
 
     public function displayVisitHistory()
@@ -60,135 +57,211 @@ class UserVisitController extends Controller
 
 
     public function reserve_visit(Request $request)
-    {
-        $user = session()->get('User');
-        $userid = $user['user_id']; // add a check to ensure that $user is not null before accessing its values
-        // $user = auth()->user();
-        if (!$user) {
-            return redirect()->back()->with('error', "User not found");
-        }
+{
+    $user = session()->get('User');
+    $userid = $user['user_id']; // add a check to ensure that $user is not null before accessing its values
+    // $user = auth()->user();
+    if (!$user) {
+        return redirect()->back()->with('error', "User not found");
+    }
 
-        // Check if user's bookings is not expired
-        $uncompleteVisit = Visit_Model::where('userid', $user['user_id'])
-            ->where('visits_intended_date', '>=', date('Y-m-d'))
-            ->first();
-        if ($uncompleteVisit) {
-            return redirect()->back()->with('error', 'You are not yet complete with your visitation. Please complete your previous reservation before booking another one.');
-        }
+    // Check if user's bookings is not expired
+    $uncompleteVisit = Visit_Model::where('userid', $user['user_id'])
+        ->where('visits_intended_date', '>=', date('Y-m-d'))
+        ->first();
+    if ($uncompleteVisit) {
+        return redirect()->back()->with('error', 'You are not yet complete with your visitation. Please complete your previous reservation before booking another one.');
+    }
 
-        // Check if user already has a pending reservation
-        $pendingVisit = Visit_Model::where('userid', $user['user_id'])
-            ->where('visits_status', '=', 'PENDING')
-            ->first();
-        if ($pendingVisit) {
-            return redirect()->back()->with('failed', 'You already have a pending reservation. Please complete your previous reservation before booking another one.');
-        }
+    // Check if user already has a pending reservation
+    $pendingVisit = Visit_Model::where('userid', $user['user_id'])
+        ->where('visits_status', '=', 'PENDING')
+        ->first();
+    if ($pendingVisit) {
+        return redirect()->back()->with('failed', 'You already have a pending reservation. Please complete your previous reservation before booking another one.');
+    }
 
-        $rules = [
-            'visits_intended_date' => [
-                'required',
-                'date',
-                'date_format:Y-m-d',
-                'after_or_equal:today',
-                // 'equal:' . date('Y-m-d', strtotime('+3 days')),
-            ],
+    $rules = [
+        'visits_intended_date' => [
+            'required',
+            'date',
+            'date_format:Y-m-d',
+            'after_or_equal:today',
+            // 'equal:' . date('Y-m-d', strtotime('+3 days')),
+        ],
+        'visits_time' => 'required',
+        'visits_no_of_visitors' => [
+            'between:0,1000'
+        ],
+        'file_of_visitors' => 'nullable|mimetypes:application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet|max:2048',
+    ];
 
-            'visits_time' => 'required',
-            'visits_no_of_visitors' => [
-                'between:0,1000'
-            ],
+    $messages = [
+        'visits_intended_date.required' => 'Please input the intended date for reservation',
+        'visits_intended_date.date' => 'Please input a valid date',
+        'visits_intended_date.after_or_equal' => 'The intended date must be on or after today',
+        // 'visits_intended_date.equal' => 'The intended date must be equal to 3 days after today',
+        'visits_time.required' => 'Please select the intended time for reservation',
+        // 'visits_no_of_visitors.integer' => 'The number of visitors must be an integer',
+        'visits_no_of_visitors.between' => 'The number of visitors must not be greater than 100',
+        'file_of_visitors.mimetypes' => 'The file must be a docx or excel file',
+        'file_of_visitors.max' => 'The file size must not exceed 2048 KB',
+    ];
 
-        ];
+    $validator = Validator::make($request->all(), $rules, $messages);
+    if ($validator->fails()) {
+        return redirect()->back()->withErrors($validator)->withInput();
+    }
 
-        $message = [
-            'visits_intended_date.required' => 'Please input the intended date for reservation',
-            'visits_intended_date.date' => 'Please input a valid date',
-            'visits_intended_date.after_or_equal' => 'The intended date must be on or after today',
-            // 'visits_intended_date.equal' => 'The intended date must be equal to 3 days after today',
-            'visits_time.required' => 'Please select the intended time for reservation',
-            // 'visits_no_of_visitors.integer' => 'The number of visitors must be an integer',
-            'visits_no_of_visitors.between' => 'The number of visitors must not be greater than 100',
-        ];
+    // get the current year
+    $currentYear = date('Y');
+    // extract the year from the intended date input
+    $selectedYear = date('Y', strtotime($request->visits_intended_date));
 
-        $validator = Validator::make($request->all(), $rules, $message);
-        if ($validator->fails()) {
-            return redirect()->back()->with('validationMessages', $message);
-        }
+    // check if the selected year is less than the current year
+    if ($selectedYear < $currentYear) {
+        return redirect()->back()->with('error', 'The intended date must be in the current year or later.');
+    }
 
-        // get the current year
-        $currentYear = date('Y');
-        // extract the year from the intended date input
-        $selectedYear = date('Y', strtotime($request->visits_intended_date));
+    $visits_fname = $request->visits_fname;
+    $visits_mname = $request->visits_mname;
+    $visits_lname = $request->visits_lname;
+    $gender = $request->gender;
+    $visits_email = $request->visits_email;
+    $visits_country = $request->visits_country;
+    $visits_province = $request->visits_province;
+    $visits_municipality = $request->visits_municipality;
+    $visits_brgy = $request->visits_brgy;
+    $visits_street = $request->visits_street;
+    $visits_zipcode = $request->visits_zipcode;
+    $visits_intended_date = $request->visits_intended_date;
+    $visits_no_of_visitors = $request->visits_no_of_visitors;
+    $visits_name_of_institution = 'NONE';
+    $visits_time = $request->visits_time;
+    $contact_no = $request->contact_no;
+    $cancel_reason = $request->cancel_reason;
+    $visits_status = 'PENDING';
 
-        // check if the selected year is less than the current year
-        if ($selectedYear < $currentYear) {
-            return redirect()->back()->with('error', 'The intended date must be in the current year or later.');
-        }
+    $existingBooking = Visit_Model::where('visits_intended_date', $visits_intended_date)
+        ->where('visits_status', 'APPROVED')
+        ->get();
 
-        $visits_fname = $request->visits_fname;
-        $visits_mname = $request->visits_mname;
-        $visits_lname = $request->visits_lname;
-        $gender = $request->gender;
-        $visits_email = $request->visits_email;
-        $visits_country = $request->visits_country;
-        $visits_province = $request->visits_province;
-        $visits_municipality = $request->visits_municipality;
-        $visits_brgy = $request->visits_brgy;
-        $visits_street = $request->visits_street;
-        $visits_zipcode = $request->visits_zipcode;
-        $visits_intended_date = $request->visits_intended_date;
-        $visits_no_of_visitors = $request->visits_no_of_visitors;
-        $visits_name_of_institution = 'NONE';
-        $visits_time = $request->visits_time;
-        $contact_no = $request->contact_no;
-        $cancel_reason = $request->cancel_reason;
-        $visits_status = 'PENDING';
+    if ($existingBooking) {
+        $inputtedVisitors = $visits_no_of_visitors; // inputted number of visitors
+        $visits_intended_date = $request->visits_intended_date; // date selected by the user
+        $visits_time = $request->visits_time; // time selected by the user
 
-        $existingBooking = Visit_Model::where('visits_intended_date', $visits_intended_date)
-            ->where('visits_status', 'APPROVED')
-            ->get();
-        if ($existingBooking) {
-            $inputtedVisitors = $visits_no_of_visitors; // inputted number of visitors
-            $totalVisitorsInDb = Visit_Model::sum('visits_no_of_visitors');
-            $slotsPerDay = 800; // maximum number of slots available per day is 1000
+        // Calculate the total visitors for the given day and time
+        $totalVisitorsForDateTime = Visit_Model::whereDate('visits_intended_date', $visits_intended_date)
+            ->where('visits_time', $visits_time)
+            ->sum('visits_no_of_visitors');
 
-            $remainingSlots = $slotsPerDay - $totalVisitorsInDb;
+        $slotsPerDay = 800; // maximum number of slots available per day is 1000
+        $remainingSlots = $slotsPerDay - $totalVisitorsForDateTime;
 
-            if ($inputtedVisitors <= $remainingSlots) {
-                $visit = new Visit_Model();
-                $visit->userid = $userid;
-                $visit->visits_fname = $visits_fname;
-                $visit->visits_mname = $visits_mname;
-                $visit->visits_lname = $visits_lname;
-                $visit->gender = $gender;
-                $visit->visits_email = $visits_email;
-                $visit->visits_country = $visits_country;
-                $visit->visits_province = $visits_province;
-                $visit->visits_municipality = $visits_municipality;
-                $visit->visits_brgy = $visits_brgy;
-                $visit->visits_street = $visits_street;
-                $visit->visits_zipcode = $visits_zipcode;
-                $visit->visits_intended_date = $visits_intended_date;
-                $visit->visits_no_of_visitors = $visits_no_of_visitors;
-                $visit->visits_name_of_institution = $visits_name_of_institution;
-                $visit->visits_time = $visits_time;
-                $visit->contact_no = $contact_no;
-                $visit->cancel_reason = $cancel_reason;
-                $visit->visits_status = $visits_status;
+        if ($inputtedVisitors <= $remainingSlots) {
+            $visit = new Visit_Model();
+            $visit->userid = $userid;
+            $visit->visits_fname = $visits_fname;
+            $visit->visits_mname = $visits_mname;
+            $visit->visits_lname = $visits_lname;
+            $visit->gender = $gender;
+            $visit->visits_email = $visits_email;
+            $visit->visits_country = $visits_country;
+            $visit->visits_province = $visits_province;
+            $visit->visits_municipality = $visits_municipality;
+            $visit->visits_brgy = $visits_brgy;
+            $visit->visits_street = $visits_street;
+            $visit->visits_zipcode = $visits_zipcode;
+            $visit->visits_intended_date = $visits_intended_date;
+            $visit->visits_no_of_visitors = $visits_no_of_visitors;
+            $visit->visits_name_of_institution = $visits_name_of_institution;
+            $visit->visits_time = $visits_time;
+            $visit->contact_no = $contact_no;
+            $visit->cancel_reason = $cancel_reason;
+            $visit->visits_status = $visits_status;
 
+            if ($request->hasFile('file_of_visitors')) {
+                // Get the file from the request
+                $file = $request->file('file_of_visitors');
 
-                $visit->save();
+                // Generate a unique name for the file
+                $fileName = time() . '_' . $file->getClientOriginalName();
 
-                if ($visit) {
-                    return redirect()->back()->with('success', 'Book successfully. Wait for the email for your status');
-                } else {
-                    return redirect()->back()->with('error', 'There is an error in processing your reservation. Please try again later.');
-                }
-            } else {
-                return redirect()->back()->with('error', 'Sorry, only ' . $remainingSlots . ' slot(s) are available.');
+                // Move the uploaded file to a directory
+                $file->move(public_path('uploads'), $fileName);
+
+                // Save the file name to the database
+                $visit->file_of_visitors = $fileName;
             }
+
+            $visit->save();
+
+
+            // Generate QR Code
+            $qrData = [
+                'visits_id' => $visit->visits_id,
+                'userid' => $visit->userid,
+                'visits_fname' => $visit->visits_fname,
+                'visits_lname' => $visit->visits_lname,
+                'visits_gender' => $visit->gender,
+                'visits_email' => $visit->visits_email,
+                'visits_country' => $visit->visits_country,
+                'visits_province' => $visit->visits_province,
+                'visits_municipality' => $visit->visits_municipality,
+                'visits_brgy' => $visit->visits_brgy,
+                'visits_street' => $visit->visits_street,
+                'visits_zipcode' => $visit->visits_zipcode,
+                'visits_intended_date' => $visit->visits_intended_date,
+                'visits_no_of_visitors' => $visit->visits_no_of_visitors,
+                'visits_name_of_institution' => $visit->visits_name_of_institution,
+                'visits_time' => $visit->visits_time,
+                'visits_contact_no' => $visit->visits_contact_no,
+                'visits_cancel_reason' => $visit->visits_cancel_reason,
+                'visits_status' => $visit->visits_status,
+
+            ];
+
+            $qrCode = QrCode::format('png')
+                ->size(200)
+                ->generate(json_encode($qrData));
+
+            // Save the QR code image (optional if you want to save the QR code)
+            $qrCodePath = public_path('qrcodes/') . $visit->visits_id . '.png';
+            file_put_contents($qrCodePath, $qrCode);
+
+            // Redirect to the page where the QR code will be displayed
+            // return redirect()->route('qr.display', ['visitId' => $visit->id]);
+            if ($visit) {
+                // return redirect()->back()->with('success', 'Book successfully. Wait for the email for your status');
+                return redirect()->route('qr.display', ['visitId' => $visit->visits_id]);
+            } else {
+                return redirect()->back()->with('error', 'There is an error in processing your reservation. Please try again later.');
+            }
+        } else {
+            return redirect()->back()->with('error', 'Sorry, only ' . $remainingSlots . ' slot(s) are available.');
         }
     }
+}
+
+
+public function showQRCode($visitId)
+{
+    $currentDate = date('Y-m-d');
+    $user_id = session('User')['user_id'];
+    // Find the visit based on the visit ID
+    $visit = Visit_Model::find($visitId);
+    $users = DB::table('users')->where('user_id', $user_id)->get();
+    $reservedSouvenir = Reserved_Souvenir::with('souvenir')->with('user')->where('userid', $user_id)->where('is_archived', 0)->get();
+    $rent = Function_Hall::with('user')->where('userid', $user_id)->whereRaw('DATE(date_requested) >= ?', [$currentDate])->get();
+
+    if (!$visit) {
+        return redirect()->back()->with('error', 'Visit not found.');
+    }
+
+    // Pass the visit data to the view
+    return view('user.pages.profile.mybookings', compact('visit', 'users', 'reservedSouvenir', 'rent'));
+}
 
     public function add_members(Request $request)
     {
@@ -291,4 +364,6 @@ class UserVisitController extends Controller
             ->get();
         return view('admin.pages.visit.history', ['visit' => $visits]);
     }
+
+
 }

@@ -189,6 +189,7 @@ Route::post('add-members', [UserVisitController::class, 'add_members']);
 Route::get('user/visit',[UserVisitController::class,'user_visit'] );
 Route::post('user/cancel-visit',[UserVisitController::class,'cancel_visit'] );
 Route::view('user/cancel-visit-form', 'user.pages.booked.cancel-user-visit');
+Route::get('/user/qr/{visitId}',[UserVisitController::class,'showQRCode'])->name('qr.display');
 
 //Rent Functional Hall
 Route::view('user/rent', 'user.pages.rent-functional.functional-form');
@@ -203,7 +204,8 @@ Route::get('user/rentconhall', [UserFunctionalRoomController::class,'display_for
 Route::get('user/rent-payment-form/{rent_id}', [UserFunctionalRoomController::class,'display_payment_form']);
 Route::put('/rent-payment/update/{rent_id}', [UserFunctionalRoomController::class,'updateRentPayment']);
 Route::view('rent-cancel-status-page', 'admin.pages.visit.rent-cancel-status');
-
+Route::get('/admin/scan-qr', [VisitController::class, 'showScanQRPage']);
+Route::post('/admin/mark-visit-done', [VisitController::class, 'markVisitAsDone']);
 
 
 

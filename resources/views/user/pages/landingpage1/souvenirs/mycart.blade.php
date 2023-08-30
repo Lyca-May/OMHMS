@@ -241,12 +241,15 @@
                                     <dl class="dlist-align">
                                         <dt>Total quantity:</dt>
                                         <dd class="text-right ml-3">
-                                            <input type="hidden" class="text-right ml-3 quantity" name="quantity"
-                                                value="0" readonly>
+                                            <input type="hidden" class="text-right ml-3 quantity" name="quantity" value="{{ old('quantity', 0) }}" readonly>
+                                            @error('quantity')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+
                                         </dd>
                                     </dl>
                                     <hr>
-                                    {{-- <input type="hidden" name="userid" value="{{ session('User')['user_id'] }}"> --}}
+
                                     <input type="hidden" name="souvenir_id"
                                         value="{{ $cartItem->souvenir_id }}">
                                     <input type="hidden" name="total_price"
@@ -262,9 +265,6 @@
             </div>
         </div>
     </section>
-
-
-
 
 
     <!-- Optional JavaScript -->

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreign('souvenir_id')->references('souvenir_id')->on('souvenir')->onDelete('cascade');
             $table->integer('quantity');
             $table->double('total_price');
-            $table->boolean('is_archived')->default(true);
+            $table->boolean('is_archived')->default(false);
             $table->timestamps();
         });
     }

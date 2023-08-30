@@ -30,30 +30,33 @@ class Souvenir_Reserved extends Controller
             return redirect()->back()->with('error', 'Souvenir not found!');
         }
 
-        $quantity = $request->input('quantity');
-        $totalPrice = $request->input('total_price');
-        $souvenir_id = $request->input('souvenir_id');
+        // Check if there is an existing reserved souvenir for the user and souvenir
+        $reservedSouvenir = Reserved_Souvenir::where('userid', $user_id)
+            ->where('souvenir_id', $souvenir->souvenir_id)
+            ->first();
 
-        // Check if there are enough available souvenirs
-        if ($souvenir->souvenir_qty < $quantity) {
-            return redirect()->back()->with('error', 'Insufficient quantity of souvenirs!');
+        if ($reservedSouvenir) {
+            // Update the quantity and total price of the existing reserved souvenir
+            $reservedSouvenir->quantity += $request->quantity;
+            $reservedSouvenir->total_price += $request->total_price;
+            $reservedSouvenir->save();
+        } else {
+            // Create a new reserved souvenir
+            Reserved_Souvenir::create([
+                'userid' => $user_id,
+                'souvenir_id' => $souvenir->souvenir_id,
+                'quantity' => $request->quantity,
+                'total_price' => $request->total_price,
+                'is_archived' => false,
+            ]);
         }
 
-        // Add the item to the souvenir_reservations table
-        Reserved_Souvenir::create([
-            'userid' => $user_id,
-            'souvenir_id' => $souvenir_id,
-            'quantity' => $quantity,
-            'total_price' => $totalPrice,
-            'is_archived' => false,
-        ]);
-
-        // Update the souvenir_qty field in the souvenirs table
-        $souvenir->souvenir_qty -= $quantity;
+        // Update the quantity field in the souvenirs table
+        $souvenir->souvenir_qty -= $request->quantity;
         $souvenir->save();
 
-        // Update the is_archived field in the cart_items table
-        $cartItem = CartItem::where('souvenir_id', $souvenir_id)
+        // Mark the cart item as archived if it exists
+        $cartItem = CartItem::where('souvenir_id', $request->souvenir_id)
             ->where('userid', $user_id)
             ->first();
 
@@ -62,8 +65,7 @@ class Souvenir_Reserved extends Controller
             $cartItem->save();
         }
 
-        return redirect()->back()->with('success', 'Item added to cart successfully!');
+        return redirect()->back()->with('success', 'Item has been added to your reservation!');
     }
-
 
 }
