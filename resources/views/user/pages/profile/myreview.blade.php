@@ -52,7 +52,8 @@
             <div class="brand-logo">
                 <a href="index.html">
                     <img src="{{ asset('omhms.png') }}" class="logo-icon" alt="logo icon">
-                    <h5 class="logo-text">OMHMS</h5>
+                    <img src="{{ asset('eOMHeritage.png') }}" class="logo-icon1" alt="logo icon">
+                    {{-- <h5 class="logo-text">OMHMS</h5> --}}
                 </a>
             </div>
             <ul class="sidebar-menu do-nicescrol">

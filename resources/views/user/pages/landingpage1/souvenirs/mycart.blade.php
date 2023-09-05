@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{{ asset('vendors/nice-select/css/nice-select.css') }}">
     {{-- <link rel="stylesheet" href="vendor/owl-carousel/owl.carousel.min.css"> --}}
     <!-- main css -->
+    <link rel="stylesheet" href="{{ asset('assets/css/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/css/stylebook.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/css/responsive.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/css/testimonial1.css') }}">
@@ -36,7 +37,7 @@
             /* Set the desired height */
             object-fit: cover;
             /* Maintain aspect ratio and cover the container */
-        }
+    }
 
         .small-image {
         max-width: 100px; /* Adjust the maximum width as needed */
@@ -54,29 +55,12 @@
     <header class="header_area">
         <div class="container-fluid">
             <nav class="navbar navbar-expand-lg navbar-light">
-
-
-                <style>
-                    .container-fluid {
-                        padding-left: 0;
-                        padding-right: 0;
-                    }
-
-                    .navbar {
-                        /* overflow-x:hidden; */
-
-                    }
-
-                    .logo-icon {
-                        width: 40px;
-                        height: 20px;
-                        max-width: 100%; /* Ensure the image doesn't exceed its container */
-                    }
-                </style>
                 <!-- Brand and toggle get grouped for better mobile display -->
-                <img src="{{ asset('omhms.png') }}" class="logo-icon" alt="logo icon"
-                    style="width: 40px; height: 20px;">
-                <a class="navbar logo_h" href="index.html"><b>ORIENTAL MINDORO HERITAGE MUSEUM</b></a>
+                <a href="index.html">
+                    <img src="{{ asset('omhms.png') }}" class="logo-icon" alt="logo icon" style="width: 45px; height: 30px">
+                    <img src="{{ asset('eOMHeritage1.png') }}" class="logo-icon" alt="logo icon" style="width: 190px; height: 45px">
+                </a>
+
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="Toggle navigation">
