@@ -27,8 +27,28 @@
     <body>
         <!--================Header Area =================-->
         <header class="header_area">
-            <div class="container">
+            <div class="container-fluid">
                 <nav class="navbar navbar-expand-lg navbar-light">
+
+
+                    <style>
+                        .container-fluid {
+                            padding-left: 0;
+                            padding-right: 0;
+                        }
+
+                        .navbar {
+                            /* overflow-x:hidden; */
+
+                        }
+
+                        .logo-icon {
+                            width: 40px;
+                            height: 20px;
+                            max-width: 100%; /* Ensure the image doesn't exceed its container */
+                        }
+                    </style>
+
                     <!-- Brand and toggle get grouped for better mobile display -->
                     <img src="{{ asset('omhms.png') }}" class="logo-icon" alt="logo icon"
                     style="width: 40px; height: 20px;">

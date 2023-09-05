@@ -326,11 +326,11 @@ hr {
 
   /* myreview */
 .content-wrapper1 {
-    margin-left: 250px;
+    margin-left: 320px;
 	padding-top: 80px;
 	padding-left: 10px;
     padding-right: 10px;
-    padding-bottom: 70px;
+    padding-bottom: 20px;
     overflow-x: hidden;
 	-webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
@@ -862,10 +862,10 @@ body.bg-theme15 {
 /*Cards */
 .card{
    margin-bottom: 25px;
-   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+   box-shadow: 0 2px 10px rgba(17, 17, 17, 0.338);
    border: none;
-   background-color: rgba(38, 41, 38, 0.432);
-   /* width: 1030px; */
+   background-color: rgba(255, 255, 255, 0.918);
+
 }
 .card1{
    margin-bottom: 25px;
@@ -957,17 +957,25 @@ body.bg-theme15 {
 }
 .profile-card-2 h5{
     font-weight:600;
+    color: black;
+    font-weight: bold;
 }
 .profile-card-2 .card-text{
     font-weight:300;
     font-size:15px;
+    color: black;
+    font-weight: bold;
 }
 .profile-card-2 .icon-block{
     float:left;
     width:100%;
+    color: black;
+    font-weight: bold;
 }
 .profile-card-2 .icon-block a{
     text-decoration:none;
+    color: black;
+    font-weight: bold;
 }
 .profile-card-2 i {
     display: inline-block;
@@ -977,6 +985,8 @@ body.bg-theme15 {
     line-height: 30px;
     border-radius: 50%;
     margin:0 5px;
+    color: black;
+    font-weight: bold;
 }
 
 /*Buttons */
@@ -1821,7 +1831,7 @@ label {
 
 .form-control{
   border: 0px solid #e5eaef;
-  background-color: rgba(255, 255, 255, 0.959);
+  background-color: rgba(233, 236, 239, 0.4);
   /* color: #fff !important; */
 
 }
@@ -2563,10 +2573,10 @@ table.grid td {
 }
 
 .nav-tabs-primary .nav-link.active, .nav-tabs-primary .nav-item.show>.nav-link {
-    color: #d9b410;
+    /* color: #d9b410; */
     background-color: transparent;
-    border-color: #d9b410 #d9b410 #fff;
-    border-bottom: 4px solid #d9b410;
+    /* border-color: #d9b410 #d9b410 #fff; */
+    /* border-bottom: 4px solid #d9b410; */
 }
 
 .nav-tabs-success.nav-tabs{
@@ -3786,10 +3796,78 @@ table.grid td {
   }
 
 
+  /*VISIT HISTORY PREVIEWS*/
+
+
+    .course {
+        display: flex;
+        align-items: center;
+    }
+
+    .course-preview {
+        width: 200px;
+        opacity: 0.8;
+    }
+
+
+    .course-preview h5 {
+        font-size: 16px;
+        margin-bottom: 5px;
+    }
+
+    .course-preview h6 {
+        font-size: 30px;
+    }
+
+    .course-info {
+        padding-left: 20px;
+        color: black;
+    }
+
+    .logo {
+        width: 120px;
+        height: 120px;
+    }
 }
 
+/* ADD to PROF*/
 
+.profile-head {
+    transform: translateY(5rem)
+}
 
+.cover {
+    background-image: url(https://images.unsplash.com/photo-1530305408560-82d13781b33a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1352&q=80);
+    background-size: cover;
+    background-repeat: no-repeat
+}
+
+body {
+    /* background: #654ea3; */
+    /* background: linear-gradient(to right, #e96443, #904e95); */
+    min-height: 100vh;
+    overflow-x:hidden;
+}
+
+.text-center {
+    text-align: center !important
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #455a64;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 1rem
+}
 
 
 

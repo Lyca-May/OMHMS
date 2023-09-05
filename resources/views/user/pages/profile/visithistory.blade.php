@@ -93,67 +93,70 @@
 
         <!--End sidebar-wrapper-->
 
-        <!--Start topbar header-->
-        {{-- <header class="topbar-nav">
+        <header class="topbar-nav">
             <nav class="navbar navbar-expand fixed-top">
-                <ul class="navbar-nav mr-auto align-items-center">
-                    <li class="nav-item">
-                        <a class="nav-link toggle-menu" href="javascript:void();">
-                        </a>
-                    </li>
+             <ul class="navbar-nav mr-auto align-items-center">
+               <li class="nav-item">
+                 <a class="nav-link toggle-menu" href="javascript:void();">
+                </a>
+               </li>
 
-                </ul>
+             </ul>
 
-                <ul class="navbar-nav align-items-center right-nav-link">
-                    <li class="nav-item dropdown-lg">
-                        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret waves-effect" data-toggle="dropdown"
-                            href="javascript:void();">
-                            <i class="fa fa-envelope-open-o"></i></a>
-                    </li>
-                    <li class="nav-item dropdown-lg">
-                        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret waves-effect" data-toggle="dropdown"
-                            href="javascript:void();">
-                            <i class="fa fa-bell-o"></i></a>
-                    </li>
-                    @foreach ($users as $user)
-                        <li class="nav-item">
-                            <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown"
-                                href="#">
-                                <span class="user-profile"><img src="{{ asset('avatar/' . $user->avatar) }}"
-                                        class="img-circle" alt="user avatar"></span>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                <li class="dropdown-item user-details">
-                                    <a href="javaScript:void();">
-                                        <div class="media">
+             <ul class="navbar-nav align-items-center right-nav-link">
+               <li class="nav-item dropdown-lg">
+                 <a class="nav-link dropdown-toggle dropdown-toggle-nocaret waves-effect" data-toggle="dropdown" href="javascript:void();">
+                 <i class="fa fa-envelope-open-o"></i></a>
+               </li>
+               <li class="nav-item dropdown-lg">
+                 <a class="nav-link dropdown-toggle dropdown-toggle-nocaret waves-effect" data-toggle="dropdown" href="javascript:void();">
+                 <i class="fa fa-bell-o"></i></a>
+               </li>
 
-                                            @if ($user->avatar)
-                                                <div class="avatar"><img class="align-self-start mr-3"
-                                                        src="{{ asset('avatar/' . $user->avatar) }}" alt="user avatar">
-                                                </div>
-                                            @endif
+               {{-- <div id="clock">
+                   <i class="zmdi zmdi-time">{{ $currentDateTime }}</i>
+               </div> --}}
 
-                                            <div class="media-body">
-                                                <h6 class="mt-2 user-title">Hi, {{ session('User')['user_fname'] }}
-                                                </h6>
-                                                <p class="user-subtitle">{{ session('User')['user_email'] }}</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="dropdown-divider"></li>
-                                <li class="dropdown-item"><i class="zmdi zmdi-account"></i><a
-                                        href="{{ asset('user/profile') }}"> Account</li></a>
-                                <li class="dropdown-divider"></li>
-                                <li class="dropdown-item"><i class="zmdi zmdi-power"></i><a
-                                        href="{{ asset('logout') }}">Logout</li></a>
-                            </ul>
-                        </li>
-                    @endforeach
-                </ul>
-            </nav>
-        </header> --}}
-        <!--End topbar header-->
+               @foreach ($users as $user)
+               <li class="nav-item">
+                   <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown"
+                       href="#">
+                       <span class="user-profile"><img src="{{ asset('avatar/' . $user->avatar) }}"
+                               class="img-circle" alt="user avatar"></span>
+                   </a>
+                   <ul class="dropdown-menu dropdown-menu-right">
+                       <li class="dropdown-item user-details">
+                           <a href="javaScript:void();">
+                                   <div class="media">
+
+                                       @if ($user->avatar)
+                                           <div class="avatar"><img class="align-self-start mr-3"
+                                                   src="{{ asset('avatar/' . $user->avatar) }}"
+                                                   alt="user avatar"></div>
+                                           {{-- <img src="{{ asset('avatar/' .$user->avatar) }}" alt="{{$user->user_fname}}" --}}
+                                           {{-- class="rounded-circle me-2" style="width:100px; height:100px; object-fit:cover" /> --}}
+                                       @endif
+
+                                       <div class="media-body">
+                                           <h6 class="mt-2 user-title">Hi, {{ session('User')['user_fname'] }}
+                                           </h6>
+                                           <p class="user-subtitle">{{ session('User')['user_email'] }}</p>
+                                       </div>
+                                   </div>
+                           </a>
+                       </li>
+                       <li class="dropdown-divider"></li>
+                       <li class="dropdown-item"><i class="zmdi zmdi-account"></i><a
+                               href="{{ asset('admin/profile') }}"> Account</li></a>
+                       <li class="dropdown-divider"></li>
+                       <li class="dropdown-item"><i class="zmdi zmdi-power"></i><a
+                               href="{{ asset('logout') }}">Logout</li></a>
+                   </ul>
+               </li>
+               @endforeach
+             </ul>
+           </nav>
+           </header>
 
 
         <div class="clearfix"></div>
@@ -162,45 +165,27 @@
             <div class="courses-container">
                 <div class="course">
                     <div class="course-preview">
-                        <h2>Logo and OMHMS</h2>
-                    </div>
-                    <div class="course-info">
-                        <div class="progress-container">
-                            <img src="{{ asset('omhms.png') }}" alt="">
-                        </div>
+                        {{-- <h5>{{$hist->visits_id}}</h5> --}}
                         <h6>{{$hist->visits_intended_date}}</h6>
                         <h2>{{$hist->visits_status}}</h2>
-                        <a href="#" data-toggle="modal" data-target="#viewModal{{$hist->visits_id}}"><button class="btn">View</button></a>
                     </div>
+                        <div class="course-info" style="color: black">
+                            <p><b>Full Name:</b> {{$hist->visits_fname}} {{$hist->visits_mname}} {{$hist->visits_lname}} <br></p>
+                            <p><b>Your Email:</b> {{$hist->visits_email}} <br></p>
+                            <p><b>Your Address:</b> {{$hist->visits_street}}, {{$hist->visits_brgy}}, {{$hist->visits_municipality}}, {{$hist->visits_province}}, {{$hist->visits_country}} <br></p>
+                            <p><b>Zipcode:</b> {{$hist->visits_zipcode}} <br></p>
+                            <p><b>Gender:</b> {{$hist->gender}} <br></p>
+                            <p><b>Number of Visitors:</b> {{$hist->visits_no_of_visitors}} <br></p>
+                            <p><b>Name of Institution:</b> {{$hist->visits_name_of_institution}} <br></p>
+                            <p><b>Date selected:</b> {{ date('F d, Y', strtotime($hist->visits_intended_date)) }} <br></p>
+                            <p><b>Time selected:</b> {{$hist->visits_time}}</p>
+                        </div>
+                        <div class="course-preview">
+                            <img src="{{ asset('omhms.png') }}" alt="" class="logo">
+                        </div>
                 </div>
             </div>
-            <!-- View Modal -->
-            <div class="modal fade" id="viewModal{{$hist->visits_id}}" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel{{$hist->visits_id}}" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content" style="background-color: rgb(9, 82, 9);">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="editItemModalLabel">Visit Details</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            Full Name: {{$hist->visits_fname}} {{$hist->visits_mname}} {{$hist->visits_lname}} <br>
-                            Your Email: {{$hist->visits_email}} <br>
-                            Your Address: {{$hist->visits_street}}, {{$hist->visits_brgy}}, {{$hist->visits_municipality}}, {{$hist->visits_province}}, {{$hist->visits_country}} <br>
-                            Zipcode: {{$hist->visits_zipcode}} <br>
-                            Gender: {{$hist->gender}} <br>
-                            Number of Visitors: {{$hist->visits_no_of_visitors}} <br>
-                            Name of Institution: {{$hist->visits_name_of_institution}} <br>
-                            Date selected: {{ date('F d, Y', strtotime($hist->visits_intended_date)) }} <br>
-                            Time selected: {{$hist->visits_time}}
-                        </div>
-                        {{-- <div class="modal-footer">
-                            <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-                        </div> --}}
-                    </div>
-                </div>
-            </div>
+
         </div>
     @endforeach
         <!--start overlay-->

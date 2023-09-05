@@ -37,14 +37,42 @@
             object-fit: cover;
             /* Maintain aspect ratio and cover the container */
         }
+
+        .small-image {
+        max-width: 100px; /* Adjust the maximum width as needed */
+        height: auto; /* Maintain the aspect ratio */
+    }
+    .summary-item img {
+        max-width: 100px; /* Set the maximum width as needed */
+        height: auto; /* Maintain the aspect ratio */
+    }
     </style>
 </head>
 
 <body>
     <!--================Header Area =================-->
     <header class="header_area">
-        <div class="container">
+        <div class="container-fluid">
             <nav class="navbar navbar-expand-lg navbar-light">
+
+
+                <style>
+                    .container-fluid {
+                        padding-left: 0;
+                        padding-right: 0;
+                    }
+
+                    .navbar {
+                        /* overflow-x:hidden; */
+
+                    }
+
+                    .logo-icon {
+                        width: 40px;
+                        height: 20px;
+                        max-width: 100%; /* Ensure the image doesn't exceed its container */
+                    }
+                </style>
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <img src="{{ asset('omhms.png') }}" class="logo-icon" alt="logo icon"
                     style="width: 40px; height: 20px;">
@@ -119,152 +147,123 @@
             </div>
         </div>
     </section>
-    <section class="h-100 gradient-custom">
-        <div class="container py-5">
-            <div class="row d-flex justify-content-center my-4">
-                <div class="col-md-8">
-                    <div class="card mb-4">
-                        <div class="card-header py-3">
-                            <h5 class="mb-0">My Cart</h5>
-                        </div>
-                        @if ($cartItems->isEmpty())
-                            <div class="card-body">
-                                <p>Your Cart is Empty</p>
-                            </div>
-                        @else
-                            <div class="card-body">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th>Image</th>
-                                            <th>Name</th>
-                                            <th>Quantity</th>
-                                            <th>Price</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($cartItems as $cartItem)
-                                            <tr>
-                                                <td>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox"
-                                                            value="{{ $cartItem->cart_item_id }}"
-                                                            id="checkbox{{ $cartItem->cart_item_id }}"
-                                                            onchange="updateSummary(this)">
-                                                        <label class="form-check-label"
-                                                            for="checkbox{{ $cartItem->cart_item_id }}"></label>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="bg-image hover-overlay hover-zoom ripple rounded"
-                                                        data-mdb-ripple-color="light">
-                                                        <img
-                                                            src="{{ asset('souvenir_image/' . $cartItem->souvenir->souvenir_image) }}"
-                                                            alt="{{ $cartItem->souvenir->souvenir_name }}"
-                                                            class="img-sm-small fixed-size-image">
-                                                        <div class="mask"
-                                                            style="background-color: rgba(251, 251, 251, 0.2)"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <strong>{{ $cartItem->souvenir->souvenir_name }}</strong><br>
-                                                </td>
-                                                <td>
-                                                    <div class="d-flex" style="max-width: 120px">
-                                                        <button class="btn btn-sm btn-primary px-2 me-2"
-                                                            onclick="updateQuantity({{ $cartItem->cart_item_id }}, -1)">
-                                                            <i class="fas fa-minus"></i>
-                                                        </button>
-                                                        <div class="form-outline">
-                                                            <input
-                                                                id="quantity{{ $cartItem->cart_item_id }}"
-                                                                min="0" name="quantity"
-                                                                value="{{ $cartItem->quantity }}" type="number"
-                                                                class="form-control" style="width: 60px;" />
-                                                        </div>
-                                                        <button class="btn btn-sm btn-primary px-2 ms-2"
-                                                            onclick="updateQuantity({{ $cartItem->cart_item_id }}, 1)">
-                                                            <i class="fas fa-plus"></i>
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <strong>{{ $cartItem->souvenir->souvenir_price }}</strong><br>
-                                                </td>
-                                                <td>
-                                                    <button type="button" class="btn btn-primary btn-sm me-1 mb-2"
-                                                        data-mdb-toggle="tooltip" title="Remove item"
-                                                        onclick="removeItem({{ $cartItem->cart_item_id }})">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                    <button type="button" class="btn btn-danger btn-sm mb-2"
-                                                        data-mdb-toggle="tooltip" title="Move to the wishlist">
-                                                        <i class="fas fa-heart"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        @endif
+   <form action="{{ route('addToReserved') }}" method="POST" class="addToReservationForm">
+    @csrf
+    <div class="container py-5">
+        <div class="row d-flex justify-content-center my-4">
+            <div class="col-md-8">
+                <div class="card mb-4">
+                    <div class="card-header py-3">
+                        <h5 class="mb-0">My Cart</h5>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <div class="card-header py-3">
-                            <h5 class="mb-0">Summary</h5>
-                        </div>
+                    @if ($cartItems->isEmpty())
                         <div class="card-body">
-                            <ul id="summaryList" class="list-group list-group-flush">
-                                <!-- Summary items will be added dynamically here -->
-                            </ul>
+                            <p>Your Cart is Empty</p>
                         </div>
-                    </div>
+                    @else
+                        <div class="card-body">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Image</th>
+                                        <th>Name</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($cartItems as $cartItem)
+                                    <tr>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="selected_cart_items[]"
+                                                    value="{{ $cartItem->cart_item_id }}" id="checkbox{{ $cartItem->cart_item_id }}"
+                                                    onchange="updateSummary()">
+                                                <label class="form-check-label" for="checkbox{{ $cartItem->cart_item_id }}"></label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="bg-image hover-overlay hover-zoom ripple rounded"
+                                                data-mdb-ripple-color="light">
+                                                <img src="{{ asset('souvenir_image/' . $cartItem->souvenir->souvenir_image) }}"
+                                                alt="{{ $cartItem->souvenir->souvenir_name }}"
+                                                class="small-image" id="itemImage{{ $cartItem->cart_item_id }}">
+
+                                                <div class="mask"
+                                                    style="background-color: rgba(251, 251, 251, 0.2)"></div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <strong id="itemName{{ $cartItem->cart_item_id }}">{{ $cartItem->souvenir->souvenir_name }}</strong><br>
+                                        </td>
+                                            <td>
+                                                <div class="d-flex" style="max-width: 120px">
+                                                    <!-- Update the plus and minus buttons to have type="button" -->
+                                                <button type="button" class="btn btn-sm btn-primary px-2 me-2"
+                                                onclick="updateQuantity({{ $cartItem->cart_item_id }}, -1)">
+                                                <i class="fas fa-minus"></i>
+                                                </button>
+                                                <div class="form-outline">
+                                                <input
+                                                    id="quantity{{ $cartItem->cart_item_id }}"
+                                                    min="0" name="quantity[]"
+                                                    value="{{ $cartItem->quantity }}" type="number"
+                                                    class="form-control quantity-input" style="width: 60px;" />
+                                                </div>
+                                                <button type="button" class="btn btn-sm btn-primary px-2 ms-2"
+                                                onclick="updateQuantity({{ $cartItem->cart_item_id }}, 1)">
+                                                <i class="fas fa-plus"></i>
+                                                </button>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <strong id="itemPrice{{ $cartItem->cart_item_id }}">Php {{ $cartItem->souvenir->souvenir_price }}</strong><br>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-primary btn-sm me-1 mb-2"
+                                                    data-mdb-toggle="tooltip" title="Remove item"
+                                                    onclick="removeItem({{ $cartItem->cart_item_id }})">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-danger btn-sm mb-2"
+                                                    data-mdb-toggle="tooltip" title="Move to the wishlist">
+                                                    <i class="fas fa-heart"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    @endif
                 </div>
             </div>
-            <div class="row d-flex justify-content-center my-4">
-                <div class="col-md-8">
-                    @foreach ($cartItems as $cartItem)
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                <form action="{{ route('addToReserved') }}" method="POST"
-                                    class="addToReservationForm">
-                                    @csrf
-                                    <hr>
-                                    <dl class="dlist-align">
-                                        <dt>Total price:</dt>
-                                        <dd class="text-right ml-3 total-price">Php 0.00</dd>
-                                    </dl>
-                                    <dl class="dlist-align">
-                                        <dt>Total quantity:</dt>
-                                        <dd class="text-right ml-3">
-                                            <input type="hidden" class="text-right ml-3 quantity" name="quantity" value="{{ old('quantity', 0) }}" readonly>
-                                            @error('quantity')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-
-                                        </dd>
-                                    </dl>
-                                    <hr>
-
-                                    <input type="hidden" name="souvenir_id"
-                                        value="{{ $cartItem->souvenir_id }}">
-                                    <input type="hidden" name="total_price"
-                                        class="total-price-input" value="0">
-                                    <button type="submit"
-                                        class="btn btn-out btn-primary btn-square btn-main add-to-reservation-btn"
-                                        disabled>Add to Reservation</button>
-                                </form>
-                            </div>
-                        </div>
-                    @endforeach
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-header py-3">
+                        <h5 class="mb-0">Summary</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul id="summaryList" class="list-group list-group-flush">
+                            <!-- Summary items will be added dynamically here -->
+                        </ul>
+                        <!-- Placeholder for the cumulative total price -->
+                        <p id="totalCheckedPrice"></p>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
+        <div class="row d-flex justify-content-center my-4">
+            <div class="col-md-8">
+                <button type="submit" class="btn btn-out btn-primary btn-square btn-main add-to-reservation-btn"
+                    disabled>Add selected items to Reservation</button>
+            </div>
+        </div>
+    </div>
+</form>
+
 
 
     <!-- Optional JavaScript -->
@@ -375,7 +374,7 @@
                     toast: true,
                     position: 'top-end',
                     showConfirmButton: false,
-                    timer: 3000,
+                    timer: 1000,
                     timerProgressBar: true,
                     background: '#8cc63f',
                     iconColor: '#ffffff',
@@ -396,7 +395,7 @@
                     toast: true,
                     position: 'top-end',
                     showConfirmButton: false,
-                    timer: 3000,
+                    timer: 1000,
                     timerProgressBar: true,
                     background: '#dc3545',
                     iconColor: '#ffffff',
@@ -407,7 +406,61 @@
                 });
             </script>
         @endif
-<script>
+
+    <script>
+       $(document).ready(function () {
+        // Listen for changes in checkboxes and quantity inputs
+        $('.form-check-input, .quantity-input').on('change', function () {
+            updateSummary();
+        });
+
+        // Initialize summary on page load
+        updateSummary();
+
+        function updateSummary() {
+            const summaryList = $('#summaryList');
+            summaryList.empty(); // Clear existing summary
+            let totalCheckedPrice = 0; // Initialize totalCheckedPrice
+
+            // Loop through checkboxes to find selected items
+            $('.form-check-input:checked').each(function () {
+                const cartItemId = $(this).val();
+                const itemName = $('#itemName' + cartItemId).text();
+                const itemPrice = parseFloat($('#itemPrice' + cartItemId).text().replace('Php ', ''));
+                const itemImage = $('#itemImage' + cartItemId).attr('src');
+                const itemQuantity = parseInt($('#quantity' + cartItemId).val());
+
+                // Calculate the total price for the item based on quantity
+                const itemTotalPrice = itemPrice * itemQuantity;
+
+                // Update the cumulative totalCheckedPrice
+                totalCheckedPrice += itemTotalPrice;
+
+                // Create a summary item and append it to the summary list with the "summary-item" class
+                const summaryItem = `
+                    <li class="summary-item">
+                        <div class="d-flex align-items-center">
+                            <img src="${itemImage}" alt="${itemName}" class="img-sm-small">
+                            <div class="ml-2">
+                                <strong>${itemName}</strong><br>
+                                Price: Php ${itemTotalPrice.toFixed(2)}
+                            </div>
+                        </div>
+                    </li>
+                `;
+                summaryList.append(summaryItem);
+            });
+
+            // Display the cumulative totalCheckedPrice
+            $('#totalCheckedPrice').text(`Total Price: Php ${totalCheckedPrice.toFixed(2)}`);
+
+            // Enable the "Add to Reservation" button if items are selected, otherwise disable it
+            const addToReservationBtn = $('.add-to-reservation-btn');
+            addToReservationBtn.prop('disabled', $('.form-check-input:checked').length === 0);
+        }
+    });
+    </script>
+{{-- <script>
     function updateSummary(checkbox) {
         const checkboxId = checkbox.value;
         const summaryList = document.getElementById('summaryList');
@@ -476,7 +529,10 @@
         checkbox.checked = false;
         updateSummary(checkbox);
     }
-</script>
+</script> --}}
+
+
+
 
 
 </body>

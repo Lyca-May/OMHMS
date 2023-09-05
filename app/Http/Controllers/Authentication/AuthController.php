@@ -40,7 +40,10 @@ class AuthController extends Controller
         $email =$request->user_email;
         $password =$request->user_password;
 
+
         $user = DB::table('users')->where('user_email', $email)->first();
+
+
         if($user){
             if($user->account_status=='VERIFIED'){
                 if(password_verify($password, $user->user_password)){

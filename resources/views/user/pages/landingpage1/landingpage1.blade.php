@@ -8,10 +8,10 @@
     <link rel="icon" href="{{ asset('omhms.png') }}" type="image/png">
     <title>OMHMS</title>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-********" crossorigin="anonymous" />
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-********" crossorigin="anonymous" />
 
      <!-- Add the Bootstrap CSS file -->
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"> --}}
 
      <!-- Add the Bootstrap JavaScript files -->
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -34,8 +34,28 @@
     <body>
         <!--================Header Area =================-->
         <header class="header_area">
-            <div class="container">
+            <div class="container-fluid">
                 <nav class="navbar navbar-expand-lg navbar-light">
+
+
+                    <style>
+                        .container-fluid {
+                            padding-left: 0;
+                            padding-right: 0;
+                        }
+
+                        .navbar {
+                            /* overflow-x:hidden; */
+
+                        }
+
+                        .logo-icon {
+                            width: 40px;
+                            height: 20px;
+                            max-width: 100%; /* Ensure the image doesn't exceed its container */
+                        }
+                    </style>
+
                     <!-- Brand and toggle get grouped for better mobile display -->
                     <img src="{{ asset('omhms.png') }}" class="logo-icon" alt="logo icon"
                     style="width: 40px; height: 20px;">
@@ -388,76 +408,7 @@
     </section>
     <!--================ Testimonial Area  =================-->
 
-    <!--================ Latest Blog Area  =================-->
-    <section class="latest_blog_area section_gap">
-        <div class="container">
-            <div class="section_title text-center">
-                <h2 class="title_color">Posts from the Newsfeed</h2>
-                <p>Explore the latest news and updates from our museum by checking out our collection of posts.
-                </p>
-            </div>
-            <div class="row mb_30">
-                <div class="col-lg-4 col-md-6">
-                    <div class="single-recent-blog-post">
-                        <div class="thumb">
-                            <img class="img-fluid" src="image/blog/blog-1.jpg" alt="post">
-                        </div>
-                        <div class="details">
-                            <div class="tags">
-                                <a href="#" class="button_hover tag_btn">Travel</a>
-                                <a href="#" class="button_hover tag_btn">Life Style</a>
-                            </div>
-                            <a href="#">
-                                <h4 class="sec_h4">Low Cost Advertising</h4>
-                            </a>
-                            <p>Acres of Diamonds… you’ve read the famous story, or at least had it related to you. A
-                                farmer.</p>
-                            <h6 class="date title_color">31st January,2018</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single-recent-blog-post">
-                        <div class="thumb">
-                            <img class="img-fluid" src="image/blog/blog-2.jpg" alt="post">
-                        </div>
-                        <div class="details">
-                            <div class="tags">
-                                <a href="#" class="button_hover tag_btn">Travel</a>
-                                <a href="#" class="button_hover tag_btn">Life Style</a>
-                            </div>
-                            <a href="#">
-                                <h4 class="sec_h4">Creative Outdoor Ads</h4>
-                            </a>
-                            <p>Self-doubt and fear interfere with our ability to achieve or set goals. Self-doubt and
-                                fear are</p>
-                            <h6 class="date title_color">31st January,2018</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single-recent-blog-post">
-                        <div class="thumb">
-                            <img class="img-fluid" src="image/blog/blog-3.jpg" alt="post">
-                        </div>
-                        <div class="details">
-                            <div class="tags">
-                                <a href="#" class="button_hover tag_btn">Travel</a>
-                                <a href="#" class="button_hover tag_btn">Life Style</a>
-                            </div>
-                            <a href="#">
-                                <h4 class="sec_h4">It S Classified How To Utilize Free</h4>
-                            </a>
-                            <p>Why do you want to motivate yourself? Actually, just answering that question fully can
-                            </p>
-                            <h6 class="date title_color">31st January,2018</h6>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--================ Recent Area  =================-->
+
 
     <!--================ start footer Area  =================-->
     <footer class="footer-area1 section_gap">

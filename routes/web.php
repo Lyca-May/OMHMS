@@ -93,7 +93,6 @@ Route::view('admin/calendar', 'admin.pages.calendar');
 
 //---------------- User Profile ---------------------//
 
-Route::view('user/profile', 'user.pages.profile.userprofile');
 // Route::view('user/mybookings', 'user.pages.profile.mybookings');
 // Route::view('user/visithistory', 'user.pages.profile.visithistory');
 
@@ -183,13 +182,16 @@ Route::view('add-members', 'user.pages.book-visitation.members');
 //Visit for user functions
 Route::get('user/visithistory', [UserVisitController::class,'displayVisitHistory']);
 Route::get('user/bookvisit', [UserVisitController::class,'visit_form']);
-Route::get('user/mybookings', [UserVisitController::class,'displayVisit']);
+// Route::get('user/mybookings', [UserVisitController::class,'showQRCode']);
 Route::post('user/book', [UserVisitController::class, 'reserve_visit']);
 Route::post('add-members', [UserVisitController::class, 'add_members']);
 Route::get('user/visit',[UserVisitController::class,'user_visit'] );
 Route::post('user/cancel-visit',[UserVisitController::class,'cancel_visit'] );
 Route::view('user/cancel-visit-form', 'user.pages.booked.cancel-user-visit');
-Route::get('/user/qr/{visitId}',[UserVisitController::class,'showQRCode'])->name('qr.display');
+Route::get('/user/qr/{$visitId}',[UserVisitController::class,'showQRCode'])->name('qr.display');
+Route::get('/active-qr-code/{visitId}',[UserVisitController::class,'showActiveQRCode'])->name('active-qr-code.show');
+Route::get('user/profile', [UserVisitController::class,'displayUserProfile']);
+
 
 //Rent Functional Hall
 Route::view('user/rent', 'user.pages.rent-functional.functional-form');

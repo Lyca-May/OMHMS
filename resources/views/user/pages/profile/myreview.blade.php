@@ -87,20 +87,6 @@
                     </a>
                 </li>
 
-                {{--
-          <li>
-            <a href="{{url("admin/calendar")}}">
-              <i class="zmdi zmdi-calendar-check"></i> <span>Calendar</span>
-
-            </a>
-          </li> --}}
-
-                {{-- <small class="badge float-right badge-light">New</small> --}}
-
-
-
-
-
             </ul>
 
         </div>
@@ -131,16 +117,7 @@
                             href="javascript:void();">
                             <i class="fa fa-bell-o"></i></a>
                     </li>
-                    {{-- <li class="nav-item language">
-                        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret waves-effect" data-toggle="dropdown"
-                            href="javascript:void();"><i class="fa fa-flag"></i></a>
-                        <ul class="dropdown-menu dropdown-menu-right">
-                            <li class="dropdown-item"> <i class="flag-icon flag-icon-gb mr-2"></i> English</li>
-                            <li class="dropdown-item"> <i class="flag-icon flag-icon-fr mr-2"></i> French</li>
-                            <li class="dropdown-item"> <i class="flag-icon flag-icon-cn mr-2"></i> Chinese</li>
-                            <li class="dropdown-item"> <i class="flag-icon flag-icon-de mr-2"></i> German</li>
-                        </ul>
-                    </li> --}}
+
                     @foreach ($users as $user)
                         <li class="nav-item">
                             <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown"
@@ -194,7 +171,7 @@
                 </ol>
               </div> --}}
 
-            <div class="blog-container">
+            {{-- <div class="blog-container">
                 <div class="blog-header">
                     <div class="blog-cover">
                         <div class="blog-author">
@@ -221,7 +198,7 @@
                     </ul>
                 </div>
 
-            </div>
+            </div> --}}
 
             <div class="blog-container">
 

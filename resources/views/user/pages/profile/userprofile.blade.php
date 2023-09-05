@@ -70,7 +70,7 @@
                 </li>
 
                 <li>
-                    <a href="{{ url('user/mybookings') }}" id="tablesLink">
+                    <a href="{{ url('/user/qr') }}" id="tablesLink">
                         <i class="zmdi zmdi-book"></i> <span>Active booking</span>
                     </a>
                 </li>
@@ -175,19 +175,60 @@
             @foreach ($users as $user)
                 <div class="container-fluid">
 
-                    <div class="row mt-3">
-                        <div class="col-lg-4">
-                            <div class="card profile-card-2">
-                                {{-- <div class="card-img-block">
+  {{-- <div class="card-img-block">
                 <img class="img-fluid" src="https://via.placeholder.com/800x500" alt="Card image cap">
             </div> --}}
+
+                    <div class="row mt-3">
+                        <div class="col-md-4">
+                            <div class="bg-white shadow rounded overflow-hidden">
+                                <div class="px-4 pt-0 pb-4 cover">
+                                    <div class="media align-items-end profile-head">
+                                        <div class="profile mr-3"><img
+                                                src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
+                                                alt="..." width="130" class="rounded mb-2 img-thumbnail"><a href="javascript:void();"
+                                                data-target="#edit" data-toggle="pill" class="btn btn-outline-dark btn-sm btn-block">Edit profile</a></div>
+
+                                                {{-- <a href="javascript:void();" data-target="#edit" data-toggle="pill"
+                                                class="nav-link"><i class="zmdi zmdi-edit"></i> <span
+                                                    class="hidden-xs">Edit</span></a> --}}
+                                        <div class="media-body mb-5 text-white">
+                                            <h4 class="mt-0 mb-0">Mark Williams</h4>
+                                            <p class="small mb-4"> <i class="fas fa-map-marker-alt mr-2"></i>New York</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="px-4 py-3">
+                                    {{-- <h5 class="mb-0">About</h5> --}}
+                                    <div class="p-4 rounded shadow-sm bg-light">
+                                        <div class="row text-center m-t-20" style= "padding-top: 60px">
+                                            <div class="col-lg-4 col-md-4 m-t-20">
+                                                <h3 class="m-b-0 font-light">0</h3><small  style="color: #455a64;"> Souvenirs</small>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 m-t-20">
+                                                <h3 class="m-b-0 font-light">0</h3><small  style="color: #455a64;">Visits</small>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 m-t-20">
+                                                <h3 class="m-b-0 font-light">0</h3><small style="color: #455a64;">Reservations</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+
+
+
+                            {{-- <div class="card profile-card-2">
                                 <div class="card-body pt-5">
                                     @if ($user->avatar)
                                         <img src="{{ asset('avatar/' . $user->avatar) }}"
                                             alt="{{ $user->user_fname }}" class="rounded-circle me-2"
                                             style="width:100px; height:100px; object-fit:cover" />
                                     @endif
-                                    {{-- <img src="https://via.placeholder.com/110x110" alt="profile-image" class="profile"> --}}
                                     <h5 class="card-title">{{ session('User')['user_fname'] }}'s Profile</h5>
                                     <p class="card-text">OMHMS Admin</p>
                                     <div class="icon-block">
@@ -199,9 +240,14 @@
                                                 class="fa fa-google-plus bg-google-plus text-white"></i></a>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
+
+                                    {{-- <img src="https://via.placeholder.com/110x110" alt="profile-image" class="profile"> --}}
+
 
                         </div>
+
+
 
                         <div class="col-lg-8">
                             <div class="card">
@@ -210,20 +256,19 @@
                                         <li class="nav-item">
                                             <a href="javascript:void();" data-target="#profile" data-toggle="pill"
                                                 class="nav-link active"><i class="zmdi zmdi-account"></i> <span
-                                                    class="hidden-xs">Profile</span></a>
+                                                    class="hidden-xs" style="color: #455a64;">Profile</span>
+                                            </a>
                                         </li>
+
                                         {{-- <li class="nav-item">
-                    <a href="javascript:void();" data-target="#messages" data-toggle="pill" class="nav-link"><i class="icon-envelope-open"></i> <span class="hidden-xs">Messages</span></a>
-                </li> --}}
-                                        <li class="nav-item">
                                             <a href="javascript:void();" data-target="#edit" data-toggle="pill"
                                                 class="nav-link"><i class="zmdi zmdi-edit"></i> <span
                                                     class="hidden-xs">Edit</span></a>
-                                        </li>
+                                        </li> --}}
                                     </ul>
                                     <div class="tab-content p-3">
                                         <div class="tab-pane active" id="profile">
-                                            <h3 class="mb-3" style="color:white">User Profile</h3>
+                                            <h3 class="mb-3" style="color:#455a64">User Profile</h3>
                                             <br>
                                             <div class="row">
                                                 <div class="col-md-6">
@@ -232,9 +277,9 @@
                                                 {{-- @foreach ($users as $user) --}}
                                                 <div class="col-md-12">
                                                     <form>
-                                                        <div class="form-group row">
+                                                        <div class="form-group row" >
                                                             <label
-                                                                class="col-lg-3 col-form-label form-control-label">Last
+                                                                class="col-lg-3 col-form-label form-control-label" style="color: #455a64">Last
                                                                 name: </label>
                                                             <div class="col-lg-9">
                                                                 <input class="form-control" type="text"
@@ -243,7 +288,7 @@
                                                         </div>
                                                         <div class="form-group row">
                                                             <label
-                                                                class="col-lg-3 col-form-label form-control-label">First
+                                                                class="col-lg-3 col-form-label form-control-label" style="color: #455a64">First
                                                                 name: </label>
                                                             <div class="col-lg-9">
                                                                 <input class="form-control"
@@ -252,7 +297,7 @@
                                                         </div>
                                                         <div class="form-group row">
                                                             <label
-                                                                class="col-lg-3 col-form-label form-control-label">Middle
+                                                                class="col-lg-3 col-form-label form-control-label" style="color: #455a64">Middle
                                                                 name: </label>
                                                             <div class="col-lg-9">
                                                                 <input class="form-control" type="text"
@@ -261,7 +306,7 @@
                                                         </div>
                                                         <div class="form-group row">
                                                             <label
-                                                                class="col-lg-3 col-form-label form-control-label">Email</label>
+                                                                class="col-lg-3 col-form-label form-control-label" style="color: #455a64">Email</label>
                                                             <div class="col-lg-9">
                                                                 <input class="form-control" type="email"
                                                                     value="{{ $user->user_email }}" readonly>
@@ -269,7 +314,7 @@
                                                         </div>
                                                         <div class="form-group row">
                                                             <label
-                                                                class="col-lg-3 col-form-label form-control-label">Address</label>
+                                                                class="col-lg-3 col-form-label form-control-label" style="color: #455a64">Address</label>
                                                             <div class="col-lg-9">
                                                                 <input class="form-control"
                                                                     value="{{ $user->user_country }}, {{ $user->user_province }}, {{ $user->user_municipality }}, {{ $user->user_barangay }}, {{ $user->user_street }}" readonly>
@@ -277,7 +322,7 @@
                                                         </div>
                                                         <div class="form-group row">
                                                             <label
-                                                                class="col-lg-3 col-form-label form-control-label">Zipcode</label>
+                                                                class="col-lg-3 col-form-label form-control-label" style="color: #455a64">Zipcode</label>
                                                             <div class="col-lg-9">
                                                                 <input class="form-control" type="text"
                                                                     value="{{ $user->user_zipcode }}" readonly>
@@ -285,7 +330,7 @@
                                                         </div>
                                                         <div class="form-group row">
                                                             <label
-                                                                class="col-lg-3 col-form-label form-control-label">Birthdate</label>
+                                                                class="col-lg-3 col-form-label form-control-label" style="color: #455a64">Birthdate</label>
                                                             <div class="col-lg-6">
                                                                 <input class="form-control" type="text"
                                                                     value="{{ $user->birthdate }}" readonly>
@@ -293,7 +338,7 @@
                                                         </div>
                                                         <div class="form-group row">
                                                             <label
-                                                                class="col-lg-3 col-form-label form-control-label">Gender</label>
+                                                                class="col-lg-3 col-form-label form-control-label" style="color: #455a64">Gender</label>
                                                             <div class="col-lg-3">
                                                                 <input class="form-control" type="text"
                                                                     value="{{ $user->gender }}" readonly>
@@ -301,7 +346,7 @@
                                                         </div>
                                                         <div class="form-group row">
                                                             <label
-                                                                class="col-lg-3 col-form-label form-control-label">Phone
+                                                                class="col-lg-3 col-form-label form-control-label" style="color: #455a64">Phone
                                                                 Number</label>
                                                             <div class="col-lg-3">
                                                                 <input class="form-control" type="text"
@@ -311,25 +356,19 @@
 
                                                         <div class="form-group row">
                                                             <label
-                                                                class="col-lg-3 col-form-label form-control-label">Username</label>
+                                                                class="col-lg-3 col-form-label form-control-label" style="color: #455a64">Username</label>
                                                             <div class="col-lg-3">
                                                                 <input class="form-control" type="text"
                                                                     value="{{ $user->role }}" readonly>
                                                             </div>
                                                         </div>
-                                                        {{-- <div class="form-group row">
-                                    <label class="col-lg-3 col-form-label form-control-label">Password</label>
-                                    <div class="col-lg-9">
-                                        {{-- <input class="form-control" type="password" value="11111122333"> --}}
-                                                        {{-- </div> --}}
-                                                        {{-- </div> --}}
+
 
                                                         <div class="form-group row">
                                                             <label
-                                                                class="col-lg-3 col-form-label form-control-label"></label>
+                                                                class="col-lg-3 col-form-label form-control-label" style="color: #455a64"></label>
                                                             <div class="col-lg-9">
-                                                                {{-- <input type="reset" class="btn btn-secondary" value="Cancel">
-                                        <input type="button" class="btn btn-primary" value="Save Changes"> --}}
+
                                                             </div>
                                                         </div>
                                                     </form>
@@ -339,7 +378,6 @@
                                             <!--/row-->
                                         </div>
 
-
                                         {{-- EDIT PROFILE --}}
                                         <div class="tab-pane" id="edit">
                                             <form action="/update-user-profile" method="post"
@@ -347,7 +385,7 @@
                                                 @csrf
                                                 <br>
                                                 <div class="form-group row">
-                                                    <label class="col-lg-3 col-form-label form-control-label">First
+                                                    <label class="col-lg-3 col-form-label form-control-label" style="color: #455a64">First
                                                         name</label>
                                                     <div class="col-lg-9">
                                                         <input type="text" class="form-control" name="user_fname"
@@ -356,7 +394,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-lg-3 col-form-label form-control-label">Middle
+                                                    <label class="col-lg-3 col-form-label form-control-label" style="color: #455a64">Middle
                                                         name</label>
                                                     <div class="col-lg-9">
                                                         <input type="text" class="form-control" name="user_mname"
@@ -365,7 +403,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-lg-3 col-form-label form-control-label">Last
+                                                    <label class="col-lg-3 col-form-label form-control-label" style="color: #455a64">Last
                                                         name</label>
                                                     <div class="col-lg-9">
                                                         <input type="text" class="form-control" name="user_lname"
@@ -375,7 +413,7 @@
                                                 </div>
                                                 <div class="form-group row">
                                                     <label
-                                                        class="col-lg-3 col-form-label form-control-label">Email</label>
+                                                        class="col-lg-3 col-form-label form-control-label" style="color: #455a64">Email</label>
                                                     <div class="col-lg-9">
                                                         <input type="email" class="form-control" name="user_email"
                                                             value="{{ session('User')['user_email'] }}"
@@ -383,7 +421,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-lg-3 col-form-label form-control-label">Change
+                                                    <label class="col-lg-3 col-form-label form-control-label" style="color: #455a64">Change
                                                         profile</label>
                                                     <div class="col-lg-9">
                                                         <input class="form-control" type="file" name="avatar">
@@ -391,28 +429,28 @@
                                                 </div>
                                                 <div class="form-group row">
                                                     <label
-                                                        class="col-lg-3 col-form-label form-control-label">Address</label>
+                                                        class="col-lg-3 col-form-label form-control-label" style="color: #455a64">Address</label>
                                                     <div class="col-lg-3">
-                                                        <input class="form-control" type="text"
+                                                        <input class="form-control" type="text" style="color: #455a64"
                                                             name="user_country"
                                                             value="{{ session('User')['user_country'] }}"
                                                             placeholder="Country">
                                                     </div>
                                                     <div class="col-lg-3">
-                                                        <input class="form-control" type="text"
+                                                        <input class="form-control" type="text" style="color: #455a64"
                                                             name="user_province"
                                                             value="{{ session('User')['user_province'] }}"
                                                             placeholder="Province">
                                                     </div>
                                                     <div class="col-lg-3">
-                                                        <input class="form-control" type="text"
+                                                        <input class="form-control" type="text" style="color: #455a64"
                                                             name="user_municipality"
                                                             value="{{ session('User')['user_municipality'] }}"
                                                             placeholder="Municipality">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-lg-3 col-form-label form-control-label"></label>
+                                                    <label class="col-lg-3 col-form-label form-control-label" style="color: #455a64"></label>
                                                     <div class="col-lg-3">
                                                         <input class="form-control" type="text"
                                                             name="user_barangay"
@@ -420,33 +458,33 @@
                                                             placeholder="Barangay">
                                                     </div>
                                                     <div class="col-lg-3">
-                                                        <input class="form-control" type="text" name="user_street"
+                                                        <input class="form-control" type="text" name="user_street" style="color: #455a64"
                                                             value="{{ session('User')['user_street'] }}"
                                                             placeholder="Street">
                                                     </div>
                                                     <div class="col-lg-3">
-                                                        <input class="form-control" type="text"
+                                                        <input class="form-control" type="text" style="color: #455a64"
                                                             name="user_zipcode"
                                                             value="{{ session('User')['user_zipcode'] }}"
                                                             placeholder="Zipcode">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-lg-3 col-form-label form-control-label">Personal
+                                                    <label class="col-lg-3 col-form-label form-control-label" style="color: #455a64">Personal
                                                         Information</label>
                                                     <div class="col-lg-3">
-                                                        <input class="form-control" type="text"
+                                                        <input class="form-control" type="text" style="color: #455a64"
                                                             name="user_phonenum"
                                                             value="{{ session('User')['user_phonenum'] }}"
                                                             placeholder="Phone Number">
                                                     </div>
                                                     <div class="col-lg-3">
-                                                        <input class="form-control" type="text" name="gender"
+                                                        <input class="form-control" type="text" name="gender" style="color: #455a64"
                                                             value="{{ session('User')['gender'] }}"
                                                             placeholder="Gender">
                                                     </div>
                                                     <div class="col-lg-3">
-                                                        <input class="form-control" type="text" name="birthdate"
+                                                        <input class="form-control" type="text" name="birthdate" style="color: #455a64"
                                                             value="{{ session('User')['birthdate'] }}"
                                                             placeholder="Birthdate">
                                                     </div>
@@ -459,7 +497,7 @@
                             </div>
                         </div> --}}
                                                 <div class="form-group row">
-                                                    <label class="col-lg-3 col-form-label form-control-label"></label>
+                                                    <label class="col-lg-3 col-form-label form-control-label" style="color: #455a64"></label>
                                                     <div class="col-lg-9">
                                                         <input type="reset" class="btn btn-secondary"
                                                             value="Cancel">
@@ -472,14 +510,14 @@
                                             <form action="">
                                                 <div class="form-group row">
                                                     <label
-                                                        class="col-lg-3 col-form-label form-control-label">Password</label>
+                                                        class="col-lg-3 col-form-label form-control-label" style="color: #455a64">Password</label>
                                                     <div class="col-lg-9">
-                                                        <input class="form-control" type="password"
+                                                        <input class="form-control" type="password" style="color: #455a64"
                                                             value="11111122333">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-lg-3 col-form-label form-control-label">Confirm
+                                                    <label class="col-lg-3 col-form-label form-control-label" style="color: #455a64">Confirm
                                                         password</label>
                                                     <div class="col-lg-9">
                                                         <input class="form-control" type="password"
@@ -487,7 +525,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-lg-3 col-form-label form-control-label"></label>
+                                                    <label class="col-lg-3 col-form-label form-control-label" style="color: #455a64"></label>
                                                     <div class="col-lg-9">
                                                         <input type="reset" class="btn btn-secondary"
                                                             value="Cancel">

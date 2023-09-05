@@ -1,32 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>Scan QR Code</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
+</head>
 <body>
     <h1>Scan QR Code</h1>
     <div id="scanner" style="width: 100%;"></div>
     <div id="result"></div>
 
     <script>
-        // Quagga configuration
-        const config = {
+        // Get the video element
+        const scanner = document.getElementById('scanner');
+        const csrfToken = '{{ csrf_token() }}';
+
+        // Initialize and start QuaggaJS
+        Quagga.init({
             inputStream: {
+                name: 'Live',
                 type: 'LiveStream',
+                target: scanner,
                 constraints: {
-                    width: { min: 640 },
-                    height: { min: 480 },
-                    facingMode: 'environment', // or 'user' for front camera
+                    width: 640,
+                    height: 480,
                 },
             },
-            locator: {
-                patchSize: 'medium',
-                halfSample: true,
-            },
-            numOfWorkers: navigator.hardwareConcurrency || 4,
             decoder: {
-                readers: ['ean_reader', 'code_128_reader', 'code_39_reader', 'code_39_vin_reader', 'codabar_reader', 'upc_reader', 'upc_e_reader', 'i2of5_reader', '2of5_reader', 'code_93_reader'],
+                readers: ['code_128_reader', 'ean_reader', 'qr_reader'],
             },
-            locate: true,
-        };
-
-        // Start the scanner
-        Quagga.init(config, function(err) {
+        }, function (err) {
             if (err) {
                 console.error(err);
                 return;
@@ -34,19 +40,18 @@
             Quagga.start();
         });
 
-        // Handle scanned result
-        Quagga.onDetected(function(result) {
+        Quagga.onDetected(function (result) {
             const code = result.codeResult.code;
             document.getElementById('result').textContent = 'Scanned: ' + code;
 
-            // Make an API request to mark the visit as "done"
+            // Make API request to update visits_status to "DONE"
             fetch('/admin/mark-visit-done', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    'X-CSRF-TOKEN': csrfToken,
                 },
-                body: JSON.stringify({ visitId: code })
+                body: JSON.stringify({ visitId: code }),
             })
             .then(response => response.json())
             .then(data => {
@@ -62,3 +67,4 @@
         });
     </script>
 </body>
+</html>
