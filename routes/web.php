@@ -188,7 +188,7 @@ Route::post('add-members', [UserVisitController::class, 'add_members']);
 Route::get('user/visit',[UserVisitController::class,'user_visit'] );
 Route::post('user/cancel-visit',[UserVisitController::class,'cancel_visit'] );
 Route::view('user/cancel-visit-form', 'user.pages.booked.cancel-user-visit');
-Route::get('/user/qr/{$visitId}',[UserVisitController::class,'showQRCode'])->name('qr.display');
+Route::get('user/qr',[UserVisitController::class,'showQRCode'])->name('show.qr');
 Route::get('/active-qr-code/{visitId}',[UserVisitController::class,'showActiveQRCode'])->name('active-qr-code.show');
 Route::get('user/profile', [UserVisitController::class,'displayUserProfile']);
 
