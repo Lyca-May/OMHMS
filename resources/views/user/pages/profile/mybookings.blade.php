@@ -396,11 +396,7 @@
                 <section>
                     <span>FUNCTION HALL</span>
                     @if ($rent->isEmpty())
-                        {{-- <section style="margin-left:20px">
-        <div class="container"> --}}
                         <p>You have no active booking</p>
-                        {{-- </div>
-    </section> --}}
                     @else
                         @foreach ($rent as $visits)
                             <div class="card">
@@ -632,27 +628,9 @@
                 </section>
             </div>
         </div>
-        <!-- End container-fluid-->
     </div>
-    <!--End content-wrapper-->
-    <!--Start Back To Top Button-->
     <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
-    <!--End Back To Top Button-->
-
-    {{-- <!--Start footer-->
-	<footer class="footer">
-      <div class="container">
-        <div class="text-center">
-          Copyright © 2018 Dashtreme Admin
-        </div>
-      </div>
-    </footer>
-	<!--End footer--> --}}
-
-
     </div>
-    <!--End wrapper-->
-
 
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('assets/js/jsadmin/jquery.min.js') }}"></script>

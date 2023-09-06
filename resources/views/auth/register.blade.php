@@ -31,7 +31,7 @@
                         @csrf
 
                         <div class="input-boxes">
-                            {{-- <div class="row">
+                            <div class="row">
                                 <div class="col">
                                     <div class="input-box">
                                         <i class="fas fa-envelope"></i>
@@ -44,7 +44,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                            </div> --}}
+                            </div>
 
                         <div class="input-boxes">
                             <div class="row">

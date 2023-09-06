@@ -233,21 +233,18 @@ class UserVisitController extends Controller
             ];
 
             $qrCode = QrCode::format('png')
-                ->size(200)
-                ->generate(json_encode($qrData));
+            ->size(200)
+            ->generate(json_encode($qrData));
 
-            // Save the QR code image (optional if you want to save the QR code)
+            // Save the QR code image to the public folder
             $qrCodePath = public_path('qrcodes/') . $visit->visits_id . '.png';
             file_put_contents($qrCodePath, $qrCode);
 
-            // Redirect to the page where the QR code will be displayed
-            // return redirect()->route('qr.display', ['visitId' => $visit->id]);
-            if ($visit) {
-                // return redirect()->back()->with('success', 'Book successfully. Wait for the email for your status');
-                return redirect()->route('qr.display', ['visitId' => $visit->visits_id]);
-            } else {
-                return redirect()->back()->with('error', 'There is an error in processing your reservation. Please try again later.');
-            }
+            // Store the QR code path and related data in the session
+            session(['qrCodePath' => $qrCodePath, 'visitData' => $visit]);
+
+            // Redirect to the route for displaying the QR code
+            return redirect()->route('show.qr');
         } else {
             return redirect()->back()->with('error', 'Sorry, only ' . $remainingSlots . ' slot(s) are available.');
         }
@@ -255,23 +252,25 @@ class UserVisitController extends Controller
 }
 
 
-public function showQRCode($visitId)
+public function showQRCode()
 {
+    // Retrieve the stored QR code path and related data from the session
+    $qrCodePath = session('qrCodePath'); // Change this to match the key used to store the QR code path
+    $visit = session('visitData');
+
+    if (!$qrCodePath || !$visit) {
+        abort(404); // Handle missing data
+    }
+
     $currentDate = date('Y-m-d');
     $user_id = session('User')['user_id'];
-    // Find the visit based on the visit ID
-    $visit = Visit_Model::find($visitId);
     $users = DB::table('users')->where('user_id', $user_id)->get();
     $reservedSouvenir = Reserved_Souvenir::with('souvenir')->with('user')->where('userid', $user_id)->where('is_archived', 0)->get();
     $rent = Function_Hall::with('user')->where('userid', $user_id)->whereRaw('DATE(date_requested) >= ?', [$currentDate])->get();
 
-    if (!$visit) {
-        return redirect()->back()->with('error', 'Visit not found.');
-    }
-
-    // Pass the visit data to the view
-    return view('user.pages.profile.mybookings', compact('visit', 'users', 'reservedSouvenir', 'rent'));
+    return view('user.pages.profile.mybookings', compact('qrCodePath', 'visit', 'users', 'reservedSouvenir', 'rent'));
 }
+
 
 public function showActiveQRCode($visitId)
 {
