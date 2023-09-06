@@ -4,11 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scan QR Code</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        #container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #video {
+            width: 80%;
+            max-width: 640px;
+            background-color: #000;
+            border: 2px solid #333;
+            border-radius: 8px;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
 </head>
 <body>
-    <h1>Scan QR Code</h1>
-    <video id="video" width="640" height="480" autoplay></video>
-    <div id="result"></div>
+    <div id="container">
+        <h1>Scan QR Code</h1>
+        <video id="video" autoplay playsinline></video>
+        <div id="result"></div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/jsqr"></script>
    <script>
