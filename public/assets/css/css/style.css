@@ -1129,7 +1129,7 @@ button:focus {
 
 /*---------------------------------------------------- */
 /*----------------------------------------------------*/
-============ testimonial_area css ============
+/* ============ testimonial_area css ============ */
 .testimonial_area {
   background: #f9f9ff;
 }
@@ -3950,4 +3950,22 @@ h1, h2, h3, h4, h5, h6 {
 /*# sourceMappingURL=style.css.map */
 .shop-icon-btn{
     color: #f3c300;
+}
+
+/* NAVBAR EXPAND*/
+
+.container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.navbar {
+    /* overflow-x:hidden; */
+
+}
+
+.logo-icon {
+    width: 40px;
+    height: 20px;
+    max-width: 100%; /* Ensure the image doesn't exceed its container */
 }

@@ -326,7 +326,7 @@ hr {
 
 /*----------------right-sidebar----------------*/
 
-.right-sidebar{
+/* .right-sidebar{
 	width: 260px;
     height: 100%;
     max-height: 100%;
@@ -339,7 +339,6 @@ hr {
 	text-align:center;
 	padding:10px;
     background: #000000;
-	/* box-shadow: 0 16px 38px -12px rgba(0,0,0,.56), 0 4px 25px 0 rgba(0,0,0,.12), 0 8px 10px -5px rgba(0,0,0,.2); */
     background-image: url(../../images/bg-themes/1.png);
     -webkit-transition: all .3s ease;
     -moz-transition: all .3s ease;
@@ -358,7 +357,6 @@ hr {
 	color:#fff;
 	cursor: pointer;
     display: inline-block;
-	/* box-shadow: 0 16px 38px -12px rgba(0,0,0,.56), 0 4px 25px 0 rgba(0,0,0,.12), 0 8px 10px -5px rgba(0,0,0,.2); */
     background-image: url(../../images/bg-themes/1.png);
     position: fixed;
     right: 0;
@@ -494,7 +492,7 @@ hr {
   background-size: 100% 100%;
   background-position: center;
   transition: background .3s;
-}
+} */
 
 body.bg-theme1 {
   background-image: url(../../images/bg-themes/3.png);
