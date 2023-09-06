@@ -494,7 +494,7 @@ hr {
 } */
 
 body.bg-theme1 {
-  background-image: url(../../images/bg-themes/3.png);
+  background-image: url(../../images/bg-themes/bg.jfif);
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
@@ -1872,7 +1872,7 @@ label {
 }
 
 /* Tables */
-table.grid {
+/* table.grid {
     width: 100%;
     border: none;
     background-color: transparent;
@@ -1881,7 +1881,7 @@ table.grid {
 table.grid td {
     border: 2px solid white;
     padding: 8px;
-}
+} */
 
 .search-box {
     position: relative;
@@ -1950,10 +1950,10 @@ table.grid td {
 .table th {
     font-weight: 600;
 }
-.table-responsive{
+/* .table-responsive{
 	white-space:nowrap;
     overflow-x: auto;
-}
+} */
 .table .thead-primary th {
     color: #fff;
     background-color: #14abef;
