@@ -191,6 +191,7 @@ Route::view('user/cancel-visit-form', 'user.pages.booked.cancel-user-visit');
 Route::get('user/qr',[UserVisitController::class,'showQRCode'])->name('show.qr');
 Route::get('/active-qr-code/{visitId}',[UserVisitController::class,'showActiveQRCode'])->name('active-qr-code.show');
 Route::get('user/profile', [UserVisitController::class,'displayUserProfile']);
+Route::post('/scan-qr-code', [UserVisitController::class,'scanQRCode'])->name('scan.qr.code');
 
 
 //Rent Functional Hall
@@ -212,28 +213,20 @@ Route::post('/admin/mark-visit-done', [VisitController::class, 'markVisitAsDone'
 
 
 //Newsfeed for user function
-// Route::get('user/home', [FeedController::class,'index']);
 Route::post('post', [FeedController::class, 'add_post']);
-// Route::get('user/image', [FeedController::class, 'retrieve_image']);
-// Route::get('user/feed1', [FeedController::class, 'index']);
 Route::get('user/reviews', [FeedController::class, 'index']);
-// Route::get('user/feed1', [FeedController::class, 'index_for_feed']);
 Route::get('user/feed1', [FeedController::class, 'displayPostandComments']);
 Route::get('user/myreview', [FeedController::class, 'displayReview']);
 
 
 //Comments
 Route::post('create-comment/{feed_id}', [Comments_Controller::class, 'create_comment']);
-// Route::get('/feed/{post_id}', [Comments_Controller::class, 'displayComments']);
-
-
 
 //Images
 Route::post('user/upload', [ImagesController::class, 'upload']);
 
 //Announcement
 Route::post('/create-announcement', [AnnouncementController::class, 'create_announcement']);
-// Route::get('admin/add-announcement', [AnnouncementController::class, 'displayAdminAvatar']);
 Route::view('admin/add-announcement', 'admin.pages.announcement.announcement');
 Route::get('admin/announcement', [AnnouncementController::class, 'displayAnnouncement']);
 Route::post('archive-announcement', [AnnouncementController::class, 'archiveAnnouncement']);
@@ -259,8 +252,6 @@ Route::post('/removeFromCart', [CartController::class, 'removeFromCart']);
 
 
 Route::post('/addToReserved', [Souvenir_Reserved::class, 'addToReserved'])->name('addToReserved');
-
-// Route::view('user/cart', 'user.pages.landingpage1.souvenirs.mycart');
 
 
 
