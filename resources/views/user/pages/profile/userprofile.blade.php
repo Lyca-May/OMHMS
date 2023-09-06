@@ -45,8 +45,8 @@
         <div id="sidebar-wrapper" data-simplebar="" data-simplebar-auto-hide="true">
             <div class="brand-logo">
                 <a href="index.html">
-                    <img src="{{ asset('omhms.png') }}" class="logo-icon" alt="logo icon">
-                    <img src="{{ asset('eOMHeritage.png') }}" class="logo-icon1" alt="logo icon">
+                    <img src="{{ asset('omhms.png') }}" class="logo-icon" alt="logo icon" style="width: 40px; height: 30px">
+                    <img src="{{ asset('eOMHeritage.png') }}" class="logo-icon1" alt="logo icon" style="180px; height: 30px">
                     {{-- <h5 class="logo-text">OMHMS</h5> --}}
                 </a>
             </div>

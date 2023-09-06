@@ -280,36 +280,35 @@ hr {
 }
 
 #sidebar-wrapper {
-  background-color: rgba(0,0,0,.2);
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  z-index: 1000;
-  overflow: hidden;
-  width: 250px;
-  height: 100%;
- -webkit-transition: all 0.3s ease;
-  -moz-transition: all 0.3s ease;
-  -o-transition: all 0.3s ease;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
+    background-color: rgb(31, 28, 36);
+    position: fixed;
+    /* top: 0px;
+    left: 0px; */
+    z-index: 1000;
+    overflow: hidden;
+    width: 250px;
+    height: 100%;
+   -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
 
 
-#wrapper.toggled #sidebar-wrapper {
-	 position: fixed;
-     left: -250px;
+  #wrapper.toggled #sidebar-wrapper {
+       position: fixed;
+       left: -250px;
 
-}
+  }
 
-#wrapper.toggled .menu-icon{
-	margin-left: 0px;
-}
+  #wrapper.toggled .menu-icon{
+      margin-left: 0px;
+  }
 
-#wrapper.toggled .content-wrapper {
-    margin-left: 0;
-}
-
+  #wrapper.toggled .content-wrapper {
+      margin-left: 0;
+  }
 /* Page Content Wrapper */
 .content-wrapper {
     margin-left: 250px;
@@ -638,12 +637,11 @@ body.bg-theme15 {
 /* Logo */
 
 .brand-logo{
-  width: 60%;
-  height: 60px;
-  line-height: 60px;
-  text-align: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2)
-}
+    height: 60px;
+    line-height: 60px;
+    margin-left: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2)
+  }
 
 .logo-text{
 	color: #d9b410;
@@ -658,8 +656,11 @@ body.bg-theme15 {
 }
 
 .logo-icon{
-    width: 35px;
-    margin-right: 5px;
+    width: 45px;
+}
+.logo-icon1{
+    width: 170px;
+    height:40px;
 }
 
 
@@ -3565,22 +3566,21 @@ table.grid td {
 }
 
 @media only screen and (max-width: 1024px) {
-  #sidebar-wrapper {
-	background:#000;
-    position: fixed;
-	top: 0px;
-    left: -250px;
-    z-index: 1000;
-    overflow-y: auto;
-    width: 250px;
-    height: 100%;
-    -webkit-transition: all 0.2s ease;
-    -moz-transition: all 0.2s ease;
-    -o-transition: all 0.2s ease;
-    transition: all 0.2s ease;
-	box-shadow: none;
-}
-
+    #sidebar-wrapper {
+      background:#000;
+      position: fixed;
+      top: 0px;
+      left: -250px;
+      z-index: 1000;
+      overflow-y: auto;
+      width: 250px;
+      height: 100%;
+      -webkit-transition: all 0.2s ease;
+      -moz-transition: all 0.2s ease;
+      -o-transition: all 0.2s ease;
+      transition: all 0.2s ease;
+      box-shadow: none;
+  }
 .toggle-menu i {
     line-height: 60px;
     margin-left: 0px;
@@ -3615,7 +3615,7 @@ table.grid td {
   left: 0px;
 }
 
-#wrapper.toggled #sidebar-wrapper {
+wrapper.toggled #sidebar-wrapper {
     position: fixed;
 	top: 0px;
     left: 0px;

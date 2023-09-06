@@ -708,12 +708,11 @@ body.bg-theme15 {
 /* Logo */
 
 .brand-logo{
-  width: 60%;
-  height: 60px;
-  line-height: 60px;
-  text-align: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2)
-}
+    height: 60px;
+    line-height: 60px;
+    margin-left: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2)
+  }
 
 .logo-text{
 	color: #d9b410;
@@ -728,10 +727,12 @@ body.bg-theme15 {
 }
 
 .logo-icon{
-    width: 35px;
-    margin-right: 5px;
+    width: 45px;
 }
-
+.logo-icon1{
+    width: 170px;
+    height:40px;
+}
 
 .user-details .media .avatar img {
   width: 50px;
