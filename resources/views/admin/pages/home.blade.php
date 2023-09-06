@@ -70,7 +70,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="" id="inventoryLink">
+                    <a href="#" id="inventoryLink">
                         <i class="zmdi zmdi-archive"></i> <span>Inventory</span>
                     </a>
                     <ul id="inventoryDrawer" class="drawer-items">
@@ -166,16 +166,6 @@
                         <i class="zmdi zmdi-time">{{ $currentDateTime }}</i>
                     </div>
 
-                    {{-- <li class="nav-item language">
-                        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret waves-effect" data-toggle="dropdown"
-                            href="javascript:void();"><i class="fa fa-flag"></i></a>
-                        <ul class="dropdown-menu dropdown-menu-right">
-                            <li class="dropdown-item"> <i class="flag-icon flag-icon-gb mr-2"></i> English</li>
-                            <li class="dropdown-item"> <i class="flag-icon flag-icon-fr mr-2"></i> French</li>
-                            <li class="dropdown-item"> <i class="flag-icon flag-icon-cn mr-2"></i> Chinese</li>
-                            <li class="dropdown-item"> <i class="flag-icon flag-icon-de mr-2"></i> German</li>
-                        </ul>
-                    </li> --}}
                     @foreach ($users as $user)
                     <li class="nav-item">
                         <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown"
@@ -221,7 +211,7 @@
         <div class="clearfix"></div>
 
         <div class="content-wrapper">
-            <div class="container-fluid">
+            {{-- <div class="container-fluid"> --}}
 
                 <!--Start Dashboard Content-->
 
@@ -277,7 +267,7 @@
                     </div>
                 </div>
 
-                {{-- <div class="row">
+                <div class="row">
                     <div class="col-12 col-lg-8 col-xl-8">
                         <div class="card">
                             <div class="card-header">Site Traffic
@@ -388,7 +378,7 @@
                             </div>
                         </div>
                     </div>
-                </div> --}}
+                </div>
                 <!--End Row-->
 
                 <div class="row">
@@ -496,7 +486,7 @@
                 <div class="overlay toggle-menu"></div>
                 <!--end overlay-->
 
-            </div>
+            {{-- </div> --}}
             <!-- End container-fluid-->
 
         </div>
