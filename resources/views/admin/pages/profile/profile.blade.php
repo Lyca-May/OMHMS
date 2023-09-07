@@ -99,14 +99,14 @@
             </a>
           </li>
 
-
+{{--
 
           <li class="sidebar-header">LABELS</li>
           <li>
             <a href="{{asset("admin/profile")}}">
               <i class="zmdi zmdi-face"></i> <span>Profile</span>
             </a>
-          </li>
+          </li> --}}
 
 
         </ul>

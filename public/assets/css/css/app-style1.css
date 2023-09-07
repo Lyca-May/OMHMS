@@ -2577,7 +2577,7 @@ table.grid td {
     /* color: #d9b410; */
     background-color: transparent;
     /* border-color: #d9b410 #d9b410 #fff; */
-    /* border-bottom: 4px solid #d9b410; */
+    border-bottom: 4px solid  #455a64;
 }
 
 .nav-tabs-success.nav-tabs{

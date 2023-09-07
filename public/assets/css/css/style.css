@@ -3969,3 +3969,16 @@ h1, h2, h3, h4, h5, h6 {
     height: 20px;
     max-width: 100%; /* Ensure the image doesn't exceed its container */
 }
+
+/* NAVBAR */
+
+.container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.logo-icon {
+    width: 40px;
+    height: 20px;
+    max-width: 100%; /* Ensure the image doesn't exceed its container */
+}

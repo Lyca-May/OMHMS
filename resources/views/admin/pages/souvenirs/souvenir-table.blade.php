@@ -131,7 +131,7 @@
                         <i class="zmdi zmdi-book"></i> <span>Bookings</span>
                     </a>
                     <ul id="tablesDrawer" class="drawer-items">
-                        <li><a class="zmdi zmdi-building" href="{{ asset('admin/visit') }}">Museum Visit</a></li>
+                        <li><a href="{{ asset('admin/visit') }}">Museum Visit</a></li>
                         <li><a href="{{url('admin/function')}}">Function Hall</a></li>
 
                         <!-- Add more link items as needed -->
@@ -170,15 +170,37 @@
                     </a>
                 </li>
 
-
-
-                <li class="sidebar-header">LABELS</li>
+                <li class="sidebar-header">About Us</li>
+                <li>
+                    <a href="{{url('about-us/history')}}">
+                        <i class="zmdi zmdi-history"></i> <span>History Content</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{url('about-us/footer')}}">
+                        <i class="zmdi zmdi-history"></i> <span>History Footer</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{url('about-us/wts')}}">
+                        <i class="zmdi zmdi-history"></i> <span>What To See Inside</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{url('about-us/contact')}}">
+                        <i class="zmdi zmdi-history"></i> <span>Contact</span>
+                    </a>
+                </li>
                 <li>
                     <a href="{{ asset('admin/profile') }}">
                         <i class="zmdi zmdi-face"></i> <span>Profile</span>
                     </a>
                 </li>
-
+                <li>
+                    <a href="{{ asset('admin/scan-qr') }}">
+                        <i class="zmdi zmdi-camera"></i> <span>Scanner</span>
+                    </a>
+                </li>
 
             </ul>
 
@@ -293,7 +315,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="table-responsive" style="width: 1707.50px; overflow-x: auto;">
+                                <div class="table-responsive" style="width: 1255px; overflow-x: auto;">
                                     <table class="table align-items-center table-flush table-borderless" id="pending-table">
                                         <thead>
                                             <tr>
