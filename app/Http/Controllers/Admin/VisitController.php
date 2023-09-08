@@ -190,6 +190,7 @@ class VisitController extends Controller
     public function showScanQRPage()
     {
         return view('admin.pages.visit.scanner');
+
     }
 
     public function markVisitAsDone(Request $request)

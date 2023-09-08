@@ -204,7 +204,7 @@
 
         <div class="clearfix"></div>
 
-        <div class="content-wrapper">
+             <div class="content-wrapper">
             {{-- <div class="container-fluid"> --}}
 
                 <!--Start Dashboard Content-->
@@ -517,7 +517,7 @@
     <script src="{{ asset('assets/js/jsadmin/app-script.js') }}"></script>
     <!-- Chart js -->
 
-    <script src="{{ asset('assets/plugins/Chart.js/Chart.min.js') }}"></script>
+    {{-- <script src="{{ asset('assets/plugins/Chart.js/Chart.min.js') }}"></script> --}}
 
     <!-- Index js -->
     <script src="{{ asset('assets/js/jsadmin/index.js') }}"></script>
