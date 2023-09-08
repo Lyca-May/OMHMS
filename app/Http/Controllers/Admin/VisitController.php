@@ -189,7 +189,12 @@ class VisitController extends Controller
 
     public function showScanQRPage()
     {
-        return view('admin.pages.visit.scanner');
+        $currentDateTime = Carbon::now()->tz('UTC');
+        $user_id = session('Admin')['user_id'];
+        $users = DB::table('users')->where('user_id', $user_id)->get();
+
+
+        return view('admin.pages.visit.scanner', compact('currentDateTime', 'users'));
 
     }
 
