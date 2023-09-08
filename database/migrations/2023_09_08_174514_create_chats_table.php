@@ -17,8 +17,7 @@ return new class extends Migration
             $table->text('message'); // Chat message content
             $table->timestamps();
 
-            // Add foreign key constraint
-            $table->foreign('user_id')->references('userid')->on('users')->onDelete('cascade');
+            $table->foreign('userid')->references('user_id')->on('users')->onDelete('cascade');
         });
     }
 
