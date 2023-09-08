@@ -234,6 +234,10 @@ class UserVisitController extends Controller
 
             $qrCode = QrCode::format('png')
             ->size(200)
+            ->margin(10) // Add a margin around the QR code
+            ->color(0, 0, 0, 255, 0, 0, 0) // Set the QR code color to black
+            ->backgroundColor(255, 255, 255) // Set the background color to white
+            ->errorCorrection('H') // Error correction level
             ->generate(json_encode($qrData));
 
             // Save the QR code image to the public folder
@@ -439,7 +443,7 @@ public function scanQRCode(Request $request)
         return view('admin.pages.visit.history', ['visit' => $visits]);
     }
 
-    
+
 
 }
 

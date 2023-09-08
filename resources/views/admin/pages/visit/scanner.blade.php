@@ -11,13 +11,6 @@
             text-align: center;
             margin: 0;
             padding: 0;
-        }
-
-        h1 {
-            color: #333;
-        }
-
-        #container {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -25,110 +18,154 @@
             height: 100vh;
         }
 
-        #video {
+        h1 {
+            color: #333;
+        }
+
+        #video-container {
+            position: relative;
             width: 80%;
             max-width: 640px;
             background-color: #000;
             border: 2px solid #333;
             border-radius: 8px;
+            overflow: hidden; /* Hide the camera icon if it overflows */
+        }
+
+        #video {
+            width: 100%; /* Make the video element fill the container */
+            height: auto; /* Maintain the aspect ratio */
+        }
+
+        #camera-icon {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 50%;
+            padding: 5px;
+        }
+
+        #result-container {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border: 2px solid #333;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         #result {
-            margin-top: 20px;
             font-size: 18px;
             font-weight: bold;
             color: #333;
+            margin-bottom: 10px;
+        }
+
+        #success-icon {
+            font-size: 48px;
+            color: green;
+            border: 2px solid green;
+            border-radius: 50%;
+            padding: 10px;
         }
     </style>
 </head>
 <body>
-    <div id="container">
-        <h1>Scan QR Code</h1>
-        <video id="video" autoplay playsinline></video>
-        <div id="result"></div>
+    <h1>Scan QR Code</h1>
+    <div id="video-container">
+        {{-- <video id="video" autoplay playsinline></video>
+        <div id="camera-icon">📷</div> --}}
+    </div>
+    <div id="result-container">
+        <div id="result">Scanning...</div>
+        <div id="success-icon">&#10004;</div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/jsqr"></script>
-   <script>
-    // Request access to the camera devices
-navigator.mediaDevices.enumerateDevices()
-    .then(devices => {
-        const videoDevices = devices.filter(device => device.kind === 'videoinput');
+    <script>
+        const resultElement = document.getElementById('result');
+        const successIcon = document.getElementById('success-icon');
 
-        if (videoDevices.length > 0) {
-            // Use the first video device (camera)
-            const deviceId = videoDevices[0].deviceId;
+        // Request access to the camera devices
+        navigator.mediaDevices.enumerateDevices()
+            .then(devices => {
+                const videoDevices = devices.filter(device => device.kind === 'videoinput');
 
-            // Define constraints with the selected device ID
-            const constraints = {
-                video: {
-                    deviceId: { exact: deviceId },
-                },
-            };
+                if (videoDevices.length > 0) {
+                    // Use the first video device (camera)
+                    const deviceId = videoDevices[0].deviceId;
 
-            // Request access to the camera with the specified constraints
-            navigator.mediaDevices.getUserMedia(constraints)
-                .then(stream => {
-                    // Handle camera access
-                    const videoElement = document.createElement('video');
-                    videoElement.srcObject = stream;
-                    videoElement.play();
+                    // Define constraints with the selected device ID
+                    const constraints = {
+                        video: {
+                            deviceId: { exact: deviceId },
+                        },
+                    };
 
-                    // Add the video element to the DOM or perform other actions with the camera feed.
-                    document.body.appendChild(videoElement);
+                    // Request access to the camera with the specified constraints
+                    navigator.mediaDevices.getUserMedia(constraints)
+                        .then(stream => {
+                            // Handle camera access
+                            const videoElement = document.createElement('video');
+                            videoElement.srcObject = stream;
+                            videoElement.play();
 
-                    // Listen for the 'loadedmetadata' event to ensure video metadata is loaded
-                    videoElement.addEventListener('loadedmetadata', (e) => {
-                        // Start scanning as shown in the previous response
-                        const resultElement = document.getElementById('result');
+                            // Add the video element to the DOM or perform other actions with the camera feed.
+                            document.body.appendChild(videoElement);
 
-                        function scanQRCode() {
-                            const canvasElement = document.createElement('canvas');
-                            const canvasContext = canvasElement.getContext('2d');
-                            canvasElement.width = videoElement.videoWidth;
-                            canvasElement.height = videoElement.videoHeight;
-                            canvasContext.drawImage(videoElement, 0, 0);
+                            // Listen for the 'loadedmetadata' event to ensure video metadata is loaded
+                            videoElement.addEventListener('loadedmetadata', (e) => {
+                                // Start scanning as shown in the previous response
+                                function scanQRCode() {
+                                    const canvasElement = document.createElement('canvas');
+                                    const canvasContext = canvasElement.getContext('2d');
+                                    canvasElement.width = videoElement.videoWidth;
+                                    canvasElement.height = videoElement.videoHeight;
+                                    canvasContext.drawImage(videoElement, 0, 0);
 
-                            const imageData = canvasContext.getImageData(
-                                0,
-                                0,
-                                canvasElement.width,
-                                canvasElement.height
-                            );
+                                    const imageData = canvasContext.getImageData(
+                                        0,
+                                        0,
+                                        canvasElement.width,
+                                        canvasElement.height
+                                    );
 
-                            const code = jsQR(imageData.data, imageData.width, imageData.height);
+                                    const code = jsQR(imageData.data, imageData.width, imageData.height);
 
-                            if (code) {
-                                // QR code found
-                                resultElement.textContent = 'Scanned: ' + code.data;
-                            } else {
-                                // No QR code found in the current frame
-                                resultElement.textContent = 'No QR code found.';
-                            }
+                                    if (code) {
+                                        // QR code found
+                                        resultElement.textContent = 'Scanned: ' + code.data;
+                                        // Display the success icon
+                                        successIcon.style.display = 'block';
+                                    } else {
+                                        // No QR code found in the current frame
+                                        // Hide the success icon
+                                        successIcon.style.display = 'none';
+                                    }
 
-                            requestAnimationFrame(scanQRCode);
-                        }
+                                    requestAnimationFrame(scanQRCode);
+                                }
 
-                        scanQRCode(); // Start scanning
-                    });
-                })
-                .catch(error => {
-                    // Handle errors if camera access was denied or if there was an issue.
-                    console.error('Error accessing camera:', error);
-                    // You can display an error message to the user or take appropriate actions.
-                });
-        } else {
-            // No video devices (cameras) found
-            console.error('No video devices (cameras) available.');
-            // You can display an error message to the user or take appropriate actions.
-        }
-    })
-    .catch(error => {
-        // Handle errors if there was an issue with enumerating devices.
-        console.error('Error enumerating devices:', error);
-        // You can display an error message to the user or take appropriate actions.
-    });
-
-   </script>
+                                scanQRCode(); // Start scanning
+                            });
+                        })
+                        .catch(error => {
+                            // Handle errors if camera access was denied or if there was an issue.
+                            console.error('Error accessing camera:', error);
+                        });
+                } else {
+                    // No video devices (cameras) found
+                    console.error('No video devices (cameras) available.');
+                }
+            })
+            .catch(error => {
+                // Handle errors if there was an issue with enumerating devices.
+                console.error('Error enumerating devices:', error);
+            });
+    </script>
 </body>
 </html>

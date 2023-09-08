@@ -52,7 +52,7 @@
                                 @enderror
                             </div>
 
-                            <div class="text"><a href="#">Forgot password?</a></div>
+                            <div class="text"><a href="{{url('auth/forgot')}}">Forgot password?</a></div>
                             <div class="button input-box">
                                  <input type="submit" value="Submit">
                             </div>
