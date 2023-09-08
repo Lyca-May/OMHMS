@@ -35,26 +35,27 @@
 
 </head>
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f0f0f0;
-        text-align: center;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-    }
-
+    /* .content-wrapper {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            position: relative;
+        } */
     h1 {
-        color: #333;
+        color: #ffffff;
+        font-weight: bold;
     }
 
     #video-container {
         position: relative;
-        width: 80%;
+        width: 50%;
         max-width: 640px;
         background-color: #000;
         border: 2px solid #333;
@@ -67,6 +68,7 @@
         width: 100%;
         /* Make the video element fill the container */
         height: auto;
+
         /* Maintain the aspect ratio */
     }
 
@@ -78,6 +80,7 @@
         background-color: rgba(0, 0, 0, 0.7);
         border-radius: 50%;
         padding: 5px;
+
     }
 
     #result-container {
@@ -279,44 +282,50 @@
 
         <div class="content-wrapper">
 
-            <h1>Scan QR Code</h1>
-            <div id="video-container">
-                {{-- <video id="video" autoplay playsinline></video>
-        <div id="camera-icon">📷</div> --}}
-            </div>
-            <div id="result-container">
-                <div id="result">Scanning...</div>
-                <div id="success-icon">&#10004;</div>
-            </div>
+            <div class="card mt-3">
+                <div class="card-content">
 
-        </div>
+                    <h1>Scan QR Code</h1>
 
-        <!--End Row-->
+                    <div id="video-container">
+                    </div>
 
-        <!--End Dashboard Content-->
+                        <div id="result-container">
+                            <div id="result">Scanning...</div>
+                            <div id="success-icon">&#10004;</div>
+                        </div>
+                    </div>
 
-        <!--start overlay-->
-        <div class="overlay toggle-menu"></div>
-        <!--end overlay-->
-
-        {{-- </div> --}}
-        <!-- End container-fluid-->
-    </div>
-
-    <!--End content-wrapper-->
-    <!--Start Back To Top Button-->
-    <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
-    <!--End Back To Top Button-->
-
-    <!--Start footer-->
-    <footer class="footer">
-        <div class="container">
-            <div class="text-center">
-                Copyright © 2023 eOMHeritage Admin
+                </div>
             </div>
         </div>
-    </footer>
-    <!--End footer-->
+
+            <!--End Row-->
+
+            <!--End Dashboard Content-->
+
+            <!--start overlay-->
+            <div class="overlay toggle-menu"></div>
+            <!--end overlay-->
+
+            {{-- </div> --}}
+            <!-- End container-fluid-->
+        </div>
+
+        <!--End content-wrapper-->
+        <!--Start Back To Top Button-->
+        <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+        <!--End Back To Top Button-->
+
+        <!--Start footer-->
+        <footer class="footer">
+            <div class="container">
+                <div class="text-center">
+                    Copyright © 2023 eOMHeritage Admin
+                </div>
+            </div>
+        </footer>
+        <!--End footer-->
 
     </div>
     <!--End wrapper-->
@@ -405,50 +414,50 @@
             });
     </script>
 
-     <!-- Bootstrap core JavaScript-->
-     <script src="{{ asset('assets/js/jsadmin/jquery.min.js') }}"></script>
-     <script src="{{ asset('assets/js/jsadmin/popper.min.js') }}"></script>
-     <script src="{{ asset('assets/js/jsadmin/bootstrap.min.js') }}"></script>
+    <!-- Bootstrap core JavaScript-->
+    <script src="{{ asset('assets/js/jsadmin/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jsadmin/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jsadmin/bootstrap.min.js') }}"></script>
 
-     <!-- simplebar js -->
-     <script src="{{ asset('assets/plugins/simplebar/js/simplebar.js') }}"></script>
-     <!-- sidebar-menu js -->
-     <script src="{{ asset('assets/js/jsadmin/sidebar-menu.js') }}"></script>
-     <!-- loader scripts -->
-     <script src="{{ asset('assets/js/jsadmin/jquery.loading-indicator.js') }}"></script>
-     <!-- Custom scripts -->
-     <script src="{{ asset('assets/js/jsadmin/app-script.js') }}"></script>
-     <!-- Chart js -->
+    <!-- simplebar js -->
+    <script src="{{ asset('assets/plugins/simplebar/js/simplebar.js') }}"></script>
+    <!-- sidebar-menu js -->
+    <script src="{{ asset('assets/js/jsadmin/sidebar-menu.js') }}"></script>
+    <!-- loader scripts -->
+    <script src="{{ asset('assets/js/jsadmin/jquery.loading-indicator.js') }}"></script>
+    <!-- Custom scripts -->
+    <script src="{{ asset('assets/js/jsadmin/app-script.js') }}"></script>
+    <!-- Chart js -->
 
-     {{-- <script src="{{ asset('assets/plugins/Chart.js/Chart.min.js') }}"></script> --}}
+    {{-- <script src="{{ asset('assets/plugins/Chart.js/Chart.min.js') }}"></script> --}}
 
-     <!-- Index js -->
-     <script src="{{ asset('assets/js/jsadmin/index.js') }}"></script>
+    <!-- Index js -->
+    <script src="{{ asset('assets/js/jsadmin/index.js') }}"></script>
 
-     <script>
-         function updateTime() {
-             var now = new Date();
-             var hours = now.getHours();
-             var minutes = now.getMinutes();
-             var seconds = now.getSeconds();
+    <script>
+        function updateTime() {
+            var now = new Date();
+            var hours = now.getHours();
+            var minutes = now.getMinutes();
+            var seconds = now.getSeconds();
 
-             // Convert 24-hour format to 12-hour format
-             var ampm = hours >= 12 ? 'PM' : 'AM';
-             hours = hours % 12;
-             hours = hours ? hours : 12;
+            // Convert 24-hour format to 12-hour format
+            var ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12;
 
-             var timeString = hours.toString().padStart(2, '0') + ':' +
-                              minutes.toString().padStart(2, '0') + ':' +
-                              seconds.toString().padStart(2, '0') + ' ' + ampm;
+            var timeString = hours.toString().padStart(2, '0') + ':' +
+                minutes.toString().padStart(2, '0') + ':' +
+                seconds.toString().padStart(2, '0') + ' ' + ampm;
 
-             document.getElementById('clock').innerHTML = timeString;
+            document.getElementById('clock').innerHTML = timeString;
 
-             // Update the time every second
-             setTimeout(updateTime, 1000);
-         }
+            // Update the time every second
+            setTimeout(updateTime, 1000);
+        }
 
-         updateTime();
-     </script>
+        updateTime();
+    </script>
 
 </body>
 
