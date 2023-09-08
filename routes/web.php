@@ -18,6 +18,7 @@ use App\Http\Controllers\User\UserVisitController;
 use App\Http\Controllers\User\UserFunctionalRoomController;
 use App\Http\Controllers\User\Comments_Controller;
 use App\Http\Controllers\User\SouvenirsController;
+use App\Http\Controllers\ChatController;
 use App\Http\Middleware\VerifyCsrfToken;
 //Auth
 // Route::view('auth/login', 'auth.login');
@@ -75,36 +76,14 @@ Route::view('user/services1', 'user.pages.landingpage1.services1');
 Route::view('user/posts1', 'user.pages.landingpage1.reviewpages.posts1');
 Route::view('user/testimonials1', 'user.pages.landingpage1.reviewpages.testimonials1');
 
-//Booking after Login
-// Route::view('user/bookvisit', 'user.pages.landingpage1.booking.bookvisit');
-// Route::view('user/rentconhall', 'user.pages.landingpage1.booking.rentconhall');
-
-// Route::view('user/souvenirs1', 'user.pages.landingpage1.souvenirs.souvenirs1');
 
 // ----------------LANDING PAGE 1------------------ //
 
 // ----------------ADMIN SIDEBAR------------------ //
 
-// Route::view('admin/home', 'admin.pages.home');
-// Route::view('admin/profile', 'admin.pages.profile');
 Route::view('admin/calendar', 'admin.pages.calendar');
-// Route::view('admin/inventory', 'admin.pages.inventory.inventory-table');
-
-// Route::view('admin/announcement', 'admin.pages.announcement.announcement');
-
-//---------------- User Profile ---------------------//
-
-// Route::view('user/mybookings', 'user.pages.profile.mybookings');
-// Route::view('user/visithistory', 'user.pages.profile.visithistory');
-
-
-//---------------- User Profile ---------------------//
-
-
-
 
 //Admin Page
-// Route::view('admin/home', 'admin.pages.home');
 Route::view('admin/form', 'admin.pages.form');
 Route::view('user/rentedhall', 'user.pages.booked.rentedhall');
 
@@ -249,13 +228,7 @@ Route::get('user/souvenirs', [CartController::class, 'displaySouvenir1']);
 Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');;
 Route::get('user/cart', [CartController::class, 'cartItems']);
 Route::post('/removeFromCart', [CartController::class, 'removeFromCart']);
-
-
-
 Route::post('/addToReserved', [Souvenir_Reserved::class, 'addToReserved'])->name('addToReserved');
-
-
-
 
 
 //Artifacts
@@ -269,4 +242,9 @@ Route::get('/category', [Category::class, 'displayCategory']);
 Route::post('/add-category', [Category::class, 'add_category']);
 Route::post('/edit-category/{category_id}', [Category::class, 'edit_category']);
 Route::post('/archive-category/{category_id}', [Category::class, 'archive_category']);
+
+
+//RTC
+Route::get('chat',[ChatController::class, 'index'])->name('chat.index');
+Route::post('/send', [ChatController::class, 'sendMessage'])->name('chat.sendMessage');
 
