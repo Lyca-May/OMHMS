@@ -179,15 +179,28 @@
                     </a>
                 </li>
 
-
-
-                <li class="sidebar-header">LABELS</li>
+                <li class="sidebar-header">About Us</li>
+                <li>
+                    <a href="#" id="contentLink">
+                        <i class="zmdi zmdi-edit"></i> <span>Edit Content</span>
+                    </a>
+                    <ul id="contentDrawer" class="drawer-items" >
+                        <li><a href="{{url('about-us/history') }}">Edit History</a></li>
+                        <li><a href="{{url('about-us/footer')}}">Footer</a></li>
+                        <li><a href="{{url('about-us/wts')}}">What to see Inside</a></li>
+                        <li><a href="{{url('about-us/contact')}}">Contact</a></li>
+                    </ul>
+                </li>
                 <li>
                     <a href="{{ asset('admin/profile') }}">
                         <i class="zmdi zmdi-face"></i> <span>Profile</span>
                     </a>
                 </li>
-
+                <li>
+                    <a href="{{ asset('admin/scan-qr') }}">
+                        <i class="zmdi zmdi-camera"></i> <span>Scanner</span>
+                    </a>
+                </li>
 
             </ul>
 

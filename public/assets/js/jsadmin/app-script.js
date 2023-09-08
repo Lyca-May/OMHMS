@@ -164,5 +164,12 @@ $(function () {
         });
       });
 
+      $(document).ready(function() {
+        $("#contentLink").on("click", function(e) {
+          e.preventDefault();
+          $("#contentDrawer").slideToggle();
+        });
+      });
+
 
 });
