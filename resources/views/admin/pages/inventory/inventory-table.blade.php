@@ -35,8 +35,6 @@
 
 
     <style>
-
-
         /* Button styles */
         .custom-button {
             background-color: #4CAF50;
@@ -56,6 +54,7 @@
             background-color: #001a01;
             /* Darker green color on hover */
         }
+
         .custom-button1 {
             background-color: #f55b1f;
             /* Green color */
@@ -81,8 +80,9 @@
         }
 
         .table-large {
-        font-size: 16px;
-    }
+            font-size: 16px;
+        }
+
         .projcard-img {
             width: 50px;
             /* Set the desired width */
@@ -133,8 +133,8 @@
                         <i class="zmdi zmdi-book"></i> <span>Bookings</span>
                     </a>
                     <ul id="tablesDrawer" class="drawer-items">
-                        <li><a class="zmdi zmdi-building" href="{{ asset('admin/visit') }}">Museum Visit</a></li>
-                        <li><a href="{{url('admin/function')}}">Function Hall</a></li>
+                        <li><a href="{{ asset('admin/visit') }}">Museum Visit</a></li>
+                        <li><a href="{{ url('admin/function') }}">Function Hall</a></li>
 
                         <!-- Add more link items as needed -->
                     </ul>
@@ -174,13 +174,37 @@
 
 
 
-                <li class="sidebar-header">LABELS</li>
+                <li class="sidebar-header">About Us</li>
+                <li>
+                    <a href="{{url('about-us/history')}}">
+                        <i class="zmdi zmdi-history"></i> <span>History Content</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{url('about-us/footer')}}">
+                        <i class="zmdi zmdi-history"></i> <span>History Footer</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{url('about-us/wts')}}">
+                        <i class="zmdi zmdi-history"></i> <span>What To See Inside</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{url('about-us/contact')}}">
+                        <i class="zmdi zmdi-history"></i> <span>Contact</span>
+                    </a>
+                </li>
                 <li>
                     <a href="{{ asset('admin/profile') }}">
                         <i class="zmdi zmdi-face"></i> <span>Profile</span>
                     </a>
                 </li>
-
+                <li>
+                    <a href="{{ asset('admin/scan-qr') }}">
+                        <i class="zmdi zmdi-camera"></i> <span>Scanner</span>
+                    </a>
+                </li>
 
             </ul>
 
@@ -270,10 +294,14 @@
                 <!--End sidebar-wrapper-->
                 <div class="row">
                     <div class="col-12 col-lg-12">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" style="float:right;margin-right:20px;" aria-expanded="false">Filter Bookings</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+                            aria-haspopup="true" style="float:right;margin-right:20px;" aria-expanded="false">Filter
+                            Bookings</a>
                         <ul class="dropdown-menu">
-                            <li class="nav-item"><a class="nav-link filter-option" data-target="pending-table">List of Items</a></li>
-                            <li class="nav-item"><a class="nav-link filter-option" data-target="cancelled-table">Archived Items</a></li>
+                            <li class="nav-item"><a class="nav-link filter-option" data-target="pending-table">List
+                                    of Items</a></li>
+                            <li class="nav-item"><a class="nav-link filter-option"
+                                    data-target="cancelled-table">Archived Items</a></li>
                             {{-- <li class="nav-item"><a class="nav-link filter-option" data-target="approved-table">Approved Bookings</a></li> --}}
                         </ul>
                     </div>
@@ -286,14 +314,17 @@
                                     <br>
                                     <br>
                                     <div class="col-sm-4">
-                                        <a class="btn btn-success" style="float:left;margin-right:20px;" data-toggle="modal" data-target="#addItemModal">+ Add</a>
+                                        <a class="btn btn-success" style="float:left;margin-right:20px;"
+                                            data-toggle="modal" data-target="#addItemModal">+ Add</a>
                                         <div class="search-box">
-                                            <input type="text" class="form-control" id="searchInput" placeholder="Search">
+                                            <input type="text" class="form-control" id="searchInput"
+                                                placeholder="Search">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="table-responsive">
-                                    <table class="table align-items-center table-flush table-borderless" id="pending-table">
+                                <div class="table-responsive" style="width: 1255px; overflow-x: auto"; >
+                                    <table class="table align-items-center table-flush table-borderless"
+                                        id="pending-table" style="width: 100%">
                                         <thead>
                                             <tr>
                                                 <th>Item ID</th>
@@ -341,7 +372,8 @@
                                             @endforeach
                                         </tbody>
                                     </table>
-                                    <table class="table align-items-center table-flush table-borderless" id="cancelled-table" style="display: none;">
+                                    <table class="table align-items-center table-flush table-borderless"
+                                        id="cancelled-table" style="display: none; width:100%">
                                         <thead>
                                             <tr>
                                                 <th>Item ID</th>
@@ -354,22 +386,22 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($archived as $archive)
-                                            <tr>
-                                                <td>{{ $archive->artifact_id }}</td>
-                                                <td>{{ $archive->artifact_name }}</td>
-                                                <td>{{ $archive->artifact_description }}</td>
-                                                <td>{{ $archive->category->category_name }}</td>
-                                                <td>{{ $archive->quantity }}</td>
-                                                <td>
-                                                    @if ($archive->artifact_image)
-                                                        <a href="#" class="image-link" data-toggle="modal"
-                                                            data-target="#imageModal">
-                                                            <img src="{{ asset('artifact_image/' . $archive->artifact_image) }}"
-                                                                class="projcard-img" />
-                                                        </a>
-                                                    @endif
-                                                </td>
-                                             </tr>
+                                                <tr>
+                                                    <td>{{ $archive->artifact_id }}</td>
+                                                    <td>{{ $archive->artifact_name }}</td>
+                                                    <td>{{ $archive->artifact_description }}</td>
+                                                    <td>{{ $archive->category->category_name }}</td>
+                                                    <td>{{ $archive->quantity }}</td>
+                                                    <td>
+                                                        @if ($archive->artifact_image)
+                                                            <a href="#" class="image-link" data-toggle="modal"
+                                                                data-target="#imageModal">
+                                                                <img src="{{ asset('artifact_image/' . $archive->artifact_image) }}"
+                                                                    class="projcard-img" />
+                                                            </a>
+                                                        @endif
+                                                    </td>
+                                                </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
@@ -379,432 +411,409 @@
                     </div>
                 </div>
 
-                  {{-- imagemodal --}}
+                {{-- imagemodal --}}
                 <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" style="margin-top: 80px;"
-                aria-labelledby="imageModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content" style="margin-top: 80px">
-                        <div class="modal-body">
-                            <img id="fullImage" src="" class="img-fluid" />
+                    aria-labelledby="imageModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content" style="margin-top: 80px">
+                            <div class="modal-body">
+                                <img id="fullImage" src="" class="img-fluid" />
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
 
-            <!-- Add Item Modal -->
-            <div class="modal fade" id="addItemModal" tabindex="-1" role="dialog"
-                aria-labelledby="addItemModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content" style="background-color: rgb(3, 34, 3);">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="addItemModalLabel">Add Item</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="{{ url('/add-artifacts') }}" method="POST"
-                                method="POST" enctype="multipart/form-data">
-                                @csrf
-                                <div class="form-group">
-                                    {{-- <label for="category">Category</label> --}}
-                                    <input type="hidden" class="form-control" id="name" name="userid"
-                                        value="{{ session('Admin')['user_fname'] }}" placeholder="Artifact Name">
-                                </div>
-                                <div class="form-group">
-                                    <label for="name">Item Name</label>
-                                    <input type="text" class="form-control" id="name"
-                                        name="artifact_name" @error('artifact_name') is-invalid @enderror
-                                        value="{{ old('artifact_name') }}" placeholder="Item Name">
-                                    @error('artifact_name')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                                <div class="form-group">
-                                    <label for="description">Description</label>
-                                    <textarea type="text" class="form-control" id="name" name="artifact_description"
-                                        @error('artifact_description') is-invalid @enderror value="{{ old('artifact_description') }}"
-                                        placeholder="Item Name"></textarea>
-                                    @error('artifact_description')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                                <div class="form-group">
-                                    <label for="quantity">Quantity</label>
-                                    <input type="text" class="form-control" id="name" name="quantity"
-                                        @error('quantity') is-invalid @enderror value="{{ old('quantity') }}"
-                                        placeholder="Item Name">
-                                    @error('quantity')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                                <div class="form-group">
-                                    <label for="image">Image</label>
-                                    <input type="file" class="form-control" id="name"
-                                        name="artifact_image" @error('artifact_image') is-invalid @enderror
-                                        value="{{ old('artifact_image') }}" placeholder="Item Name">
-                                    @error('artifact_image')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                                <br>
-                                <select name="artifact_category" id="artifact_category" class="form-control">
-                                    <option value="">Select Category</option>
-                                    @foreach ($categories as $category)
-                                        <option value="{{ $category->category_id }}" {{ old('artifact_category') == $category->category_id ? 'selected' : '' }}>
-                                            {{ $category->category_name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-
-                                <br>
-                                <button type="submit" class="btn btn-primary">Save Item</button>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Edit Category Modal -->
-            @foreach ($artifacts as $artifact)
-            <div class="modal fade" id="editItemModal{{ $artifact->artifact_id }}" tabindex="-1" role="dialog" aria-labelledby="editItemModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content" style="background-color: rgb(3, 34, 3);">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="editItemModalLabel">Edit Category</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="{{ url('/update-artifacts/' . $artifact->artifact_id) }}"
-                                method="POST" enctype="multipart/form-data">
-                                @csrf
-                                @method('PUT')
-                                <!-- Form fields -->
-                                <div class="form-group">
-                                    <label for="artifact_name">Artifact Name</label>
-                                    <input type="text" class="form-control" id="artifact_name" name="artifact_name" value="{{ $artifact->artifact_name }}" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="artifact_description">Artifact Description</label>
-                                    <textarea class="form-control" id="artifact_description" name="artifact_description" rows="5" required>{{ $artifact->artifact_description }}</textarea>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="artifact_category">Artifact Category</label>
-                                    <select class="form-control" id="artifact_category" name="category_id" required>
+                <!-- Add Item Modal -->
+                <div class="modal fade" id="addItemModal" tabindex="-1" role="dialog"
+                    aria-labelledby="addItemModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content" style="background-color: rgb(3, 34, 3);">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="addItemModalLabel">Add Item</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="{{ url('/add-artifacts') }}" method="POST" method="POST"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="form-group">
+                                        {{-- <label for="category">Category</label> --}}
+                                        <input type="hidden" class="form-control" id="name" name="userid"
+                                            value="{{ session('Admin')['user_fname'] }}" placeholder="Artifact Name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="name">Item Name</label>
+                                        <input type="text" class="form-control" id="name"
+                                            name="artifact_name" @error('artifact_name') is-invalid @enderror
+                                            value="{{ old('artifact_name') }}" placeholder="Item Name">
+                                        @error('artifact_name')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description">Description</label>
+                                        <textarea type="text" class="form-control" id="name" name="artifact_description"
+                                            @error('artifact_description') is-invalid @enderror value="{{ old('artifact_description') }}"
+                                            placeholder="Item Name"></textarea>
+                                        @error('artifact_description')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="quantity">Quantity</label>
+                                        <input type="text" class="form-control" id="name" name="quantity"
+                                            @error('quantity') is-invalid @enderror value="{{ old('quantity') }}"
+                                            placeholder="Item Name">
+                                        @error('quantity')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="image">Image</label>
+                                        <input type="file" class="form-control" id="name"
+                                            name="artifact_image" @error('artifact_image') is-invalid @enderror
+                                            value="{{ old('artifact_image') }}" placeholder="Item Name">
+                                        @error('artifact_image')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <br>
+                                    <select name="artifact_category" id="artifact_category" class="form-control">
+                                        <option value="">Select Category</option>
                                         @foreach ($categories as $category)
-                                            <option value="{{ $category->category_id }}" {{ $artifact->category_id == $category->category_id ? 'selected' : '' }}>
+                                            <option value="{{ $category->category_id }}"
+                                                {{ old('artifact_category') == $category->category_id ? 'selected' : '' }}>
                                                 {{ $category->category_name }}
                                             </option>
                                         @endforeach
                                     </select>
-                                </div>
 
-                                <div class="form-group">
-                                    <label for="quantity">Quantity</label>
-                                    <input type="number" class="form-control" id="quantity" name="quantity" value="{{ $artifact->quantity }}" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="artifact_image">Artifact Image</label>
-                                    <input type="file" class="form-control" id="artifact_image" name="artifact_image">
-                                    @if ($artifact->artifact_image)
-                                        <div class="mt-2">
-                                            <label>Current Image:</label>
-                                            <img src="{{ asset('artifact_image/' . $artifact->artifact_image) }}" class="img-thumbnail" alt="Current Image">
-                                        </div>
-                                    @else
-                                        <p>No image available</p>
-                                    @endif
-                                </div>
-
-
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                                </div>
-                            </form>
+                                    <br>
+                                    <button type="submit" class="btn btn-primary">Save Item</button>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            @endforeach
 
-
-            <!-- Archive Category Modal -->
-            @foreach ($artifacts as $artifact)
-            <div class="modal fade" id="archiveItemModal{{ $artifact->artifact_id }}" tabindex="-1" role="dialog" aria-labelledby="archiveItemModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content" style="background-color: rgb(3, 34, 3);">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="editItemModalLabel">Archive Category</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            {{-- <form action="{{ url('/edit-category/' . $artifact->artifact_id) }}" method="POST"> --}}
-                                {{-- @csrf --}}
-                                <p>Are you sure you want to archive the category: {{ $artifact->artifact_name }}?</p>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                    <form action="{{ url('/archive-category/'. $artifact->artifact_id) }}" method="POST">
+                <!-- Edit Category Modal -->
+                @foreach ($artifacts as $artifact)
+                    <div class="modal fade" id="editItemModal{{ $artifact->artifact_id }}" tabindex="-1"
+                        role="dialog" aria-labelledby="editItemModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content" style="background-color: rgb(3, 34, 3);">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editItemModalLabel">Edit Category</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{{ url('/update-artifacts/' . $artifact->artifact_id) }}"
+                                        method="POST" enctype="multipart/form-data">
                                         @csrf
-                                        <button type="submit" class="btn btn-primary">Archive</button>
+                                        @method('PUT')
+                                        <!-- Form fields -->
+                                        <div class="form-group">
+                                            <label for="artifact_name">Artifact Name</label>
+                                            <input type="text" class="form-control" id="artifact_name"
+                                                name="artifact_name" value="{{ $artifact->artifact_name }}" required>
+                                        </div>
 
+                                        <div class="form-group">
+                                            <label for="artifact_description">Artifact Description</label>
+                                            <textarea class="form-control" id="artifact_description" name="artifact_description" rows="5" required>{{ $artifact->artifact_description }}</textarea>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="artifact_category">Artifact Category</label>
+                                            <select class="form-control" id="artifact_category" name="category_id"
+                                                required>
+                                                @foreach ($categories as $category)
+                                                    <option value="{{ $category->category_id }}"
+                                                        {{ $artifact->category_id == $category->category_id ? 'selected' : '' }}>
+                                                        {{ $category->category_name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="quantity">Quantity</label>
+                                            <input type="number" class="form-control" id="quantity"
+                                                name="quantity" value="{{ $artifact->quantity }}" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="artifact_image">Artifact Image</label>
+                                            <input type="file" class="form-control" id="artifact_image"
+                                                name="artifact_image">
+                                            @if ($artifact->artifact_image)
+                                                <div class="mt-2">
+                                                    <label>Current Image:</label>
+                                                    <img src="{{ asset('artifact_image/' . $artifact->artifact_image) }}"
+                                                        class="img-thumbnail" alt="Current Image">
+                                                </div>
+                                            @else
+                                                <p>No image available</p>
+                                            @endif
+                                        </div>
+
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                                        </div>
                                     </form>
                                 </div>
-                            {{-- </form> --}}
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            @endforeach
+                @endforeach
 
-                    <!--End Row-->
 
-                    <!--End Dashboard Content-->
+                <!-- Archive Category Modal -->
+                @foreach ($artifacts as $artifact)
+                    <div class="modal fade" id="archiveItemModal{{ $artifact->artifact_id }}" tabindex="-1"
+                        role="dialog" aria-labelledby="archiveItemModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content" style="background-color: rgb(3, 34, 3);">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editItemModalLabel">Archive Category</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    {{-- <form action="{{ url('/edit-category/' . $artifact->artifact_id) }}" method="POST"> --}}
+                                    {{-- @csrf --}}
+                                    <p>Are you sure you want to archive the category: {{ $artifact->artifact_name }}?
+                                    </p>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Cancel</button>
+                                        <form action="{{ url('/archive-category/' . $artifact->artifact_id) }}"
+                                            method="POST">
+                                            @csrf
+                                            <button type="submit" class="btn btn-primary">Archive</button>
 
-                    <!--start overlay-->
-                    <div class="overlay toggle-menu"></div>
-                    <!--end overlay-->
-
-                </div>
-                <!-- End container-fluid-->
-
-            </div>
-            <!--End content-wrapper-->
-            <!--Start Back To Top Button-->
-            <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
-            <!--End Back To Top Button-->
-
-            <!--Start footer-->
-            <footer class="footer">
-                <div class="container">
-                    <div class="text-center">
-                        Copyright © 2018 Dashtreme Admin
+                                        </form>
+                                    </div>
+                                    {{-- </form> --}}
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </footer>
-            <!--End footer-->
+                @endforeach
 
-            <!--start color switcher-->
-            <div class="right-sidebar">
-                <div class="switcher-icon">
-                    <i class="zmdi zmdi-settings zmdi-hc-spin"></i>
-                </div>
-                <div class="right-sidebar-content">
+                <!--End Row-->
 
-                    <p class="mb-0">Gaussion Texture</p>
-                    <hr>
+                <!--End Dashboard Content-->
 
-                    <ul class="switcher">
-                        <li id="theme3"></li>
-                        <li id="theme2"></li>
-                        <li id="theme1"></li>
-                        <li id="theme4"></li>
-                        <li id="theme5"></li>
-                        <li id="theme6"></li>
-                    </ul>
+                <!--start overlay-->
+                <div class="overlay toggle-menu"></div>
+                <!--end overlay-->
 
-                    <p class="mb-0">Gradient Background</p>
-                    <hr>
-
-                    <ul class="switcher">
-                        <li id="theme7"></li>
-                        <li id="theme8"></li>
-                        <li id="theme9"></li>
-                        <li id="theme10"></li>
-                        <li id="theme11"></li>
-                        <li id="theme12"></li>
-                        <li id="theme13"></li>
-                        <li id="theme14"></li>
-                        <li id="theme15"></li>
-                    </ul>
-
-                </div>
             </div>
-            <!--end color switcher-->
+            <!-- End container-fluid-->
 
         </div>
-        <!--End wrapper-->
+        <!--End content-wrapper-->
+        <!--Start Back To Top Button-->
+        <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+        <!--End Back To Top Button-->
+
+        <!--Start footer-->
+        <footer class="footer">
+            <div class="container">
+                <div class="text-center">
+                    Copyright © 2018 Dashtreme Admin
+                </div>
+            </div>
+        </footer>
+        <!--End footer-->
 
 
 
-        <!-- Bootstrap core JavaScript-->
-        <script src="{{ asset('assets/js/jsadmin/jquery.min.js') }}"></script>
-        <script src="{{ asset('assets/js/jsadmin/popper.min.js') }}"></script>
-        <script src="{{ asset('assets/js/jsadmin/bootstrap.min.js') }}"></script>
+    </div>
+    <!--End wrapper-->
 
-        <!-- simplebar js -->
-        <script src="{{ asset('assets/plugins/simplebar/js/simplebar.js') }}"></script>
-        <!-- sidebar-menu js -->
-        <script src="{{ asset('assets/js/jsadmin/sidebar-menu.js') }}"></script>
-        <!-- loader scripts -->
-        <script src="{{ asset('assets/js/jsadmin/jquery.loading-indicator.js') }}"></script>
-        <!-- Custom scripts -->
-        <script src="{{ asset('assets/js/jsadmin/app-script.js') }}"></script>
-        <!-- Chart js -->
 
-        <script src="{{ asset('assets/plugins/Chart.js/Chart.min.js') }}"></script>
 
-        <!-- Index js -->
-        <script src="{{ asset('assets/js/jsadmin/index.js') }}"></script>
-        <script src="{{ asset('assets/js/inventory.js') }}"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-        </script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-        </script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-        </script>
-        <!-- jQuery -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap core JavaScript-->
+    <script src="{{ asset('assets/js/jsadmin/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jsadmin/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jsadmin/bootstrap.min.js') }}"></script>
 
-        <!-- Bootstrap JS -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+    <!-- simplebar js -->
+    <script src="{{ asset('assets/plugins/simplebar/js/simplebar.js') }}"></script>
+    <!-- sidebar-menu js -->
+    <script src="{{ asset('assets/js/jsadmin/sidebar-menu.js') }}"></script>
+    <!-- loader scripts -->
+    <script src="{{ asset('assets/js/jsadmin/jquery.loading-indicator.js') }}"></script>
+    <!-- Custom scripts -->
+    <script src="{{ asset('assets/js/jsadmin/app-script.js') }}"></script>
+    <!-- Chart js -->
 
-        @if (session('success'))
-            <script>
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success!',
-                    text: '{{ session('success') }}',
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    background: '#8cc63f',
-                    iconColor: '#ffffff',
-                    customClass: {
-                        title: 'text-white',
-                        content: 'text-white'
-                    }
-                });
-            </script>
-        @endif
+    <script src="{{ asset('assets/plugins/Chart.js/Chart.min.js') }}"></script>
 
-        @if (session('error'))
-            <script>
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error!',
-                    text: '{{ session('error') }}',
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    background: '#dc3545',
-                    iconColor: '#ffffff',
-                    customClass: {
-                        title: 'text-white',
-                        content: 'text-white'
-                    }
-                });
-            </script>
-        @endif
+    <!-- Index js -->
+    <script src="{{ asset('assets/js/jsadmin/index.js') }}"></script>
+    <script src="{{ asset('assets/js/inventory.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+
+    @if (session('success'))
         <script>
-            // Function to filter table rows based on search input
-            function filterTable() {
-                var input = document.getElementById("searchInput");
-                var filter = input.value.toUpperCase();
-                var table = document.getElementById("categoryTable");
-                var rows = table.getElementsByTagName("tr");
-
-                for (var i = 0; i < rows.length; i++) {
-                    var rowData = rows[i].getElementsByTagName("td");
-                    var match = false;
-
-                    for (var j = 0; j < rowData.length; j++) {
-                        if (rowData[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
-                            match = true;
-                            break;
-                        }
-                    }
-
-                    if (match) {
-                        rows[i].style.display = "";
-                    } else {
-                        rows[i].style.display = "none";
-                    }
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '{{ session('success') }}',
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: '#8cc63f',
+                iconColor: '#ffffff',
+                customClass: {
+                    title: 'text-white',
+                    content: 'text-white'
                 }
-            }
-
-            // Attach event listener to search input
-            document.getElementById("searchInput").addEventListener("keyup", filterTable);
-        </script>
-
-        <script>
-            $(document).ready(function() {
-                $("#searchInput").on("keyup", function() {
-                    var value = $(this).val().toLowerCase();
-                    $("#pending-table tbody tr").filter(function() {
-                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                    });
-                    $("#cancelled-table tbody tr").filter(function() {
-                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                    });
-                    $("#approved-table tbody tr").filter(function() {
-                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                    });
-                });
             });
         </script>
+    @endif
+
+    @if (session('error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: '{{ session('error') }}',
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: '#dc3545',
+                iconColor: '#ffffff',
+                customClass: {
+                    title: 'text-white',
+                    content: 'text-white'
+                }
+            });
+        </script>
+    @endif
+
+    <script>
+        // Function to filter table rows based on search input
+        function filterTable() {
+            var input = document.getElementById("searchInput");
+            var filter = input.value.toUpperCase();
+            var table = document.getElementById("categoryTable");
+            var rows = table.getElementsByTagName("tr");
+
+            for (var i = 0; i < rows.length; i++) {
+                var rowData = rows[i].getElementsByTagName("td");
+                var match = false;
+
+                for (var j = 0; j < rowData.length; j++) {
+                    if (rowData[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                        match = true;
+                        break;
+                    }
+                }
+
+                if (match) {
+                    rows[i].style.display = "";
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+        }
+
+        // Attach event listener to search input
+        document.getElementById("searchInput").addEventListener("keyup", filterTable);
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $("#searchInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#pending-table tbody tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+                $("#cancelled-table tbody tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+                $("#approved-table tbody tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
 
 
 
-  <script>
-   $(document).ready(function() {
-        // Show list table, hide archive table initially
-        $("#list").show();
-        $("#archiveRow").hide();
-
-        // Event handler for showing list table
-        $("#showListBtn").click(function() {
+    <script>
+        $(document).ready(function() {
+            // Show list table, hide archive table initially
             $("#list").show();
             $("#archiveRow").hide();
-        });
 
-        // Event handler for showing archive table
-        $("#showArchiveBtn").click(function() {
-            $("#list").hide();
-            $("#archiveRow").show();
+            // Event handler for showing list table
+            $("#showListBtn").click(function() {
+                $("#list").show();
+                $("#archiveRow").hide();
+            });
+
+            // Event handler for showing archive table
+            $("#showArchiveBtn").click(function() {
+                $("#list").hide();
+                $("#archiveRow").show();
+            });
         });
-    });
-</script>
-<script>
-    $(document).ready(function() {
-        $('.filter-option').click(function() {
-            var target = $(this).data('target');
-            $('.table-responsive table').hide();
-            $('#' + target).show();
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.filter-option').click(function() {
+                var target = $(this).data('target');
+                $('.table-responsive table').hide();
+                $('#' + target).show();
+            });
         });
-    });
-</script>
-<script>
-    $(document).ready(function() {
-        $('.image-link').hover(function() {
-            var imageSrc = $(this).find('img').attr('src');
-            $('#fullImage').attr('src', imageSrc);
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.image-link').hover(function() {
+                var imageSrc = $(this).find('img').attr('src');
+                $('#fullImage').attr('src', imageSrc);
+            });
         });
-    });
-</script>
+    </script>
 
 </body>
 

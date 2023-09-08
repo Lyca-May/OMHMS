@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<style>
+{{-- <style>
     .projcard {
         display: flex;
         justify-content: center;
@@ -48,7 +48,7 @@
         display: flex;
         gap: 10px;
     }
-</style>
+</style> --}}
 
 <head>
     <meta charset="utf-8" />
@@ -95,84 +95,84 @@
 
 <body class="bg-theme bg-theme1">
 
-   <!-- Start wrapper-->
-   <div id="wrapper">
+    <!-- Start wrapper-->
+    <div id="wrapper">
 
-    <!--Start sidebar-wrapper-->
-    <div id="sidebar-wrapper" data-simplebar="" data-simplebar-auto-hide="true">
-        <div class="brand-logo">
-            <a href="index.html">
-                <img src="{{ asset('omhms.png') }}" class="logo-icon" alt="logo icon">
-                <h5 class="logo-text">OMHMS</h5>
-            </a>
+        <!--Start sidebar-wrapper-->
+        <div id="sidebar-wrapper" data-simplebar="" data-simplebar-auto-hide="true">
+            <div class="brand-logo">
+                <a href="index.html">
+                    <img src="{{ asset('omhms.png') }}" class="logo-icon" alt="logo icon">
+                    <h5 class="logo-text">OMHMS</h5>
+                </a>
+            </div>
+            <ul class="sidebar-menu do-nicescrol">
+                <li class="sidebar-header">MAIN NAVIGATION</li>
+                <li>
+                    <a href="{{ asset('admin/home') }}">
+                        <i class="zmdi zmdi-view-dashboard"></i> <span>Dashboard</span>
+                    </a>
+                </li>
+
+
+                <li>
+                    <a href="#" id="tablesLink">
+                        <i class="zmdi zmdi-book"></i> <span>Bookings</span>
+                    </a>
+                    <ul id="tablesDrawer" class="drawer-items">
+                        <li><a class="zmdi zmdi-building" href="{{ asset('admin/visit') }}">Museum Visit</a></li>
+                        <li><a href="{{ url('admin/function') }}">Function Hall</a></li>
+
+                        <!-- Add more link items as needed -->
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="#" id="inventoryLink">
+                        <i class="zmdi zmdi-archive"></i> <span>Inventory</span>
+                    </a>
+                    <ul id="inventoryDrawer" class="drawer-items">
+                        <li><a href="{{ url('/artifacts') }}">Items & Artefacts</a></li>
+                        <li><a href="{{ url('/souvenirs') }}">Souvenirs</a></li>
+                        <li><a href="{{ url('/category') }}">Category</a></li>
+                        <!-- Add more link items as needed -->
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="{{ url('admin/announcement') }}">
+                        <i class="zmdi zmdi-info-outline"></i> <span>Announcements</span>
+                    </a>
+                </li>
+
+
+                <li>
+                    <a href="forms.html">
+                        <i class="zmdi zmdi-file-text"></i> <span>Attendance</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ asset('admin/calendar') }}">
+                        <i class="zmdi zmdi-calendar-check"></i> <span>Calendar</span>
+                        {{-- <small class="badge float-right badge-light">New</small> --}}
+                    </a>
+                </li>
+
+
+
+                <li class="sidebar-header">LABELS</li>
+                <li>
+                    <a href="{{ asset('admin/profile') }}">
+                        <i class="zmdi zmdi-face"></i> <span>Profile</span>
+                    </a>
+                </li>
+
+
+            </ul>
+
         </div>
-        <ul class="sidebar-menu do-nicescrol">
-            <li class="sidebar-header">MAIN NAVIGATION</li>
-            <li>
-                <a href="{{ asset('admin/home') }}">
-                    <i class="zmdi zmdi-view-dashboard"></i> <span>Dashboard</span>
-                </a>
-            </li>
-
-
-            <li>
-                <a href="#" id="tablesLink">
-                    <i class="zmdi zmdi-book"></i> <span>Bookings</span>
-                </a>
-                <ul id="tablesDrawer" class="drawer-items">
-                    <li><a class="zmdi zmdi-building" href="{{ asset('admin/visit') }}">Museum Visit</a></li>
-                    <li><a href="{{url('admin/function')}}">Function Hall</a></li>
-
-                    <!-- Add more link items as needed -->
-                </ul>
-            </li>
-
-            <li>
-                <a href="#" id="inventoryLink">
-                    <i class="zmdi zmdi-archive"></i> <span>Inventory</span>
-                </a>
-                <ul id="inventoryDrawer" class="drawer-items">
-                    <li><a href="{{ url('/artifacts') }}">Items & Artefacts</a></li>
-                    <li><a href="{{ url('/souvenirs') }}">Souvenirs</a></li>
-                    <li><a href="{{ url('/category') }}">Category</a></li>
-                    <!-- Add more link items as needed -->
-                </ul>
-            </li>
-
-            <li>
-                <a href="forms.html">
-                    <i class="zmdi zmdi-info-outline"></i> <span>Announcements</span>
-                </a>
-            </li>
-
-
-            <li>
-                <a href="forms.html">
-                    <i class="zmdi zmdi-file-text"></i> <span>Attendance</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="{{ asset('admin/calendar') }}">
-                    <i class="zmdi zmdi-calendar-check"></i> <span>Calendar</span>
-                    {{-- <small class="badge float-right badge-light">New</small> --}}
-                </a>
-            </li>
-
-
-
-            <li class="sidebar-header">LABELS</li>
-            <li>
-                <a href="{{ asset('admin/profile') }}">
-                    <i class="zmdi zmdi-face"></i> <span>Profile</span>
-                </a>
-            </li>
-
-
-        </ul>
-
-    </div>
-<!--End sidebar-wrapper-->
+        <!--End sidebar-wrapper-->
 
         <!--Start topbar header-->
         <header class="topbar-nav">
@@ -257,10 +257,39 @@
                         <h3><b>Announcements</b></h3>
                     </span>
 
-                    <button href="#myModal" data-backdrop="false" data-toggle="modal"
-                        style="float:right;margin-right:20px;display: inline-block" class="btn btn-success">
-                        <b> + Add</b>
-                    </button></span>
+                    <style>
+                        .center-button {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            height: 70vh;
+                        }
+                    </style>
+
+                    @if (count($announcement) === 0)
+                    <div class="center-button">
+                        <div class="card" style="text-align: center; padding: 20px;">
+                            <div class="card-body">
+                                <button href="#myModal" data-backdrop="false" data-toggle="modal" class="btn btn-success"
+                                    style="background-color: #28a745; width:200px">
+                                    <span style="color: #fff;"> <b>+</b>Create Announcement</span>
+
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    @else
+                        <!-- Move the button to the upper right corner when announcements exist -->
+                        <div>
+                            < <button href="#myModal" data-backdrop="false" data-toggle="modal"
+                                style="float:right;margin-right:20px;display: inline-block" class="btn btn-success">
+                                <b> + Add</b>
+                                </button>
+                        </div>
+                    @endif
                 </div>
                 {{-- <div id="myModal" class="modal fade">
                     <div class="modal-dialog">
@@ -297,54 +326,56 @@
                     <!-- /.modal-dialog -->
                 </div> --}}
 
-                <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="addItemModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" style="background-color: rgb(3, 34, 3);">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addItemModalLabel">Add Announcement</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="{{ url('/create-announcement') }}" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <div class="form-group">
-                        <label for="announcer">Announcer</label>
-                        <input type="text" name="announcer" id="announcer" class="form-control"
-                            value="{{ session('Admin') ['user_fname'] }}" @error('announcer') is-invalid @enderror
-                            autocomplete="off">
-                        @error('announcer')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                <div id="myModal" class="modal fade" tabindex="-1" role="dialog"
+                    aria-labelledby="addItemModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content" style="background-color: rgb(3, 34, 3);">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="addItemModalLabel">Add Announcement</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="{{ url('/create-announcement') }}" method="post"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="form-group" >
+                                        <label for="announcer" style="color:white">Announcer</label>
+                                        <input type="text" name="announcer" id="announcer" class="form-control"
+                                            value="{{ session('Admin')['user_fname'] }}"
+                                            @error('announcer') is-invalid @enderror autocomplete="off">
+                                        @error('announcer')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="announcement_content" style="color:white">Announce something..</label>
+                                        <input type="text" name="announcement_content" id="announcement_content"
+                                            class="form-control" value="{{ old('announcement_content') }}"
+                                            @error('announcement_content') is-invalid @enderror autocomplete="off">
+                                        @error('announcement_content')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="announcement_image">Upload Picture</label>
+                                        <input type="file" name="announcement_image" id="announcement_image"
+                                            class="form-control-file" @error('announcement_image') is-invalid @enderror
+                                            autocomplete="off">
+                                        @error('announcement_image')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="announcement_content">Announce something..</label>
-                        <input type="text" name="announcement_content" id="announcement_content" class="form-control"
-                            value="{{ old('announcement_content') }}" @error('announcement_content') is-invalid @enderror
-                            autocomplete="off">
-                        @error('announcement_content')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="announcement_image">Upload Picture</label>
-                        <input type="file" name="announcement_image" id="announcement_image" class="form-control-file"
-                            @error('announcement_image') is-invalid @enderror autocomplete="off">
-                        @error('announcement_image')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <button type="submit" class="btn btn-primary">Save</button>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
+                </div>
 
 
 
@@ -359,26 +390,32 @@
                         <div class="projcard projcard-blue">
                             <div class="projcard-innerbox">
                                 @if ($announcements->announcement_image)
-                                <a href="#" data-toggle="modal" data-target="#imageModal{{ $announcements->announcement_id }}">
-                                    <img src="{{ asset('announcement_image/' .$announcements->announcement_image) }}" class="projcard-img" />
-                                </a>
+                                    <a href="#" data-toggle="modal"
+                                        data-target="#imageModal{{ $announcements->announcement_id }}">
+                                        <img src="{{ asset('announcement_image/' . $announcements->announcement_image) }}"
+                                            class="projcard-img" />
+                                    </a>
                                 @else
-                                <img src="{{ asset('announcement_image/default-image.jpg') }}" class="projcard-img" />
+                                    <img src="{{ asset('announcement_image/default-image.jpg') }}"
+                                        class="projcard-img" />
                                 @endif
 
                                 <div class="projcard-textbox">
                                     <div class="projcard-title">{{ $announcements->announcement_id }}</div>
-                                    <div class="projcard-subtitle">{{ date('F d, Y', strtotime($announcements->created_at)) }}</div>
+                                    <div class="projcard-subtitle">
+                                        {{ date('F d, Y', strtotime($announcements->created_at)) }}</div>
                                     <hr>
                                     <div class="projcard-description">{{ $announcements->announcement_content }}</div>
                                     <div class="projcard-actions">
                                         <form method="POST" action="{{ url('archive-announcement') }}">
                                             @csrf
-                                            <input type="hidden" name="announcement_id" value="{{ $announcements->announcement_id }}">
+                                            <input type="hidden" name="announcement_id"
+                                                value="{{ $announcements->announcement_id }}">
                                             <button type="submit" class="btn btn-danger">Archive</button>
                                         </form>
                                         <form>
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal">Edit</button>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                data-target="#editModal">Edit</button>
                                         </form>
                                     </div>
                                 </div>
@@ -386,11 +423,14 @@
                         </div>
 
                         <!-- Image Modal -->
-                        <div class="modal fade" id="imageModal{{ $announcements->announcement_id }}" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true" style="margin-top: 100px">
+                        <div class="modal fade" id="imageModal{{ $announcements->announcement_id }}" tabindex="-1"
+                            role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true"
+                            style="margin-top: 100px">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-body" style="margin-top: 20px">
-                                        <img src="{{ asset('announcement_image/' .$announcements->announcement_image) }}" class="img-fluid" />
+                                        <img src="{{ asset('announcement_image/' . $announcements->announcement_image) }}"
+                                            class="img-fluid" />
                                     </div>
                                 </div>
                             </div>
@@ -428,8 +468,8 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="description">Image</label>
-                                                <input class="form-control" id="description"
-                                                    type= "file" name= "announcement_image"
+                                                <input class="form-control" id="description" type="file"
+                                                    name="announcement_image"
                                                     value="{{ $announcements->announcement_image }}">
                                             </div>
                                             {{-- <div class="form-group">

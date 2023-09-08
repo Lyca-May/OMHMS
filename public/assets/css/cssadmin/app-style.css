@@ -494,7 +494,7 @@ hr {
 } */
 
 body.bg-theme1 {
-  background-image: url(../../images/bg-themes/3.png);
+  background-image: url(../../images/bg-themes/bg.jfif);
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
@@ -693,7 +693,7 @@ body.bg-theme15 {
 
 /* SearachBar */
 .search-bar{
-	margin-left: 20px;
+	margin-left: 40px;
 	position: relative;
 }
 
@@ -1872,7 +1872,7 @@ label {
 }
 
 /* Tables */
-table.grid {
+/* table.grid {
     width: 100%;
     border: none;
     background-color: transparent;
@@ -1881,11 +1881,11 @@ table.grid {
 table.grid td {
     border: 2px solid white;
     padding: 8px;
-}
+} */
 
 .search-box {
     position: relative;
-    margin-left: 750px;
+    margin-left: 950px;
 }
 .search-box input {
     height: 34px;
@@ -1896,7 +1896,7 @@ table.grid td {
     width: 250px;
 }
 .search-box input:focus {
-    border-color: #3FBAE4;
+    border-color: #195a1d;
 }
 .search-box i {
     color: #a0a5b1;
@@ -1950,10 +1950,10 @@ table.grid td {
 .table th {
     font-weight: 600;
 }
-.table-responsive{
+/* .table-responsive{
 	white-space:nowrap;
     overflow-x: auto;
-}
+} */
 .table .thead-primary th {
     color: #fff;
     background-color: #14abef;
@@ -3718,8 +3718,94 @@ wrapper.toggled #sidebar-wrapper {
     padding: 0px 10px 0 5px;
   }
 
+/* BUTTON ANNOUNCE*/
+    .projcard {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .projcard-innerbox {
+        display: flex;
+        align-items: center;
+        background-color: #f0f0f0;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .projcard-img {
+        width: 200px;
+        height: 150px;
+        object-fit: cover;
+        margin-right: 20px;
+    }
+
+    .projcard-textbox {
+        flex-grow: 1;
+    }
+
+    .projcard-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .projcard-subtitle {
+        font-size: 14px;
+        color: #777;
+        margin-bottom: 10px;
+    }
+
+    .projcard-description {
+        margin-bottom: 10px;
+    }
+
+    .projcard-actions {
+        display: flex;
+        gap: 10px;
+    }
 
 }
+/* ADD to PROF*/
+
+.profile-head {
+    transform: translateY(5rem)
+}
+
+.cover {
+    background-image: url(https://images.unsplash.com/photo-1530305408560-82d13781b33a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1352&q=80);
+    background-size: cover;
+    background-repeat: no-repeat
+}
+
+body {
+    /* background: #654ea3; */
+    /* background: linear-gradient(to right, #e96443, #904e95); */
+    min-height: 100vh;
+    overflow-x:hidden;
+}
+
+.text-center {
+    text-align: center !important
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #455a64;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 1rem
+}
+
 
 
 
