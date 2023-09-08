@@ -29,6 +29,7 @@ Route::view('auth/reset-form', 'auth.reset-form');
 
 //Landing Page
 Route::view('/', 'user.pages.landingpage.landingpage');
+Route::view('chat', 'chat.chat');
 
 //About Nav Pages
 // Route::view('user/history', 'user.pages.landingpage.aboutpages.history');
