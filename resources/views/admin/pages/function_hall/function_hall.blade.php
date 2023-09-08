@@ -155,24 +155,15 @@
 
                 <li class="sidebar-header">About Us</li>
                 <li>
-                    <a href="{{url('about-us/history')}}">
-                        <i class="zmdi zmdi-history"></i> <span>History Content</span>
+                    <a href="#" id="contentLink">
+                        <i class="zmdi zmdi-edit"></i> <span>Edit Content</span>
                     </a>
-                </li>
-                <li>
-                    <a href="{{url('about-us/footer')}}">
-                        <i class="zmdi zmdi-history"></i> <span>History Footer</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{url('about-us/wts')}}">
-                        <i class="zmdi zmdi-history"></i> <span>What To See Inside</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{url('about-us/contact')}}">
-                        <i class="zmdi zmdi-history"></i> <span>Contact</span>
-                    </a>
+                    <ul id="contentDrawer" class="drawer-items" >
+                        <li><a href="{{url('about-us/history') }}">Edit History</a></li>
+                        <li><a href="{{url('about-us/footer')}}">Footer</a></li>
+                        <li><a href="{{url('about-us/wts')}}">What to see Inside</a></li>
+                        <li><a href="{{url('about-us/contact')}}">Contact</a></li>
+                    </ul>
                 </li>
                 <li>
                     <a href="{{ asset('admin/profile') }}">

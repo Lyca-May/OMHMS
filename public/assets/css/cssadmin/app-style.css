@@ -756,6 +756,7 @@ body.bg-theme15 {
     font-size: 12px;
 }
 
+/* Booking Drowdown */
 #tablesDrawer {
     display: none;
     list-style: none;
@@ -768,10 +769,11 @@ body.bg-theme15 {
   }
 
   #tablesDrawer li a {
-    /* text-decoration: none; */
-    /* color: white; */
+
     font-weight: 300;
   }
+
+  /* Inventory Drowdown */
 
   #inventoryDrawer {
     display: none;
@@ -784,10 +786,28 @@ body.bg-theme15 {
   }
 
   #inventoryDrawer li a {
-    /* text-decoration: none; */
-    /* color: white; */
+
     font-weight: 300;
   }
+
+
+  /* Content Drowdown */
+
+  #contentDrawer {
+    display: none;
+    list-style: none;
+    padding: 15px;
+  }
+
+  #contentDrawer li {
+    padding: 10px;
+  }
+
+  #contentDrawer li a {
+
+    font-weight: 300;
+  }
+
 
 .row.row-group>div {
     border-right: 1px solid rgba(255, 255, 255, 0.12)
