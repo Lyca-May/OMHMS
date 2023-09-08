@@ -304,8 +304,14 @@
                                                         <div class="container">
                                                             <h2>Your QR Code</h2>
                                                             <p>Scan this QR code for your reservation details.</p>
-                                                            <img src="{{ asset('qrcodes/' . $visit->visits_id . '.png') }}" alt="QR Code">
+                                                            <img src="{{ asset('qrcodes/' . $visit->visits_id . '.png') }}" alt="QR Code" class="img-responsive">
+
+                                                            <!-- Download Button -->
+                                                            <a href="{{ asset('qrcodes/' . $visit->visits_id . '.png') }}" download="qr_code.png" class="btn btn-primary mt-3">
+                                                                Download QR Code
+                                                            </a>
                                                         </div>
+
 
 
                                                         <div class="post" style="line-height: 10px">

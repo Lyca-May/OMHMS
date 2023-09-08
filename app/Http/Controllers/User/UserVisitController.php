@@ -234,6 +234,10 @@ class UserVisitController extends Controller
 
             $qrCode = QrCode::format('png')
             ->size(200)
+            ->margin(10) // Add a margin around the QR code
+            ->color(0, 0, 0, 255, 0, 0, 0) // Set the QR code color to black
+            ->backgroundColor(255, 255, 255) // Set the background color to white
+            ->errorCorrection('H') // Error correction level
             ->generate(json_encode($qrData));
 
             // Save the QR code image to the public folder
@@ -318,7 +322,23 @@ public function showActiveQRCode($visitId)
 }
 
 
+public function scanQRCode(Request $request)
+    {
+        $scannedContent = $request->input('scanned_content');
 
+        // You can update the visit status based on the scanned content here.
+        // For example, if the content matches a specific visit ID, update its status.
+
+        // Sample code (update with your logic):
+        $visit = Visit_Model::where('visits_id', $scannedContent)->first();
+
+        if ($visit) {
+            $visit->update(['visits_status' => 'DONE']);
+            // Add any additional processing logic here.
+        }
+
+        return response()->json(['message' => 'Visit status updated successfully']);
+    }
 
 
     public function add_members(Request $request)
@@ -424,4 +444,9 @@ public function showActiveQRCode($visitId)
     }
 
 
+
 }
+
+
+
+
