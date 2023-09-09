@@ -1,10 +1,8 @@
 <?php
-
 namespace App\Http\Controllers;
-
-
 use Illuminate\Http\Request;
 use App\Models\Chat;
+use App\Events\NewChatMessage; // Import the event
 
 class ChatController extends Controller
 {
@@ -41,7 +39,11 @@ class ChatController extends Controller
             $adminMessage->save();
         }
 
+        // Broadcast the NewChatMessage event to others
+        broadcast(new NewChatMessage($chatMessage))->toOthers();
+
         // Redirect back to the chat interface
         return redirect()->route('chat.index');
     }
 }
+
