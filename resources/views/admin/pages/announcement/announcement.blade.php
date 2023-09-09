@@ -209,7 +209,7 @@
                             href="javascript:void();">
                             <i class="fa fa-bell-o"></i></a>
                     </li>
-                    <li class="nav-item language">
+                    {{-- <li class="nav-item language">
                         <a class="nav-link dropdown-toggle dropdown-toggle-nocaret waves-effect" data-toggle="dropdown"
                             href="javascript:void();"><i class="fa fa-flag"></i></a>
                         <ul class="dropdown-menu dropdown-menu-right">
@@ -218,7 +218,7 @@
                             <li class="dropdown-item"> <i class="flag-icon flag-icon-cn mr-2"></i> Chinese</li>
                             <li class="dropdown-item"> <i class="flag-icon flag-icon-de mr-2"></i> German</li>
                         </ul>
-                    </li>
+                    </li> --}}
                     @foreach ($users as $user)
                         <li class="nav-item">
                             <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown"
