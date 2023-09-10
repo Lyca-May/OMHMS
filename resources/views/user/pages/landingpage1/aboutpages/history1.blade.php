@@ -105,50 +105,42 @@
 
     <!--================ About History Area  =================-->
     <section class="about_history_area section_gap">
-        @foreach ($contents as $history )
-        @if ($history->history_id == 1)
         <div class="container">
+            @foreach ($contents as $history)
             <div class="row">
                 <div class="col-md-6 d_flex align-items-center">
-                    <div class="about_content ">
-                        <input type="hidden" name="" id="" value="{{$history->history_id==1 }}">
+                    <div class="about_content">
+                        <input type="hidden" name="" id="" value="{{$history->history_id}}">
                         <h2 class="title title_color">{{$history->history_title}}</h2>
                         <h4>{{$history->history_desc}}</h4>
-                        <p>{{$history->history_info}}
-                        </p>
+                        <p>{{$history->history_info}}</p>
                         {{-- <a href="#" class="button_hover theme_btn_two">Request Custom Price</a> --}}
                     </div>
                 </div>
                 <div class="col-md-6">
                     @if ($history->history_image)
-                        <img class="img-fluid" style="margin-top: 90px" src="{{ asset('history_image/' . $history->history_image) }}"
-                        alt="img" />
-                @endif
+                        <img class="img-fluid" style="margin-top: 90px" src="{{ asset('history_image/' . $history->history_image) }}" alt="img" />
+                    @endif
                 </div>
             </div>
-            @foreach ($contents as $history )
-            @if ($history->history_id == 2)
+
             <div class="row">
-                <input type="hidden" name="" id="" value="{{$history->history_id==2 }}">
+                <input type="hidden" name="" id="" value="{{$history->history_id1}}">
                 <div class="col-md-6">
-                    @if ($history->history_image)
-                    <img class="img-fluid" style="margin-top: 90px" src="{{ asset('history_image/' . $history->history_image) }}"
-                    alt="img" />
+                    @if ($history->history_image1)
+                    <img class="img-fluid" style="margin-top: 90px" src="{{ asset('history_image1/' . $history->history_image1) }}" alt="img" />
                     @endif
                 </div>
                 <div class="col-md-6 d_flex align-items-center">
-                    <div class="about_content ">
-                        <p>{{$history->history_info}}
-                        </p>
+                    <div class="about_content">
+                        <p>{{$history->history_info1}}</p>
                     </div>
                 </div>
             </div>
-            @endif
             @endforeach
         </div>
-        @endif
-        @endforeach
     </section>
+
     <!--================ About History Area  =================-->
 
     <!--================ Facilities Area  =================-->

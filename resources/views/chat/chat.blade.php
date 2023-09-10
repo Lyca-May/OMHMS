@@ -23,5 +23,7 @@
             <button type="submit">Send</button>
         </form>
     </div>
+
+    <script src="{{ asset('js/chat.js') }}"></script>
 </body>
 </html>

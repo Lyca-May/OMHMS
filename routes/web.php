@@ -103,6 +103,8 @@ Route::post('/update-user-profile', [AuthController::class, 'updateProfile']);
 Route::post('/update-profile', [AuthController::class, 'updateAdminProfile']);
 Route::get('user/profile', [AuthController::class, 'displayProfile']);
 Route::get('admin/profile', [AuthController::class, 'displayAdminProfile']);
+Route::post('/change-password', [AuthController::class,'changePassword'])->name('change.password');
+
 
 
 //Admin Page View

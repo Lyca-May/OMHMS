@@ -48,14 +48,18 @@ class About_Us extends Controller
             'history_title' => 'required',
             'history_desc' => 'required',
             'history_info' => 'required',
+            'history_info1' => 'required',
             'history_image' => 'required',
+            'history_image1' => 'required',
         ];
 
         $messages = [
             'history_title.required' => 'The title name is required.',
             'history_desc.required' => 'The description is required.',
             'history_info.required' => 'The information is required.',
+            'history_info1.required' => 'The information is required.',
             'history_image' => 'Image of the history is required',
+            'history_image1' => 'Image of the history is required',
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -67,6 +71,8 @@ class About_Us extends Controller
         $history_title = $request->input('history_title');
         $history_desc = $request->input('history_desc');
         $history_info = $request->input('history_info');
+        $history_info1 = $request->input('history_info1');
+
 
         // Create and save the hist
         $hist = new History_Content();
@@ -74,6 +80,7 @@ class About_Us extends Controller
         $hist->history_title = $history_title;
         $hist->history_desc = $history_desc;
         $hist->history_info = $history_info;
+        $hist->history_info1 = $history_info1;
         $hist->is_archived = false;
 
         if ($request->hasFile('history_image')) {
@@ -88,6 +95,19 @@ class About_Us extends Controller
 
             // Update the user's history_image column with the filename
             $hist->history_image = $filename;
+        }
+        if ($request->hasFile('history_image1')) {
+            // Get the uploaded file
+            $history_image1 = $request->file('history_image1');
+
+            // Generate a unique filename for the uploaded file
+            $filename = time() . '_' . $history_image1->getClientOriginalName();
+
+            // Save the file to the storage/app/public/history_images directory
+            $history_image1->move(public_path('history_image1'), $filename);
+
+            // Update the user's history_image column with the filename
+            $hist->history_image1 = $filename;
         }
 
         $hist->save();
@@ -104,21 +124,25 @@ class About_Us extends Controller
     public function update_history_content(Request $request, $history_id)
     {
         // Validate the request data
-        $rules = [
+        $validator = Validator::make($request->all(), [
             'history_title' => 'required',
             'history_desc' => 'required',
             'history_info' => 'required',
-            'history_image' => 'required',
-        ];
-
-        $messages = [
+            'history_info1' => 'required',
+            'history_image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust file types and size as needed
+            'history_image1' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust file types and size as needed
+        ], [
             'history_title.required' => 'The history title is required.',
             'history_desc.required' => 'The history description is required.',
             'history_info.required' => 'The history information is required.',
-            'history_image.required' => 'The history image is required.',
-        ];
-
-        $validator = Validator::make($request->all(), $rules, $messages);
+            'history_info1.required' => 'The history information is required.',
+            'history_image.image' => 'The history image must be an image file.',
+            'history_image.mimes' => 'The history image must be in JPEG, PNG, JPG, or GIF format.',
+            'history_image.max' => 'The history image size should not exceed 2MB.',
+            'history_image1.image' => 'The second history image must be an image file.',
+            'history_image1.mimes' => 'The second history image must be in JPEG, PNG, JPG, or GIF format.',
+            'history_image1.max' => 'The second history image size should not exceed 2MB.',
+        ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
@@ -127,19 +151,26 @@ class About_Us extends Controller
         $history = History_Content::findOrFail($history_id);
 
         if (!$history) {
-            return redirect()->back()->with('error', 'history not found.');
+            return redirect()->back()->with('error', 'History not found.');
         }
 
         $history->history_title = $request->input('history_title');
         $history->history_desc = $request->input('history_desc');
         $history->history_info = $request->input('history_info');
-        // $history->history_image = $request->input('history_image');
+        $history->history_info1 = $request->input('history_info1');
 
         if ($request->hasFile('history_image')) {
             $file = $request->file('history_image');
             $filename = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('history_image'), $filename);
             $history->history_image = $filename;
+        }
+
+        if ($request->hasFile('history_image1')) {
+            $file = $request->file('history_image1');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('history_image1'), $filename);
+            $history->history_image1 = $filename;
         }
 
         $history->save();
@@ -150,6 +181,7 @@ class About_Us extends Controller
             return redirect()->back()->with('failed', 'Failed to update History content.');
         }
     }
+
 
     public function archive_history_content($history_id)
     {
