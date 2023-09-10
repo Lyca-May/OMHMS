@@ -87,8 +87,8 @@
 
 
           <li>
-            <a href="forms.html">
-              <i class="zmdi zmdi-file-text"></i> <span>Attendance</span>
+            <a href="{{ url('admin/attendance') }}">
+                <i class="zmdi zmdi-file-text"></i> <span>Attendance</span>
             </a>
           </li>
 

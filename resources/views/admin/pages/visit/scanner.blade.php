@@ -139,7 +139,7 @@
                     <a href="#" id="tablesLink">
                         <i class="zmdi zmdi-book"></i> <span>Bookings</span>
                     </a>
-                    <ul id="tablesDrawer" class="drawer-items">
+                    <ul id="tablesDrawer" class="drawer-items" style="display:block">
                         <li><a href="{{ asset('admin/visit') }}">Museum Visit</a></li>
                         <li><a href="{{ url('admin/function') }}">Function Hall</a></li>
                         <!-- Add more link items as needed -->
@@ -149,7 +149,7 @@
                     <a href="#" id="inventoryLink">
                         <i class="zmdi zmdi-archive"></i> <span>Inventory</span>
                     </a>
-                    <ul id="inventoryDrawer" class="drawer-items">
+                    <ul id="inventoryDrawer" class="drawer-items" style="display:block">
                         <li><a href="{{ url('/artifacts') }}">Items & Artifacts</a></li>
                         <li><a href="{{ url('/souvenirs') }}">Souvenirs</a></li>
                         <li><a href="{{ url('/category') }}">Category</a></li>
@@ -164,7 +164,7 @@
 
 
                 <li>
-                    <a href="forms.html">
+                    <a href="{{ url('admin/attendance') }}">
                         <i class="zmdi zmdi-file-text"></i> <span>Attendance</span>
                     </a>
                 </li>
@@ -185,7 +185,7 @@
                     <a href="#" id="contentLink">
                         <i class="zmdi zmdi-edit"></i> <span>Edit Content</span>
                     </a>
-                    <ul id="contentDrawer" class="drawer-items">
+                    <ul id="contentDrawer" class="drawer-items" style="display:block">
                         <li><a href="{{ url('about-us/history') }}">Edit History</a></li>
                         <li><a href="{{ url('about-us/footer') }}">Footer</a></li>
                         <li><a href="{{ url('about-us/wts') }}">What to see Inside</a></li>
@@ -223,8 +223,8 @@
 
                 <ul class="navbar-nav align-items-center right-nav-link">
                     <li class="nav-item dropdown-lg">
-                        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret waves-effect" data-toggle="dropdown"
-                            href="javascript:void();">
+                        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret waves-effect"
+                            data-toggle="dropdown" href="javascript:void();">
                             <i class="fa fa-envelope-open-o"></i></a>
                     </li>
                     <li class="nav-item dropdown-lg">
@@ -278,7 +278,7 @@
         </header>
         <!--End topbar header-->
 
-        <div class="clearfix"></div>
+        {{-- <div class="clearfix"></div> --}}
 
         <div class="content-wrapper">
 
@@ -287,30 +287,17 @@
 
                     <h1>Scan QR Code</h1>
 
-                    <div id="video-container">
-                    </div>
+                    <div id="video-container"> </div>
 
-                        <div id="result-container">
-                            <div id="result">Scanning...</div>
-                            <div id="success-icon">&#10004;</div>
-                        </div>
+                    <div id="result-container">
+                        <div id="result">Scanning...</div>
+                        <div id="success-icon">&#10004;</div>
                     </div>
-
                 </div>
             </div>
         </div>
+    </div>
 
-            <!--End Row-->
-
-            <!--End Dashboard Content-->
-
-            <!--start overlay-->
-            <div class="overlay toggle-menu"></div>
-            <!--end overlay-->
-
-            {{-- </div> --}}
-            <!-- End container-fluid-->
-        </div>
 
         <!--End content-wrapper-->
         <!--Start Back To Top Button-->
