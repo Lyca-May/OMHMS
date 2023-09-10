@@ -18,7 +18,9 @@ return new class extends Migration
             $table->string('history_title');
             $table->string('history_desc');
             $table->text('history_info');
+            $table->text('history_info1');
             $table->string('history_image');
+            $table->string('history_image1');
             $table->boolean('is_archived')->default(false);
             $table->timestamps();
         });

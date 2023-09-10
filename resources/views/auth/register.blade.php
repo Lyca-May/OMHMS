@@ -20,7 +20,7 @@
     <div class="container">
         <div class="forms">
             <div class="form-content">
-                <div class="signup-form ">
+                <div class="signup-form">
                     @if (session('success'))
                         <span style="color: green">{{ session('success') }}</span>
                     @elseif (session('failed'))
@@ -29,22 +29,6 @@
                     <div class="title">Signup</div>
                     <form class="form-horizontal" action="{{ route('register') }}" method="POST">
                         @csrf
-
-                        <div class="input-boxes">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="input-box">
-                                        <i class="fas fa-envelope"></i>
-                                         <select name="role" id="" class="form-control" name="role" value="{{old('role')}}" class="@error('role') is-invalid @enderror">
-                                            <option value="ADMIN">ADMIN</option>
-                                            <option value="USER">USER</option>
-                                        </select>
-                                        @error('role')
-                                            <span style="color: red">{{$message}}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
 
                         <div class="input-boxes">
                             <div class="row">
@@ -75,7 +59,8 @@
                                 <div class="col">
                                     <div class="input-box">
                                         <i class="fas fa-lock"></i>
-                                        <input type="password" placeholder="Confirm your Password"  class="form-control" name="user_password_confirmation"
+                                        <input type="password" placeholder="Confirm your Password" class="form-control"
+                                            name="user_password_confirmation"
                                             value="{{ old('user_password_confirmation') }}"
                                             class="@error('user_password_confirmation') is-invalid @enderror"
                                             autocomplete="on">
@@ -91,27 +76,33 @@
                                 <div class="col">
                                     <div class="input-box">
                                         <i class="fas fa-user"></i>
-                                        <input type="text" placeholder="First Name" class="form-control" name="user_fname" value="{{old('user_fname')}}" class="@error('user_fname') is-invalid @enderror" autocomplete="on">
+                                        <input type="text" placeholder="First Name" class="form-control" name="user_fname"
+                                            value="{{ old('user_fname') }}" class="@error('user_fname') is-invalid @enderror"
+                                            autocomplete="on">
                                         @error('user_fname')
-                                        <span style="color: red; font-size:15px">{{$message}}</span>
+                                        <span style="color: red; font-size:15px">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="input-box">
                                         <i class="fas fa-user"></i>
-                                        <input type="text" placeholder="Middle Name" class="form-control"  type="text" name="user_mname" value="{{old('user_mname')}}" class="@error('user_mname') is-invalid @enderror" autocomplete="on">
+                                        <input type="text" placeholder="Middle Name" class="form-control" name="user_mname"
+                                            value="{{ old('user_mname') }}" class="@error('user_mname') is-invalid @enderror"
+                                            autocomplete="on">
                                         @error('user_mname')
-                                        <span style="color: red; font-size:15px">{{$message}}</span>
+                                        <span style="color: red; font-size:15px">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="input-box">
                                         <i class="fas fa-user"></i>
-                                        <input type="text" placeholder="Last Name" class="form-control"  name="user_lname" value="{{old('user_lname')}}" class="@error('user_lname') is-invalid @enderror" autocomplete="on">
+                                        <input type="text" placeholder="Last Name" class="form-control" name="user_lname"
+                                            value="{{ old('user_lname') }}" class="@error('user_lname') is-invalid @enderror"
+                                            autocomplete="on">
                                         @error('user_lname')
-                                        <span style="color: red; font-size:15px">{{$message}}</span>
+                                        <span style="color: red; font-size:15px">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
@@ -120,27 +111,33 @@
                                 <div class="col">
                                     <div class="input-box">
                                         <i class="fas fa-user"></i>
-                                        <input type="text" placeholder="Gender" class="form-control"  name="gender" value="{{old('gender')}}" class="@error('gender') is-invalid @enderror" autocomplete="on">
+                                        <input type="text" placeholder="Gender" class="form-control" name="gender"
+                                            value="{{ old('gender') }}" class="@error('gender') is-invalid @enderror"
+                                            autocomplete="on">
                                         @error('gender')
-                                        <span style="color: red; font-size:15px">{{$message}}</span>
+                                        <span style="color: red; font-size:15px">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="input-box">
                                         <i class="fas fa-user"></i>
-                                        <input type="date" placeholder="Birthday" class="form-control"  name="birthdate" value="{{old('birthdate')}}" class="@error('birthdate') is-invalid @enderror" autocomplete="on">
+                                        <input type="date" placeholder="Birthday" class="form-control" name="birthdate"
+                                            value="{{ old('birthdate') }}" class="@error('birthdate') is-invalid @enderror"
+                                            autocomplete="on">
                                         @error('birthdate')
-                                        <span style="color: red; font-size:15px">{{$message}}</span>
+                                        <span style="color: red; font-size:15px">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="input-box">
                                         <i class="fas fa-phone"></i>
-                                        <input type="text" placeholder="Phone Number" class="form-control" name="user_phonenum" value="{{old('user_phonenum')}}" class="@error('user_phonenum') is-invalid @enderror" autocomplete="on">
+                                        <input type="text" placeholder="Phone Number" class="form-control" name="user_phonenum"
+                                            value="{{ old('user_phonenum') }}" class="@error('user_phonenum') is-invalid @enderror"
+                                            autocomplete="on">
                                         @error('user_phonenum')
-                                        <span style="color: red; font-size:15px">{{$message}}</span>
+                                        <span style="color: red; font-size:15px">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
@@ -149,36 +146,44 @@
                                 <div class="col">
                                     <div class="input-box">
                                         <i class="fas fa-user"></i>
-                                        <input type="text" placeholder="Country" class="form-control" type="text" name="user_country" value="{{old('user_country')}}" class="@error('user_country') is-invalid @enderror" autocomplete="on">
+                                        <input type="text" placeholder="Country" class="form-control" name="user_country"
+                                            value="{{ old('user_country') }}"
+                                            class="@error('user_country') is-invalid @enderror" autocomplete="on">
                                         @error('user_country')
-                                        <span style="color: red; font-size:15px">{{$message}}</span>
+                                        <span style="color: red; font-size:15px">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="input-box">
                                         <i class="fas fa-user"></i>
-                                        <input type="text" placeholder="Province" class="form-control" name="user_province" value="{{old('user_province')}}" class="@error('user_province') is-invalid @enderror" autocomplete="on">
+                                        <input type="text" placeholder="Province" class="form-control" name="user_province"
+                                            value="{{ old('user_province') }}"
+                                            class="@error('user_province') is-invalid @enderror" autocomplete="on">
                                         @error('user_province')
-                                        <span style="color: red; font-size:15px">{{$message}}</span>
+                                        <span style="color: red; font-size:15px">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="input-box">
                                         <i class="fas fa-phone"></i>
-                                        <input type="text" placeholder="Municipality" class="form-control" name="user_municipality" value="{{old('user_municipality')}}" class="@error('user_municipality') is-invalid @enderror" autocomplete="on">
+                                        <input type="text" placeholder="Municipality" class="form-control"
+                                            name="user_municipality" value="{{ old('user_municipality') }}"
+                                            class="@error('user_municipality') is-invalid @enderror" autocomplete="on">
                                         @error('user_municipality')
-                                        <span style="color: red; font-size:15px">{{$message}}</span>
+                                        <span style="color: red; font-size:15px">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="input-box">
                                         <i class="fas fa-phone"></i>
-                                        <input type="text" placeholder="Barangay" class="form-control" name="user_barangay" value="{{old('user_barangay')}}" class="@error('user_barangay') is-invalid @enderror" autocomplete="on">
+                                        <input type="text" placeholder="Barangay" class="form-control" name="user_barangay"
+                                            value="{{ old('user_barangay') }}"
+                                            class="@error('user_barangay') is-invalid @enderror" autocomplete="on">
                                         @error('user_barangay')
-                                        <span style="color: red; font-size:15px">{{$message}}</span>
+                                        <span style="color: red; font-size:15px">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
@@ -187,27 +192,27 @@
                                 <div class="col">
                                     <div class="input-box">
                                         <i class="fas fa-user"></i>
-                                        <input type="text" placeholder="Street" class="form-control" name="user_street" value="{{old('user_street')}}" class="@error('user_street') is-invalid @enderror" autocomplete="on">
+                                        <input type="text" placeholder="Street" class="form-control" name="user_street"
+                                            value="{{ old('user_street') }}" class="@error('user_street') is-invalid @enderror"
+                                            autocomplete="on">
                                         @error('user_street')
-                                        <span style="color: red; font-size:15px">{{$message}}</span>
+                                        <span style="color: red; font-size:15px">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="input-box">
                                         <i class="fas fa-user"></i>
-                                        <input type="text" placeholder="Zipcode" class="form-control" name="user_zipcode" value="{{old('user_zipcode')}}" class="@error('user_zipcode') is-invalid @enderror" autocomplete="on">
+                                        <input type="text" placeholder="Zipcode" class="form-control" name="user_zipcode"
+                                            value="{{ old('user_zipcode') }}"
+                                            class="@error('user_zipcode') is-invalid @enderror" autocomplete="on">
                                         @error('user_zipcode')
-                                        <span style="color: red; font-size:15px">{{$message}}</span>
+                                        <span style="color: red; font-size:15px">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
                             </div>
                             <br>
-                            <div class="check-terms">
-                                <input type="checkbox" class="checkbox">
-                                <span class="check-label">I agree to the terms and conditions. <a href="">Terms and Condition.</a></span>
-                            </div>
                             <div class="button input-box">
                                 <input type="submit" value="Submit">
                             </div>
@@ -217,6 +222,7 @@
                     </form>
                 </div>
             </div>
+
         </div>
         <div class="cover">
             <div class="front">
@@ -257,7 +263,7 @@
                 toast: true,
                 position: 'top-end',
                 showConfirmButton: false,
-                timer: 3000,
+                timer: 1000,
                 timerProgressBar: true,
                 background: '#8cc63f',
                 iconColor: '#ffffff',
@@ -278,7 +284,7 @@
                 toast: true,
                 position: 'top-end',
                 showConfirmButton: false,
-                timer: 3000,
+                timer: 1000,
                 timerProgressBar: true,
                 background: '#dc3545',
                 iconColor: '#ffffff',

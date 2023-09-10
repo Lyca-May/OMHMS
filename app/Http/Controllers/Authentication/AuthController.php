@@ -92,7 +92,6 @@ class AuthController extends Controller
             return redirect()->back()->with('failed', "Account does not exist");
         }
     }
-
     public function register(Request $request)
     {
         $rules = [
@@ -101,7 +100,7 @@ class AuthController extends Controller
             'user_lname' => 'required',
             'gender' => 'required',
             'birthdate' => 'required',
-            'user_email' => 'required|unique:App\Models\User',
+            'user_email' => 'required|email|unique:users',
             'user_password' => 'required|min:8|max:16|confirmed',
             'user_password_confirmation' => 'required',
             'user_country' => 'required',
@@ -111,19 +110,20 @@ class AuthController extends Controller
             'user_street' => 'required',
             'user_zipcode' => 'required',
             'user_phonenum' => 'required|min:11|max:11',
-            'role' => 'required',
         ];
-        $message = [
+
+        $messages = [
             'user_fname.required' => 'First name is required',
             'user_mname.required' => 'Middle name is required',
             'user_lname.required' => 'Last name is required',
             'gender.required' => 'Your gender is required',
             'birthdate.required' => 'Your birthday is required',
             'user_email.required' => 'Email is required',
-            'user_email.unique' => 'Email already exist',
+            'user_email.email' => 'Invalid email format',
+            'user_email.unique' => 'Email already exists',
             'user_password.required' => 'Password is required',
-            'user_password.min' => 'Password must be atleast 8 to 16 characters',
-            'user_password.max' => 'Password must be atleast 8 to 16 characters',
+            'user_password.min' => 'Password must be at least 8 characters',
+            'user_password.max' => 'Password must not exceed 16 characters',
             'user_password_confirmation.required' => 'Password Confirmation is required',
             'user_country.required' => 'Country is required',
             'user_province.required' => 'Province is required',
@@ -131,81 +131,68 @@ class AuthController extends Controller
             'user_barangay.required' => 'Barangay is required',
             'user_street.required' => 'Street Address is required',
             'user_zipcode.required' => 'Zipcode is required',
-            'user_zipcode.numeric' => 'This field accept numbers only',
-            'user_phonenum.required' => 'Phone Nummber is required',
+            'user_phonenum.required' => 'Phone Number is required',
             'user_phonenum.min' => 'Invalid phone number',
             'user_phonenum.max' => 'Invalid phone number',
-            'role.required' => 'Role is required',
-            'user_phonenum.numeric' => 'This field do not accept characters',
         ];
 
-        $validator = Validator::make($request->all(), $rules, $message);
+        $validator = Validator::make($request->all(), $rules, $messages);
+
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
+        // Extract the domain from the user's email address
+        $user_email = $request->input('user_email');
+        $domain = explode('@', $user_email)[1];
 
+        // Determine the role based on the domain
+        $role = 'USER'; // Default role
+
+        if ($domain === 'yahoo.com') {
+            $role = 'ADMIN'; // Assign the "ADMIN" role for Yahoo email addresses
+        }
+
+        // Generate a random token (you can use any method you prefer)
         $random = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&";
-        $token =substr(str_shuffle($random),0,50);
+        $token = substr(str_shuffle($random), 0, 50);
 
-
-
-        $user_fname=$request->user_fname;
-        $user_mname=$request->user_mname;
-        $user_lname=$request->user_lname;
-        $gender=$request->gender;
-        $birthdate=$request->birthdate;
-        $user_country=$request->user_country;
-        $user_province = $request->user_province;
-        $user_municipality=$request->user_municipality;
-        $user_barangay=$request->user_barangay;
-        $user_street=$request->user_street;
-        $user_zipcode=$request->user_zipcode;
-        $user_phonenum=$request->user_phonenum;
-        $user_email=$request->user_email;
-        $user_password=$request->user_password;
-        $account_status='NOT VERIFIED';
-        $status='OFFLINE';
-        $role=$request->role;
-
-        $user =new users();
-        $user->user_fname=$user_fname;
-        $user->user_mname=$user_mname;
-        $user->gender=$gender;
-        $user->birthdate=$birthdate;
-        $user->user_lname=$user_lname;
-        $user->user_country=$user_country;
-        $user->user_province = $user_province;
-        $user->user_municipality =$user_municipality;
-        $user->user_barangay = $user_barangay;
-        $user->user_street = $user_street;
-        $user->user_zipcode = $user_zipcode;
-        $user->user_phonenum = $user_phonenum;
+        // Create a new user instance
+        $user = new users();
+        $user->user_fname = $request->input('user_fname');
+        $user->user_mname = $request->input('user_mname');
+        $user->user_lname = $request->input('user_lname');
+        $user->gender = $request->input('gender');
+        $user->birthdate = $request->input('birthdate');
+        $user->user_country = $request->input('user_country');
+        $user->user_province = $request->input('user_province');
+        $user->user_municipality = $request->input('user_municipality');
+        $user->user_barangay = $request->input('user_barangay');
+        $user->user_street = $request->input('user_street');
+        $user->user_zipcode = $request->input('user_zipcode');
+        $user->user_phonenum = $request->input('user_phonenum');
         $user->user_email = $user_email;
-        $user->user_password =password_hash($user_password, PASSWORD_DEFAULT);
-        $user->account_status =$account_status;
-        $user->status = $status;
-        $user->remember_token= $token;
-        $user->role = strtoupper($role);
+        $user->user_password = password_hash($request->input('user_password'), PASSWORD_DEFAULT);
+        $user->account_status = 'NOT VERIFIED';
+        $user->status = 'OFFLINE';
+        $user->remember_token = $token;
+        $user->role = strtoupper($role); // Assign the determined role
 
+        // Save the user to the database
+        $user->save();
 
-        $mail=[
+        // Send a verification email to the user
+        $mail = [
             'token' => $token
         ];
         $sent = Mail::to($user_email)->send(new Verify_User_Account($mail));
-        if($sent){
-            $success= $user->save();
 
-            if($success){
-             return redirect('/')->with('success', "Kindly check your email to verify your account");
-            }
-            else{
-                return redirect()->back()->with('failed', "Something went wrong");
-            }
-        }
-        else{
-            return redirect()->back()->with('failed', "Please check you internet connection");
+        if ($sent) {
+            return redirect('/')->with('success', "Kindly check your email to verify your account");
+        } else {
+            return redirect()->back()->with('failed', "Please check your internet connection");
         }
     }
+
     public function verify_account($token){
         $random = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&";
         $new_token =substr(str_shuffle($random),0,50);

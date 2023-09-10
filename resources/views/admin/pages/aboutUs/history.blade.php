@@ -526,11 +526,29 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
+                                    <label for="history_info">Information2</label>
+                                    <textarea type="text" class="form-control" id="name" name="history_info1"
+                                        @error('history_info1') is-invalid @enderror value="{{ old('history_info1') }}"
+                                        placeholder="Item Name"></textarea>
+                                    @error('history_info1')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
                                     <label for="image">Image</label>
                                     <input type="file" class="form-control" id="name"
                                         name="history_image" @error('history_image') is-invalid @enderror
                                         value="{{ old('history_image') }}" placeholder="Item Name">
                                     @error('history_image')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="image">Image2</label>
+                                    <input type="file" class="form-control" id="name"
+                                        name="history_image1" @error('history_image1') is-invalid @enderror
+                                        value="{{ old('history_image1') }}" placeholder="Item Name">
+                                    @error('history_image1')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -546,61 +564,78 @@
                 </div>
             </div>
 
-            <!-- Edit Category Modal -->
-            @foreach ($contents as $history)
-            <div class="modal fade" id="editItemModal{{ $history->history_id }}" tabindex="-1" role="dialog" aria-labelledby="editItemModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content" style="background-color: rgb(3, 34, 3);">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="editItemModalLabel">Edit Content</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="{{ url('/update-history-content/' . $history->history_id) }}"
-                                method="POST" enctype="multipart/form-data">
-                                @csrf
-                                @method('PUT')
-                                <!-- Form fields -->
-                                <div class="form-group">
-                                    <label for="history_title">Title Name</label>
-                                    <input type="text" class="form-control" id="history_name" name="history_title" value="{{ $history->history_title }}" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="history_desc">Description</label>
-                                    <input class="form-control" id="history_desc" name="history_desc" rows="5" required value="{{ $history->history_desc }}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="history_info">Information</label>
-                                    <textarea type="text" class="form-control" id="history_info" name="history_info" required>{{ $history->history_info }}</textarea>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="history_image">Image</label>
-                                    <input type="file" class="form-control" id="history_image" name="history_image">
-                                    @if ($history->history_image)
-                                        <div class="mt-2">
-                                            <label>Current Image:</label>
-                                            <img src="{{ asset('history_image/' . $history->history_image) }}" class="img-thumbnail" alt="Current Image">
-                                        </div>
-                                    @else
-                                        <p>No image available</p>
-                                    @endif
-                                </div>
-
-
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+          <!-- Edit Category Modal -->
+@foreach ($contents as $history)
+<div class="modal fade" id="editItemModal{{ $history->history_id }}" tabindex="-1" role="dialog" aria-labelledby="editItemModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background-color: rgb(3, 34, 3);">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editItemModalLabel">Edit Content</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            @endforeach
+            <div class="modal-body">
+                <form action="{{ url('/update-history-content/' . $history->history_id) }}"
+                    method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                    <!-- Form fields -->
+                    <div class="form-group">
+                        <label for="history_title">Title Name</label>
+                        <input type="text" class="form-control" id="history_name" name="history_title" value="{{ $history->history_title }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="history_desc">Description</label>
+                        <input class="form-control" id="history_desc" name="history_desc" rows="5" required value="{{ $history->history_desc }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="history_info">Information</label>
+                        <textarea type="text" class="form-control" id="history_info" name="history_info" required>{{ $history->history_info }}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="history_info1">Information2</label>
+                        <textarea type="text" class="form-control" id="history_info1_{{ $history->history_id }}" name="history_info1" required>{{ $history->history_info1 }}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="history_image">Image</label>
+                        <input type="file" class="form-control" id="history_image" name="history_image">
+                        @if ($history->history_image)
+                            <div class="mt-2">
+                                <label>Current Image:</label>
+                                <img src="{{ asset('history_image/' . $history->history_image) }}" class="img-thumbnail" alt="Current Image">
+                            </div>
+                        @else
+                            <p>No image available</p>
+                        @endif
+                    </div>
+
+                    <div class="form-group">
+                        <label for="history_image1">Image2</label>
+                        <input type="file" class="form-control" id="history_image1" name="history_image1">
+                        @if ($history->history_image1)
+                            <div class="mt-2">
+                                <label>Current Image:</label>
+                                <img src="{{ asset('history_image1/' . $history->history_image1) }}" class="img-thumbnail" alt="Current Image">
+                            </div>
+                        @else
+                            <p>No image available</p>
+                        @endif
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
+
 
 
             <!-- Archive Category Modal -->
@@ -651,7 +686,7 @@
             <footer class="footer">
                 <div class="container">
                     <div class="text-center">
-                        Copyright © 2018 Dashtreme Admin
+                        Copyright © 2018 eOMHeritage Admin
                     </div>
                 </div>
             </footer>
