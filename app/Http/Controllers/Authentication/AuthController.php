@@ -11,9 +11,13 @@ use Illuminate\Support\Facades\DB;
 use App\Models\users;
 use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+
 class AuthController extends Controller
 {
-    public function log(){
+    public function log()
+    {
         // $data['data'] = 'Login';
         // if (session()->has('Admin.role')=="ADMIN"){
         //     return redirect('admin/home');
@@ -24,11 +28,11 @@ class AuthController extends Controller
     }
     public function login(Request $request)
     {
-        $rules=[
+        $rules = [
             'user_email' => 'required',
             'user_password' => 'required',
         ];
-        $message=[
+        $message = [
             'user_email.required' => 'Email is required',
             'user_password.required' => 'Password is required',
         ];
@@ -37,58 +41,53 @@ class AuthController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $email =$request->user_email;
-        $password =$request->user_password;
+        $email = $request->user_email;
+        $password = $request->user_password;
 
 
         $user = DB::table('users')->where('user_email', $email)->first();
 
 
-        if($user){
-            if($user->account_status=='VERIFIED'){
-                if(password_verify($password, $user->user_password)){
-                    $data =[
-                        'user_id'=>$user->user_id,
-                        'user_fname'=>$user->user_fname,
-                        'user_mname'=>$user->user_mname,
-                        'user_lname'=>$user->user_lname,
-                        'gender'=>$user->gender,
-                        'birthdate'=>$user->birthdate,
-                        'user_country'=>$user->user_country,
-                        'user_province'=>$user->user_province,
-                        'user_municipality'=>$user->user_municipality,
-                        'user_barangay'=>$user->user_barangay,
-                        'user_street'=>$user->user_street,
-                        'user_zipcode'=>$user->user_zipcode,
-                        'user_phonenum'=>$user->user_phonenum,
-                        'user_email'=>$user->user_email,
-                        'user_password'=>$user->user_password,
-                        'account_status'=>$user->account_status,
-                        'avatar'=>$user->avatar,
-                        'role'=>$user->role,
+        if ($user) {
+            if ($user->account_status == 'VERIFIED') {
+                if (password_verify($password, $user->user_password)) {
+                    $data = [
+                        'user_id' => $user->user_id,
+                        'user_fname' => $user->user_fname,
+                        'user_mname' => $user->user_mname,
+                        'user_lname' => $user->user_lname,
+                        'gender' => $user->gender,
+                        'birthdate' => $user->birthdate,
+                        'user_country' => $user->user_country,
+                        'user_province' => $user->user_province,
+                        'user_municipality' => $user->user_municipality,
+                        'user_barangay' => $user->user_barangay,
+                        'user_street' => $user->user_street,
+                        'user_zipcode' => $user->user_zipcode,
+                        'user_phonenum' => $user->user_phonenum,
+                        'user_email' => $user->user_email,
+                        'user_password' => $user->user_password,
+                        'account_status' => $user->account_status,
+                        'avatar' => $user->avatar,
+                        'role' => $user->role,
                     ];
 
-                    if($user->role == 'USER') {
+                    if ($user->role == 'USER') {
                         session()->put('User', $data);
                         return redirect('user/landlog')->with('success', "You are now logged in. Welcome to our Official Website");
-                    }
-                    else if($user->role == 'ADMIN') {
+                    } else if ($user->role == 'ADMIN') {
                         session()->put('Admin', $data);
                         return redirect('admin/home')->with('success', "Welcome Admin!");
-                    }
-                    else {
+                    } else {
                         return redirect()->back()->with('failed', "Invalid Role");
                     }
-                }
-                else{
+                } else {
                     return redirect()->back()->with('failed', "Wrong Password");
                 }
-            }
-            else{
+            } else {
                 return redirect()->back()->with('failed', "Verify your account first");
             }
-        }
-        else{
+        } else {
             return redirect()->back()->with('failed', "Account does not exist");
         }
     }
@@ -193,78 +192,78 @@ class AuthController extends Controller
         }
     }
 
-    public function verify_account($token){
+    public function verify_account($token)
+    {
         $random = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&";
-        $new_token =substr(str_shuffle($random),0,50);
-        $data=[
+        $new_token = substr(str_shuffle($random), 0, 50);
+        $data = [
             'account_status' => 'VERIFIED',
             'remember_token' => $new_token
         ];
         $success = DB::table('users')->where('remember_token', $token)->update($data);
-        if($success){
+        if ($success) {
             return redirect('/')->with('success', "Your acccount has been verified");
-        }
-        else{
+        } else {
             return redirect('/')->with('failed', "Invalid link");
         }
     }
-    public function send_email(Request $request){
-        $rules=[
+    public function send_email(Request $request)
+    {
+        $rules = [
             'email' => 'required'
         ];
-        $message=[
+        $message = [
             'email.required' => "Email is required"
         ];
         $validator = Validator::make($request->all(), $rules, $message);
-        if($validator->fails()){
+        if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
         $email = $request->email;
         $match = DB::table('users')->where('user_email', $email)->first();
-        if($match){
-           if($match->account_status=='VERIFIED'){
-            $mail=[
-                'token' => $match->remember_token
-            ];
-            $sent = Mail::to($email)->send(new Send_Forgot_Link($mail));
-            if($sent){
-                return redirect()->back()->with('success',"Check your email to confirm your account reset");
+        if ($match) {
+            if ($match->account_status == 'VERIFIED') {
+                $mail = [
+                    'token' => $match->remember_token
+                ];
+                $sent = Mail::to($email)->send(new Send_Forgot_Link($mail));
+                if ($sent) {
+                    return redirect()->back()->with('success', "Check your email to confirm your account reset");
+                } else {
+                    return redirect()->back()->with('failed', "Invalid Email");
+                }
+            } else {
+                return redirect()->back()->with('failed', "Account is not yet verified.");
             }
-            else{
-                return redirect()->back()->with('failed',"Invalid Email");
-            }
-           }
-           else{
-            return redirect()->back()->with('failed', "Account is not yet verified.");
-           }
-        }
-        else{
+        } else {
             return redirect()->back()->with('failed', "Invalid email.");
         }
     }
-    public function verify_reset($token){
-        $match = DB::table('users')->where('remember_token',$token)->first();
-        if($match){
-            return redirect('auth/reset-form')->with('token',$match->remember_token);
-        }
-        else{
+    public function verify_reset($token)
+    {
+        $match = DB::table('users')->where('remember_token', $token)->first();
+        if ($match) {
+            return redirect('auth/reset-form')->with('token', $match->remember_token);
+        } else {
             echo 'dito';
         }
     }
 
-    public function displayProfile(){
+    public function displayProfile()
+    {
         $user_id = session('User')['user_id'];
         $users = DB::table('users')->where('user_id', $user_id)->get();
         return view('user.pages.profile.userprofile', ['users' => $users]);
     }
 
-    public function confirm_reset(Request $request){
+    public function confirm_reset(Request $request)
+    {
 
-        $rules=[
+        $rules = [
             'password' => 'required|confirmed|min:8|max:16',
             'password_confirmation' => 'required'
         ];
-        $message=[
+        $message = [
             'password.required' => "Password is required",
             'password.max' => "Password must atleast 8 to 16 characters",
             'password.min' => "Password must atleast 8 to 16 characters",
@@ -279,18 +278,49 @@ class AuthController extends Controller
         $password = $request->password;
 
         $random = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&";
-        $new_token =substr(str_shuffle($random),0,50);
-        $data=[
+        $new_token = substr(str_shuffle($random), 0, 50);
+        $data = [
             'remember_token' => $new_token,
             'user_password' => password_hash($password, PASSWORD_DEFAULT)
         ];
         $updated = DB::table('users')->where('remember_token', $token)->update($data);
-        if($updated){
-            return redirect('auth/signin')->with('success', "Account reset successful");
-        }
-        else{
+        if ($updated) {
+            return redirect('/')->with('success', "Account reset successful");
+        } else {
             return redirect()->back()->with('failed', "Account reset failed");
         }
+    }
+
+
+
+    public function changePassword(Request $request)
+    {
+        // Get the user ID from the session
+        $user_id = session('Admin')['user_id'];
+
+        // Retrieve the user based on the session user ID
+        $user = users::find($user_id);
+
+        // Validate the form data
+        $validator = Validator::make($request->all(), [
+            'old_password' => 'required',
+            'new_password' => 'required|min:8|max:16|confirmed',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        // Check if the old password matches the user's current password
+        if (!Hash::check($request->old_password, $user->user_password)) {
+            return redirect()->back()->with('error', 'The old password is incorrect.');
+        }
+
+        // Update the user's password
+        $user->user_password = Hash::make($request->new_password);
+        $user->save();
+
+        return redirect()->back()->with('success', 'Password changed successfully.');
     }
 
     public function updateProfile(Request $request)
@@ -381,14 +411,16 @@ class AuthController extends Controller
         return redirect()->back()->with('success', 'Profile updated successfully');
     }
 
-    public function displayAdminProfile(){
+    public function displayAdminProfile()
+    {
         $currentDateTime = Carbon::now()->tz('UTC');
         $user_id = session('Admin')['user_id'];
         $users = DB::table('users')->where('user_id', $user_id)->get();
         return view('admin.pages.profile', ['users' => $users, 'currentDateTime' => $currentDateTime]);
     }
 
-    public function logout() {
+    public function logout()
+    {
         session()->forget('User');
 
         if (!session()->has('User')) {

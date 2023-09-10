@@ -95,18 +95,8 @@
           <li>
             <a href="{{url("admin/calendar")}}">
               <i class="zmdi zmdi-calendar-check"></i> <span>Calendar</span>
-              {{-- <small class="badge float-right badge-light">New</small> --}}
             </a>
           </li>
-
-{{--
-
-          <li class="sidebar-header">LABELS</li>
-          <li>
-            <a href="{{asset("admin/profile")}}">
-              <i class="zmdi zmdi-face"></i> <span>Profile</span>
-            </a>
-          </li> --}}
 
 
         </ul>
@@ -120,15 +110,8 @@
   <ul class="navbar-nav mr-auto align-items-center">
     <li class="nav-item">
       <a class="nav-link toggle-menu" href="javascript:void();">
-       {{-- <i class="icon-menu menu-icon"></i> --}}
      </a>
     </li>
-    {{-- <li class="nav-item">
-      <form class="search-bar">
-        <input type="text" class="form-control" placeholder="Enter keywords">
-         <a href="javascript:void();"><i class="icon-magnifier"></i></a>
-      </form>
-    </li> --}}
   </ul>
 
   <ul class="navbar-nav align-items-center right-nav-link">
@@ -165,8 +148,6 @@
                                 <div class="avatar"><img class="align-self-start mr-3"
                                         src="{{ asset('avatar/' . $user->avatar) }}"
                                         alt="user avatar"></div>
-                                {{-- <img src="{{ asset('avatar/' .$user->avatar) }}" alt="{{$user->user_fname}}" --}}
-                                {{-- class="rounded-circle me-2" style="width:100px; height:100px; object-fit:cover" /> --}}
                             @endif
 
                             <div class="media-body">
@@ -200,9 +181,6 @@
       <div class="row mt-3">
         <div class="col-lg-4">
            <div class="card profile-card-2">
-            {{-- <div class="card-img-block">
-                <img class="img-fluid" src="https://via.placeholder.com/800x500" alt="Card image cap">
-            </div> --}}
             <div class="card-body pt-5">
                 @if ($user->avatar)
                 <img src="{{ asset('avatar/' .$user->avatar) }}" alt="{{$user->user_fname}}"
@@ -228,9 +206,6 @@
                 <li class="nav-item">
                     <a href="javascript:void();" data-target="#profile" data-toggle="pill" class="nav-link active"><i class="zmdi zmdi-account"></i> <span class="hidden-xs">Profile</span></a>
                 </li>
-                {{-- <li class="nav-item">
-                    <a href="javascript:void();" data-target="#messages" data-toggle="pill" class="nav-link"><i class="icon-envelope-open"></i> <span class="hidden-xs">Messages</span></a>
-                </li> --}}
                 <li class="nav-item">
                     <a href="javascript:void();" data-target="#edit" data-toggle="pill" class="nav-link"><i class="zmdi zmdi-edit"></i> <span class="hidden-xs">Edit</span></a>
                 </li>
@@ -242,7 +217,6 @@
                         <div class="col-md-6">
 
                         </div>
-                        {{-- @foreach ($users as $user) --}}
                         <div class="col-md-12">
                             <form>
                                 <div class="form-group row">
@@ -306,25 +280,15 @@
                                         <input class="form-control" type="text" value="{{ $user->role }}">
                                     </div>
                                 </div>
-                                {{-- <div class="form-group row">
-                                    <label class="col-lg-3 col-form-label form-control-label">Password</label>
-                                    <div class="col-lg-9">
-                                        {{-- <input class="form-control" type="password" value="11111122333"> --}}
-                                    {{-- </div> --}}
-                                {{-- </div> --}}
 
                                 <div class="form-group row">
                                     <label class="col-lg-3 col-form-label form-control-label"></label>
                                     <div class="col-lg-9">
-                                        {{-- <input type="reset" class="btn btn-secondary" value="Cancel">
-                                        <input type="button" class="btn btn-primary" value="Save Changes"> --}}
                                     </div>
                                 </div>
                             </form>
                         </div>
-                        {{-- @endforeach --}}
                     </div>
-                    <!--/row-->
                 </div>
 
 
@@ -398,13 +362,6 @@
                                 <input class="form-control" type="text" name="birthdate" value="{{session('Admin') ['birthdate']}}" placeholder="Birthdate">
                             </div>
                         </div>
-
-                        {{-- <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Username</label>
-                            <div class="col-lg-9">
-                                <input class="form-control" name="role" value="{{session('Admin') ['role']}}">
-                            </div>
-                        </div> --}}
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label"></label>
                             <div class="col-lg-9">
@@ -414,27 +371,52 @@
                         </div>
                     </form>
 
-                    <form action="">
+                    <form method="POST" action="{{ route('change.password') }}">
+                        @csrf
+
+                        <!-- Old Password Field -->
                         <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Password</label>
+                            <label for="old_password" class="col-lg-3 col-form-label form-control-label">Old Password</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="password" value="11111122333">
+                                <input id="old_password" type="password" class="form-control @error('old_password') is-invalid @enderror" name="old_password" required autocomplete="current-password">
+                                @error('old_password')
+                                    <span class="invalid-feedback" role="alert">
+                                        {{ $message }}
+                                    </span>
+                                @enderror
                             </div>
                         </div>
+
+                        <!-- New Password Field -->
                         <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Confirm password</label>
+                            <label for="new_password" class="col-lg-3 col-form-label form-control-label">New Password</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="password" value="11111122333">
+                                <input id="new_password" type="password" class="form-control @error('new_password') is-invalid @enderror" name="new_password" required autocomplete="new-password">
+                                @error('new_password')
+                                    <span class="invalid-feedback" role="alert">
+                                        {{ $message }}
+                                    </span>
+                                @enderror
                             </div>
                         </div>
+
+                        <!-- Confirm Password Field -->
                         <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label"></label>
+                            <label for="new_password_confirmation" class="col-lg-3 col-form-label form-control-label">Confirm Password</label>
                             <div class="col-lg-9">
-                                <input type="reset" class="btn btn-secondary" value="Cancel">
-                                <input type="button" class="btn btn-primary" value="Save New Password">
+                                <input id="new_password_confirmation" type="password" class="form-control" name="new_password_confirmation" required autocomplete="new-password">
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="form-group row">
+                            <div class="col-lg-9 offset-lg-3">
+                                <button type="submit" class="btn btn-primary">Save New Password</button>
+                                <button type="reset" class="btn btn-secondary">Cancel</button>
                             </div>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>
@@ -461,7 +443,7 @@
 	<footer class="footer">
       <div class="container">
         <div class="text-center">
-          Copyright © 2018 Dashtreme Admin
+          Copyright © 2023 eOMHeritage Admin
         </div>
       </div>
     </footer>
@@ -528,5 +510,66 @@
   <!-- Index js -->
   <script src="{{asset("assets/js/jsadmin/index.js")}}"></script>
 
+
+  {{-- ALERT --}}
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
+  <!-- jQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+  @if (session('success'))
+  <script>
+      Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: '{{ session('success') }}',
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 1000,
+          timerProgressBar: true,
+          background: '#8cc63f',
+          iconColor: '#ffffff',
+          customClass: {
+              title: 'text-white',
+              content: 'text-white'
+          }
+      });
+  </script>
+@endif
+
+@if (session('failed'))
+  <script>
+      Swal.fire({
+          icon: 'failed',
+          title: 'failed!',
+          text: '{{ session('failed') }}',
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 1000,
+          timerProgressBar: true,
+          background: '#dc3545',
+          iconColor: '#ffffff',
+          customClass: {
+              title: 'text-white',
+              content: 'text-white'
+          }
+      });
+  </script>
+@endif
 </body>
 </html>
