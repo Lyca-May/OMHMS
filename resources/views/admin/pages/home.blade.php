@@ -44,10 +44,8 @@
         <div id="sidebar-wrapper" data-simplebar="" data-simplebar-auto-hide="true">
             <div class="brand-logo">
                 <a href="index.html">
-                    <img src="{{ asset('omhms.png') }}" class="logo-icon" alt="logo icon"
-                        style="width: 40px; height: 30px">
-                    <img src="{{ asset('eOMHeritage.png') }}" class="logo-icon1" alt="logo icon"
-                        style="180px; height: 30px">
+                    <img src="{{ asset('omhms.png') }}" class="logo-icon" alt="logo icon">
+                    <h5 class="logo-text">OMHMS</h5>
                 </a>
             </div>
             <ul class="sidebar-menu do-nicescrol">
@@ -64,19 +62,22 @@
                         <i class="zmdi zmdi-book"></i> <span>Bookings</span>
                     </a>
                     <ul id="tablesDrawer" class="drawer-items">
-                        <li><a href="{{ asset('admin/visit') }}">Museum Visit</a></li>
-                        <li><a href="{{url('admin/function')}}">Function Hall</a></li>
+                        <li><a class=" href="{{ asset('admin/visit') }}">Museum Visit</a></li>
+                        <li><a href="{{ url('admin/function') }}">Function Hall</a></li>
+
                         <!-- Add more link items as needed -->
                     </ul>
                 </li>
+
                 <li>
                     <a href="#" id="inventoryLink">
                         <i class="zmdi zmdi-archive"></i> <span>Inventory</span>
                     </a>
                     <ul id="inventoryDrawer" class="drawer-items">
-                        <li><a href="{{url('/artifacts') }}">Items & Artifacts</a></li>
-                        <li><a href="{{url('/souvenirs')}}">Souvenirs</a></li>
-                        <li><a href="{{url('/category')}}">Category</a></li>
+                        <li><a href="{{ url('/artifacts') }}">Items & Artefacts</a></li>
+                        <li><a href="{{ url('/souvenirs') }}">Souvenirs</a></li>
+                        <li><a href="{{ url('/category') }}">Category</a></li>
+                        <!-- Add more link items as needed -->
                     </ul>
                 </li>
 
@@ -88,36 +89,30 @@
 
 
                 <li>
-                    <a href="forms.html">
+                    <a href="{{ url('admin/attendance') }}">
                         <i class="zmdi zmdi-file-text"></i> <span>Attendance</span>
                     </a>
                 </li>
 
-
-
                 <li>
-                    <a href="{{ url('admin/calendar') }}">
+                    <a href="{{ asset('admin/calendar') }}">
                         <i class="zmdi zmdi-calendar-check"></i> <span>Calendar</span>
+                        {{-- <small class="badge float-right badge-light">New</small> --}}
                     </a>
                 </li>
 
-
-
                 <li class="sidebar-header">About Us</li>
-
                 <li>
                     <a href="#" id="contentLink">
                         <i class="zmdi zmdi-edit"></i> <span>Edit Content</span>
                     </a>
-                    <ul id="contentDrawer" class="drawer-items" >
-                        <li><a href="{{url('about-us/history') }}">Edit History</a></li>
-                        <li><a href="{{url('about-us/footer')}}">Footer</a></li>
-                        <li><a href="{{url('about-us/wts')}}">What to see Inside</a></li>
-                        <li><a href="{{url('about-us/contact')}}">Contact</a></li>
+                    <ul id="contentDrawer" class="drawer-items">
+                        <li><a href="{{ url('about-us/history') }}">Edit History</a></li>
+                        <li><a href="{{ url('about-us/footer') }}">Footer</a></li>
+                        <li><a href="{{ url('about-us/wts') }}">What to see Inside</a></li>
+                        <li><a href="{{ url('about-us/contact') }}">Contact</a></li>
                     </ul>
                 </li>
-
-
                 <li>
                     <a href="{{ asset('admin/profile') }}">
                         <i class="zmdi zmdi-face"></i> <span>Profile</span>
@@ -152,8 +147,8 @@
                             <i class="fa fa-envelope-open-o"></i></a>
                     </li>
                     <li class="nav-item dropdown-lg">
-                        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret waves-effect" data-toggle="dropdown"
-                            href="javascript:void();">
+                        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret waves-effect"
+                            data-toggle="dropdown" href="javascript:void();">
                             <i class="fa fa-bell-o"></i></a>
                     </li>
                     <div id="clock">
@@ -161,15 +156,15 @@
                     </div>
 
                     @foreach ($users as $user)
-                    <li class="nav-item">
-                        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown"
-                            href="#">
-                            <span class="user-profile"><img src="{{ asset('avatar/' . $user->avatar) }}"
-                                    class="img-circle" alt="user avatar"></span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-right">
-                            <li class="dropdown-item user-details">
-                                <a href="javaScript:void();">
+                        <li class="nav-item">
+                            <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown"
+                                href="#">
+                                <span class="user-profile"><img src="{{ asset('avatar/' . $user->avatar) }}"
+                                        class="img-circle" alt="user avatar"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li class="dropdown-item user-details">
+                                    <a href="javaScript:void();">
                                         <div class="media">
 
                                             @if ($user->avatar)
@@ -186,16 +181,16 @@
                                                 <p class="user-subtitle">{{ session('Admin')['user_email'] }}</p>
                                             </div>
                                         </div>
-                                </a>
-                            </li>
-                            <li class="dropdown-divider"></li>
-                            <li class="dropdown-item"><i class="zmdi zmdi-account"></i><a
-                                    href="{{ asset('admin/profile') }}"> Account</li></a>
-                            <li class="dropdown-divider"></li>
-                            <li class="dropdown-item"><i class="zmdi zmdi-power"></i><a
-                                href="{{url('logout-admin')}}">Logout</li></a>
-                        </ul>
-                    </li>
+                                    </a>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li class="dropdown-item"><i class="zmdi zmdi-account"></i><a
+                                        href="{{ asset('admin/profile') }}"> Account</li></a>
+                                <li class="dropdown-divider"></li>
+                                <li class="dropdown-item"><i class="zmdi zmdi-power"></i><a
+                                        href="{{ url('logout-admin') }}">Logout</li></a>
+                            </ul>
+                        </li>
                     @endforeach
                 </ul>
             </nav>
@@ -204,212 +199,215 @@
 
         <div class="clearfix"></div>
 
-             <div class="content-wrapper">
+        <div class="content-wrapper">
             {{-- <div class="container-fluid"> --}}
 
-                <!--Start Dashboard Content-->
+            <!--Start Dashboard Content-->
 
-                <div class="card mt-3">
-                    <div class="card-content">
-                        <div class="row row-group m-0">
-                            <div class="col-12 col-lg-6 col-xl-3 border-light">
-                                <div class="card-body">
-                                    <h5 class="text-white mb-0">{{ $visitCount }}<span
-                                            class="float-right"></i></span></h5>
-                                    <div class="progress my-3" style="height:3px;">
-                                        <div class="progress-bar" style="width:55%"></div>
-                                    </div>
-                                    <p class="mb-0 text-white small-font" class="fa fa-eye">Total Visitors Today<span class="float-right"><i class="zmdi zmdi-long-arrow-up"></i></span>
-                                    </p>
+            <div class="card mt-3">
+                <div class="card-content">
+                    <div class="row row-group m-0">
+                        <div class="col-12 col-lg-6 col-xl-3 border-light">
+                            <div class="card-body">
+                                <h5 class="text-white mb-0">{{ $visitCount }}<span class="float-right"></i></span>
+                                </h5>
+                                <div class="progress my-3" style="height:3px;">
+                                    <div class="progress-bar" style="width:55%"></div>
                                 </div>
+                                <p class="mb-0 text-white small-font" class="fa fa-eye">Total Visitors Today<span
+                                        class="float-right"><i class="zmdi zmdi-long-arrow-up"></i></span>
+                                </p>
                             </div>
-                            <div class="col-12 col-lg-6 col-xl-3 border-light">
-                                <div class="card-body">
-                                    <h5 class="text-white mb-0">{{$rentCount}} <span class="float-right"><i
-                                                class="fa fa-account"></i></span></h5>
-                                    <div class="progress my-3" style="height:3px;">
-                                        <div class="progress-bar" style="width:55%"></div>
-                                    </div>
-                                    <p class="mb-0 text-white small-font">Account who Reserve a Rent <span
-                                            class="float-right"><i class="zmdi zmdi-long-arrow-up"></i></span>
-                                    </p>
+                        </div>
+                        <div class="col-12 col-lg-6 col-xl-3 border-light">
+                            <div class="card-body">
+                                <h5 class="text-white mb-0">{{ $rentCount }} <span class="float-right"><i
+                                            class="fa fa-account"></i></span></h5>
+                                <div class="progress my-3" style="height:3px;">
+                                    <div class="progress-bar" style="width:55%"></div>
                                 </div>
+                                <p class="mb-0 text-white small-font">Account who Reserve a Rent <span
+                                        class="float-right"><i class="zmdi zmdi-long-arrow-up"></i></span>
+                                </p>
                             </div>
-                            <div class="col-12 col-lg-6 col-xl-3 border-light">
-                                <div class="card-body">
-                                    <h5 class="text-white mb-0">{{$souvenirsCount}} <span class="float-right"><i
-                                                ></i></span></h5>
-                                    <div class="progress my-3" style="height:3px;">
-                                        <div class="progress-bar" style="width:55%"></div>
-                                    </div>
-                                    <p class="mb-0 text-white small-font">Total Souvenir Stocks <span class="float-right"><i
-                                                class="zmdi zmdi-long-arrow-up"></i></span></p>
+                        </div>
+                        <div class="col-12 col-lg-6 col-xl-3 border-light">
+                            <div class="card-body">
+                                <h5 class="text-white mb-0">{{ $souvenirsCount }} <span
+                                        class="float-right"><i></i></span></h5>
+                                <div class="progress my-3" style="height:3px;">
+                                    <div class="progress-bar" style="width:55%"></div>
                                 </div>
+                                <p class="mb-0 text-white small-font">Total Souvenir Stocks <span
+                                        class="float-right"><i class="zmdi zmdi-long-arrow-up"></i></span></p>
                             </div>
-                            <div class="col-12 col-lg-6 col-xl-3 border-light">
-                                <div class="card-body">
-                                    <h5 class="text-white mb-0">{{$artifactsCount}} <span class="float-right"><i
-                                                class="fa fa-envira"></i></span></h5>
-                                    <div class="progress my-3" style="height:3px;">
-                                        <div class="progress-bar" style="width:55%"></div>
-                                    </div>
-                                    <p class="mb-0 text-white small-font">Total Quantity of Artifacts <span class="float-right"><i
-                                                class="zmdi zmdi-long-arrow-up"></i></span></p>
+                        </div>
+                        <div class="col-12 col-lg-6 col-xl-3 border-light">
+                            <div class="card-body">
+                                <h5 class="text-white mb-0">{{ $artifactsCount }} <span class="float-right"><i
+                                            class="fa fa-envira"></i></span></h5>
+                                <div class="progress my-3" style="height:3px;">
+                                    <div class="progress-bar" style="width:55%"></div>
                                 </div>
+                                <p class="mb-0 text-white small-font">Total Quantity of Artifacts <span
+                                        class="float-right"><i class="zmdi zmdi-long-arrow-up"></i></span></p>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="row">
-                    <div class="col-12 col-lg-8 col-xl-8">
-                        <div class="card">
-                            <div class="card-header">Site Traffic
-                                <div class="card-action">
-                                    <div class="dropdown">
-                                        <a href="javascript:void();" class="dropdown-toggle dropdown-toggle-nocaret"
-                                            data-toggle="dropdown">
-                                            <i class="icon-options"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="javascript:void();">Action</a>
-                                            <a class="dropdown-item" href="javascript:void();">Another action</a>
-                                            <a class="dropdown-item" href="javascript:void();">Something else here</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="javascript:void();">Separated link</a>
-                                        </div>
+            <div class="row">
+                <div class="col-12 col-lg-8 col-xl-8">
+                    <div class="card">
+                        <div class="card-header">Site Traffic
+                            <div class="card-action">
+                                <div class="dropdown">
+                                    <a href="javascript:void();" class="dropdown-toggle dropdown-toggle-nocaret"
+                                        data-toggle="dropdown">
+                                        <i class="icon-options"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" href="javascript:void();">Action</a>
+                                        <a class="dropdown-item" href="javascript:void();">Another action</a>
+                                        <a class="dropdown-item" href="javascript:void();">Something else here</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="javascript:void();">Separated link</a>
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-body">
-                                <ul class="list-inline">
-                                    <li class="list-inline-item"><i class="fa fa-circle mr-2 text-white"></i>New
-                                        Visitor</li>
-                                    <li class="list-inline-item"><i class="fa fa-circle mr-2 text-light"></i>Old
-                                        Visitor</li>
-                                </ul>
-                                <div class="chart-container-1">
-                                    <canvas id="chart1"></canvas>
-                                </div>
-                            </div>
-
-                            <div class="row m-0 row-group text-center border-top border-light-3">
-                                <div class="col-12 col-lg-4">
-                                    <div class="p-3">
-                                        <h5 class="mb-0">45.87M</h5>
-                                        <small class="mb-0">Overall Visitor <span> <i class="fa fa-arrow-up"></i>
-                                                2.43%</span></small>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-lg-4">
-                                    <div class="p-3">
-                                        <h5 class="mb-0">15:48</h5>
-                                        <small class="mb-0">Visitor Duration <span> <i class="fa fa-arrow-up"></i>
-                                                12.65%</span></small>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-lg-4">
-                                    <div class="p-3">
-                                        <h5 class="mb-0">245.65</h5>
-                                        <small class="mb-0">Pages/Visit <span> <i class="fa fa-arrow-up"></i>
-                                                5.62%</span></small>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
-                    </div>
+                        <div class="card-body">
+                            <ul class="list-inline">
+                                <li class="list-inline-item"><i class="fa fa-circle mr-2 text-white"></i>New
+                                    Visitor</li>
+                                <li class="list-inline-item"><i class="fa fa-circle mr-2 text-light"></i>Old
+                                    Visitor</li>
+                            </ul>
+                            <div class="chart-container-1">
+                                <canvas id="chart1"></canvas>
+                            </div>
+                        </div>
 
-                    <div class="col-12 col-lg-4 col-xl-4">
-                        <div class="card">
-                            <div class="card-header">Weekly sales
-                                <div class="card-action">
-                                    <div class="dropdown">
-                                        <a href="javascript:void();" class="dropdown-toggle dropdown-toggle-nocaret"
-                                            data-toggle="dropdown">
-                                            <i class="icon-options"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="javascript:void();">Action</a>
-                                            <a class="dropdown-item" href="javascript:void();">Another action</a>
-                                            <a class="dropdown-item" href="javascript:void();">Something else here</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="javascript:void();">Separated link</a>
-                                        </div>
+                        <div class="row m-0 row-group text-center border-top border-light-3">
+                            <div class="col-12 col-lg-4">
+                                <div class="p-3">
+                                    <h5 class="mb-0">45.87M</h5>
+                                    <small class="mb-0">Overall Visitor <span> <i class="fa fa-arrow-up"></i>
+                                            2.43%</span></small>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-4">
+                                <div class="p-3">
+                                    <h5 class="mb-0">15:48</h5>
+                                    <small class="mb-0">Visitor Duration <span> <i class="fa fa-arrow-up"></i>
+                                            12.65%</span></small>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-4">
+                                <div class="p-3">
+                                    <h5 class="mb-0">245.65</h5>
+                                    <small class="mb-0">Pages/Visit <span> <i class="fa fa-arrow-up"></i>
+                                            5.62%</span></small>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-4 col-xl-4">
+                    <div class="card">
+                        <div class="card-header">Weekly sales
+                            <div class="card-action">
+                                <div class="dropdown">
+                                    <a href="javascript:void();" class="dropdown-toggle dropdown-toggle-nocaret"
+                                        data-toggle="dropdown">
+                                        <i class="icon-options"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" href="javascript:void();">Action</a>
+                                        <a class="dropdown-item" href="javascript:void();">Another action</a>
+                                        <a class="dropdown-item" href="javascript:void();">Something else here</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="javascript:void();">Separated link</a>
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-body">
-                                <div class="chart-container-2">
-                                    <canvas id="chart2"></canvas>
-                                </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container-2">
+                                <canvas id="chart2"></canvas>
                             </div>
-                            <div class="table-responsive">
-                                <table class="table align-items-center">
-                                    <tbody>
-                                        <tr>
-                                            <td><i class="fa fa-circle text-white mr-2"></i> Direct</td>
-                                            <td>$5856</td>
-                                            <td>+55%</td>
-                                        </tr>
-                                        <tr>
-                                            <td><i class="fa fa-circle text-light-1 mr-2"></i>Affiliate</td>
-                                            <td>$2602</td>
-                                            <td>+25%</td>
-                                        </tr>
-                                        <tr>
-                                            <td><i class="fa fa-circle text-light-2 mr-2"></i>E-mail</td>
-                                            <td>$1802</td>
-                                            <td>+15%</td>
-                                        </tr>
-                                        <tr>
-                                            <td><i class="fa fa-circle text-light-3 mr-2"></i>Other</td>
-                                            <td>$1105</td>
-                                            <td>+5%</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table align-items-center">
+                                <tbody>
+                                    <tr>
+                                        <td><i class="fa fa-circle text-white mr-2"></i> Direct</td>
+                                        <td>$5856</td>
+                                        <td>+55%</td>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="fa fa-circle text-light-1 mr-2"></i>Affiliate</td>
+                                        <td>$2602</td>
+                                        <td>+25%</td>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="fa fa-circle text-light-2 mr-2"></i>E-mail</td>
+                                        <td>$1802</td>
+                                        <td>+15%</td>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="fa fa-circle text-light-3 mr-2"></i>Other</td>
+                                        <td>$1105</td>
+                                        <td>+5%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
-                <!--End Row-->
+            </div>
+            <!--End Row-->
 
-                <div class="row">
-                    <div class="col-12 col-lg-12">
-                        <div class="card">
-                            <div class="card-header">Pending Bookings
-                                <div class="col-sm-4">
-                                    {{-- <a class="btn btn-success" style="float:left;margin-right:20px;" data-toggle="modal" data-target="#addItemModal">+ Add</a> --}}
-                                    <div class="search-box">
-                                        <input type="text" class="form-control" id="searchInput" placeholder="Search">
-                                    </div>
+            <div class="row">
+                <div class="col-12 col-lg-12">
+                    <div class="card">
+                        <div class="card-header">Pending Bookings
+                            <div class="col-sm-4">
+                                {{-- <a class="btn btn-success" style="float:left;margin-right:20px;" data-toggle="modal" data-target="#addItemModal">+ Add</a> --}}
+                                <div class="search-box">
+                                    <input type="text" class="form-control" id="searchInput"
+                                        placeholder="Search">
                                 </div>
-
                             </div>
-                            <div class="table-responsive" style="width: 1707.50px; overflow-x: auto;">
-                                <table class="table align-items-center table-flush table-borderless" id="pending-table">
-                                    <thead>
+
+                        </div>
+                        <div class="table-responsive" style="width: 1707.50px; overflow-x: auto;">
+                            <table class="table align-items-center table-flush table-borderless" id="pending-table">
+                                <thead>
+                                    <tr>
+                                        <th>Full Name</th>
+                                        <th>Country</th>
+                                        <th>Province</th>
+                                        <th>Municipality</th>
+                                        <th>Barangay</th>
+                                        <th>Street</th>
+                                        <th>Zipcode</th>
+                                        <th>Date of Visit</th>
+                                        <th>Selected Time</th>
+                                        <th>Number of Visitors</th>
+                                        <th>Name of Institution</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($visit as $visits)
                                         <tr>
-                                            <th>Full Name</th>
-                                            <th>Country</th>
-                                            <th>Province</th>
-                                            <th>Municipality</th>
-                                            <th>Barangay</th>
-                                            <th>Street</th>
-                                            <th>Zipcode</th>
-                                            <th>Date of Visit</th>
-                                            <th>Selected Time</th>
-                                            <th>Number of Visitors</th>
-                                            <th>Name of Institution</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($visit as $visits)
-                                        <tr>
-                                            <td>{{ $visits->visits_lname }}, {{ $visits->visits_fname }} {{ $visits->visits_mname }}.</td>
+                                            <td>{{ $visits->visits_lname }}, {{ $visits->visits_fname }}
+                                                {{ $visits->visits_mname }}.</td>
                                             <td>{{ $visits->visits_country }}</td>
                                             <td>{{ $visits->visits_province }}</td>
                                             <td>{{ $visits->visits_municipality }}</td>
@@ -422,43 +420,57 @@
                                             <td>{{ $visits->visits_name_of_institution }}</td>
                                             <td>
                                                 @if ($visits->visits_status == 'PENDING')
-                                                    <p><span style="color: gray">{{ $visits->visits_status }}</span></p>
+                                                    <p><span style="color: gray">{{ $visits->visits_status }}</span>
+                                                    </p>
                                                 @else
-                                                    <p><span style="color: green">{{ $visits->visits_status }}</span></p>
+                                                    <p><span style="color: green">{{ $visits->visits_status }}</span>
+                                                    </p>
                                                 @endif
                                             </td>
                                             <td>
-                                                <form action="{{ url('/approve-status/' . $visits->userid) }}" method="post">
+                                                <form action="{{ url('/approve-status/' . $visits->userid) }}"
+                                                    method="post">
                                                     @csrf
                                                     <button type="submit" class="btn btn-success">Approve</button>
                                                 </form>
-                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#cancelModal">Cancel</button>
+                                                <button type="button" class="btn btn-danger" data-toggle="modal"
+                                                    data-target="#cancelModal">Cancel</button>
 
                                                 <!-- Modal -->
-                                                <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelModalLabel"
+                                                <div class="modal fade" id="cancelModal" tabindex="-1"
+                                                    role="dialog" aria-labelledby="cancelModalLabel"
                                                     aria-hidden="true">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content custom-modal">
-                                                            <form action="{{ url('/cancel_status/' . $visits->userid) }}" method="POST">
+                                                            <form
+                                                                action="{{ url('/cancel_status/' . $visits->userid) }}"
+                                                                method="POST">
                                                                 @csrf
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title" id="cancelModalLabel">Confirm Cancel</h5>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <h5 class="modal-title" id="cancelModalLabel">
+                                                                        Confirm Cancel</h5>
+                                                                    <button type="button" class="close"
+                                                                        data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">&times;</span>
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
                                                                     <div class="form-group">
-                                                                        <label for="cancel_reason">Reason for cancellation</label>
-                                                                        <textarea class="form-control @error('cancel_reason') is-invalid @enderror" name="cancel_reason" id="cancel_reason" rows="3">{{ old('cancel_reason') }}</textarea>
+                                                                        <label for="cancel_reason">Reason for
+                                                                            cancellation</label>
+                                                                        <textarea class="form-control @error('cancel_reason') is-invalid @enderror" name="cancel_reason" id="cancel_reason"
+                                                                            rows="3">{{ old('cancel_reason') }}</textarea>
                                                                         @error('cancel_reason')
-                                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                                            <div class="invalid-feedback">
+                                                                                {{ $message }}</div>
                                                                         @enderror
                                                                     </div>
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                    <button type="submit" class="btn btn-success">Confirm Cancel</button>
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                        data-dismiss="modal">Close</button>
+                                                                    <button type="submit"
+                                                                        class="btn btn-success">Confirm Cancel</button>
                                                                 </div>
                                                             </form>
                                                         </div>
@@ -466,19 +478,20 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table></div>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
-                <!--End Row-->
+            </div>
+            <!--End Row-->
 
-                <!--End Dashboard Content-->
+            <!--End Dashboard Content-->
 
-                <!--start overlay-->
-                <div class="overlay toggle-menu"></div>
-                <!--end overlay-->
+            <!--start overlay-->
+            <div class="overlay toggle-menu"></div>
+            <!--end overlay-->
 
             {{-- </div> --}}
             <!-- End container-fluid-->
@@ -517,7 +530,7 @@
     <script src="{{ asset('assets/js/jsadmin/app-script.js') }}"></script>
     <!-- Chart js -->
 
-    {{-- <script src="{{ asset('assets/plugins/Chart.js/Chart.min.js') }}"></script> --}}
+    <script src="{{ asset('assets/plugins/Chart.js/Chart.min.js') }}"></script>
 
     <!-- Index js -->
     <script src="{{ asset('assets/js/jsadmin/index.js') }}"></script>
@@ -536,8 +549,8 @@
             hours = hours ? hours : 12;
 
             var timeString = hours.toString().padStart(2, '0') + ':' +
-                             minutes.toString().padStart(2, '0') + ':' +
-                             seconds.toString().padStart(2, '0') + ' ' + ampm;
+                minutes.toString().padStart(2, '0') + ':' +
+                seconds.toString().padStart(2, '0') + ' ' + ampm;
 
             document.getElementById('clock').innerHTML = timeString;
 
@@ -548,35 +561,36 @@
         updateTime();
     </script>
 
-   <script>
-    // Function to filter table rows based on search input
-    function filterTable() {
-        var input = document.getElementById("searchInput");
-        var filter = input.value.toUpperCase();
-        var table = document.getElementById("categoryTable");
-        var rows = table.getElementsByTagName("tr");
+    <script>
+        // Function to filter table rows based on search input
+        function filterTable() {
+            var input = document.getElementById("searchInput");
+            var filter = input.value.toUpperCase();
+            var table = document.getElementById("categoryTable");
+            var rows = table.getElementsByTagName("tr");
 
-        for (var i = 0; i < rows.length; i++) {
-            var rowData = rows[i].getElementsByTagName("td");
-            var match = false;
+            for (var i = 0; i < rows.length; i++) {
+                var rowData = rows[i].getElementsByTagName("td");
+                var match = false;
 
-            for (var j = 0; j < rowData.length; j++) {
-                if (rowData[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
-                    match = true;
-                    break;
+                for (var j = 0; j < rowData.length; j++) {
+                    if (rowData[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                        match = true;
+                        break;
+                    }
+                }
+
+                if (match) {
+                    rows[i].style.display = "";
+                } else {
+                    rows[i].style.display = "none";
                 }
             }
-
-            if (match) {
-                rows[i].style.display = "";
-            } else {
-                rows[i].style.display = "none";
-            }
         }
-    }
 
-    // Attach event listener to search input
-    document.getElementById("searchInput").addEventListener("keyup", filterTable);
-</script>
+        // Attach event listener to search input
+        document.getElementById("searchInput").addEventListener("keyup", filterTable);
+    </script>
 </body>
+
 </html>

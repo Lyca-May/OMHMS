@@ -62,9 +62,10 @@
                     <a href="#" id="tablesLink">
                         <i class="zmdi zmdi-book"></i> <span>Bookings</span>
                     </a>
-                    <ul id="tablesDrawer" class="drawer-items">
-                        <li><a class="zmdi zmdi-building" href="{{ asset('admin/visit') }}">Museum Visit</a></li>
-                        <li><a href="">Function Hall</a></li>
+                    <ul id="tablesDrawer" class="drawer-items" style="display:block">
+                        <li><a class="" href="{{ asset('admin/visit') }}">Museum Visit</a></li>
+                        <li><a href="{{ url('admin/function') }}">Function Hall</a></li>
+
                         <!-- Add more link items as needed -->
                     </ul>
                 </li>
@@ -73,9 +74,10 @@
                     <a href="#" id="inventoryLink">
                         <i class="zmdi zmdi-archive"></i> <span>Inventory</span>
                     </a>
-                    <ul id="inventoryDrawer" class="drawer-items">
-                        <li><a href="">Items & Artefacts</a></li>
-                        <li><a href="">Souvenirs</a></li>
+                    <ul id="inventoryDrawer" class="drawer-items" style="display:block">
+                        <li><a href="{{ url('/artifacts') }}">Items & Artefacts</a></li>
+                        <li><a href="{{ url('/souvenirs') }}">Souvenirs</a></li>
+                        <li><a href="{{ url('/category') }}">Category</a></li>
                         <!-- Add more link items as needed -->
                     </ul>
                 </li>
@@ -88,13 +90,13 @@
 
 
                 <li>
-                    <a href="forms.html">
+                    <a href="{{ url('admin/attendance') }}">
                         <i class="zmdi zmdi-file-text"></i> <span>Attendance</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="{{ url('admin/calendar') }}">
+                    <a href="{{ asset('admin/calendar') }}">
                         <i class="zmdi zmdi-calendar-check"></i> <span>Calendar</span>
                         {{-- <small class="badge float-right badge-light">New</small> --}}
                     </a>
@@ -102,24 +104,15 @@
 
                 <li class="sidebar-header">About Us</li>
                 <li>
-                    <a href="{{ url('about-us/history') }}">
-                        <i class="zmdi zmdi-history"></i> <span>History Content</span>
+                    <a href="#" id="contentLink">
+                        <i class="zmdi zmdi-edit"></i> <span>Edit Content</span>
                     </a>
-                </li>
-                <li>
-                    <a href="{{ url('about-us/footer') }}">
-                        <i class="zmdi zmdi-history"></i> <span>History Footer</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ url('about-us/wts') }}">
-                        <i class="zmdi zmdi-history"></i> <span>What To See Inside</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ url('about-us/contact') }}">
-                        <i class="zmdi zmdi-history"></i> <span>Contact</span>
-                    </a>
+                    <ul id="contentDrawer" class="drawer-items" style="display:block">
+                        <li><a href="{{ url('about-us/history') }}">Edit History</a></li>
+                        <li><a href="{{ url('about-us/footer') }}">Footer</a></li>
+                        <li><a href="{{ url('about-us/wts') }}">What to see Inside</a></li>
+                        <li><a href="{{ url('about-us/contact') }}">Contact</a></li>
+                    </ul>
                 </li>
                 <li>
                     <a href="{{ asset('admin/profile') }}">
@@ -131,6 +124,8 @@
                         <i class="zmdi zmdi-camera"></i> <span>Scanner</span>
                     </a>
                 </li>
+
+
             </ul>
 
         </div>
@@ -142,15 +137,8 @@
                 <ul class="navbar-nav mr-auto align-items-center">
                     <li class="nav-item">
                         <a class="nav-link toggle-menu" href="javascript:void();">
-                            {{-- <i class="icon-menu menu-icon"></i> --}}
                         </a>
                     </li>
-                    {{-- <li class="nav-item">
-      <form class="search-bar">
-        <input type="text" class="form-control" placeholder="Enter keywords">
-         <a href="javascript:void();"><i class="icon-magnifier"></i></a>
-      </form>
-    </li> --}}
                 </ul>
 
                 <ul class="navbar-nav align-items-center right-nav-link">
@@ -160,24 +148,14 @@
                             <i class="fa fa-envelope-open-o"></i></a>
                     </li>
                     <li class="nav-item dropdown-lg">
-                        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret waves-effect" data-toggle="dropdown"
-                            href="javascript:void();">
+                        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret waves-effect"
+                            data-toggle="dropdown" href="javascript:void();">
                             <i class="fa fa-bell-o"></i></a>
                     </li>
-
                     <div id="clock">
                         <i class="zmdi zmdi-time">{{ $currentDateTime }}</i>
                     </div>
 
-                    {{-- <li class="nav-item language">
-      <a class="nav-link dropdown-toggle dropdown-toggle-nocaret waves-effect" data-toggle="dropdown" href="javascript:void();"><i class="fa fa-flag"></i></a>
-      <ul class="dropdown-menu dropdown-menu-right">
-          <li class="dropdown-item"> <i class="flag-icon flag-icon-gb mr-2"></i> English</li>
-          <li class="dropdown-item"> <i class="flag-icon flag-icon-fr mr-2"></i> French</li>
-          <li class="dropdown-item"> <i class="flag-icon flag-icon-cn mr-2"></i> Chinese</li>
-          <li class="dropdown-item"> <i class="flag-icon flag-icon-de mr-2"></i> German</li>
-        </ul>
-    </li> --}}
                     @foreach ($users as $user)
                         <li class="nav-item">
                             <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown"
@@ -211,7 +189,7 @@
                                         href="{{ asset('admin/profile') }}"> Account</li></a>
                                 <li class="dropdown-divider"></li>
                                 <li class="dropdown-item"><i class="zmdi zmdi-power"></i><a
-                                        href="{{ asset('logout') }}">Logout</li></a>
+                                        href="{{ url('logout-admin') }}">Logout</li></a>
                             </ul>
                         </li>
                     @endforeach
@@ -226,7 +204,7 @@
             @foreach ($users as $user)
                 <div class="container-fluid">
 
-                     <div class="row mt-3">
+                    <div class="row mt-3">
                         <div class="col-md-4">
                             <div class="bg-white shadow rounded overflow-hidden">
                                 <div class="px-4 pt-0 pb-4 cover">
@@ -242,7 +220,8 @@
                                                     class="hidden-xs">Edit</span></a> --}}
                                         <div class="media-body mb-5 text-white">
                                             <h4 class="mt-0 mb-0">{{ session('Admin')['user_fname'] }}'s Profile</h4>
-                                            <p class="small mb-4"> <i class="fas fa-map-marker-alt mr-2"></i>{{ $user->user_barangay}}
+                                            <p class="small mb-4"> <i
+                                                    class="fas fa-map-marker-alt mr-2"></i>{{ $user->user_barangay }}
                                             </p>
                                         </div>
                                     </div>
@@ -268,12 +247,12 @@
                                                 class="nav-link active"><i class="zmdi zmdi-account"></i> <span
                                                     class="hidden-xs">Profile</span></a>
                                         </li>
-                                                            {{-- <li class="nav-item">
+                                        {{-- <li class="nav-item">
                                         <a href="javascript:void();" data-target="#messages" data-toggle="pill" class="nav-link"><i class="icon-envelope-open"></i> <span class="hidden-xs">Messages</span></a>
                                     </li> --}}
                                     </ul>
-                                    <div class="tab-content p-3" >
-                                        <div class="tab-pane active" id="profile" >
+                                    <div class="tab-content p-3">
+                                        <div class="tab-pane active" id="profile">
                                             <h5 class="mb-3">User Profile</h5>
                                             <div class="row">
                                                 <div class="col-md-6">
@@ -293,7 +272,7 @@
                                                         </div>
                                                         <div class="form-group row">
                                                             <label
-                                                                class="col-lg-3 col-form-label form-control-label">First
+                                                                  class="col-lg-3 col-form-label form-control-label">First
                                                                 name: </label>
                                                             <div class="col-lg-9">
                                                                 <input class="form-control"
@@ -367,19 +346,12 @@
                                                                     value="{{ $user->role }}">
                                                             </div>
                                                         </div>
-                                                        {{-- <div class="form-group row">
-                                    <label class="col-lg-3 col-form-label form-control-label">Password</label>
-                                    <div class="col-lg-9">
-                                        {{-- <input class="form-control" type="password" value="11111122333"> --}}
-                                                        {{-- </div> --}}
-                                                        {{-- </div> --}}
 
                                                         <div class="form-group row">
                                                             <label
                                                                 class="col-lg-3 col-form-label form-control-label"></label>
                                                             <div class="col-lg-9">
-                                                                {{-- <input type="reset" class="btn btn-secondary" value="Cancel">
-                                        <input type="button" class="btn btn-primary" value="Save Changes"> --}}
+
                                                             </div>
                                                         </div>
                                                     </form>
@@ -600,7 +572,6 @@
 
     <!-- Index js -->
     <script src="{{ asset('assets/js/jsadmin/index.js') }}"></script>
-
 
     <script>
         function updateTime() {

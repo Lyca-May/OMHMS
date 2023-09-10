@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\About_Us;
 use App\Http\Controllers\Admin\AnnouncementController;
+use App\Http\Controllers\Admin\AttendanceController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Authentication\AuthController;
 use App\Http\Controllers\ImagesController;
@@ -190,6 +191,8 @@ Route::view('rent-cancel-status-page', 'admin.pages.visit.rent-cancel-status');
 Route::get('/admin/scan-qr', [VisitController::class, 'showScanQRPage']);
 Route::post('/admin/mark-visit-done', [VisitController::class, 'markVisitAsDone']);
 
+//Attendance
+Route::get('admin/attendance', [AttendanceController::class, 'visitorAttend']);
 
 
 //Newsfeed for user function
