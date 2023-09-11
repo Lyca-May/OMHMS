@@ -305,14 +305,14 @@
                                 <div class="card-header">History Content
                                     <br>
                                     <br>
-                                    <div class="col-sm-4">
-                                        <a class="btn btn-success" style="float:left;margin-right:20px;" data-toggle="modal" data-target="#addItemModal">+ Add</a>
+                                    <div class="col-sm-2">
+                                        <a class="btn btn-success" style="float:left;margin-right:10px;" data-toggle="modal" data-target="#addItemModal">+ Add</a>
                                         <div class="search-box">
                                             <input type="text" class="form-control" id="searchInput" placeholder="Search">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="table-responsive">
+                                <div class="table-responsive" style="width: 1245px; overflow-x: auto;">
                                     <table class="table align-items-center table-flush table-borderless" id="pending-table">
                                         <thead>
                                             <tr>
