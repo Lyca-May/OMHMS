@@ -28,6 +28,55 @@
     <link rel="stylesheet" href="{{ asset('assets/css/css/testimonial1.css') }}">
 </head>
 
+<style>
+    /* Reset some default styles */
+    body, h1, h2, p {
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Style the container */
+    .newsfeed-container {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    /* Style the left column */
+    .left-column {
+        flex: 1;
+        padding: 10px;
+        background-color: #f4f4f4;
+    }
+
+    /* Style the right column */
+    .right-column {
+        flex: 2;
+        padding: 10px;
+    }
+
+    /* Example news item */
+    .news-item {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    /* Media query for responsiveness */
+    @media (max-width: 768px) {
+        .newsfeed-container {
+            flex-direction: column;
+        }
+
+        .left-column, .right-column {
+            width: 100%;
+        }
+    }
+</style>
+
     <body>
         <!--================Header Area =================-->
         <header class="header_area">
@@ -97,7 +146,7 @@
         <div class="container">
             <form action="{{url("post")}}" method="POST">
             @csrf
-            <div class="bg-gray p-2 mt-4 rounded border shadow">
+            <div class="bg-gray p-2 mt-4 rounded border shadow" style="width: 1200px">
                 <!-- avatar -->
                 <div class="d-flex" type="button">
                     {{-- <div class="p-1">
@@ -108,10 +157,12 @@
                     <textarea type="text" class="form-control rounded-pill border-0 bg-gray pointer"
                         style="margin-left:20px; " placeholder="Create Post" data-bs-toggle="modal"
                         data-bs-target="#createModal" name="post"></textarea>
+
+                        <hr>
+                        <input type="file" style="margin-left: 80px" name="image" onchange="this.form.submit()">
+                        <button href="" class="genric-btn primary circle text-right" style="margin-left: 630px" type="submit">Post it!</button>
                 </div>
-                <hr>
-                <input type="file" style="margin-left: 80px" name="image" onchange="this.form.submit()">
-                <button href="" class="genric-btn primary circle text-right" style="margin-left: 630px" type="submit">Post it!</button>
+
             </div>
         </form>
     </section>
@@ -128,9 +179,19 @@
         <div class="row">
             <div class="col-lg-12">
                 {{-- <div class="blog_left_sidebar"> --}}
+                    <div class="newsfeed-container">
+                        <div class="left-column">
+                            <!-- Left column content (e.g., filters or categories) goes here -->
+                            <h2>Filters</h2>
+                            <ul>
+                                <li>Category 1</li>
+                                <li>Category 2</li>
+                                <li>Category 3</li>
+                            </ul>
+                        </div>
 
                     @foreach ($posts as $post)
-                    <div class="card rounded shadow-sm mb-4">
+                    {{-- <div class="card rounded shadow-sm mb-4"> --}}
                         <article class="row blog_item">
                             <div class="col-md-3">
                                 <div class="blog_info text-right">
@@ -197,7 +258,7 @@
 
                                 </div>
                             </div>
-                    </div>
+                    {{-- </div> --}}
                     <!-- Modal -->
                     <div class="modal fade" id="post-{{$post->feed_id}}-comments" tabindex="-1" role="dialog" aria-labelledby="post-{{$post->feed_id}}-comments-label" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -229,6 +290,7 @@
                         </div>
                     </div>
                 @endforeach
+            </div>
 
 
                 <nav class="blog-pagination justify-content-center d-flex">
@@ -256,7 +318,6 @@
                 </nav>
             </div>
 
-        </div>
     </div>
 
 
@@ -420,19 +481,19 @@
     </script>
     @endif<!doctype html>
     <html lang="en">
-    
+
     <head>
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="icon" href="{{ asset('omhms.png') }}" type="image/png">
         <title>OMHMS</title>
-    
-    
+
+
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-********" crossorigin="anonymous" />
-    
+
        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    
+
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="{{ asset('assets/css/css/bootstrap.css') }}">
         <link rel="stylesheet" href="{{ asset('vendors/linericon/style.css') }}">
@@ -447,7 +508,7 @@
         <link rel="stylesheet" href="{{ asset('assets/css/css/responsive.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/css/css/testimonial1.css') }}">
     </head>
-    
+
         <body>
             <!--================Header Area =================-->
             <header class="header_area">
@@ -458,7 +519,7 @@
                             <img src="{{ asset('omhms.png') }}" class="logo-icon" alt="logo icon" style="width: 45px; height: 30px">
                             <img src="{{ asset('eOMHeritage1.png') }}" class="logo-icon" alt="logo icon" style="width: 190px; height: 45px">
                         </a>
-    
+
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                             aria-label="Toggle navigation">
@@ -479,7 +540,7 @@
                                         <li class="nav-item"><a class="nav-link" href="{{ url('user/vnm1') }}">Vision &
                                                 Mission</a></li>
                                             <li class="nav-item"><a class="nav-link" href="{{url("user/oper1")}}">Operation</a></li>
-    
+
                                     </ul>
                                 </li>
                                 <li class="nav-item"><a class="nav-link" href="{{url("user/testimonials1")}}">Announcements</a></li>
@@ -510,8 +571,8 @@
                 </div>
             </header>
         <!--================Header Area =================-->
-    
-    
+
+
         <!--================Blog Categorie Area =================-->
         <section class="blog_categorie_area">
             <div class="container">
@@ -536,19 +597,19 @@
             </form>
         </section>
         <!--================Blog Categorie Area =================-->
-    
+
         <!--================Blog Area =================-->
         <section class="blog_area">
-    
-    
+
+
         <h4 style="text-align:center; font-weight:200px; font-size: 40px"> FEED </h4>
-    
-    
+
+
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     {{-- <div class="blog_left_sidebar"> --}}
-    
+
                         @foreach ($posts as $post)
                         <div class="card rounded shadow-sm mb-4">
                             <article class="row blog_item">
@@ -590,7 +651,7 @@
                                             <p class="font-weight-normal">{{$post->post}}</p>
                                         </div>
                                         <a href="#" class="genric-btn primary circle text-right" data-toggle="modal" data-target="#myModal{{$post->feed_id}}">View More</a>
-    
+
                                         <!-- Modal -->
                                         <div class="modal fade" id="myModal{{$post->feed_id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
@@ -607,14 +668,14 @@
                                                        <span></span>
                                                     </div>
                                            fgh         @endforeach --}}
-    
+
                                                     <div class="modal-footer">
                                                         <button type="button" class="genric-btn primary" data-dismiss="modal">Close</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-    
+
                                     </div>
                                 </div>
                         </div>
@@ -632,7 +693,7 @@
                                     </div>
                                     <div class="modal-body">
                                         <ul class="list-group">
-    
+
                                         </ul>
                                         <hr>
                                         <form action="{{ url('create-comment/' .$post->feed_id) }}" method="POST">
@@ -649,8 +710,8 @@
                             </div>
                         </div>
                     @endforeach
-    
-    
+
+
                     <nav class="blog-pagination justify-content-center d-flex">
                         <ul class="pagination">
                             <li class="page-item">
@@ -675,15 +736,128 @@
                         </ul>
                     </nav>
                 </div>
-    
+
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    div class="card px-3 pt-3" style="max-width: 32rem">
+                    <!-- News block -->
+                    <div>
+                      <!-- Featured image -->
+                      <div class="bg-image hover-overlay shadow-1-strong ripple rounded-5 mb-4" data-mdb-ripple-color="light">
+                        <img src="https://mdbcdn.b-cdn.net/img/new/fluid/city/113.webp" class="img-fluid" />
+                        <a href="#!">
+                          <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                        </a>
+                      </div>
+
+                      <!-- Article data -->
+                      <div class="row mb-3">
+                        <div class="col-6">
+                          <a href="" class="text-info">
+                            <i class="fas fa-plane"></i>
+                            Travels
+                          </a>
+                        </div>
+
+                        <div class="col-6 text-end">
+                          <u> 15.07.2020</u>
+                        </div>
+                      </div>
+
+                      <!-- Article title and description -->
+                      <a href="" class="text-dark">
+                        <h5>This is title of the news</h5>
+
+                        <p>
+                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, iste aliquid. Sed
+                          id nihil magni, sint vero provident esse numquam perferendis ducimus dicta
+                          adipisci iusto nam temporibus modi animi laboriosam?
+                        </p>
+                      </a>
+
+                      <hr />
+
+                      <!-- News -->
+                      <a href="" class="text-dark">
+                        <div class="row mb-4 border-bottom pb-2">
+                          <div class="col-3">
+                            <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/041.webp"
+                              class="img-fluid shadow-1-strong rounded" alt="Hollywood Sign on The Hill" />
+                          </div>
+
+                          <div class="col-9">
+                            <p class="mb-2"><strong>Lorem ipsum dolor sit amet</strong></p>
+                            <p>
+                              <u> 15.07.2020</u>
+                            </p>
+                          </div>
+                        </div>
+                      </a>
+
+                      <!-- News -->
+                      <a href="" class="text-dark">
+                        <div class="row mb-4 border-bottom pb-2">
+                          <div class="col-3">
+                            <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/042.webp"
+                              class="img-fluid shadow-1-strong rounded" alt="Palm Springs Road" />
+                          </div>
+
+                          <div class="col-9">
+                            <p class="mb-2"><strong>Lorem ipsum dolor sit amet</strong></p>
+                            <p>
+                              <u> 15.07.2020</u>
+                            </p>
+                          </div>
+                        </div>
+                      </a>
+
+                      <!-- News -->
+                      <a href="" class="text-dark">
+                        <div class="row mb-4 border-bottom pb-2">
+                          <div class="col-3">
+                            <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/043.webp"
+                              class="img-fluid shadow-1-strong rounded" alt="Los Angeles Skyscrapers" />
+                          </div>
+
+                          <div class="col-9">
+                            <p class="mb-2"><strong>Lorem ipsum dolor sit amet</strong></p>
+                            <p>
+                              <u> 15.07.2020</u>
+                            </p>
+                          </div>
+                        </div>
+                      </a>
+
+                      <!-- News -->
+                      <a href="" class="text-dark">
+                        <div class="row mb-4 border-bottom pb-2">
+                          <div class="col-3">
+                            <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/044.webp"
+                              class="img-fluid shadow-1-strong rounded" alt="Skyscrapers" />
+                          </div>
+
+                          <div class="col-9">
+                            <p class="mb-2"><strong>Lorem ipsum dolor sit amet</strong></p>
+                            <p>
+                              <u> 15.07.2020</u>
+                            </p>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                    <!-- News block -->
+                  </div>
+                </div>
+
             </div>
         </div>
-    
-    
+
+
         </section>
         <!--================Blog Area =================-->
-    
-    
+
+
         <!--================ start footer Area  =================-->
         <footer class="footer-area1 section_gap">
             <div class="container">
@@ -725,7 +899,7 @@
                             </div>
                         </div>
                     </div>
-    
+
                     <div class="col-lg-3 col-md-6 col-sm-6" style="margin-left: 50px">
                         <div class="single-footer-widget">
                             <h6 class="footer_title1">Contact Us</h6>
@@ -752,7 +926,7 @@
                             </div>
                         </div>
                     </div>
-    
+
                 </div>
                 <div class="border_line"></div>
                 <div class="row footer-bottom d-flex justify-content-between align-items-center">
@@ -770,12 +944,12 @@
                         <a href="#https://www.instagram.com/travelorientalmindoro/" style="margin-right: 20px;"><i class="fab fa-instagram fa-lg"></i></a>
                     </div>
                 </div>
-    
+
             </div>
         </footer>
         <!--================ End footer Area  =================-->
-    
-    
+
+
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="{{ asset('assets/js/js/jquery-3.2.1.min.js') }}"></script>
@@ -800,9 +974,9 @@
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    
-    
-    
+
+
+
         {{-- sweet-alert --}}
         @if (session('success'))
         <script>
@@ -816,7 +990,7 @@
             })
         </script>
         @endif
-    
+
         @if (session('failed'))
             <script>
                 Swal.fire({
@@ -829,7 +1003,7 @@
                 })
             </script>
         @endif
-    
+
         @if (session('success'))
         <script>
             Swal.fire({
@@ -839,7 +1013,7 @@
             });
         </script>
         @endif
-    
+
         @if (session('error'))
             <script>
                 Swal.fire({
@@ -849,13 +1023,13 @@
                 });
             </script>
         @endif
-    
-    
-    
+
+
+
     </body>
-    
+
     </html>
-    
+
 
     @if (session('error'))
         <script>
