@@ -149,22 +149,22 @@
             data-background="">
         </div>
         <div class="container">
+            @foreach ($wts as $history)
             <div class="section_title text-center">
-                <h2 class="title_w">What to See Inside</h2>
-                <p>Since the Oriental Mindoro Heritage Museum, Calapan, functions as the repository and custodian of
-                    varying representations of legacy, it houses cultural artifacts, historical records, evidence of
-                    abundant biodiversity, and remarkably collected memorabilia throughout the province. Inside the
-                    museum, visitors will see displays of old things used by native Mangyan for their livelihood and
-                    household.
-                </p>
+                <h2 class="title_w">{{ $history->wts_title }}</h2>
+                <p>{{ $history->wts_info }}</p>
             </div>
+            @foreach ($image as $images )
             <div class="row mb_30">
                 <div class="col-lg-4 col-md-6">
                     <div class="facilities_item">
-                        <h4 class="sec_h4">Mangyan Traditional Wear</h4>
+                        <h4 class="sec_h4">{{$images->wts_image_title}}</h4>
+                        @if ($images->wts_image)
+                        <img class="img-fluid" style="margin-top: 90px" src="{{ asset('wts_image/' . $images->wts_image) }}" alt="img" />
+                        @endif
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
+                {{-- <div class="col-lg-4 col-md-6">
                     <div class="facilities_item1">
                         <h4 class="sec_h4">Ginaw Bilog</h4>
                     </div>
@@ -188,8 +188,10 @@
                     <div class="facilities_item5">
                         <h4 class="sec_h4">Mangyan Basket Weaving</h4>
                     </div>
-                </div>
+                </div> --}}
             </div>
+            @endforeach
+            @endforeach
         </div>
     </section>
     <!--================ Facilities Area  =================-->

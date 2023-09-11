@@ -719,7 +719,7 @@
             <footer class="footer">
                 <div class="container">
                     <div class="text-center">
-                        Copyright © 2018 Dashtreme Admin
+                        Copyright © 2023 eOMHeritage Admin
                     </div>
                 </div>
             </footer>
@@ -816,7 +816,7 @@
                     toast: true,
                     position: 'top-end',
                     showConfirmButton: false,
-                    timer: 3000,
+                    timer: 1000,
                     timerProgressBar: true,
                     background: '#8cc63f',
                     iconColor: '#ffffff',
@@ -837,7 +837,7 @@
                     toast: true,
                     position: 'top-end',
                     showConfirmButton: false,
-                    timer: 3000,
+                    timer: 1000,
                     timerProgressBar: true,
                     background: '#dc3545',
                     iconColor: '#ffffff',

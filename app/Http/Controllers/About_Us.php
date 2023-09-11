@@ -25,8 +25,9 @@ class About_Us extends Controller
         $users = DB::table('users')->where('user_id', $user_id)->get();
         $footer = Footer_Model::where('is_archived','0')->get();
         $wts = WTS_Model::where('is_archived','0')->get();
+        $image = WTS_Model::where('is_archived', '0')->select('wts_image_title', 'wts_image')->get();
         $contents = History_Content::where('is_archived','0')->get();
-        return view('user.pages.landingpage1.aboutpages.history1', compact('users', 'contents', 'wts', 'footer'));
+        return view('user.pages.landingpage1.aboutpages.history1', compact('users', 'contents', 'wts', 'image', 'footer'));
     }
     public function display_history_content(){
         $user_id = session('Admin')['user_id'];
@@ -216,6 +217,7 @@ class About_Us extends Controller
         $archivedwts = WTS_Model::where('is_archived','1')->get();
         return view('admin.pages.aboutUs.what-to-see', compact('users', 'wts', 'archivedwts'));
     }
+
 
     public function add_history_wts(Request $request)
     {
