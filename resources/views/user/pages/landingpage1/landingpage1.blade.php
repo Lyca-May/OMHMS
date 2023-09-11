@@ -267,43 +267,142 @@
             </div>
             <div class="row mb_30">
                 <div class="tab">
-                    <button class="tablinks" onclick="openCity(event, 'London')" id="defaultOpen">Ammonites Stone</button>
-                    <button class="tablinks" onclick="openCity(event, 'Paris')">Mangyan Traditional Wear</button>
-                    <button class="tablinks" onclick="openCity(event, 'Paris')">Mangyan Basket Weaving</button>
-                    <button class="tablinks" onclick="openCity(event, 'Tokyo')">Ginaw Bilog</button>
-                    <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tamaraw</button>
-                    <button class="tablinks" onclick="openCity(event, 'Tokyo')">Jars</button>
+                    <button class="tablinks" onclick="openCity(event, 'Ammo')" id="defaultOpen">Ammonites
+                        Stone</button>
+                    <button class="tablinks" onclick="openCity(event, 'Trad')">Mangyan Traditional Wear</button>
+                    <button class="tablinks" onclick="openCity(event, 'Basket')">Mangyan Basket Weaving</button>
+                    <button class="tablinks" onclick="openCity(event, 'Surat')">Surat mangyan sa Kawayan</button>
+                    <button class="tablinks" onclick="openCity(event, 'Tam')">Tamaraw</button>
+                    <button class="tablinks" onclick="openCity(event, 'Jar')">Jars</button>
                 </div>
 
-                <div id="London" class="tabcontent">
+                <div id="Ammo" class="tabcontent">
                     <div class="tab-content">
                         <div class="tab-content-left">
-                            <img class="tab-image" src="{{ asset('images/whattosee/Stone.jpg') }}" alt="Ammonites Stone Image">
+                            <img class="tab-image" src="{{ asset('images/whattosee/Stone.jpg') }}"
+                                alt="Ammonites Stone Image">
                         </div>
                         <div class="tab-content-right">
-                            <p>London is the capital city of England.</p>
+                            <h4>AMMONITES STONE</h4>
+                            <div class="tab-text">
+                                <p style="text-align: justify">One of the oldest rocks in the Philippines was formed at
+                                    the same time that the
+                                    dinosaurs were roaming our planet. During this time, the Philippine archipelago was
+                                    still submerged underwater, hence the absence of dinosaur fossils in our country.
+                                    The Jurassic sandstone belongs to the Mansalay formation which forms the basement of
+                                    the southwestern part of Mindoro Island. It is essentially a sandstone unit that
+                                    hosts different types of fossils of broken and disarticulated bivalve shells,
+                                    belemnite fragments and ammonites. Scientists were able to determine that it was
+                                    formed sometime between 201 to 145 million years ago, also known as the Jurassic
+                                    period hrough the presence of ammonite fossils.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div id="Paris" class="tabcontent">
+                <div id="Trad" class="tabcontent">
                     <div class="tab-content">
                         <div class="tab-content-left">
-                            <img class="tab-image" src="{{ asset('images/whattosee/jars.jpg') }}" alt="Ammonites Stone Image">
+                            <img class="tab-image" src="{{ asset('images/whattosee/mangyan.jpg') }}"
+                                alt="Mangyan Traditional Wear Image">
                         </div>
                         <div class="tab-content-right">
-                            <p>London is the capital city of England.</p>
+                            <h4>Mangyan Traditional Wear</h4>
+                            <p style="text-align: justify">Mangyan traditional wear represents the rich tapestry of
+                                indigenous culture found in the
+                                Philippines. With a history deeply rooted in ancestral traditions, this exhibit offers a
+                                captivating exploration of the attire that has been passed down through generations.</p>
+
+                            <p style="text-align: justify"> These garments, adorned with vibrant handwoven fabrics,
+                                intricate beadwork, and
+                                intricate embroidery, are not just clothing; they are a visual language that tells
+                                stories of Mangyan identity, spirituality, and connection to nature. Each piece reflects
+                                the unique customs, beliefs, and way of life of the various Mangyan tribes,
+                                demonstrating the diversity within this indigenous group.
+                            </p>
                         </div>
                     </div>
                 </div>
 
-                <div id="Tokyo" class="tabcontent">
+                <div id="Basket" class="tabcontent">
                     <div class="tab-content">
                         <div class="tab-content-left">
-                            <img class="tab-image" src="{{ asset('images/whattosee/basket.jpg') }}" alt="Ammonites Stone Image">
+                            <img class="tab-image" src="{{ asset('images/whattosee/basket.jpg') }}"
+                                alt="Basket Image">
                         </div>
                         <div class="tab-content-right">
-                            <p>London is the capital city of England.</p>
+                            <h4>Mangyan Basket Weaving</h4>
+                            <p style="text-align: justify">Mangyan basket weaves are a testament to the exquisite
+                                craftsmanship and deep-rooted traditions of the Mangyan people in the Philippines. This
+                                exhibit invites you to explore the artistry and cultural significance of these
+                                meticulously crafted baskets.</p>
+
+                            <p style="text-align: justify"> Handwoven with precision and care, Mangyan baskets are not
+                                just functional objects; they are repositories of cultural knowledge and heritage. Each
+                                weave pattern, material choice, and design motif is a reflection of the specific Mangyan
+                                tribe's identity, history, and connection to their natural surroundings.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div id="Surat" class="tabcontent">
+                    <div class="tab-content">
+                        <div class="tab-content-left">
+                            <img class="tab-image" src="{{ asset('images/whattosee/Surat.jpg') }}"
+                                alt="Surat Mangyan sa Kawayan Image">
+                        </div>
+                        <div class="tab-content-right">
+                            <h4>Surat Mangyan sa Kawayan</h4>
+                            <p style="text-align: justify">Among the notable aspects of the Hanunuo Mangyan's rich culture is their writing system
+                                known as Surat Hanunuo Mangyan. The Surat Hanunuo Mangyan scripts are among the last
+                                remaining examples of a writing system formerly used in Pre-Hispanic Philippines.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div id="Tam" class="tabcontent">
+                    <div class="tab-content">
+                        <div class="tab-content-left">
+                            <img class="tab-image" src="{{ asset('images/whattosee/tamaraw.jpg') }}"
+                                alt="Tamaraw Image">
+                        </div>
+                        <div class="tab-content-right">
+                            <h4>Tamaraw</h4>
+                            <p style="text-align: justify">The Tamaraw or Mindoro Dwarf Buffalo was first discovered by
+                                Heude in Mindoro in 1888
+                                while another scientist named J.B. Steere, discovered Tamaraw in Katuiran River, Calapan
+                                (now Baco), Oriental Mindoro in 1889.
+                            </p>
+                            <p style="text-align: justify">The Tamaraw is a mammal that closely resembles the carabao
+                                in almost all aspects except
+                                that the Tamaraw is smaller in size, its horns are short and stout that grow straight
+                                upward with a "V" form and its hair is denser
+                                dark brown to grayish black (Nowak, 1991). The male has flattened paint of horns and is
+                                darker in color while the female has a rounded horn and is grayish in pigmentation
+                                (Rabor, 1997). The life span of the Tamaraw is estimated to be about 20-25 years.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div id="Jar" class="tabcontent">
+                    <div class="tab-content">
+                        <div class="tab-content-left">
+                            <img class="tab-image" src="{{ asset('images/whattosee/jars.jpg') }}" alt="Jar Image">
+                        </div>
+                        <div class="tab-content-right">
+                            <h4>Jars</h4>
+                            <p style="text-align: justify">Mangyan jars are a testament to the artistry and cultural
+                                heritage of the Mangyan people in the Philippines. This exhibit offers a glimpse into
+                                the world of these remarkable clay vessels, each telling a story of tradition,
+                                craftsmanship, and community.</p>
+
+                            <p style="text-align: justify"> Crafted with meticulous care, Mangyan jars are more than
+                                just containers; they are a reflection of Mangyan identity and history. Each jar boasts
+                                distinctive patterns and designs that signify the tribe's unique style and purpose.
+                                These vessels have played practical roles in daily life, preserving food and liquids,
+                                while also serving as powerful symbols of Mangyan culture.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -624,17 +723,19 @@
         </script>
     @endif
 
-<script type="text/javascript">
-    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-    (function(){
-    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-    s1.async=true;
-    s1.src='https://embed.tawk.to/64fec3660f2b18434fd7ce08/1ha1imim1';
-    s1.charset='UTF-8';
-    s1.setAttribute('crossorigin','*');
-    s0.parentNode.insertBefore(s1,s0);
-    })();
-</script>
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {},
+            Tawk_LoadStart = new Date();
+        (function() {
+            var s1 = document.createElement("script"),
+                s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/64fec3660f2b18434fd7ce08/1ha1imim1';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
 
 </body>
 
