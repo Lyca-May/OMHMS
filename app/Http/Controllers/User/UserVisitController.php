@@ -88,6 +88,7 @@ class UserVisitController extends Controller
             }
 
             $rules = [
+
                 'visits_intended_date' => [
                     'required',
                     'date',
@@ -100,18 +101,18 @@ class UserVisitController extends Controller
                     'between:0,1000'
                 ],
                 'file_of_visitors' => 'nullable|mimetypes:application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet|max:2048',
+                'visits_name_of_institution'=>'required'
             ];
 
             $messages = [
                 'visits_intended_date.required' => 'Please input the intended date for reservation',
                 'visits_intended_date.date' => 'Please input a valid date',
                 'visits_intended_date.after_or_equal' => 'The intended date must be on or after today',
-                // 'visits_intended_date.equal' => 'The intended date must be equal to 3 days after today',
                 'visits_time.required' => 'Please select the intended time for reservation',
-                // 'visits_no_of_visitors.integer' => 'The number of visitors must be an integer',
                 'visits_no_of_visitors.between' => 'The number of visitors must not be greater than 100',
                 'file_of_visitors.mimetypes' => 'The file must be a excel file',
                 'file_of_visitors.max' => 'The file size must not exceed 2048 KB',
+                'visits_name_of_institution'=>'Please input name of your institution'
             ];
 
             $validator = Validator::make($request->all(), $rules, $messages);
@@ -142,7 +143,7 @@ class UserVisitController extends Controller
             $visits_zipcode = $request->visits_zipcode;
             $visits_intended_date = $request->visits_intended_date;
             $visits_no_of_visitors = $request->visits_no_of_visitors;
-            $visits_name_of_institution = 'NONE';
+            $visits_name_of_institution = $request->visits_name_of_institution;
             $visits_time = $request->visits_time;
             $contact_no = $request->contact_no;
             $cancel_reason = $request->cancel_reason;
@@ -210,32 +211,43 @@ class UserVisitController extends Controller
                         'userid' => $visit->userid,
                         'visits_fname' => $visit->visits_fname,
                         'visits_lname' => $visit->visits_lname,
-                        'visits_gender' => $visit->gender,
-                        'visits_email' => $visit->visits_email,
-                        'visits_country' => $visit->visits_country,
-                        'visits_province' => $visit->visits_province,
-                        'visits_municipality' => $visit->visits_municipality,
-                        'visits_brgy' => $visit->visits_brgy,
-                        'visits_street' => $visit->visits_street,
-                        'visits_zipcode' => $visit->visits_zipcode,
+                        // 'visits_gender' => $visit->gender,
+                        // 'visits_email' => $visit->visits_email,
+                        // 'visits_country' => $visit->visits_country,
+                        // 'visits_province' => $visit->visits_province,
+                        // 'visits_municipality' => $visit->visits_municipality,
+                        // 'visits_brgy' => $visit->visits_brgy,
+                        // 'visits_street' => $visit->visits_street,
+                        // 'visits_zipcode' => $visit->visits_zipcode,
                         'visits_intended_date' => $visit->visits_intended_date,
-                        'visits_no_of_visitors' => $visit->visits_no_of_visitors,
+                        // 'visits_no_of_visitors' => $visit->visits_no_of_visitors,
                         'visits_name_of_institution' => $visit->visits_name_of_institution,
-                        'visits_time' => $visit->visits_time,
-                        'visits_contact_no' => $visit->visits_contact_no,
-                        'visits_cancel_reason' => $visit->visits_cancel_reason,
+                        // 'visits_time' => $visit->visits_time,
+                        // 'visits_contact_no' => $visit->visits_contact_no,
+                        // 'visits_cancel_reason' => $visit->visits_cancel_reason,
                         'visits_status' => $visit->visits_status,
 
                     ];
 
                     $qrCode = QrCode::format('png')
-                    ->size(200)
-                    ->margin(10) // Add a margin around the QR code
-                    ->color(0, 0, 0) // Set the QR code color to black
-                    ->backgroundColor(255, 255, 255) // Set the background color to white (fully opaque)
-                    ->errorCorrection('H') // Error correction level
+                    ->size(200) // Start with a reasonable size
+                    ->margin(10)
+                    ->color(0, 0, 0)
+                    ->backgroundColor(255, 255, 255)
+                    ->errorCorrection('H')
                     ->generate(json_encode($qrData));
 
+                    // You can check if the generated QR code is too small for the data
+                    // If it's too small, you can regenerate with a larger size
+                    if (strlen($qrCode) < 300) {
+                        $qrCode = QrCode::format('png')
+                            ->size(300) // Increase the size
+                            ->margin(10)
+                            ->color(0, 0, 0)
+                            ->backgroundColor(255, 255, 255)
+                            ->errorCorrection('L')
+                            ->generate(json_encode($qrData));
+                    }
 
                     // Save the QR code image to the public folder
                     $qrCodePath = public_path('qrcodes/') . $visit->visits_id . '.png';
@@ -260,20 +272,32 @@ class UserVisitController extends Controller
     {
         // Retrieve the stored QR code path and related data from the session
         $qrCodePath = session('qrCodePath'); // Change this to match the key used to store the QR code path
-        $visit = session('visitData');
+        $user_id = session('User')['user_id'];
 
-        if (!$qrCodePath || !$visit) {
+        if (!$qrCodePath || !$user_id) {
             abort(404); // Handle missing data
         }
 
+        // Fetch visit details for the logged-in user using $user_id
+        $visit = Visit_Model::where('userid', $user_id)->first();
+
+        // Check if a visit record exists for the user
+        if (!$visit) {
+            abort(404); // Handle the case where no visit record is found
+        }
+
+        // Generate QR code based on visit data (your existing code)
+        // ...
+
+        // Fetch other related data (users, reservedSouvenir, rent)
         $currentDate = date('Y-m-d');
-        $user_id = session('User')['user_id'];
         $users = DB::table('users')->where('user_id', $user_id)->get();
         $reservedSouvenir = Reserved_Souvenir::with('souvenir')->with('user')->where('userid', $user_id)->where('is_archived', 0)->get();
         $rent = Function_Hall::with('user')->where('userid', $user_id)->whereRaw('DATE(date_requested) >= ?', [$currentDate])->get();
 
         return view('user.pages.profile.mybookings', compact('qrCodePath', 'visit', 'users', 'reservedSouvenir', 'rent'));
     }
+
 
 
     public function showActiveQRCode($visitId)

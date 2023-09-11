@@ -7,7 +7,7 @@
     <link rel="icon" href="{{ asset('omhms.png') }}" type="image/png">
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>OMHMS</title>
+    <title>eOMHeritage Admin</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
     <!-- loader-->
     <link href="{{ asset('assets/css/cssadmin/pace.min.css') }}" rel="stylesheet" />

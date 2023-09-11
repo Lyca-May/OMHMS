@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="{{asset("omhms.png")}}" type="image/png">
-        <title>OMHMS</title>
+    <title>eOMHeritage Official Website</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-********" crossorigin="anonymous" />
 
@@ -238,7 +238,7 @@
                     <script>
                         document.write(new Date().getFullYear());
                     </script> All rights reserved | <i class="fa fa-heart-o"
-                        aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">OMHMS</a>
+                        aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">eOMHeritage</a>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </p>
                 <div class="col-lg-4 col-sm-12 footer-social">
