@@ -69,7 +69,7 @@ class UserVisitController extends Controller
     public function reserve_visit(Request $request)
     {
         $user = session()->get('User');
-        $userid = $user['user_id']; 
+        $userid = $user['user_id'];
         if (!$user) {
             return redirect()->back()->with('error', "User not found");
         }
@@ -260,20 +260,32 @@ class UserVisitController extends Controller
     {
         // Retrieve the stored QR code path and related data from the session
         $qrCodePath = session('qrCodePath'); // Change this to match the key used to store the QR code path
-        $visit = session('visitData');
+        $user_id = session('User')['user_id'];
 
-        if (!$qrCodePath || !$visit) {
+        if (!$qrCodePath || !$user_id) {
             abort(404); // Handle missing data
         }
 
+        // Fetch visit details for the logged-in user using $user_id
+        $visit = Visit_Model::where('userid', $user_id)->first();
+
+        // Check if a visit record exists for the user
+        if (!$visit) {
+            abort(404); // Handle the case where no visit record is found
+        }
+
+        // Generate QR code based on visit data (your existing code)
+        // ...
+
+        // Fetch other related data (users, reservedSouvenir, rent)
         $currentDate = date('Y-m-d');
-        $user_id = session('User')['user_id'];
         $users = DB::table('users')->where('user_id', $user_id)->get();
         $reservedSouvenir = Reserved_Souvenir::with('souvenir')->with('user')->where('userid', $user_id)->where('is_archived', 0)->get();
         $rent = Function_Hall::with('user')->where('userid', $user_id)->whereRaw('DATE(date_requested) >= ?', [$currentDate])->get();
 
         return view('user.pages.profile.mybookings', compact('qrCodePath', 'visit', 'users', 'reservedSouvenir', 'rent'));
     }
+
 
 
     public function showActiveQRCode($visitId)

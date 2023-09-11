@@ -7,7 +7,7 @@
     <link rel="icon" href="{{ asset('omhms.png') }}" type="image/png">
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>OMHMS</title>
+    <title>eOMHeritage Official Website</title>
     <!-- loader-->
     <link href="{{ asset('assets/css/cssadmin/pace.min.css') }}" rel="stylesheet" />
     <script src="{{ asset('assets/js/jsadmin/pace.min.js') }}"></script>
@@ -281,7 +281,7 @@
                                                         @elseif ($visit->visits_status == 'CANCELLED')
                                                             <p><span>{{ $visit->visits_status }}</span></p>
                                                         @else
-                                                            <p><span style="color: green">{{ $visits->visits_status }}</span></p>
+                                                            <p><span style="color: green">{{ $visit->visits_status }}</span></p>
                                                         @endif
                                                     </div>
                                                 </div>

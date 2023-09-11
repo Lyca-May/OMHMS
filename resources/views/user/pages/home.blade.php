@@ -22,7 +22,7 @@
     />
     <!-- main style -->
     <link rel="stylesheet" href="{{asset('main.css')}}" />
-    <title>OMHMS</title>
+    <title>eOMHeritage Official Website</title>
   </head>
   <body class="bg-gray postion-relative">
     <!-- ================= Appbar ================= -->
