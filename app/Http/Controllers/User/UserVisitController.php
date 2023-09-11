@@ -103,7 +103,7 @@ class UserVisitController extends Controller
         'visits_no_of_visitors' => [
             'between:0,1000'
         ],
-        'file_of_visitors' => 'nullable|mimetypes:application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet|max:2048',
+        'file_of_visitors' => 'nullable|mimetypes:application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet|max:2048',
     ];
 
     $messages = [
@@ -114,7 +114,7 @@ class UserVisitController extends Controller
         'visits_time.required' => 'Please select the intended time for reservation',
         // 'visits_no_of_visitors.integer' => 'The number of visitors must be an integer',
         'visits_no_of_visitors.between' => 'The number of visitors must not be greater than 100',
-        'file_of_visitors.mimetypes' => 'The file must be a docx or excel file',
+        'file_of_visitors.mimetypes' => 'The file must be a excel file',
         'file_of_visitors.max' => 'The file size must not exceed 2048 KB',
     ];
 
