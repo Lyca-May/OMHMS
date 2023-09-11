@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="{{ asset('omhms.png') }}" type="image/png">
-    <title>eOMHeritage Official Website</title>
+    <title>OMHMS</title>
 
     {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-********" crossorigin="anonymous" />
 
@@ -256,36 +256,30 @@
                 </p>
             </div>
             <div class="row mb_30">
-                <div class="col-lg-4 col-md-6">
-                    <div class="facilities_item">
-                        <h4 class="sec_h4">Mangyan Traditional Wear</h4>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="facilities_item1">
-                        <h4 class="sec_h4">Ginaw Bilog</h4>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="facilities_item2">
-                        <h4 class="sec_h4">Jars</h4>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="facilities_item3">
-                        <h4 class="sec_h4">Various Mangyan artefacts</h4>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="facilities_item4">
-                        <h4 class="sec_h4">Ammonites Stone</h4>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="facilities_item5">
-                        <h4 class="sec_h4">Mangyan Basket Weaving</h4>
-                    </div>
-                </div>
+                <div class="tab">
+                    <button class="tablinks" onclick="openCity(event, 'London')" id="defaultOpen">Ammonites Stone</button>
+                    <button class="tablinks" onclick="openCity(event, 'Paris')">Mangyan Traditional Wear</button>
+                    <button class="tablinks" onclick="openCity(event, 'Paris')">Mangyan Basket Weaving</button>
+                    <button class="tablinks" onclick="openCity(event, 'Tokyo')">Ginaw Bilog</button>
+                    <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tamaraw</button>
+                    <button class="tablinks" onclick="openCity(event, 'Tokyo')">Jars</button>
+                  </div>
+
+                  <div id="London" class="tabcontent">
+                    <h3>London</h3>
+                    <p>London is the capital city of England.</p>
+                  </div>
+
+                  <div id="Paris" class="tabcontent">
+                    <h3>Paris</h3>
+                    <p>Paris is the capital of France.</p>
+                  </div>
+
+                  <div id="Tokyo" class="tabcontent">
+                    <h3>Tokyo</h3>
+                    <p>Tokyo is the capital of Japan.</p>
+                  </div>
+
             </div>
         </div>
     </section>
@@ -522,6 +516,24 @@
     <!-- Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
 
+    <script>
+        function openCity(evt, cityName) {
+          var i, tabcontent, tablinks;
+          tabcontent = document.getElementsByClassName("tabcontent");
+          for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+          }
+          tablinks = document.getElementsByClassName("tablinks");
+          for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+          }
+          document.getElementById(cityName).style.display = "block";
+          evt.currentTarget.className += " active";
+        }
+
+        // Get the element with id="defaultOpen" and click on it
+        document.getElementById("defaultOpen").click();
+        </script>
 
     @if (session('success'))
     <script>
@@ -532,7 +544,7 @@
             toast: true,
             position: 'top-end',
             showConfirmButton: false,
-            timer: 1000,
+            timer: 3000,
             timerProgressBar: true,
             background: '#8cc63f',
             iconColor: '#ffffff',
@@ -553,7 +565,7 @@
             toast: true,
             position: 'top-end',
             showConfirmButton: false,
-            timer: 1000,
+            timer: 3000,
             timerProgressBar: true,
             background: '#dc3545',
             iconColor: '#ffffff',

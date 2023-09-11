@@ -144,56 +144,7 @@
     <!--================ About History Area  =================-->
 
     <!--================ Facilities Area  =================-->
-    <section class="facilities_area section_gap">
-        <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0"
-            data-background="">
-        </div>
-        <div class="container">
-            @foreach ($wts as $history)
-            <div class="section_title text-center">
-                <h2 class="title_w">{{ $history->wts_title }}</h2>
-                <p>{{ $history->wts_info }}</p>
-            </div>
-            @foreach ($image as $images )
-            <div class="row mb_30">
-                <div class="col-lg-4 col-md-6">
-                    <div class="facilities_item">
-                        <h4 class="sec_h4">{{$images->wts_image_title}}</h4>
-                        @if ($images->wts_image)
-                        <img class="img-fluid" style="margin-top: 90px" src="{{ asset('wts_image/' . $images->wts_image) }}" alt="img" />
-                        @endif
-                    </div>
-                </div>
-                {{-- <div class="col-lg-4 col-md-6">
-                    <div class="facilities_item1">
-                        <h4 class="sec_h4">Ginaw Bilog</h4>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="facilities_item2">
-                        <h4 class="sec_h4">Jars</h4>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="facilities_item3">
-                        <h4 class="sec_h4">Various Mangyan artefacts</h4>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="facilities_item4">
-                        <h4 class="sec_h4">Ammonites Stone</h4>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="facilities_item5">
-                        <h4 class="sec_h4">Mangyan Basket Weaving</h4>
-                    </div>
-                </div> --}}
-            </div>
-            @endforeach
-            @endforeach
-        </div>
-    </section>
+
     <!--================ Facilities Area  =================-->
 
 
