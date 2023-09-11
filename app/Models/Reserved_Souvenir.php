@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Admin\Visit_Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,6 +15,7 @@ class Reserved_Souvenir extends Model
     protected $fillable = [
         'userid',
         'souvenir_id',
+        'visits_id',
         'quantity',
         'total_price',
         'is_archived'
@@ -26,5 +28,9 @@ class Reserved_Souvenir extends Model
     public function souvenir()
     {
         return $this->belongsTo(SouvenirsModel::class, 'souvenir_id', 'souvenir_id');
+    }
+    public function visits()
+    {
+        return $this->belongsTo(Visit_Model::class, 'visits_id', 'visits_id');
     }
 }

@@ -17,6 +17,8 @@ return new class extends Migration
             $table->foreign('userid')->references('user_id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('souvenir_id');
             $table->foreign('souvenir_id')->references('souvenir_id')->on('souvenir')->onDelete('cascade');
+            $table->unsignedBigInteger('visits_id');
+            $table->foreign('visits_id')->references('visits_id')->on('visits')->onDelete('cascade');
             $table->integer('quantity');
             $table->double('total_price');
             $table->boolean('is_archived')->default(false);

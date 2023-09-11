@@ -278,8 +278,9 @@ class UserVisitController extends Controller
             abort(404); // Handle missing data
         }
 
-        // Fetch visit details for the logged-in user using $user_id
-        $visit = Visit_Model::where('userid', $user_id)->first();
+        $visit = DB::table('visits')->where('userid', $user_id)
+        ->where('visits_status', "PENDING")
+        ->first();
 
         // Check if a visit record exists for the user
         if (!$visit) {
@@ -300,50 +301,7 @@ class UserVisitController extends Controller
 
 
 
-    public function showActiveQRCode($visitId)
-    {
-        $user_id = session('User')['user_id'];
-        $users = DB::table('users')->where('user_id', $user_id)->get();
-        $visit = Visit_Model::find($visitId);
 
-        if (!$visit) {
-            return redirect()->back()->with('error', 'Visit not found.');
-        }
-
-        // Check if the visit is active based on intended_date and intended_time
-        $currentDateTime = now();
-        $intendedDateTime = "{$visit->visits_intended_date} {$visit->visits_time}";
-
-        if ($currentDateTime < $intendedDateTime) {
-            // The visit is active, generate the QR code
-
-            // Generate the QR code data
-            $qrData = [
-                'visits_id' => $visit->visits_id,
-                'userid' => $visit->userid,
-                'visits_fname' => $visit->visits_fname,
-                'Number of Visitors' => $visit->visits_no_of_visitors,
-                'Intended Date' => date('F d, Y', strtotime($visit->visits_intended_date)),
-                'visits_status' => $visit->visits_status,
-                // Add other visit data as needed
-            ];
-
-            // Generate the QR code image
-            $qrCode = QrCode::format('png')
-                ->size(200)
-                ->generate(json_encode($qrData));
-
-            // Pass the data to the view
-            return view('user.pages.profile.generatedActiveQR', [
-                'visit' => $visit,
-                'qrCode' => $qrCode,
-                'users' => $users,
-            ]);
-        } else {
-            // The visit is not active, you can handle this case as needed
-            return redirect()->back()->with('error', 'This visit has already passed.');
-        }
-    }
 
 
     public function scanQRCode(Request $request)

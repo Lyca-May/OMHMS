@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="{{ asset('omhms.png') }}" type="image/png">
-    <title>OMHMS</title>
+    <title>eOMHeritage Official Website</title>
 
     {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-********" crossorigin="anonymous" />
 
@@ -301,7 +301,7 @@
                             appreciation, offering engaging programs and exhibits that encourage visitors to connect
                             with the past and understand its relevance to our present and future.
                         </p>
-                        <a href="{{ url('user/history') }}" class="button_hover theme_btn_two">Read more</a>
+                        <a href="{{ url('user/history1') }}" class="button_hover theme_btn_two">Read more</a>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -544,7 +544,7 @@
             toast: true,
             position: 'top-end',
             showConfirmButton: false,
-            timer: 3000,
+            timer: 1000,
             timerProgressBar: true,
             background: '#8cc63f',
             iconColor: '#ffffff',
@@ -565,7 +565,7 @@
             toast: true,
             position: 'top-end',
             showConfirmButton: false,
-            timer: 3000,
+            timer: 1000,
             timerProgressBar: true,
             background: '#dc3545',
             iconColor: '#ffffff',
@@ -577,7 +577,8 @@
     </script>
 @endif
 
-<script type="text/javascript">
+
+{{-- <script type="text/javascript">
     var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
     (function(){
     var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
@@ -587,7 +588,34 @@
     s1.setAttribute('crossorigin','*');
     s0.parentNode.insertBefore(s1,s0);
     })();
+</script> --}}
+
+{{-- Get the user's first name from the session --}}
+@php
+$user_firstname = session('User')['user_fname'];
+@endphp
+
+<script type="text/javascript">
+console.log('User First Name:', '{{ $user_firstname }}');
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/64fec3660f2b18434fd7ce08/1ha1imim1';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+
+    // Pass the user's first name to the Tawk.to chat widget
+    Tawk_API.onLoad = function(){
+        Tawk_API.setAttributes({
+            'First Name': '{{ $user_firstname }}' // Replace with the user's first name
+        });
+    };
+
+    s0.parentNode.insertBefore(s1,s0);
+    })();
 </script>
+
 
 </body>
 

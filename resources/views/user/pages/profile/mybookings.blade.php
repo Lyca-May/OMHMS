@@ -264,9 +264,9 @@
                                 </div>
                             @endif
                         </div>
-                        @if ($visit->count() === 0)
+                        {{-- @if ($visit->count() === 0)
                             <p>You haven't done any booking for visitation</p>
-                        @else
+                        @else --}}
                         {{-- @foreach ($visit as $visits) --}}
                         <form>
                             <div class="container bootstrap snippets bootdeys">
@@ -278,8 +278,6 @@
                                                     <div class="ribbon-inner">
                                                         @if ($visit->visits_status == 'PENDING')
                                                             <p><span style="color: black; font-weight:bold">{{ $visit->visits_status }}</span></p>
-                                                        @elseif ($visit->visits_status == 'CANCELLED')
-                                                            <p><span>{{ $visit->visits_status }}</span></p>
                                                         @else
                                                             <p><span style="color: green">{{ $visit->visits_status }}</span></p>
                                                         @endif
@@ -303,7 +301,7 @@
 
                                                         <div class="container">
                                                             <h2>Your QR Code</h2>
-                                                            <p>Scan this QR code for your reservation details.</p>
+                                                            <p>Scan this QR code in for your for log in.</p>
                                                             <img src="{{ asset('qrcodes/' . $visit->visits_id . '.png') }}" alt="QR Code" class="img-responsive">
 
                                                             <!-- Download Button -->
@@ -380,7 +378,7 @@
 
 
 
-                        @endif
+                        {{-- @endif --}}
                     </div>
 
                     <hr>
@@ -390,7 +388,7 @@
                                 <strong>THANK YOU!</strong>
                             </p>
 
-                            <button class="btn btn-success" id="invoice-print"
+                            <button href="{{ url('user/visithistory') }}"   class="btn btn-success" id="invoice-print"
                                 style="margin-left:900px; margin-bottom:20px"><i class="fa fa-history"></i>View
                                 History</button>
                             {{-- <button class="btn btn-danger"><i class="fa fa-envelope-o" style="margin-left:250px"></i> Mail Invoice</button> --}}
