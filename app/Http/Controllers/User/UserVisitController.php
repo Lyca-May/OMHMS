@@ -69,7 +69,7 @@ class UserVisitController extends Controller
     public function reserve_visit(Request $request)
     {
         $user = session()->get('User');
-        $userid = $user['user_id']; 
+        $userid = $user['user_id'];
         if (!$user) {
             return redirect()->back()->with('error', "User not found");
         }

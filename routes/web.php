@@ -166,7 +166,7 @@ Route::view('add-members', 'user.pages.book-visitation.members');
 Route::get('user/visithistory', [UserVisitController::class,'displayVisitHistory']);
 Route::get('user/bookvisit', [UserVisitController::class,'visit_form']);
 // Route::get('user/mybookings', [UserVisitController::class,'showQRCode']);
-Route::post('user/book', [UserVisitController::class, 'reserve_visit']);
+// Route::post('user/book', [UserVisitController::class, 'reserve_visit']);
 Route::post('add-members', [UserVisitController::class, 'add_members']);
 Route::get('user/visit',[UserVisitController::class,'user_visit'] );
 Route::post('user/cancel-visit',[UserVisitController::class,'cancel_visit'] );
