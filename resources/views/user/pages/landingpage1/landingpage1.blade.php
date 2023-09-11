@@ -13,11 +13,12 @@
      <!-- Add the Bootstrap CSS file -->
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"> --}}
 
-     <!-- Add the Bootstrap JavaScript files -->
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-********" crossorigin="anonymous" />
+    <!-- Add the Bootstrap JavaScript files -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-********" crossorigin="anonymous" />
 
-     <!-- Bootstrap CSS -->
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('vendors/linericon/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/css/font-awesome.min.css') }}">
@@ -33,69 +34,77 @@
 
 
 
-    <body>
-        <!--================Header Area =================-->
-        <header class="header_area">
-            <div class="container-fluid">
-                <nav class="navbar navbar-expand-lg navbar-light">
+<body>
+    <!--================Header Area =================-->
+    <header class="header_area">
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg navbar-light">
 
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <a href="index.html">
-                        <img src="{{ asset('omhms.png') }}" class="logo-icon" alt="logo icon" style="width: 45px; height: 30px">
-                        <img src="{{ asset('eOMHeritage1.png') }}" class="logo-icon" alt="logo icon" style="width: 190px; height: 45px">
-                    </a>
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <a href="index.html">
+                    <img src="{{ asset('omhms.png') }}" class="logo-icon" alt="logo icon"
+                        style="width: 45px; height: 30px">
+                    <img src="{{ asset('eOMHeritage1.png') }}" class="logo-icon" alt="logo icon"
+                        style="width: 190px; height: 45px">
+                </a>
 
-                    {{-- <a class="navbar logo_h" href="index.html"><b>ORIENTAL MINDORO HERITAGE MUSEUM</b></a> --}}
-                    <button class="navbar-toggler" type="button" data-toggle="collapse"
-                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
-                        <ul class="nav navbar-nav menu_nav ml-auto">
-                            <li class="nav-item active"><a class="nav-link" href="{{ url('user/landlog') }}">Home</a></li>
-                            <li class="nav-item submenu dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
-                                    aria-haspopup="true" aria-expanded="false">About Us</a>
-                                <ul class="dropdown-menu">
-                                    <li class="nav-item"><a class="nav-link" href="{{ url('user/history1') }}">History</a>
-                                    </li>
-                                    <li class="nav-item"><a class="nav-link" href="{{ url('user/vnm1') }}">Vision &
-                                            Mission</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="{{url("user/oper1")}}">Operation</a></li>
+                {{-- <a class="navbar logo_h" href="index.html"><b>ORIENTAL MINDORO HERITAGE MUSEUM</b></a> --}}
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav menu_nav ml-auto">
+                        <li class="nav-item active"><a class="nav-link" href="{{ url('user/landlog') }}">Home</a></li>
+                        <li class="nav-item submenu dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+                                aria-haspopup="true" aria-expanded="false">About Us</a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item"><a class="nav-link" href="{{ url('user/history1') }}">History</a>
+                                </li>
+                                <li class="nav-item"><a class="nav-link" href="{{ url('user/vnm1') }}">Vision &
+                                        Mission</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ url('user/oper1') }}">Operation</a>
+                                </li>
 
-                                </ul>
-                            </li>
-                            <li class="nav-item"><a class="nav-link" href="{{url("user/testimonials1")}}">Announcements</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ url('user/services1') }}">Services</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ url('user/feed1') }}">Feed</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ url('user/contact1') }}">Contact</a></li>
-                            <li class="nav-item submenu dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
-                                    aria-haspopup="true" aria-expanded="false" style="font-size: 10px">My Account</a>
-                                <ul class="dropdown-menu">
-                                    <li class="nav-item"><a class="nav-link" href="{{url('user/profile')}}">{{session('User')['user_fname']}}'s Profile</a>
-                                    </li>
-                                    <li class="nav-item"><a class="nav-link" href="{{ url('logout') }}">Log out</a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-item submenu dropdown">
-                                <a href="" style="margin-top: 28px; display: inline-block;" class="shop-icon-btn">
-                                    <i class="fas fa-shopping-cart"></i></a>
-                                    <ul class="dropdown-menu" style="padding-top: 0;">
-                                        <li class="nav-item"><a class="nav-link" href="{{ url('user/souvenirs1') }}">Purchase Souvenirs</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="{{ url('user/cart') }}">My Cart</a></li>
-                                    </ul>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
-        </header>
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a class="nav-link"
+                                href="{{ url('user/testimonials1') }}">Announcements</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url('user/services1') }}">Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url('user/feed1') }}">Feed</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url('user/contact1') }}">Contact</a></li>
+                        <li class="nav-item submenu dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+                                aria-haspopup="true" aria-expanded="false" style="font-size: 10px">My Account</a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item"><a class="nav-link"
+                                        href="{{ url('user/profile') }}">{{ session('User')['user_fname'] }}'s
+                                        Profile</a>
+                                </li>
+                                <li class="nav-item"><a class="nav-link" href="{{ url('logout') }}">Log out</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item submenu dropdown">
+                            <a href="" style="margin-top: 28px; display: inline-block;" class="shop-icon-btn">
+                                <i class="fas fa-shopping-cart"></i></a>
+                            <ul class="dropdown-menu" style="padding-top: 0;">
+                                <li class="nav-item"><a class="nav-link"
+                                        href="{{ url('user/souvenirs1') }}">Purchase Souvenirs</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ url('user/cart') }}">My Cart</a>
+                                </li>
+                            </ul>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
     <!--================Header Area =================-->
 
     <!--================Banner Area =================-->
@@ -223,11 +232,12 @@
                             </a>
                         </div>
                     </div>
-                     <div class="col-lg-6 col-sm-6">
+                    <div class="col-lg-6 col-sm-6">
                         <div class="accomodation_item text-center">
                             <div class="hotel_img">
                                 <img src="{{ asset('images/whattosee/tam.jpg') }}" alt="">
-                                <a href="{{ url('user/rentconhall') }}" class="btn theme_btn button_hover">Book Now</a>
+                                <a href="{{ url('user/rentconhall') }}" class="btn theme_btn button_hover">Book
+                                    Now</a>
                             </div>
                             <a href="#">
                                 <h4 class="sec_h4">Rent Conference Hall</h4>
@@ -263,24 +273,42 @@
                     <button class="tablinks" onclick="openCity(event, 'Tokyo')">Ginaw Bilog</button>
                     <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tamaraw</button>
                     <button class="tablinks" onclick="openCity(event, 'Tokyo')">Jars</button>
-                  </div>
+                </div>
 
-                  <div id="London" class="tabcontent">
-                    <h3>London</h3>
-                    <p>London is the capital city of England.</p>
-                  </div>
+                <div id="London" class="tabcontent">
+                    <div class="tab-content">
+                        <div class="tab-content-left">
+                            <img class="tab-image" src="{{ asset('images/whattosee/Stone.jpg') }}" alt="Ammonites Stone Image">
+                        </div>
+                        <div class="tab-content-right">
+                            <p>London is the capital city of England.</p>
+                        </div>
+                    </div>
+                </div>
 
-                  <div id="Paris" class="tabcontent">
-                    <h3>Paris</h3>
-                    <p>Paris is the capital of France.</p>
-                  </div>
+                <div id="Paris" class="tabcontent">
+                    <div class="tab-content">
+                        <div class="tab-content-left">
+                            <img class="tab-image" src="{{ asset('images/whattosee/jars.jpg') }}" alt="Ammonites Stone Image">
+                        </div>
+                        <div class="tab-content-right">
+                            <p>London is the capital city of England.</p>
+                        </div>
+                    </div>
+                </div>
 
-                  <div id="Tokyo" class="tabcontent">
-                    <h3>Tokyo</h3>
-                    <p>Tokyo is the capital of Japan.</p>
-                  </div>
-
+                <div id="Tokyo" class="tabcontent">
+                    <div class="tab-content">
+                        <div class="tab-content-left">
+                            <img class="tab-image" src="{{ asset('images/whattosee/basket.jpg') }}" alt="Ammonites Stone Image">
+                        </div>
+                        <div class="tab-content-right">
+                            <p>London is the capital city of England.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
+
         </div>
     </section>
     <!--================ Facilities Area  =================-->
@@ -317,7 +345,8 @@
         <div class="container">
             <div class="section_title text-center">
                 <h2 class="title_color">Announcement</h2>
-                <p style="text-align:center">We invite you to reserve now and experience the wonders of our museum, where you can discover
+                <p style="text-align:center">We invite you to reserve now and experience the wonders of our museum,
+                    where you can discover
                     fascinating exhibits and immerse yourself in a world of knowledge and culture.</p>
 
                 <br>
@@ -326,43 +355,53 @@
                 <!-- Start Announcement Layout -->
                 <section class="articles">
                     @foreach ($announcement as $announcements)
-                    <article>
-                      <div class="article-wrapper" style="display: flex; flex-direction: column; margin-bottom: 20px;">
-                        <figure style="flex: 0;">
-                            @if ($announcements->announcement_image)
-                            <a href="#" data-toggle="modal" data-target="#imageModal{{ $announcements->announcement_id }}">
-                                <img src="{{ asset('announcement_image/' .$announcements->announcement_image) }}" class="projcard-img"  style="width: 100%; height: auto;" />
-                            </a>
-                            @else
-                            <img src="{{ asset('announcement_image/default-image.jpg') }}" class="projcard-img"  style="width: 100%; height: auto;" />
-                            @endif
-                          {{-- <img src="https://picsum.photos/id/1011/800/450" alt="" style="width: 100%; height: auto;" /> --}}
-                        </figure>
-                        <br>
-                        <a href="#" style="display: flex; align-items: center; margin-left: 10px;">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#777777" width="24px" height="24px" style="margin-right: 5px;">
-                            <path d="M0 0h24v24H0z" fill="none" />
-                            <path d="M14 2H4.25C3.01 2 2 3.01 2 4.25v7.5C2 12.99 3.01 14 4.25 14h2.5v5l5-5h5.75C20.99 14 22 12.99 22 11.75v-7.5C22 3.01 20.99 2 19.75 2H14zm1 11H4v-7h12v7zm-6 2h2v2h-2v-2z" />
-                          </svg>
-                          <div style="margin-right: auto;">{{ date('F d, Y', strtotime($announcements->created_at)) }}</div>
-                        </a>
+                        <article>
+                            <div class="article-wrapper"
+                                style="display: flex; flex-direction: column; margin-bottom: 20px;">
+                                <figure style="flex: 0;">
+                                    @if ($announcements->announcement_image)
+                                        <a href="#" data-toggle="modal"
+                                            data-target="#imageModal{{ $announcements->announcement_id }}">
+                                            <img src="{{ asset('announcement_image/' . $announcements->announcement_image) }}"
+                                                class="projcard-img" style="width: 100%; height: auto;" />
+                                        </a>
+                                    @else
+                                        <img src="{{ asset('announcement_image/default-image.jpg') }}"
+                                            class="projcard-img" style="width: 100%; height: auto;" />
+                                    @endif
+                                    {{-- <img src="https://picsum.photos/id/1011/800/450" alt="" style="width: 100%; height: auto;" /> --}}
+                                </figure>
+                                <br>
+                                <a href="#" style="display: flex; align-items: center; margin-left: 10px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#777777"
+                                        width="24px" height="24px" style="margin-right: 5px;">
+                                        <path d="M0 0h24v24H0z" fill="none" />
+                                        <path
+                                            d="M14 2H4.25C3.01 2 2 3.01 2 4.25v7.5C2 12.99 3.01 14 4.25 14h2.5v5l5-5h5.75C20.99 14 22 12.99 22 11.75v-7.5C22 3.01 20.99 2 19.75 2H14zm1 11H4v-7h12v7zm-6 2h2v2h-2v-2z" />
+                                    </svg>
+                                    <div style="margin-right: auto;">
+                                        {{ date('F d, Y', strtotime($announcements->created_at)) }}</div>
+                                </a>
 
-                        <div class="article-body" style="flex: 1;">
-                          <p>{{ $announcements->announcement_content }}</p>
-                          <h6 style="text-align: right">- Admin {{ $announcements->announcer }}</h6>
-                          <a href="#" class="read-more">
-                            Read more <span class="sr-only">about this is some title</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20" fill="currentColor">
-                              <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                            </svg>
-                          </a>
-                        </div>
-                      </div>
-                    </article>
+                                <div class="article-body" style="flex: 1;">
+                                    <p>{{ $announcements->announcement_content }}</p>
+                                    <h6 style="text-align: right">- Admin {{ $announcements->announcer }}</h6>
+                                    <a href="#" class="read-more">
+                                        Read more <span class="sr-only">about this is some title</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path fill-rule="evenodd"
+                                                d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </article>
                     @endforeach
-                  </section>
-                  <br>
-                  <nav class="blog-pagination justify-content-center d-flex">
+                </section>
+                <br>
+                <nav class="blog-pagination justify-content-center d-flex">
                     <ul class="pagination">
                         <li class="page-item">
                             <a href="#" class="page-link" aria-label="Previous">
@@ -396,9 +435,12 @@
             <div class="row">
                 <div class="col col-md-6 col-sm-6">
                     <div class="single-footer-widget">
-                        <img  src="{{ asset('omhms.png') }}" class="logo-icon" alt="logo icon" style="width: 150px; height: 100px; margin-left:90px ">
-                        <img src="{{ asset('PGOM.png') }}" class="logo-icon" alt="logo icon" style="width: 115px; height: 120px; ">
-                        <img src="{{ asset('PTO.png') }}" class="logo-icon" alt="logo icon" style="width: 130px; height: 137px; ">
+                        <img src="{{ asset('omhms.png') }}" class="logo-icon" alt="logo icon"
+                            style="width: 150px; height: 100px; margin-left:90px ">
+                        <img src="{{ asset('PGOM.png') }}" class="logo-icon" alt="logo icon"
+                            style="width: 115px; height: 120px; ">
+                        <img src="{{ asset('PTO.png') }}" class="logo-icon" alt="logo icon"
+                            style="width: 130px; height: 137px; ">
                         <hr>
                         <h5 style="text-align: center"><b>ORIENTAL MINDORO HERITAGE MUSEUM</b></h5>
                         <p style="text-align:justify">It was built at the Old Provincial Capitol of
@@ -415,16 +457,16 @@
                             <div class="row">
                                 <div class="col">
                                     <ul class="list_style">
-                                        <li><a href="{{url("user/landing1")}}">Home</a></li>
-                                        <li><a href="{{url("user/history1")}}">About</a></li>
-                                        <li><a href="{{url("user/testimonials1")}}">Announcements</a></li>
+                                        <li><a href="{{ url('user/landing1') }}">Home</a></li>
+                                        <li><a href="{{ url('user/history1') }}">About</a></li>
+                                        <li><a href="{{ url('user/testimonials1') }}">Announcements</a></li>
                                     </ul>
                                 </div>
                                 <div class="col">
                                     <ul class="list_style">
-                                        <li><a href="{{url("user/services1")}}">Services</a></li>
-                                        <li><a href="{{url("user/feed1")}}">Feed</a></li>
-                                        <li><a href="{{url("user/contact1")}}">Contact</a></li>
+                                        <li><a href="{{ url('user/services1') }}">Services</a></li>
+                                        <li><a href="{{ url('user/feed1') }}">Feed</a></li>
+                                        <li><a href="{{ url('user/contact1') }}">Contact</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -438,7 +480,8 @@
                         <div class="contact_info">
                             <div class="info_item">
                                 <i class="lnr lnr-home"></i>
-                                <p>Brgy. Ibaba East, Calapan City, Oriental Mindoro, Philippines, Calapan, Philippines</p>
+                                <p>Brgy. Ibaba East, Calapan City, Oriental Mindoro, Philippines, Calapan, Philippines
+                                </p>
                             </div>
                             <div class="info_item">
                                 <i class="lnr lnr-phone-handset"></i>
@@ -448,12 +491,12 @@
                             <div class="info_item">
                                 <i class="lnr lnr-envelope"></i>
                                 <p> <a href="{{ url('orientalmindoroheritagemuseum@gmail.com') }}">
-                                    orientalmindoroheritage<br>museum@gmail.com</a></p>
+                                        orientalmindoroheritage<br>museum@gmail.com</a></p>
                             </div>
                             <div class="info_item">
                                 <i class="lnr lnr-envelope"></i>
                                 <p><a href="{{ url('https://www.facebook.com/orientalmindoroheritagemuseum/') }}">
-                                    https://www.facebook.com/<br>orientalmindoroheritagemuseum/</a></p>
+                                        https://www.facebook.com/<br>orientalmindoroheritagemuseum/</a></p>
                             </div>
                         </div>
                     </div>
@@ -469,11 +512,15 @@
                         document.write(new Date().getFullYear());
                     </script> Oriental Mindoro Heritage Museum. All rights reserved.
                 </p>
-                <div class="col-lg-4 col-sm-15  text-right" >
-                    <a href="https://web.facebook.com/orientalmindoroheritagemuseum" style="margin-right: 20px;"><i class="fab fa-facebook fa-lg"></i></a>
-                    <a href="https://www.youtube.com/@travelorientalmindoro" style="margin-right: 20px;"><i class="fab fa-youtube fa-lg"></i></a>
-                    <a href="https://mail.google.com/mail/u/0/#search/orientalmindoroheritagemuseum%40gmail.com?compose=DmwnWrRtsNJQdGbHcQrgFCcZKGKLnMFGWPmLCGtXWTTqQRCGKtcxvFwhwtzcQvBrzfMPRJSTvlPQ" style="margin-right: 20px;"><i class="fas fa-envelope fa-lg"></i></a>
-                    <a href="#https://www.instagram.com/travelorientalmindoro/" style="margin-right: 20px;"><i class="fab fa-instagram fa-lg"></i></a>
+                <div class="col-lg-4 col-sm-15  text-right">
+                    <a href="https://web.facebook.com/orientalmindoroheritagemuseum" style="margin-right: 20px;"><i
+                            class="fab fa-facebook fa-lg"></i></a>
+                    <a href="https://www.youtube.com/@travelorientalmindoro" style="margin-right: 20px;"><i
+                            class="fab fa-youtube fa-lg"></i></a>
+                    <a href="https://mail.google.com/mail/u/0/#search/orientalmindoroheritagemuseum%40gmail.com?compose=DmwnWrRtsNJQdGbHcQrgFCcZKGKLnMFGWPmLCGtXWTTqQRCGKtcxvFwhwtzcQvBrzfMPRJSTvlPQ"
+                        style="margin-right: 20px;"><i class="fas fa-envelope fa-lg"></i></a>
+                    <a href="#https://www.instagram.com/travelorientalmindoro/" style="margin-right: 20px;"><i
+                            class="fab fa-instagram fa-lg"></i></a>
                 </div>
             </div>
 
@@ -518,64 +565,64 @@
 
     <script>
         function openCity(evt, cityName) {
-          var i, tabcontent, tablinks;
-          tabcontent = document.getElementsByClassName("tabcontent");
-          for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-          }
-          tablinks = document.getElementsByClassName("tablinks");
-          for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-          }
-          document.getElementById(cityName).style.display = "block";
-          evt.currentTarget.className += " active";
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
         }
 
         // Get the element with id="defaultOpen" and click on it
         document.getElementById("defaultOpen").click();
-        </script>
+    </script>
 
     @if (session('success'))
-    <script>
-        Swal.fire({
-            icon: 'success',
-            title: 'Success!',
-            text: '{{ session('success') }}',
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            background: '#8cc63f',
-            iconColor: '#ffffff',
-            customClass: {
-                title: 'text-white',
-                content: 'text-white'
-            }
-        });
-    </script>
-@endif
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '{{ session('success') }}',
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: '#8cc63f',
+                iconColor: '#ffffff',
+                customClass: {
+                    title: 'text-white',
+                    content: 'text-white'
+                }
+            });
+        </script>
+    @endif
 
-@if (session('failed'))
-    <script>
-        Swal.fire({
-            icon: 'failed',
-            title: 'failed!',
-            text: '{{ session('failed') }}',
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            background: '#dc3545',
-            iconColor: '#ffffff',
-            customClass: {
-                title: 'text-white',
-                content: 'text-white'
-            }
-        });
-    </script>
-@endif
+    @if (session('failed'))
+        <script>
+            Swal.fire({
+                icon: 'failed',
+                title: 'failed!',
+                text: '{{ session('failed') }}',
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: '#dc3545',
+                iconColor: '#ffffff',
+                customClass: {
+                    title: 'text-white',
+                    content: 'text-white'
+                }
+            });
+        </script>
+    @endif
 
 <script type="text/javascript">
     var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();

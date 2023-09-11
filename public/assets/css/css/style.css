@@ -917,6 +917,14 @@ body {font-family: "Lato", sans-serif;}
 
 }
 
+.tab-image{
+    max-width: 80%;
+    max-height: 300px;
+    height: auto;
+    flex: 1;
+    margin-right: 20px;
+}
+
 /* Style the buttons inside the tab */
 .tab button {
   display: block;
@@ -943,16 +951,24 @@ body {font-family: "Lato", sans-serif;}
 }
 
 /* Style the tab content */
-.tabcontent {
+.tab-content {
   float: left;
   padding: 0px 12px;
   border: 1px solid #ccc;
-  width: 70%;
+  width: 150%;
   border-left: none;
   height: 300px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
-
+.tab-content-right {
+    flex: 1;
+    position: relative;
+    z-index: 1; /* Ensure text appears above the image */
+}
 /*=========== End facilities_area css =============*/
 /*=========== Start about_history_area css =============*/
 
