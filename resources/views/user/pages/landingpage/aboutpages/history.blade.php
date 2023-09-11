@@ -315,6 +315,8 @@
     <script src="{{ asset('assets/js/js/stellar.js') }}"></script>
     <script src="{{asset("vendor/lightbox/simpleLightbox.min.js")}}"></script>
     <script src="{{ asset('assets/js/js/custom.js') }}"></script>
+
+
 </body>
 
 </html>

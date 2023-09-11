@@ -365,65 +365,6 @@ class UserVisitController extends Controller
     }
 
 
-    // public function add_members(Request $request)
-    // {
-
-    //     // Get the visit ID from the session
-    //     $visits_id = session()->get('visits_id');
-
-    //     // Check that the visit ID was retrieved successfully
-    //     if (!$visits_id) {
-    //         return redirect()->back()->with('error', 'Visit not found.');
-    //     }
-
-    //     // Get the number of visitors from the session
-    //     $visits_no_of_visitors = session()->get('visits_no_of_visitors');
-
-    //     // Check that the number of visitors is not empty
-    //     if (!$visits_no_of_visitors) {
-    //         return redirect()->back()->with('error', 'Number of visitors not found.');
-    //     }
-
-    //     // Validate the input
-    //     $rules = [
-    //         'members.*.members_fname' => 'required',
-    //         'members.*.members_lname' => 'required',
-    //         'members.*.members_gender' => 'required',
-    //         'members.*.members_age' => 'required',
-    //     ];
-    //     $message = [
-    //         'members.*.members_fname.required' => 'First name is required',
-    //         'members.*.members_lname.required' => 'Last name is required',
-    //         'members.*.members_gender.required' => 'Gender is required',
-    //         'members.*.members_age.required' => 'Age is required',
-    //     ];
-
-    //     $validator = Validator::make($request->all(), $rules, $message);
-    //     if ($validator->fails()) {
-    //         return redirect()->back()->withErrors($validator)->withInput();
-    //     }
-
-    //     $members_fname = $request->members_fname;
-    //     $members_mname = $request->members_mname;
-    //     $members_lname = $request->members_lname;
-    //     $members_gender = $request->members_gender;
-    //     $members_age = $request->members_age;
-
-    //     $member = new MembersModel();
-    //     $member->visit_id = $visits_id;
-    //     $member->members_fname = $members_fname;
-    //     $member->members_mname = $members_mname;
-    //     $member->members_lname = $members_lname;
-    //     $member->members_gender = $members_gender;
-    //     $member->members_age = $members_age;
-
-    //     if ($member) {
-    //         return redirect('user/book')->with('success', 'Visit added successfully');
-    //     } else {
-    //         return redirect()->back()->with('failed', 'There is an error in processing your reservation. Please try again later.');
-    //     }
-    // }
-
     public function user_visit()
     {
         $user_id = session('User')['user_id'];
