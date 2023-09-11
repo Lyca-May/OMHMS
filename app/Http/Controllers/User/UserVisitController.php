@@ -9,7 +9,6 @@ use App\Models\MembersModel;
 use Illuminate\Http\Request;
 use Illuminate\support\facades\DB;
 use Illuminate\Support\Facades\Validator;
-// use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Mail\UserVisitCancelled;
 use Illuminate\Support\Facades\Mail;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -17,6 +16,8 @@ use Carbon\Carbon;
 use App\Models\Function_Hall;
 use App\Models\Reserved_Souvenir;
 use Intervention\Image\Facades\Image;
+use App\Mail\VisitApproved;
+use App\Mail\VisitCancelled;
 
 
 
@@ -101,7 +102,7 @@ class UserVisitController extends Controller
                     'between:0,1000'
                 ],
                 'file_of_visitors' => 'nullable|mimetypes:application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet|max:2048',
-                'visits_name_of_institution'=>'required'
+                'visits_name_of_institution' => 'required'
             ];
 
             $messages = [
@@ -112,7 +113,7 @@ class UserVisitController extends Controller
                 'visits_no_of_visitors.between' => 'The number of visitors must not be greater than 100',
                 'file_of_visitors.mimetypes' => 'The file must be a excel file',
                 'file_of_visitors.max' => 'The file size must not exceed 2048 KB',
-                'visits_name_of_institution'=>'Please input name of your institution'
+                'visits_name_of_institution' => 'Please input name of your institution'
             ];
 
             $validator = Validator::make($request->all(), $rules, $messages);
@@ -230,12 +231,12 @@ class UserVisitController extends Controller
                     ];
 
                     $qrCode = QrCode::format('png')
-                    ->size(200) // Start with a reasonable size
-                    ->margin(10)
-                    ->color(0, 0, 0)
-                    ->backgroundColor(255, 255, 255)
-                    ->errorCorrection('H')
-                    ->generate(json_encode($qrData));
+                        ->size(200) // Start with a reasonable size
+                        ->margin(10)
+                        ->color(0, 0, 0)
+                        ->backgroundColor(255, 255, 255)
+                        ->errorCorrection('H')
+                        ->generate(json_encode($qrData));
 
                     // You can check if the generated QR code is too small for the data
                     // If it's too small, you can regenerate with a larger size
@@ -249,7 +250,6 @@ class UserVisitController extends Controller
                             ->generate(json_encode($qrData));
                     }
 
-                    // Save the QR code image to the public folder
                     $qrCodePath = public_path('qrcodes/') . $visit->visits_id . '.png';
                     file_put_contents($qrCodePath, $qrCode);
 
@@ -267,59 +267,159 @@ class UserVisitController extends Controller
         }
     }
 
+    public function approve_status($user_id)
+    {
+        $user = users::findOrFail($user_id); // Assuming the model name is 'User'
+        $user_id = $user->user_id;
+        $visit = Visit_Model::where('userid', $user_id)
+            ->whereIn('visits_status', ['PENDING', 'APPROVED']) // Change to 'whereIn' to allow both 'PENDING' and 'APPROVED'
+            ->whereRaw('DATE(visits_intended_date) >= CURDATE()') // Filter visits with future dates
+            ->first();
 
+        if ($visit) {
+            $status = ['visits_status' => 'APPROVED'];
+            $success = Visit_Model::where('userid', $user_id)
+                ->whereIn('visits_status', ['PENDING', 'APPROVED'])
+                ->whereRaw('DATE(visits_intended_date) >= CURDATE()') // Apply the same date filter here
+                ->update($status);
+
+            if ($success) {
+                // Generate link and send to visitor's email
+                $loggedUserId = session()->get('User');
+                if ($loggedUserId && $loggedUserId == $user->user_id) {
+                    $link = 'http://127.0.0.1:8000/user/profile/';
+                } else {
+                    $link = 'http://127.0.0.1:8000/';
+                }
+
+                $user_email = $user->user_email; // Retrieve the user's email
+
+                if ($user_email) {
+                    // Update the QR code with the new data
+                    $visitData = [
+                        'visits_id' => $visit->visits_id,
+                        'userid' => $visit->userid,
+                        'visits_fname' => $visit->visits_fname,
+                        'visits_lname' => $visit->visits_lname,
+                        'visits_intended_date' => $visit->visits_intended_date,
+                        'visits_name_of_institution' => $visit->visits_name_of_institution,
+                        'visits_status' => 'APPROVED', // Update visits_status
+                    ];
+
+                    $qrCode = QrCode::format('png')
+                        ->size(200)
+                        ->margin(10)
+                        ->color(0, 0, 0)
+                        ->backgroundColor(255, 255, 255)
+                        ->errorCorrection('H')
+                        ->generate(json_encode($visitData));
+
+                    // You can check if the generated QR code is too small for the data
+                    if (strlen($qrCode) < 300) {
+                        $qrCode = QrCode::format('png')
+                            ->size(300)
+                            ->margin(10)
+                            ->color(0, 0, 0)
+                            ->backgroundColor(255, 255, 255)
+                            ->errorCorrection('L')
+                            ->generate(json_encode($visitData));
+                    }
+
+                    // Save the updated QR code image to the public folder
+                    $updatedQrCodePath = public_path('updatedQrcodes/') . $visit->visits_id . '.png';
+                    file_put_contents($updatedQrCodePath, $qrCode);
+
+                    // Update the session data with the new QR code path
+                    session(['updatedQrCodePath' => $updatedQrCodePath]);
+
+                    // Send the VisitApproved email with the link
+                    Mail::to($user_email)->send(new VisitApproved($link));
+
+                    return redirect()->back()->with('success', "You have approved the reserved visit and sent an email to the user with a link");
+                } else {
+                    return redirect()->back()->with('failed', "Empty email");
+                }
+            } else {
+                return redirect()->back()->with('failed', "Something went wrong. Please check your internet connection");
+            }
+        } else {
+            return redirect()->back()->with('failed', "Failed to send email to the user");
+        }
+    }
     public function showQRCode()
     {
-        // Retrieve the stored QR code path and related data from the session
-        $qrCodePath = session('qrCodePath'); // Change this to match the key used to store the QR code path
-        $user_id = session('User')['user_id'];
+        $currentDate = date('Y-m-d');
 
-        if (!$qrCodePath || !$user_id) {
-            abort(404); // Handle missing data
+        // Retrieve the stored QR code paths from the session
+        $qrCodePath = session('qrCodePath');
+        $updatedQrCodePath = session('updatedQrCodePath');
+
+        // Check if both session variables exist
+        if (!$qrCodePath && !$updatedQrCodePath) {
+            abort(404); // Handle missing QR code paths
         }
 
-        $visit = DB::table('visits')->where('userid', $user_id)
-        ->where('visits_status', "PENDING")
-        ->first();
+        // Retrieve the user ID from the session
+        $user_id = session('User')['user_id'];
 
-        // Check if a visit record exists for the user
+        if (!$user_id) {
+            abort(404); // Handle missing user ID
+        }
+
+        // Fetch the visit data based on user ID
+        $visit = DB::table('visits')
+            ->where('userid', $user_id)
+            ->whereRaw('DATE(visits_intended_date) >= ?', [$currentDate])
+            ->first();
+
         if (!$visit) {
             abort(404); // Handle the case where no visit record is found
         }
 
-        // Generate QR code based on visit data (your existing code)
-        // ...
+        // Check if the user has a pending booking
+        $hasPendingBooking = $visit->visits_status === 'PENDING';
+
+        // Check if the user has an approved booking
+        $hasApprovedBooking = $visit->visits_status === 'APPROVED';
+
+        // Check if the QR code path to display exists
+        if ($hasPendingBooking && !$qrCodePath) {
+            abort(404); // Handle missing QR code path for pending booking
+        } elseif ($hasApprovedBooking && !$updatedQrCodePath) {
+            abort(404); // Handle missing QR code path for approved booking
+        }
+
+        // ... (other logic for displaying QR codes and related data)
 
         // Fetch other related data (users, reservedSouvenir, rent)
-        $currentDate = date('Y-m-d');
         $users = DB::table('users')->where('user_id', $user_id)->get();
         $reservedSouvenir = Reserved_Souvenir::with('souvenir')->with('user')->where('userid', $user_id)->where('is_archived', 0)->get();
         $rent = Function_Hall::with('user')->where('userid', $user_id)->whereRaw('DATE(date_requested) >= ?', [$currentDate])->get();
 
-        return view('user.pages.profile.mybookings', compact('qrCodePath', 'visit', 'users', 'reservedSouvenir', 'rent'));
+        return view('user.pages.profile.mybookings', compact('qrCodePath', 'visit', 'hasPendingBooking', 'hasApprovedBooking', 'users', 'reservedSouvenir', 'rent'));
     }
 
 
 
-
-
-
-    public function scanQRCode(Request $request)
+    public function processQRCode(Request $request)
     {
-        $scannedContent = $request->input('scanned_content');
+        // Get the stored QR code path and related visit data from the session
+        $qrCodePath = session('qrCodePath');
+        $visitData = session('visitData');
 
-        // You can update the visit status based on the scanned content here.
-        // For example, if the content matches a specific visit ID, update its status.
-
-        // Sample code (update with your logic):
-        $visit = Visit_Model::where('visits_id', $scannedContent)->first();
-
-        if ($visit) {
-            $visit->update(['visits_status' => 'DONE']);
-            // Add any additional processing logic here.
+        if (!$qrCodePath || !$visitData) {
+            // Handle the case where session data is missing
+            return response()->json(['success' => false, 'error' => 'Session data is missing']);
         }
 
-        return response()->json(['message' => 'Visit status updated successfully']);
+        // Update visits_status to 'DONE' based on the stored visit data
+        DB::table('visits')
+            ->where('visits_status', 'PENDING')->update(['visits_status' => 'DONE']);
+
+
+
+        // Return a JSON response to indicate success
+        return response()->json(['success' => true, 'message' => 'QR code processed successfully']);
     }
 
 

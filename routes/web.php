@@ -118,7 +118,7 @@ Route::view('cancel-status-page', 'admin.pages.visit.cancel-status');
 Route::get('admin/visit', [VisitController::class,'index']);
 Route::post('approve-status/{user_id}', [VisitController::class,'approve_status']);
 Route::post('/cancel_status/{user_id}', [VisitController::class,'cancel_status']);
-Route::post('approved', [VisitController::class,'approved_visit'])->name('approved');
+// Route::post('approved', [VisitController::class,'approved_visit'])->name('approved');
 Route::post('cancelled', [VisitController::class,'cancelled_visit']);
 Route::post('booking-history', [VisitController::class,'booking_history']);
 // Route::POST('/approve-status', [VisitController::class,'approve_status']);
@@ -163,6 +163,8 @@ Route::view('add-members', 'user.pages.book-visitation.members');
 
 
 //Visit for user functions
+
+Route::post('approve-status/{user_id}', [UserVisitController::class,'approve_status']);
 Route::get('user/visithistory', [UserVisitController::class,'displayVisitHistory']);
 Route::get('user/bookvisit', [UserVisitController::class,'visit_form']);
 // Route::get('user/mybookings', [UserVisitController::class,'showQRCode']);
@@ -174,7 +176,7 @@ Route::view('user/cancel-visit-form', 'user.pages.booked.cancel-user-visit');
 Route::get('user/qr',[UserVisitController::class,'showQRCode'])->name('show.qr');
 Route::get('/active-qr-code/{visitId}',[UserVisitController::class,'showActiveQRCode'])->name('active-qr-code.show');
 Route::get('user/profile', [UserVisitController::class,'displayUserProfile']);
-Route::post('/scan-qr-code', [UserVisitController::class,'scanQRCode'])->name('scan.qr.code');
+Route::post('/process-qr-code', [UserVisitController::class,'processQRCode'])->name('scan.qr.code');
 
 
 //Rent Functional Hall

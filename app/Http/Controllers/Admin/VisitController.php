@@ -41,26 +41,26 @@ class VisitController extends Controller
         return view('admin.pages.visit.visit', compact('visit', 'users', 'approved', 'cancelled', 'history'));
     }
 
-    // public function approved_visit()
-    // {
-    //     $visits = DB::table('visit')->where('visits_status', 'APPROVED')->get();
-    //     return view('admin.pages.visit.approved', ['visit' => $visits]);
-    // }
-    // public function cancelled_visit()
-    // {
-    //     $visits = DB::table('visit')->where('visits_status', 'CANCELLED')->get();
-    //     return view('admin.pages.visit.cancelled', ['visit' => $visits]);
-    // }
-    // public function booking_history()
-    // {
-    //     $currentDate = date('Y-m-d');
-    //     $visits = DB::table('visit')
-    //                 ->where('visits_status', 'CANCELLED')
-    //                 ->orWhere('visits_status', 'APPROVED')
-    //                 ->whereDate('visits_intended_date', '<  ', $currentDate)
-    //                 ->get();
-    //     return view('admin.pages.visit.history', ['visit' => $visits]);
-    // }
+    public function approved_visit()
+    {
+        $visits = DB::table('visit')->where('visits_status', 'APPROVED')->get();
+        return view('admin.pages.visit.approved', ['visit' => $visits]);
+    }
+    public function cancelled_visit()
+    {
+        $visits = DB::table('visit')->where('visits_status', 'CANCELLED')->get();
+        return view('admin.pages.visit.cancelled', ['visit' => $visits]);
+    }
+    public function booking_history()
+    {
+        $currentDate = date('Y-m-d');
+        $visits = DB::table('visit')
+                    ->where('visits_status', 'CANCELLED')
+                    ->orWhere('visits_status', 'APPROVED')
+                    ->whereDate('visits_intended_date', '<  ', $currentDate)
+                    ->get();
+        return view('admin.pages.visit.history', ['visit' => $visits]);
+    }
 
 
     public function admin_home()
@@ -83,44 +83,44 @@ class VisitController extends Controller
         return view('admin.pages.home', compact('visitCount', 'membersCount', 'users', 'currentDateTime', 'rentCount', 'visit', 'souvenirsCount', 'artifactsCount'));
     }
 
-    public function approve_status($user_id)
-    {
-        $user = users::findorFail($user_id); // Assuming the model name is 'User' instead of 'users' and user_id is 1
-        $user_id = $user->user_id;
-        $visit = Visit_Model::where('userid', $user_id)
-                            ->where('visits_status', 'PENDING')
-                            ->first();
+    // public function approve_status($user_id)
+    // {
+    //     $user = users::findorFail($user_id); // Assuming the model name is 'User' instead of 'users' and user_id is 1
+    //     $user_id = $user->user_id;
+    //     $visit = Visit_Model::where('userid', $user_id)
+    //                         ->where('visits_status', 'PENDING')
+    //                         ->first();
 
-        if ($visit) {
-            $status = ['visits_status' => 'APPROVED'];
-            $success = Visit_Model::where('userid', $user_id)
-                                    ->where('visits_status', 'PENDING')
-                                    ->update($status);
+    //     if ($visit) {
+    //         $status = ['visits_status' => 'APPROVED'];
+    //         $success = Visit_Model::where('userid', $user_id)
+    //                                 ->where('visits_status', 'PENDING')
+    //                                 ->update($status);
 
-            if ($success) {
-                // Generate link and send to visitor's email
-                $loggedUserId = session()->get('User');
-                if ($loggedUserId && $loggedUserId == $user->user_id) {
-                    $link = 'http://127.0.0.1:8000/user/profile/';
-                } else {
-                    $link = 'http://127.0.0.1:8000/';
-                }
+    //         if ($success) {
+    //             // Generate link and send to visitor's email
+    //             $loggedUserId = session()->get('User');
+    //             if ($loggedUserId && $loggedUserId == $user->user_id) {
+    //                 $link = 'http://127.0.0.1:8000/user/profile/';
+    //             } else {
+    //                 $link = 'http://127.0.0.1:8000/';
+    //             }
 
-                $user_email = $user->user_email; // Retrieve the user's email
+    //             $user_email = $user->user_email; // Retrieve the user's email
 
-                if ($user_email) {
-                    Mail::to($user_email)->send(new VisitApproved($link));
-                    return redirect()->back()->with('success', "You have approved the reserved visit and sent an email to the user with a link");
-                } else {
-                    return redirect()->back()->with('failed', "Empty email");
-                }
-            } else {
-                return redirect()->back()->with('failed', "Something went wrong. Please check your internet connection");
-            }
-        } else {
-            return redirect()->back()->with('failed', "Failed to send email to the user");
-        }
-    }
+    //             if ($user_email) {
+    //                 Mail::to($user_email)->send(new VisitApproved($link));
+    //                 return redirect()->back()->with('success', "You have approved the reserved visit and sent an email to the user with a link");
+    //             } else {
+    //                 return redirect()->back()->with('failed', "Empty email");
+    //             }
+    //         } else {
+    //             return redirect()->back()->with('failed', "Something went wrong. Please check your internet connection");
+    //         }
+    //     } else {
+    //         return redirect()->back()->with('failed', "Failed to send email to the user");
+    //     }
+    // }
 
 
 

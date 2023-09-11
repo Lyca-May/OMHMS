@@ -7,6 +7,8 @@
     <link rel="icon" href="{{ asset('omhms.png') }}" type="image/png">
     <meta name="description" content="" />
     <meta name="author" content="" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>eOMHeritage Admin</title>
     <!-- loader-->
     <link href="{{ asset('assets/css/cssadmin/pace.min.css') }}" rel="stylesheet" />
@@ -35,19 +37,6 @@
 
 </head>
 <style>
-    /* .content-wrapper {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            position: relative;
-        } */
     h1 {
         color: #ffffff;
         font-weight: bold;
@@ -317,6 +306,9 @@
     </div>
     <!--End wrapper-->
     <script src="https://cdn.jsdelivr.net/npm/jsqr"></script>
+    <div id="result"></div>
+    <img id="success-icon" src="success.png" alt="Success Icon" style="display: none;">
+
     <script>
         const resultElement = document.getElementById('result');
         const successIcon = document.getElementById('success-icon');
@@ -374,6 +366,31 @@
                                         resultElement.textContent = 'Scanned: ' + code.data;
                                         // Display the success icon
                                         successIcon.style.display = 'block';
+
+                                        // Send the scanned QR code data to the server for processing
+                                        // Here, you can use JavaScript fetch or other methods to send the data to your server
+                                        // Update visits_status and is_archived as needed in your server-side logic
+                                        // Example: Fetch API
+                                        fetch('/process-qr-code', {
+                                            method: 'POST',
+                                            body: JSON.stringify({ qrData: code.data }),
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                            },
+                                        })
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            if (data.success) {
+                                                // QR code successfully processed on the server
+                                                // Update the UI or perform any other actions as needed
+                                                console.log('QR code processed successfully:', data.message);
+                                            } else {
+                                                console.error('Error processing QR code:', data.error);
+                                            }
+                                        })
+                                        .catch(error => {
+                                            console.error('Error sending QR code data:', error);
+                                        });
                                     } else {
                                         // No QR code found in the current frame
                                         // Hide the success icon
@@ -400,6 +417,7 @@
                 console.error('Error enumerating devices:', error);
             });
     </script>
+</body>
 
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('assets/js/jsadmin/jquery.min.js') }}"></script>

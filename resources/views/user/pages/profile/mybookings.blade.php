@@ -301,16 +301,28 @@
 
                                                         <div class="container">
                                                             <h2>Your QR Code</h2>
-                                                            <p>Scan this QR code in for your for log in.</p>
-                                                            <img src="{{ asset('qrcodes/' . $visit->visits_id . '.png') }}" alt="QR Code" class="img-responsive">
+                                                            <p>Scan this QR code in as you enter the museum.</p>
 
-                                                            <!-- Download Button -->
-                                                            <a href="{{ asset('qrcodes/' . $visit->visits_id . '.png') }}" download="qr_code.png" class="btn btn-primary mt-3">
-                                                                Download QR Code
-                                                            </a>
+                                                            @if ($visit->visits_status === 'PENDING')
+                                                                <!-- Display pending QR code -->
+                                                                <img src="{{ asset('qrcodes/' . $visit->visits_id . '.png') }}" alt="QR Code" class="img-responsive">
+
+                                                                <!-- Download Button for pending QR code -->
+                                                                <a href="{{ asset('qrcodes/' . $visit->visits_id . '.png') }}" download="qr_code.png" class="btn btn-primary mt-3">
+                                                                    Download QR Code
+                                                                </a>
+                                                            @else
+                                                                <!-- Display updated QR code -->
+                                                                <img src="{{ asset('updatedQrcodes/' . $visit->visits_id . '.png') }}" alt="Updated QR Code" class="img-responsive">
+
+                                                                <!-- Download Button for updated QR code -->
+                                                                <a href="{{ asset('updatedQrcodes/' . $visit->visits_id . '.png') }}" download="updated_qr_code.png" class="btn btn-primary mt-3">
+                                                                    Download Updated QR Code
+                                                                </a>
+                                                            @endif
                                                         </div>
 
-
+                                                        <br>
 
                                                         <div class="post" style="line-height: 10px">
                                                             @if ($visit->gender == 'FEMALE')
@@ -319,14 +331,14 @@
                                                                 <p>Hi, Mr. {{ $visit->visits_lname }}, {{ $visit->visits_fname }} {{ $visit->visits_mname }}.</p>
                                                             @endif
                                                             <p>This is your Reservation for Visitation.</p>
-                                                            <p>You are from {{ $visit->visits_street }}, {{ $visit->visits_brgy }}, {{ $visit->visits_municipality }}, {{ $visit->visits_province }}, {{ $visit->visits_country }}, with the zipcode {{ $visit->visits_zipcode }}.</p>
+                                                            {{-- <p>You are from {{ $visit->visits_street }}, {{ $visit->visits_brgy }}, {{ $visit->visits_municipality }}, {{ $visit->visits_province }}, {{ $visit->visits_country }}, with the zipcode {{ $visit->visits_zipcode }}.</p>
                                                             <p>Your selected date is {{ date('F d, Y', strtotime($visit->visits_intended_date)) }} at {{ $visit->visits_time }}.</p>
                                                             @if ($visit->visits_name_of_institution != null)
                                                                 <p>You are from {{ $visit->visits_name_of_institution }} Institution and you're with your</p>
                                                             @endif
                                                             @if ($visit->visits_no_of_visitors != null)
                                                                 <p>{{ $visit->visits_no_of_visitors }} members.</p>
-                                                            @endif
+                                                            @endif --}}
                                                             <p>We will send you an email notification for the status of your reservation. If you have any clarifications regarding your booking information, please contact us at our contact number or email account.</p>
                                                         </div>
                                                     </div>
