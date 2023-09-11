@@ -13,11 +13,12 @@
      <!-- Add the Bootstrap CSS file -->
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"> --}}
 
-     <!-- Add the Bootstrap JavaScript files -->
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-********" crossorigin="anonymous" />
+    <!-- Add the Bootstrap JavaScript files -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-********" crossorigin="anonymous" />
 
-     <!-- Bootstrap CSS -->
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('vendors/linericon/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/css/font-awesome.min.css') }}">
@@ -33,69 +34,77 @@
 
 
 
-    <body>
-        <!--================Header Area =================-->
-        <header class="header_area">
-            <div class="container-fluid">
-                <nav class="navbar navbar-expand-lg navbar-light">
+<body>
+    <!--================Header Area =================-->
+    <header class="header_area">
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg navbar-light">
 
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <a href="index.html">
-                        <img src="{{ asset('omhms.png') }}" class="logo-icon" alt="logo icon" style="width: 45px; height: 30px">
-                        <img src="{{ asset('eOMHeritage1.png') }}" class="logo-icon" alt="logo icon" style="width: 190px; height: 45px">
-                    </a>
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <a href="index.html">
+                    <img src="{{ asset('omhms.png') }}" class="logo-icon" alt="logo icon"
+                        style="width: 45px; height: 30px">
+                    <img src="{{ asset('eOMHeritage1.png') }}" class="logo-icon" alt="logo icon"
+                        style="width: 190px; height: 45px">
+                </a>
 
-                    {{-- <a class="navbar logo_h" href="index.html"><b>ORIENTAL MINDORO HERITAGE MUSEUM</b></a> --}}
-                    <button class="navbar-toggler" type="button" data-toggle="collapse"
-                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
-                        <ul class="nav navbar-nav menu_nav ml-auto">
-                            <li class="nav-item active"><a class="nav-link" href="{{ url('user/landlog') }}">Home</a></li>
-                            <li class="nav-item submenu dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
-                                    aria-haspopup="true" aria-expanded="false">About Us</a>
-                                <ul class="dropdown-menu">
-                                    <li class="nav-item"><a class="nav-link" href="{{ url('user/history1') }}">History</a>
-                                    </li>
-                                    <li class="nav-item"><a class="nav-link" href="{{ url('user/vnm1') }}">Vision &
-                                            Mission</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="{{url("user/oper1")}}">Operation</a></li>
+                {{-- <a class="navbar logo_h" href="index.html"><b>ORIENTAL MINDORO HERITAGE MUSEUM</b></a> --}}
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav menu_nav ml-auto">
+                        <li class="nav-item active"><a class="nav-link" href="{{ url('user/landlog') }}">Home</a></li>
+                        <li class="nav-item submenu dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+                                aria-haspopup="true" aria-expanded="false">About Us</a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item"><a class="nav-link" href="{{ url('user/history1') }}">History</a>
+                                </li>
+                                <li class="nav-item"><a class="nav-link" href="{{ url('user/vnm1') }}">Vision &
+                                        Mission</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ url('user/oper1') }}">Operation</a>
+                                </li>
 
-                                </ul>
-                            </li>
-                            <li class="nav-item"><a class="nav-link" href="{{url("user/testimonials1")}}">Announcements</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ url('user/services1') }}">Services</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ url('user/feed1') }}">Feed</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ url('user/contact1') }}">Contact</a></li>
-                            <li class="nav-item submenu dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
-                                    aria-haspopup="true" aria-expanded="false" style="font-size: 10px">My Account</a>
-                                <ul class="dropdown-menu">
-                                    <li class="nav-item"><a class="nav-link" href="{{url('user/profile')}}">{{session('User')['user_fname']}}'s Profile</a>
-                                    </li>
-                                    <li class="nav-item"><a class="nav-link" href="{{ url('logout') }}">Log out</a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-item submenu dropdown">
-                                <a href="" style="margin-top: 28px; display: inline-block;" class="shop-icon-btn">
-                                    <i class="fas fa-shopping-cart"></i></a>
-                                    <ul class="dropdown-menu" style="padding-top: 0;">
-                                        <li class="nav-item"><a class="nav-link" href="{{ url('user/souvenirs1') }}">Purchase Souvenirs</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="{{ url('user/cart') }}">My Cart</a></li>
-                                    </ul>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
-        </header>
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a class="nav-link"
+                                href="{{ url('user/testimonials1') }}">Announcements</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url('user/services1') }}">Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url('user/feed1') }}">Feed</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url('user/contact1') }}">Contact</a></li>
+                        <li class="nav-item submenu dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+                                aria-haspopup="true" aria-expanded="false" style="font-size: 10px">My Account</a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item"><a class="nav-link"
+                                        href="{{ url('user/profile') }}">{{ session('User')['user_fname'] }}'s
+                                        Profile</a>
+                                </li>
+                                <li class="nav-item"><a class="nav-link" href="{{ url('logout') }}">Log out</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item submenu dropdown">
+                            <a href="" style="margin-top: 28px; display: inline-block;" class="shop-icon-btn">
+                                <i class="fas fa-shopping-cart"></i></a>
+                            <ul class="dropdown-menu" style="padding-top: 0;">
+                                <li class="nav-item"><a class="nav-link"
+                                        href="{{ url('user/souvenirs1') }}">Purchase Souvenirs</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{ url('user/cart') }}">My Cart</a>
+                                </li>
+                            </ul>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
     <!--================Header Area =================-->
 
     <!--================Banner Area =================-->
@@ -223,11 +232,12 @@
                             </a>
                         </div>
                     </div>
-                     <div class="col-lg-6 col-sm-6">
+                    <div class="col-lg-6 col-sm-6">
                         <div class="accomodation_item text-center">
                             <div class="hotel_img">
                                 <img src="{{ asset('images/whattosee/tam.jpg') }}" alt="">
-                                <a href="{{ url('user/rentconhall') }}" class="btn theme_btn button_hover">Book Now</a>
+                                <a href="{{ url('user/rentconhall') }}" class="btn theme_btn button_hover">Book
+                                    Now</a>
                             </div>
                             <a href="#">
                                 <h4 class="sec_h4">Rent Conference Hall</h4>
@@ -257,30 +267,147 @@
             </div>
             <div class="row mb_30">
                 <div class="tab">
-                    <button class="tablinks" onclick="openCity(event, 'London')" id="defaultOpen">Ammonites Stone</button>
-                    <button class="tablinks" onclick="openCity(event, 'Paris')">Mangyan Traditional Wear</button>
-                    <button class="tablinks" onclick="openCity(event, 'Paris')">Mangyan Basket Weaving</button>
-                    <button class="tablinks" onclick="openCity(event, 'Tokyo')">Ginaw Bilog</button>
-                    <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tamaraw</button>
-                    <button class="tablinks" onclick="openCity(event, 'Tokyo')">Jars</button>
-                  </div>
+                    <button class="tablinks" onclick="openCity(event, 'Ammo')" id="defaultOpen">Ammonites
+                        Stone</button>
+                    <button class="tablinks" onclick="openCity(event, 'Trad')">Mangyan Traditional Wear</button>
+                    <button class="tablinks" onclick="openCity(event, 'Basket')">Mangyan Basket Weaving</button>
+                    <button class="tablinks" onclick="openCity(event, 'Surat')">Surat mangyan sa Kawayan</button>
+                    <button class="tablinks" onclick="openCity(event, 'Tam')">Tamaraw</button>
+                    <button class="tablinks" onclick="openCity(event, 'Jar')">Jars</button>
+                </div>
 
-                  <div id="London" class="tabcontent">
-                    <h3>London</h3>
-                    <p>London is the capital city of England.</p>
-                  </div>
+                <div id="Ammo" class="tabcontent">
+                    <div class="tab-content">
+                        <div class="tab-content-left">
+                            <img class="tab-image" src="{{ asset('images/whattosee/Stone.jpg') }}"
+                                alt="Ammonites Stone Image">
+                        </div>
+                        <div class="tab-content-right">
+                            <h4>AMMONITES STONE</h4>
+                            <div class="tab-text">
+                                <p style="text-align: justify">One of the oldest rocks in the Philippines was formed at
+                                    the same time that the
+                                    dinosaurs were roaming our planet. During this time, the Philippine archipelago was
+                                    still submerged underwater, hence the absence of dinosaur fossils in our country.
+                                    The Jurassic sandstone belongs to the Mansalay formation which forms the basement of
+                                    the southwestern part of Mindoro Island. It is essentially a sandstone unit that
+                                    hosts different types of fossils of broken and disarticulated bivalve shells,
+                                    belemnite fragments and ammonites. Scientists were able to determine that it was
+                                    formed sometime between 201 to 145 million years ago, also known as the Jurassic
+                                    period hrough the presence of ammonite fossils.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                  <div id="Paris" class="tabcontent">
-                    <h3>Paris</h3>
-                    <p>Paris is the capital of France.</p>
-                  </div>
+                <div id="Trad" class="tabcontent">
+                    <div class="tab-content">
+                        <div class="tab-content-left">
+                            <img class="tab-image" src="{{ asset('images/whattosee/mangyan.jpg') }}"
+                                alt="Mangyan Traditional Wear Image">
+                        </div>
+                        <div class="tab-content-right">
+                            <h4>Mangyan Traditional Wear</h4>
+                            <p style="text-align: justify">Mangyan traditional wear represents the rich tapestry of
+                                indigenous culture found in the
+                                Philippines. With a history deeply rooted in ancestral traditions, this exhibit offers a
+                                captivating exploration of the attire that has been passed down through generations.</p>
 
-                  <div id="Tokyo" class="tabcontent">
-                    <h3>Tokyo</h3>
-                    <p>Tokyo is the capital of Japan.</p>
-                  </div>
+                            <p style="text-align: justify"> These garments, adorned with vibrant handwoven fabrics,
+                                intricate beadwork, and
+                                intricate embroidery, are not just clothing; they are a visual language that tells
+                                stories of Mangyan identity, spirituality, and connection to nature. Each piece reflects
+                                the unique customs, beliefs, and way of life of the various Mangyan tribes,
+                                demonstrating the diversity within this indigenous group.
+                            </p>
+                        </div>
+                    </div>
+                </div>
 
+                <div id="Basket" class="tabcontent">
+                    <div class="tab-content">
+                        <div class="tab-content-left">
+                            <img class="tab-image" src="{{ asset('images/whattosee/basket.jpg') }}"
+                                alt="Basket Image">
+                        </div>
+                        <div class="tab-content-right">
+                            <h4>Mangyan Basket Weaving</h4>
+                            <p style="text-align: justify">Mangyan basket weaves are a testament to the exquisite
+                                craftsmanship and deep-rooted traditions of the Mangyan people in the Philippines. This
+                                exhibit invites you to explore the artistry and cultural significance of these
+                                meticulously crafted baskets.</p>
+
+                            <p style="text-align: justify"> Handwoven with precision and care, Mangyan baskets are not
+                                just functional objects; they are repositories of cultural knowledge and heritage. Each
+                                weave pattern, material choice, and design motif is a reflection of the specific Mangyan
+                                tribe's identity, history, and connection to their natural surroundings.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div id="Surat" class="tabcontent">
+                    <div class="tab-content">
+                        <div class="tab-content-left">
+                            <img class="tab-image" src="{{ asset('images/whattosee/Surat.jpg') }}"
+                                alt="Surat Mangyan sa Kawayan Image">
+                        </div>
+                        <div class="tab-content-right">
+                            <h4>Surat Mangyan sa Kawayan</h4>
+                            <p style="text-align: justify">Among the notable aspects of the Hanunuo Mangyan's rich culture is their writing system
+                                known as Surat Hanunuo Mangyan. The Surat Hanunuo Mangyan scripts are among the last
+                                remaining examples of a writing system formerly used in Pre-Hispanic Philippines.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div id="Tam" class="tabcontent">
+                    <div class="tab-content">
+                        <div class="tab-content-left">
+                            <img class="tab-image" src="{{ asset('images/whattosee/tamaraw.jpg') }}"
+                                alt="Tamaraw Image">
+                        </div>
+                        <div class="tab-content-right">
+                            <h4>Tamaraw</h4>
+                            <p style="text-align: justify">The Tamaraw or Mindoro Dwarf Buffalo was first discovered by
+                                Heude in Mindoro in 1888
+                                while another scientist named J.B. Steere, discovered Tamaraw in Katuiran River, Calapan
+                                (now Baco), Oriental Mindoro in 1889.
+                            </p>
+                            <p style="text-align: justify">The Tamaraw is a mammal that closely resembles the carabao
+                                in almost all aspects except
+                                that the Tamaraw is smaller in size, its horns are short and stout that grow straight
+                                upward with a "V" form and its hair is denser
+                                dark brown to grayish black (Nowak, 1991). The male has flattened paint of horns and is
+                                darker in color while the female has a rounded horn and is grayish in pigmentation
+                                (Rabor, 1997). The life span of the Tamaraw is estimated to be about 20-25 years.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div id="Jar" class="tabcontent">
+                    <div class="tab-content">
+                        <div class="tab-content-left">
+                            <img class="tab-image" src="{{ asset('images/whattosee/jars.jpg') }}" alt="Jar Image">
+                        </div>
+                        <div class="tab-content-right">
+                            <h4>Jars</h4>
+                            <p style="text-align: justify">Mangyan jars are a testament to the artistry and cultural
+                                heritage of the Mangyan people in the Philippines. This exhibit offers a glimpse into
+                                the world of these remarkable clay vessels, each telling a story of tradition,
+                                craftsmanship, and community.</p>
+
+                            <p style="text-align: justify"> Crafted with meticulous care, Mangyan jars are more than
+                                just containers; they are a reflection of Mangyan identity and history. Each jar boasts
+                                distinctive patterns and designs that signify the tribe's unique style and purpose.
+                                These vessels have played practical roles in daily life, preserving food and liquids,
+                                while also serving as powerful symbols of Mangyan culture.
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
+
         </div>
     </section>
     <!--================ Facilities Area  =================-->
@@ -317,7 +444,8 @@
         <div class="container">
             <div class="section_title text-center">
                 <h2 class="title_color">Announcement</h2>
-                <p style="text-align:center">We invite you to reserve now and experience the wonders of our museum, where you can discover
+                <p style="text-align:center">We invite you to reserve now and experience the wonders of our museum,
+                    where you can discover
                     fascinating exhibits and immerse yourself in a world of knowledge and culture.</p>
 
                 <br>
@@ -326,43 +454,53 @@
                 <!-- Start Announcement Layout -->
                 <section class="articles">
                     @foreach ($announcement as $announcements)
-                    <article>
-                      <div class="article-wrapper" style="display: flex; flex-direction: column; margin-bottom: 20px;">
-                        <figure style="flex: 0;">
-                            @if ($announcements->announcement_image)
-                            <a href="#" data-toggle="modal" data-target="#imageModal{{ $announcements->announcement_id }}">
-                                <img src="{{ asset('announcement_image/' .$announcements->announcement_image) }}" class="projcard-img"  style="width: 100%; height: auto;" />
-                            </a>
-                            @else
-                            <img src="{{ asset('announcement_image/default-image.jpg') }}" class="projcard-img"  style="width: 100%; height: auto;" />
-                            @endif
-                          {{-- <img src="https://picsum.photos/id/1011/800/450" alt="" style="width: 100%; height: auto;" /> --}}
-                        </figure>
-                        <br>
-                        <a href="#" style="display: flex; align-items: center; margin-left: 10px;">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#777777" width="24px" height="24px" style="margin-right: 5px;">
-                            <path d="M0 0h24v24H0z" fill="none" />
-                            <path d="M14 2H4.25C3.01 2 2 3.01 2 4.25v7.5C2 12.99 3.01 14 4.25 14h2.5v5l5-5h5.75C20.99 14 22 12.99 22 11.75v-7.5C22 3.01 20.99 2 19.75 2H14zm1 11H4v-7h12v7zm-6 2h2v2h-2v-2z" />
-                          </svg>
-                          <div style="margin-right: auto;">{{ date('F d, Y', strtotime($announcements->created_at)) }}</div>
-                        </a>
+                        <article>
+                            <div class="article-wrapper"
+                                style="display: flex; flex-direction: column; margin-bottom: 20px;">
+                                <figure style="flex: 0;">
+                                    @if ($announcements->announcement_image)
+                                        <a href="#" data-toggle="modal"
+                                            data-target="#imageModal{{ $announcements->announcement_id }}">
+                                            <img src="{{ asset('announcement_image/' . $announcements->announcement_image) }}"
+                                                class="projcard-img" style="width: 100%; height: auto;" />
+                                        </a>
+                                    @else
+                                        <img src="{{ asset('announcement_image/default-image.jpg') }}"
+                                            class="projcard-img" style="width: 100%; height: auto;" />
+                                    @endif
+                                    {{-- <img src="https://picsum.photos/id/1011/800/450" alt="" style="width: 100%; height: auto;" /> --}}
+                                </figure>
+                                <br>
+                                <a href="#" style="display: flex; align-items: center; margin-left: 10px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#777777"
+                                        width="24px" height="24px" style="margin-right: 5px;">
+                                        <path d="M0 0h24v24H0z" fill="none" />
+                                        <path
+                                            d="M14 2H4.25C3.01 2 2 3.01 2 4.25v7.5C2 12.99 3.01 14 4.25 14h2.5v5l5-5h5.75C20.99 14 22 12.99 22 11.75v-7.5C22 3.01 20.99 2 19.75 2H14zm1 11H4v-7h12v7zm-6 2h2v2h-2v-2z" />
+                                    </svg>
+                                    <div style="margin-right: auto;">
+                                        {{ date('F d, Y', strtotime($announcements->created_at)) }}</div>
+                                </a>
 
-                        <div class="article-body" style="flex: 1;">
-                          <p>{{ $announcements->announcement_content }}</p>
-                          <h6 style="text-align: right">- Admin {{ $announcements->announcer }}</h6>
-                          <a href="#" class="read-more">
-                            Read more <span class="sr-only">about this is some title</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20" fill="currentColor">
-                              <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                            </svg>
-                          </a>
-                        </div>
-                      </div>
-                    </article>
+                                <div class="article-body" style="flex: 1;">
+                                    <p>{{ $announcements->announcement_content }}</p>
+                                    <h6 style="text-align: right">- Admin {{ $announcements->announcer }}</h6>
+                                    <a href="#" class="read-more">
+                                        Read more <span class="sr-only">about this is some title</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path fill-rule="evenodd"
+                                                d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </article>
                     @endforeach
-                  </section>
-                  <br>
-                  <nav class="blog-pagination justify-content-center d-flex">
+                </section>
+                <br>
+                <nav class="blog-pagination justify-content-center d-flex">
                     <ul class="pagination">
                         <li class="page-item">
                             <a href="#" class="page-link" aria-label="Previous">
@@ -396,9 +534,12 @@
             <div class="row">
                 <div class="col col-md-6 col-sm-6">
                     <div class="single-footer-widget">
-                        <img  src="{{ asset('omhms.png') }}" class="logo-icon" alt="logo icon" style="width: 150px; height: 100px; margin-left:90px ">
-                        <img src="{{ asset('PGOM.png') }}" class="logo-icon" alt="logo icon" style="width: 115px; height: 120px; ">
-                        <img src="{{ asset('PTO.png') }}" class="logo-icon" alt="logo icon" style="width: 130px; height: 137px; ">
+                        <img src="{{ asset('omhms.png') }}" class="logo-icon" alt="logo icon"
+                            style="width: 150px; height: 100px; margin-left:90px ">
+                        <img src="{{ asset('PGOM.png') }}" class="logo-icon" alt="logo icon"
+                            style="width: 115px; height: 120px; ">
+                        <img src="{{ asset('PTO.png') }}" class="logo-icon" alt="logo icon"
+                            style="width: 130px; height: 137px; ">
                         <hr>
                         <h5 style="text-align: center"><b>ORIENTAL MINDORO HERITAGE MUSEUM</b></h5>
                         <p style="text-align:justify">It was built at the Old Provincial Capitol of
@@ -415,16 +556,16 @@
                             <div class="row">
                                 <div class="col">
                                     <ul class="list_style">
-                                        <li><a href="{{url("user/landing1")}}">Home</a></li>
-                                        <li><a href="{{url("user/history1")}}">About</a></li>
-                                        <li><a href="{{url("user/testimonials1")}}">Announcements</a></li>
+                                        <li><a href="{{ url('user/landing1') }}">Home</a></li>
+                                        <li><a href="{{ url('user/history1') }}">About</a></li>
+                                        <li><a href="{{ url('user/testimonials1') }}">Announcements</a></li>
                                     </ul>
                                 </div>
                                 <div class="col">
                                     <ul class="list_style">
-                                        <li><a href="{{url("user/services1")}}">Services</a></li>
-                                        <li><a href="{{url("user/feed1")}}">Feed</a></li>
-                                        <li><a href="{{url("user/contact1")}}">Contact</a></li>
+                                        <li><a href="{{ url('user/services1') }}">Services</a></li>
+                                        <li><a href="{{ url('user/feed1') }}">Feed</a></li>
+                                        <li><a href="{{ url('user/contact1') }}">Contact</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -438,7 +579,8 @@
                         <div class="contact_info">
                             <div class="info_item">
                                 <i class="lnr lnr-home"></i>
-                                <p>Brgy. Ibaba East, Calapan City, Oriental Mindoro, Philippines, Calapan, Philippines</p>
+                                <p>Brgy. Ibaba East, Calapan City, Oriental Mindoro, Philippines, Calapan, Philippines
+                                </p>
                             </div>
                             <div class="info_item">
                                 <i class="lnr lnr-phone-handset"></i>
@@ -448,12 +590,12 @@
                             <div class="info_item">
                                 <i class="lnr lnr-envelope"></i>
                                 <p> <a href="{{ url('orientalmindoroheritagemuseum@gmail.com') }}">
-                                    orientalmindoroheritage<br>museum@gmail.com</a></p>
+                                        orientalmindoroheritage<br>museum@gmail.com</a></p>
                             </div>
                             <div class="info_item">
                                 <i class="lnr lnr-envelope"></i>
                                 <p><a href="{{ url('https://www.facebook.com/orientalmindoroheritagemuseum/') }}">
-                                    https://www.facebook.com/<br>orientalmindoroheritagemuseum/</a></p>
+                                        https://www.facebook.com/<br>orientalmindoroheritagemuseum/</a></p>
                             </div>
                         </div>
                     </div>
@@ -469,11 +611,15 @@
                         document.write(new Date().getFullYear());
                     </script> Oriental Mindoro Heritage Museum. All rights reserved.
                 </p>
-                <div class="col-lg-4 col-sm-15  text-right" >
-                    <a href="https://web.facebook.com/orientalmindoroheritagemuseum" style="margin-right: 20px;"><i class="fab fa-facebook fa-lg"></i></a>
-                    <a href="https://www.youtube.com/@travelorientalmindoro" style="margin-right: 20px;"><i class="fab fa-youtube fa-lg"></i></a>
-                    <a href="https://mail.google.com/mail/u/0/#search/orientalmindoroheritagemuseum%40gmail.com?compose=DmwnWrRtsNJQdGbHcQrgFCcZKGKLnMFGWPmLCGtXWTTqQRCGKtcxvFwhwtzcQvBrzfMPRJSTvlPQ" style="margin-right: 20px;"><i class="fas fa-envelope fa-lg"></i></a>
-                    <a href="#https://www.instagram.com/travelorientalmindoro/" style="margin-right: 20px;"><i class="fab fa-instagram fa-lg"></i></a>
+                <div class="col-lg-4 col-sm-15  text-right">
+                    <a href="https://web.facebook.com/orientalmindoroheritagemuseum" style="margin-right: 20px;"><i
+                            class="fab fa-facebook fa-lg"></i></a>
+                    <a href="https://www.youtube.com/@travelorientalmindoro" style="margin-right: 20px;"><i
+                            class="fab fa-youtube fa-lg"></i></a>
+                    <a href="https://mail.google.com/mail/u/0/#search/orientalmindoroheritagemuseum%40gmail.com?compose=DmwnWrRtsNJQdGbHcQrgFCcZKGKLnMFGWPmLCGtXWTTqQRCGKtcxvFwhwtzcQvBrzfMPRJSTvlPQ"
+                        style="margin-right: 20px;"><i class="fas fa-envelope fa-lg"></i></a>
+                    <a href="#https://www.instagram.com/travelorientalmindoro/" style="margin-right: 20px;"><i
+                            class="fab fa-instagram fa-lg"></i></a>
                 </div>
             </div>
 
@@ -518,22 +664,22 @@
 
     <script>
         function openCity(evt, cityName) {
-          var i, tabcontent, tablinks;
-          tabcontent = document.getElementsByClassName("tabcontent");
-          for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-          }
-          tablinks = document.getElementsByClassName("tablinks");
-          for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-          }
-          document.getElementById(cityName).style.display = "block";
-          evt.currentTarget.className += " active";
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
         }
 
         // Get the element with id="defaultOpen" and click on it
         document.getElementById("defaultOpen").click();
-        </script>
+    </script>
 
     @if (session('success'))
     <script>
@@ -544,7 +690,7 @@
             toast: true,
             position: 'top-end',
             showConfirmButton: false,
-            timer: 1000,
+            timer: 3000,
             timerProgressBar: true,
             background: '#8cc63f',
             iconColor: '#ffffff',
@@ -565,7 +711,7 @@
             toast: true,
             position: 'top-end',
             showConfirmButton: false,
-            timer: 1000,
+            timer: 3000,
             timerProgressBar: true,
             background: '#dc3545',
             iconColor: '#ffffff',
@@ -577,26 +723,7 @@
     </script>
 @endif
 
-
-{{-- <script type="text/javascript">
-    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-    (function(){
-    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-    s1.async=true;
-    s1.src='https://embed.tawk.to/64fec3660f2b18434fd7ce08/1ha1imim1';
-    s1.charset='UTF-8';
-    s1.setAttribute('crossorigin','*');
-    s0.parentNode.insertBefore(s1,s0);
-    })();
-</script> --}}
-
-{{-- Get the user's first name from the session --}}
-@php
-$user_firstname = session('User')['user_fname'];
-@endphp
-
 <script type="text/javascript">
-console.log('User First Name:', '{{ $user_firstname }}');
     var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
     (function(){
     var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
@@ -604,18 +731,9 @@ console.log('User First Name:', '{{ $user_firstname }}');
     s1.src='https://embed.tawk.to/64fec3660f2b18434fd7ce08/1ha1imim1';
     s1.charset='UTF-8';
     s1.setAttribute('crossorigin','*');
-
-    // Pass the user's first name to the Tawk.to chat widget
-    Tawk_API.onLoad = function(){
-        Tawk_API.setAttributes({
-            'First Name': '{{ $user_firstname }}' // Replace with the user's first name
-        });
-    };
-
     s0.parentNode.insertBefore(s1,s0);
     })();
 </script>
-
 
 </body>
 
