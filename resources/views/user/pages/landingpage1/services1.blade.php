@@ -29,12 +29,16 @@
         <header class="header_area">
             <div class="container-fluid">
                 <nav class="navbar navbar-expand-lg navbar-light">
+
                     <!-- Brand and toggle get grouped for better mobile display -->
                     <a href="index.html">
-                        <img src="{{ asset('omhms.png') }}" class="logo-icon" alt="logo icon" style="width: 45px; height: 30px">
-                        <img src="{{ asset('eOMHeritage1.png') }}" class="logo-icon" alt="logo icon" style="width: 190px; height: 45px">
+                        <img src="{{ asset('omhms.png') }}" class="logo-icon" alt="logo icon"
+                            style="width: 45px; height: 30px">
+                        <img src="{{ asset('eOMHeritage1.png') }}" class="logo-icon" alt="logo icon"
+                            style="width: 190px; height: 45px">
                     </a>
 
+                    {{-- <a class="navbar logo_h" href="index.html"><b>ORIENTAL MINDORO HERITAGE MUSEUM</b></a> --}}
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                         aria-label="Toggle navigation">
@@ -45,41 +49,45 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                         <ul class="nav navbar-nav menu_nav ml-auto">
-                            <li class="nav-item active"><a class="nav-link" href="javascript:void(0);" onclick="loadPage('{{ url('user/landlog') }}')">Home</a></li>
+                            <li class="nav-item active"><a class="nav-link" href="{{ url('user/landlog') }}">Home</a></li>
                             <li class="nav-item submenu dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
                                     aria-haspopup="true" aria-expanded="false">About Us</a>
                                 <ul class="dropdown-menu">
-                                    <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="loadPage('{{ url('user/history1') }}')">History</a>
+                                    <li class="nav-item"><a class="nav-link" href="{{ url('user/history1') }}">History</a>
                                     </li>
-                                    <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="loadPage('{{ url('user/vnm1') }}')">Vision &
+                                    <li class="nav-item"><a class="nav-link" href="{{ url('user/vnm1') }}">Vision &
                                             Mission</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="loadPage('{{ url('user/oper1') }}')">Operation</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="{{ url('user/oper1') }}">Operation</a>
+                                    </li>
 
                                 </ul>
                             </li>
-                            <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="loadPage('{{ url('user/testimonials1') }}')">Announcements</a></li>
-                            <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="loadPage('{{ url('user/services1') }}')">Services</a></li>
-                            <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="loadPage('{{ url('user/feed1') }}')">Feed</a></li>
-                            <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="loadPage('{{ url('user/contact1') }}')">Contact</a></li>
+                            <li class="nav-item"><a class="nav-link"
+                                    href="{{ url('user/testimonials1') }}">Announcements</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('user/services1') }}">Services</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('user/feed1') }}">Feed</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('user/contact1') }}">Contact</a></li>
                             <li class="nav-item submenu dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
                                     aria-haspopup="true" aria-expanded="false" style="font-size: 10px">My Account</a>
                                 <ul class="dropdown-menu">
-                                    <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="loadPage('{{ url('user/myprofile') }}')">{{session('User')['user_fname']}}'s Profile</a>
+                                    <li class="nav-item"><a class="nav-link"
+                                            href="{{ url('user/profile') }}">{{ session('User')['user_fname'] }}'s
+                                            Profile</a>
                                     </li>
-                                    <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="loadPage('{{ url('logout') }}')">Log out</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="{{ url('logout') }}">Log out</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item submenu dropdown">
                                 <a href="" style="margin-top: 28px; display: inline-block;" class="shop-icon-btn">
-                                    <i class="fas fa-shopping-cart">
-                                        {{-- {{$addedItem}} --}}
-                                    </i></a>
-                                    <ul class="dropdown-menu" style="padding-top: 0;">
-                                        <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="loadPage('{{ url('user/souvenirs1') }}')">Purchase Souvenirs</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="loadPage('{{ url('user/cart') }}')">My Cart</a></li>
-                                    </ul>
+                                    <i class="fas fa-shopping-cart"></i></a>
+                                <ul class="dropdown-menu" style="padding-top: 0;">
+                                    <li class="nav-item"><a class="nav-link"
+                                            href="{{ url('user/souvenirs1') }}">Purchase Souvenirs</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="{{ url('user/cart') }}">My Cart</a>
+                                    </li>
+                                </ul>
                                 </a>
                             </li>
                         </ul>
