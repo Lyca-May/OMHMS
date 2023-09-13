@@ -242,14 +242,14 @@
             </div> --}}
             <br>
 
-            <div>
+            {{-- <div>
                 <button class="btn btn-success" id="visit-button">Visit</button>
             </div>
             <div>
                 <button class="btn btn-success" id="function-button">Function Hall</button>
             </div>
 
-            <div id="visit-section">VISIT</div>
+            <div id="visit-section">VISIT</div> --}}
             <div class="content">
                 <div class="card">
                         <div class="card-header custom-header">
@@ -302,24 +302,12 @@
                                                         <div class="container">
                                                             <h2>Your QR Code</h2>
                                                             <p>Scan this QR code in as you enter the museum.</p>
+                                                            <img src="{{ asset('qrcodes/' . $visit->visits_id . '.png') }}" alt="QR Code" class="img-responsive">
 
-                                                            @if ($visit->visits_status === 'PENDING')
-                                                                <!-- Display pending QR code -->
-                                                                <img src="{{ asset('qrcodes/' . $visit->visits_id . '.png') }}" alt="QR Code" class="img-responsive">
-
-                                                                <!-- Download Button for pending QR code -->
-                                                                <a href="{{ asset('qrcodes/' . $visit->visits_id . '.png') }}" download="qr_code.png" class="btn btn-primary mt-3">
-                                                                    Download QR Code
-                                                                </a>
-                                                            @else
-                                                                <!-- Display updated QR code -->
-                                                                <img src="{{ asset('updatedQrcodes/' . $visit->visits_id . '.png') }}" alt="Updated QR Code" class="img-responsive">
-
-                                                                <!-- Download Button for updated QR code -->
-                                                                <a href="{{ asset('updatedQrcodes/' . $visit->visits_id . '.png') }}" download="updated_qr_code.png" class="btn btn-primary mt-3">
-                                                                    Download Updated QR Code
-                                                                </a>
-                                                            @endif
+                                                            <!-- Download Button -->
+                                                            <a href="{{ asset('qrcodes/' . $visit->visits_id . '.png') }}" download="qr_code.png" class="btn btn-primary mt-3">
+                                                                Download QR Code
+                                                            </a>
                                                         </div>
 
                                                         <br>
@@ -409,241 +397,7 @@
 
                 </div>
             </div>
-            <div id="function-section">
-                <section>
-                    <span>FUNCTION HALL</span>
-                    @if ($rent->isEmpty())
-                        <p>You have no active booking</p>
-                    @else
-                        @foreach ($rent as $visits)
-                            <div class="card">
-                                <div class="col-lg-6">
-                                    <div>
-                                        <div class="invoice-logo">
-                                            <img width="100" src="{{ asset('omhms.png') }}" alt="">
-                                            <strong>ORIENTAL MINDORO HERITAGE MUSEUM</strong>
-                                        </div>
-                                    </div>
-                                    <ul class="list-unstyled text-right" style="margin-top: 20px; margin-left:350px">
-                                        <p>
-                                            <li><strong>Status:</strong>
-                                                <span class="label label-success">{{ $visits->status }}</span>
-                                            </li>
-                                        </p>
-                                    </ul>
 
-                                </div>
-
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <!-- Booking Details -->
-                                            <h5 class="card-title">Booking Details</h5>
-                                            <p class="card-text">Contact Person: {{ $visits->contact_person }}</p>
-                                            <p class="card-text">Contact Number: {{ $visits->contact_number }}</p>
-                                            <p class="card-text">Agency: {{ $visits->agency }}</p>
-                                            <p class="card-text">Facility: {{ $visits->facility }}</p>
-                                            <p class="card-text">Event Type: {{ $visits->event_type }}</p>
-                                            <p class="card-text">Date Selected:
-                                                {{ date('F d, Y', strtotime($visits->date_requested)) }}</p>
-                                            <p class="card-text">Event Start
-                                                Time:{{ date('h:i A', strtotime($visits->event_start)) }}</p>
-                                            <p class="card-text">Date of Setup:
-                                                {{ date('F d, Y', strtotime($visits->date_of_setup)) }}</p>
-                                            <p class="card-text">Preparation Setup
-                                                Time:{{ date('h:i A', strtotime($visits->prep_setup_time)) }}</p>
-                                            <div>
-                                                <span>
-                                                    @if ($visits->microphones == 1)
-                                                        <div>
-                                                            <input type="checkbox" id="led-tv" name="product"
-                                                                value="led-tv" checked>
-                                                            <span>Microphones</span>
-                                                        </div>
-                                                        <span>Number of Microphones{{ $visits->number_of_microphones }}
-                                                        </span>
-                                                    @else
-                                                        <div>
-                                                            <input type="checkbox" id="led-tv" name="product"
-                                                                value="led-tv" disabled>
-                                                            <span>Microphones</span>
-                                                        </div>
-                                                    @endif
-                                                </span>
-                                            </div>
-                                            <div>
-                                                <span>
-                                                    @if ($visits->stands == 1)
-                                                        <div>
-                                                            <input type="checkbox" id="led-tv" name="product"
-                                                                value="led-tv" checked>
-                                                            <span>Stands</span>
-                                                        </div>
-                                                        <span>Number of Stands{{ $visits->number_of_stands }} </span>
-                                                    @else
-                                                        <div>
-                                                            <input type="checkbox" id="led-tv" name="product"
-                                                                value="led-tv" disabled>
-                                                            <span>Stands</span>
-                                                        </div>
-                                                    @endif
-                                                </span>
-                                            </div>
-                                            <div>
-                                                <span>
-                                                    <span>
-                                                        @if ($visits->sound_system == 1)
-                                                            <div>
-                                                                <input type="checkbox" id="led-tv" name="product"
-                                                                    value="led-tv" checked>
-                                                                <span>SOUND SYSTEM</span>
-                                                            </div>
-                                                        @else
-                                                            <div>
-                                                                <input type="checkbox" id="led-tv" name="product"
-                                                                    value="led-tv" disabled>
-                                                                <span>SOUND SYSTEM</span>
-                                                            </div>
-                                                        @endif
-                                                    </span>
-                                                </span>
-                                            </div>
-                                            <div>
-                                                <span>
-                                                    @if ($visits->led_tv == 1)
-                                                        <div>
-                                                            <input type="checkbox" id="led-tv" name="product"
-                                                                value="led-tv" checked>
-                                                            <span>LED TV</span>
-                                                        </div>
-                                                    @else
-                                                        <div>
-                                                            <input type="checkbox" id="led-tv" name="product"
-                                                                value="led-tv" disabled>
-                                                            <span>LED TV</span>
-                                                        </div>
-                                                    @endif
-                                                </span>
-                                            </div>
-                                            <div>
-                                                <span>
-                                                    @if ($visits->tables == 1)
-                                                        <div>
-                                                            <input type="checkbox" id="led-tv" name="product"
-                                                                value="led-tv" checked>
-                                                            <span>Tables</span>
-                                                        </div>
-                                                        <span>Number of Tables{{ $visits->number_of_tables }} </span>
-                                                    @else
-                                                        <div>
-                                                            <input type="checkbox" id="led-tv" name="product"
-                                                                value="led-tv" disabled>
-                                                            <span>Tables</span>
-                                                        </div>
-                                                    @endif
-                                                </span>
-                                            </div>
-                                            <div>
-                                                <span>
-                                                    @if ($visits->chairs == 1)
-                                                        <div>
-                                                            <input type="checkbox" id="led-tv" name="product"
-                                                                value="led-tv" checked>
-                                                            <span>Chairs</span>
-                                                        </div>
-                                                        <span>Number of Chairs{{ $visits->number_of_chairs }} </span>
-                                                    @else
-                                                        <div>
-                                                            <input type="checkbox" id="led-tv" name="product"
-                                                                value="led-tv" disabled>
-                                                            <span>Chairs</span>
-                                                        </div>
-                                                    @endif
-                                                </span>
-                                            </div>
-                                            <div>
-                                                <span>
-                                                    @if ($visits->others == 0)
-                                                        <span>Others:
-                                                            <p>Wait for the price to pay</p>
-                                                        </span>
-                                                    @endif
-                                                </span>
-                                            </div>
-
-
-
-
-
-                                        </div>
-                                        <div class="col-md-6">
-                                            <!-- Payment Details -->
-                                            <h5 class="card-title">Payment Details</h5>
-                                            <p class="card-text">Payment for Rent: {{ $visits->payment_rent }}</p>
-                                            <p class="card-text">Payment for Additional Service: {{ $visits->add_service_payment }}</p>
-                                            <p class="card-text">Total Amount to be Paid: {{ $visits->total_payment }}
-                                            <p class="card-text">Downpayment: {{ $visits->downpayment }}</p>
-                                            <p class="card-text">Pending Payment: {{$visits->total_payment - $visits->downpayment }}</p>
-                                            </p>
-                                            {{-- <p class="card-text">Transaction ID: {{ $payment->transaction_id }}</p> --}}
-                                            <!-- Add more payment details as needed -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            {{-- <div>Kindly wait for the admin to approved your reservation. Thank you</div> --}}
-
-                        @endforeach
-                    @endif
-                    @foreach ($rent as $visit)
-                    @if ($visit->recorded_by != null)
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#acknowledgementModal">View Acknowledgement Receipt</button>
-                        <!-- Modal -->
-                        <div class="modal fade" id="acknowledgementModal" tabindex="-1" role="dialog" aria-labelledby="acknowledgementModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <img src="{{ asset('omhms.png') }}" alt="Tourism Logo" class="logo">
-                                        {{-- <h2 class="modal-title" id="acknowledgementModalLabel" style="font-size: 30px">Acknowledgement Receipt</h2> --}}
-                                        <h2 style="font-size: 30px; text-align:center">Acknowledgement Receipt</h2>
-                                        <div class="date">{{ date('F d, Y') }}</div>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p>Received from {{ date('F d, Y') }} the sum of (Php {{$visit->downpayment}}) as partial payment for the
-                                            @if ($visit->facility == 'Mangyan Ballroom')
-                                                Rent of Mangyan Ballroom
-                                            @endif
-                                            @if ($visit->facility == 'Museum Galleries')
-                                                Rent of Museum Galleries
-                                            @endif
-                                            @if ($visit->facility == 'Halcon Performance Area')
-                                                Rent of Halcon Perfomance <Area></Area>
-                                            @endif
-                                            dated {{ date('F d, Y') }} {{ date('F d, Y', strtotime($visit->date_requested)) }}
-                                        </p>
-                                        <div class="partial">
-                                            <p>Partial: {{$visit->downpayment}}</p>
-                                        </div>
-                                        <div class="balance">
-                                            <p>Balance: {{$visit->totalpayment - $visit->downpayment}}</p>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <img src="admin_signature.png" alt="Admin Signature">
-                                    </div>
-                                    <span>Admin Signature: {{$visit->approved_by}}</span>
-                                    <button class="btn btn-success">Download</button>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-                    @endforeach
-
-                </section>
-            </div>
         </div>
     </div>
     <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>

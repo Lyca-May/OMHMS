@@ -46,7 +46,7 @@ class FunctionalHallController extends Controller
         $user_id = session('Admin')['user_id'];
         $users = DB::table('users')->where('user_id', $user_id)->get();
         $rent = Function_Hall::with('user')
-            ->where('status', 'pending')
+            ->where('status', 'PENDING')
             ->get();
         $approved = Function_Hall::with('user')
             ->where('status', 'approved')

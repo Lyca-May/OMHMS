@@ -43,7 +43,7 @@ class UserFunctionalRoomController extends Controller
             return view('user.pages.landingpage1.booking.rent_payment', compact('users', 'rents'));
     }
     public function rent_room(Request $request){
-        $user = session()->get('User');
+    $user = session()->get('User');
     $userid = $user['user_id'];
     if (!$user) {
         return redirect()->back()->with('failed', "User not found");
@@ -113,7 +113,7 @@ class UserFunctionalRoomController extends Controller
     $function_hall->number_of_tables = $request->number_of_tables;
     $function_hall->chairs = $request->has('chairs'); // Set to true if checked, false otherwise
     $function_hall->number_of_chairs = $request->number_of_chairs;
-    $function_hall->status = 'pending'; // Set the initial status
+    $function_hall->status = 'PENDING'; // Set the initial status
     $function_hall->recorded_by = null;
     $function_hall->approved_by = null;
     $function_hall->payment_rent = 10000.00;

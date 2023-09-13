@@ -33,23 +33,24 @@ class UserVisitController extends Controller
 
     public function displayUserProfile()
     {
+        $currentDateTime = Carbon::now()->tz('UTC');
         $user_id = session('User')['user_id'];
         $users = DB::table('users')->where('user_id', $user_id)->get();
-        return view('user.pages.profile.userprofile', compact('users'));
+        return view('user.pages.profile.userprofile', compact('users', 'currentDateTime'));
     }
 
     public function displayVisit()
     {
         $currentDate = date('Y-m-d');
         $user_id = session('User')['user_id'];
-        $visit = DB::table('visits')->where('userid', $user_id)
-            ->where('visits_status', "PENDING")
-            ->get();
-        $rent = Function_Hall::with('user')->where('userid', $user_id)->whereRaw('DATE(date_requested) >= ?', [$currentDate])->get();
+        // $rent = Function_Hall::with('user')->where('userid', $user_id)->where('status', 'PENDING')->whereRaw('DATE(date_requested) >= ?', [$currentDate])->get();
+        $rent = Function_Hall::with('user')
+        ->where('status', 'PENDING')
+        ->get();
         $users = DB::table('users')->where('user_id', $user_id)->get();
         $reservedSouvenir = Reserved_Souvenir::with('souvenir')->with('user')->where('userid', $user_id)->where('is_archived', 0)->get();
         $currentDateTime = Carbon::now()->tz('UTC');
-        return view('user.pages.profile.mybookings', ['visit' => $visit, 'users' => $users, 'currentDateTime' => $currentDateTime, 'rent' => $rent, 'reservedSouvenir' => $reservedSouvenir]);
+        return view('user.pages.profile.functionhallBooking', ['users' => $users, 'currentDateTime' => $currentDateTime, 'rent' => $rent, 'reservedSouvenir' => $reservedSouvenir]);
     }
 
     public function displayVisitHistory()
@@ -65,6 +66,108 @@ class UserVisitController extends Controller
         $currentDateTime = Carbon::now()->tz('UTC');
         return view('user.pages.profile.visithistory', ['users' => $users, 'history' => $history]);
     }
+
+
+    public function chartForVisitors()
+    {
+        // Retrieve yearly data
+        $yearlyData = Visit_Model::select(
+            DB::raw('YEAR(updated_at) as year'),
+            DB::raw('SUM(visits_no_of_visitors) as visitors')
+        )
+        ->where('visits_status', 'APPROVED')
+        ->groupBy('year')
+        ->orderBy('year')
+        ->get();
+
+        $years = [];
+        $yearlyCount = [];
+
+        foreach ($yearlyData as $item) {
+            $years[] = $item->year;
+            $yearlyCount[] = $item->visitors;
+        }
+
+        // Retrieve monthly data
+        $monthlyData = Visit_Model::select(
+            DB::raw('YEAR(updated_at) as year'),
+            DB::raw('MONTH(updated_at) as month'),
+            DB::raw('SUM(visits_no_of_visitors) as visitors')
+        )
+        ->where('visits_status', 'APPROVED')
+        ->groupBy('year', 'month')
+        ->orderBy('year')
+        ->orderBy('month')
+        ->get();
+
+        $months = [];
+        $monthlyCount = [];
+
+        foreach ($monthlyData as $item) {
+            $monthName = date('F', mktime(0, 0, 0, $item->month, 1));
+            $months[] = $monthName;
+            $monthlyCount[] = $item->visitors;
+        }
+
+        // Retrieve weekly data
+        $weeklyData = Visit_Model::select(
+            DB::raw('YEAR(updated_at) as year'),
+            DB::raw('WEEK(updated_at) as week'),
+            DB::raw('SUM(visits_no_of_visitors) as visitors')
+        )
+        ->where('visits_status', 'APPROVED')
+        ->groupBy('year', 'week')
+        ->orderBy('year')
+        ->orderBy('week')
+        ->get();
+
+        $weeks = [];
+        $weeklyCount = [];
+
+        foreach ($weeklyData as $item) {
+            $weeks[] = 'Week ' . $item->week . ' - ' . $item->year;
+            $weeklyCount[] = $item->visitors;
+        }
+
+        $visit = Visit_Model::with('users')
+        ->where('visits_status', 'PENDING')
+        ->get();
+        $currentDateTime = Carbon::now()->tz('UTC');
+        $souvenirsCount = DB::table('souvenirs')->sum('souvenir_qty');
+        $artifactsCount = DB::table('inventory_artifacts')->sum('quantity');
+        $rentCount = DB::table('rent_hall')->count();
+        $visitCount = DB::table('visits')->where('visits_status', "APPROVED")
+        ->whereDate('visits_intended_date', '=', $currentDateTime)
+        ->sum('visits_no_of_visitors');
+
+        $membersCount = DB::table('visit')->sum('visits_no_of_visitors');
+        // $visit = DB::table('visit')->get();
+        $user_id = session('Admin')['user_id'];
+        $users = DB::table('users')->where('user_id', $user_id)->get();
+
+
+        return view('admin.pages.home', [
+            'visitCount' => $visitCount,
+            'membersCount' => $membersCount,
+            'users' => $users,
+            'currentDateTime' => $currentDateTime,
+            'rentCount' => $rentCount,
+            'visit' => $visit,
+            'souvenirsCount' => $souvenirsCount,
+            'artifactsCount'=> $artifactsCount,
+            'years' => json_encode($years),
+            'yearlyCount' => json_encode($yearlyCount),
+
+            'months' => json_encode($months),
+            'monthlyCount' => json_encode($monthlyCount),
+
+            'weeks' => json_encode($weeks),
+            'weeklyCount' => json_encode($weeklyCount),
+        ]);
+    }
+
+
+
 
 
     public function reserve_visit(Request $request)
@@ -401,10 +504,10 @@ class UserVisitController extends Controller
 
 
 
-    public function processQRCode(Request $request)
+    public function processQRCode()
     {
         // Get the stored QR code path and related visit data from the session
-        $qrCodePath = session('qrCodePath');
+        $qrCodePath = session('UpdatedQrCodePath');
         $visitData = session('visitData');
 
         if (!$qrCodePath || !$visitData) {
@@ -412,16 +515,16 @@ class UserVisitController extends Controller
             return response()->json(['success' => false, 'error' => 'Session data is missing']);
         }
 
-        // Update visits_status to 'DONE' based on the stored visit data
+        // Update visits_status to 'DONE' based on specific criteria
+        // Modify the where clause to match your specific criteria
         DB::table('visits')
-            ->where('visits_status', 'PENDING')->update(['visits_status' => 'DONE']);
-
-
+            ->where('visits_status', 'APPROVED')
+            ->where('visit_data', $visitData) // Add your specific criteria here
+            ->update(['visits_status' => 'DONE']);
 
         // Return a JSON response to indicate success
         return response()->json(['success' => true, 'message' => 'QR code processed successfully']);
     }
-
 
     public function user_visit()
     {

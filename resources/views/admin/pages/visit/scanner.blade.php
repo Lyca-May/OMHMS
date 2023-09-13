@@ -38,66 +38,65 @@
 </head>
 <style>
     h1 {
-        color: #ffffff;
-        font-weight: bold;
-    }
+            color: #ffffff;
+            font-weight: bold;
+        }
 
-    #video-container {
-        position: relative;
-        width: 50%;
-        max-width: 640px;
-        background-color: #000;
-        border: 2px solid #333;
-        border-radius: 8px;
-        overflow: hidden;
-        /* Hide the camera icon if it overflows */
-    }
+        #video-container {
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            position: relative;
+            width: 50%;
+            max-width: 640px;
+            background-color: #000;
+            border: 2px solid #333;
+            border-radius: 8px;
+            overflow: hidden;
+        }
 
-    #video {
-        width: 100%;
-        /* Make the video element fill the container */
-        height: auto;
 
-        /* Maintain the aspect ratio */
-    }
+        #video {
+            width: 100%;
+            height: auto;
+        }
 
-    #camera-icon {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        color: white;
-        background-color: rgba(0, 0, 0, 0.7);
-        border-radius: 50%;
-        padding: 5px;
+        #camera-icon {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 50%;
+            padding: 5px;
+        }
 
-    }
+        #result-container {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border: 2px solid #333;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-    #result-container {
-        margin-top: 20px;
-        padding: 10px;
-        background-color: #fff;
-        border: 2px solid #333;
-        border-radius: 8px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+        #result {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
 
-    #result {
-        font-size: 18px;
-        font-weight: bold;
-        color: #333;
-        margin-bottom: 10px;
-    }
-
-    #success-icon {
-        font-size: 48px;
-        color: green;
-        border: 2px solid green;
-        border-radius: 50%;
-        padding: 10px;
-    }
-</style>
+        #success-icon {
+            font-size: 48px;
+            color: green;
+            border: 2px solid green;
+            border-radius: 50%;
+            padding: 10px;
+        }
+    </style>
 </head>
 
 <body class="bg-theme bg-theme1">
@@ -270,14 +269,10 @@
         {{-- <div class="clearfix"></div> --}}
 
         <div class="content-wrapper">
-
             <div class="card mt-3">
                 <div class="card-content">
-
                     <h1>Scan QR Code</h1>
-
-                    <div id="video-container"> </div>
-
+                    <div id="video-container"></div>
                     <div id="result-container">
                         <div id="result">Scanning...</div>
                         <div id="success-icon">&#10004;</div>
@@ -307,7 +302,7 @@
     <!--End wrapper-->
     <script src="https://cdn.jsdelivr.net/npm/jsqr"></script>
     <div id="result"></div>
-    <img id="success-icon" src="success.png" alt="Success Icon" style="display: none;">
+    <img id="success-icon"  alt="Success Icon" style="display: none;">
 
     <script>
         const resultElement = document.getElementById('result');

@@ -108,7 +108,7 @@ Route::post('/change-password', [AuthController::class,'changePassword'])->name(
 
 
 //Admin Page View
-Route::get('admin/home', [VisitController::class, 'admin_home']);
+// Route::get('admin/home', [VisitController::class, 'admin_home']);
 Route::view('admin/form', 'admin.pages.form');
 Route::view('admin/advance', 'admin.pages.advance');
 Route::get('visits-charts', [Home_Controller::class, 'visualizeBookings']);
@@ -163,11 +163,13 @@ Route::view('add-members', 'user.pages.book-visitation.members');
 
 
 //Visit for user functions
+// Route::view('admin/chart', 'admin.pages.charts.visit-charts');
 
 Route::post('approve-status/{user_id}', [UserVisitController::class,'approve_status']);
 Route::get('user/visithistory', [UserVisitController::class,'displayVisitHistory']);
+Route::get('user/functionhall', [UserVisitController::class,'displayVisit']);
 Route::get('user/bookvisit', [UserVisitController::class,'visit_form']);
-// Route::get('user/mybookings', [UserVisitController::class,'showQRCode']);
+Route::get('admin/home', [UserVisitController::class,'chartForVisitors']);
 Route::post('user/book', [UserVisitController::class, 'reserve_visit']);
 Route::post('add-members', [UserVisitController::class, 'add_members']);
 Route::get('user/visit',[UserVisitController::class,'user_visit'] );

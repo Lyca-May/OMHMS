@@ -80,6 +80,8 @@ class VisitController extends Controller
         // $visit = DB::table('visit')->get();
         $user_id = session('Admin')['user_id'];
         $users = DB::table('users')->where('user_id', $user_id)->get();
+
+        
         return view('admin.pages.home', compact('visitCount', 'membersCount', 'users', 'currentDateTime', 'rentCount', 'visit', 'souvenirsCount', 'artifactsCount'));
     }
 
