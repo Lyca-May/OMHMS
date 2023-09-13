@@ -129,6 +129,109 @@ class UserVisitController extends Controller
             $weeklyCount[] = $item->visitors;
         }
 
+        // Get user counts by province
+        $provinceData = users::select('user_province')
+        ->groupBy('user_province')
+        ->get();
+
+        // Initialize an array to store province names and counts
+        $provinceCounts = [];
+
+        // Loop through the data to calculate counts
+        foreach ($provinceData as $item) {
+        $province = $item->user_province;
+        $count = users::where('user_province', $province)->count();
+        $provinceCounts[$province] = $count;
+        }
+
+        // Prepare data for the chart
+        $provinceData = [
+        'labels' => array_keys($provinceCounts), // Province names
+        'data' => array_values($provinceCounts), // User counts
+        'backgroundColor' => [
+            'red', 'blue', 'green', 'orange', 'purple', // Add more colors if needed
+        ],
+        ];
+
+
+        // Get user counts by municipality
+        $municipalityData = users::select('user_municipality')
+        ->groupBy('user_municipality')
+        ->get();
+
+        // Initialize an array to store province names and counts
+        $municipalityCounts = [];
+
+        // Loop through the data to calculate counts
+        foreach ($municipalityData as $item) {
+        $municipality = $item->user_municipality;
+        $count = users::where('user_municipality', $municipality)->count();
+        $municipalityCounts[$municipality] = $count;
+        }
+
+        // Prepare data for the chart
+        $municipalityData = [
+        'labels' => array_keys($municipalityCounts), // municipality names
+        'data' => array_values($municipalityCounts), // User counts
+        'backgroundColor' => [
+            'mintgreen', 'blue', 'green', 'orange', 'purple', // Add more colors if needed
+        ],
+        ];
+
+
+
+        // Get user counts by barangay
+        $barangayData = users::select('user_barangay')
+        ->groupBy('user_barangay')
+        ->get();
+
+        // Initialize an array to store province names and counts
+        $barangayCounts = [];
+
+        // Loop through the data to calculate counts
+        foreach ($barangayData as $item) {
+        $barangay = $item->user_barangay;
+        $count = users::where('user_barangay', $barangay)->count();
+        $barangayCounts[$barangay] = $count;
+        }
+
+        // Prepare data for the chart
+        $barangayData = [
+        'labels' => array_keys($barangayCounts), // barangay names
+        'data' => array_values($barangayCounts), // User counts
+        'backgroundColor' => [
+            'mintgreen', 'blue', 'green', 'orange', 'purple', // Add more colors if needed
+        ],
+        ];
+
+
+
+        // Get user counts by street
+        $streetData = users::select('user_street')
+        ->groupBy('user_street')
+        ->get();
+
+        // Initialize an array to store province names and counts
+        $streetCounts = [];
+
+        // Loop through the data to calculate counts
+        foreach ($streetData as $item) {
+        $street = $item->user_street;
+        $count = users::where('user_street', $street)->count();
+        $streetCounts[$street] = $count;
+        }
+
+        // Prepare data for the chart
+        $streetData = [
+        'labels' => array_keys($streetCounts), // street names
+        'data' => array_values($streetCounts), // User counts
+        'backgroundColor' => [
+            'mintgreen', 'blue', 'green', 'orange', 'purple', // Add more colors if needed
+        ],
+        ];
+
+
+
         $visit = Visit_Model::with('users')
         ->where('visits_status', 'PENDING')
         ->get();
@@ -163,6 +266,11 @@ class UserVisitController extends Controller
 
             'weeks' => json_encode($weeks),
             'weeklyCount' => json_encode($weeklyCount),
+
+            'provinceData' =>$provinceData,
+            'municipalityData' =>$municipalityData,
+            'barangayData' =>$barangayData,
+            'streetData' =>$streetData,
         ]);
     }
 
