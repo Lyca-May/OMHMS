@@ -161,51 +161,7 @@
     <!--================ About History Area  =================-->
 
     <!--================ Facilities Area  =================-->
-    <section class="facilities_area section_gap">
-        @foreach ($wts as $history )
-        <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0"
-            data-background="">
-        </div>
-        <div class="container">
-            <div class="section_title text-center">
-                @if ($history->wts_id == 1)
-                <h2 class="title_w">{{$history->wts_title}}</h2>
-                <p>{{$history->wts_info}}
-                </p>
-                @endif
-            </div>
-            <div class="row">
-                @if ($history->wts_id == 1 && $history->wts_image)
-                <div class="col-lg-4 col-md-4 col-sm-4">
-                    <div class="facilities_item" style="background-image: url({{ asset('wts_image/' . $history->wts_image) }});">
-                        <h4 class="sec_h4">{{$history->wts_image_title}}</h4>
-                    </div>
-                </div>
-                @endif
 
-                @if ($history->wts_id == 2 && $history->wts_image)
-                <div class="col-lg-4 col-md-4 col-sm-4">
-                    <div class="facilities_item" style="background-image: url({{ asset('wts_image/' . $history->wts_image) }});">
-                        <h4 class="sec_h4">{{$history->wts_image_title}}</h4>
-                    </div>
-                </div>
-                @endif
-
-                @if ($history->wts_id == 3 && $history->wts_image)
-                <div class="col-lg-4 col-md-4 col-sm-4">
-                    <div class="facilities_item" style="background-image: url({{ asset('wts_image/' . $history->wts_image) }});">
-                        <h4 class="sec_h4">{{$history->wts_image_title}}</h4>
-                    </div>
-                </div>
-                @endif
-            </div>
-
-
-
-
-        </div>
-        @endforeach
-    </section>
     <!--================ Facilities Area  =================-->
 
 
