@@ -10,6 +10,7 @@ use App\Http\Controllers\User\FeedController;
 use App\Http\Controllers\Admin\VisitController;
 use App\Http\Controllers\Admin\FunctionalHallController;
 use App\Http\Controllers\Admin\Home_Controller;
+use App\Http\Controllers\Admin\ReservedsouvenirsController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\Category;
 use App\Http\Controllers\Inventory;
@@ -20,7 +21,9 @@ use App\Http\Controllers\User\UserFunctionalRoomController;
 use App\Http\Controllers\User\Comments_Controller;
 use App\Http\Controllers\User\SouvenirsController;
 use App\Http\Controllers\ChatController;
+
 use App\Http\Middleware\VerifyCsrfToken;
+
 //Auth
 // Route::view('auth/login', 'auth.login');
 Route::view('auth/forgot', 'auth.forgot_account');
@@ -143,6 +146,11 @@ Route::get('about-us/history', [About_Us::class,'display_history_content']);
 Route::post('/add-history-content', [About_Us::class,'add_history_content']);
 Route::put('/update-history-content/{history_id}', [About_Us::class, 'update_history_content']);
 Route::post('/archive-history-content/{history_id}', [About_Us::class, 'archive_history_content']);
+
+
+//admin // Reserved Souvenirs
+// Route::view('admin/reserved', 'admin.pages.reservedsouvenirs.reserved_souvenirs');
+Route::get('admin/reserved', [ReservedsouvenirsController::class, 'admin_reservedsouvenirs']);
 
 //wts
 Route::get('about-us/wts', [About_Us::class,'display_history_wts']);

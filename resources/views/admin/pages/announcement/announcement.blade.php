@@ -130,6 +130,12 @@
                 </li>
 
                 <li>
+                    <a href="{{ url('admin/reserved') }}">
+                        <i class="zmdi zmdi-info-outline"></i> <span>Souvenirs</span>
+                    </a>
+                </li>
+
+                <li>
                     <a href="#" id="inventoryLink">
                         <i class="zmdi zmdi-archive"></i> <span>Inventory</span>
                     </a>
