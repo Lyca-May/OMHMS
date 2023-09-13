@@ -113,7 +113,7 @@
                             <div class="container">
 
 
-                                <h4 class="">Search</h4>
+                                <h4 style="margin-top: 50px">Search</h4>
 
                                 <div class="input-group">
                                     <input type="text" class="form-control" placeholder="Search" name="srch-term"
@@ -134,7 +134,7 @@
                                         </style>
                                         <h6 class="text-center"> Register here</h6>
 
-                                        <a  href="{{ url('auth/register') }}" class="btn btn-sm btn-warning" style="margin-left: 50%" >Sign up</a>
+                                        <a  href="{{ url('auth/register') }}" class="btn btn-sm btn-warning" style="margin-left: 38%" >Sign up</a>
 
 
                                         <hr>
@@ -175,7 +175,7 @@
 
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-6"  style="max-height: 900px; overflow-y: auto;">
                         <form action="{{ url('post') }}" method="POST">
                             @csrf
                             <div class="bg-gray p-2 mt-4 rounded border shadow">
@@ -186,7 +186,7 @@
                                 class="rounded-circle me-4" style="width: 42px; height: 42px; object-fit: cover; margin-left: 8px; margin-top:10px" />
                         </div> --}}
                                 <input type="hidden" name="name" value="{{ session('User')['user_fname'] }}">
-                                <textarea type="text" class="form-control rounded-pill border-0 bg-gray pointer" style="margin-left:20px; "
+                                <textarea type="text" class="form-control rounded-pill border-0 bg-gray pointer" style="margin-left:10px; width:640px "
                                     placeholder="Create Post" data-bs-toggle="modal" data-bs-target="#createModal" name="post"></textarea>
 
                                 <hr>
@@ -216,7 +216,7 @@
 
 
                                         @foreach ($posts as $post)
-                                            <div class="card rounded shadow-sm mb-7">
+                                            {{-- <div class="card rounded shadow-sm mb-7"> --}}
                                                 <article class="row blog_item">
 
                                                     <div class="col-md-3">
@@ -348,7 +348,8 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                            </div>
+                                                </article>
+                                            {{-- </div> --}}
                                             <br>
                                         @endforeach
                                     </div>
@@ -395,7 +396,7 @@
                             <div class="sidebar">
                                 <div class="sidebar-widget sidebar-post">
                                     <div class="widget-title">
-                                        <h4>Events</h4>
+                                        <h4 style="margin-top: 50px">Events</h4>
                                     </div>
                                     <div class="post-inner">
                                         <div class="carousel-inner-data">
