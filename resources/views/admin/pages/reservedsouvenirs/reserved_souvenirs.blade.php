@@ -32,6 +32,74 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
 
+    <style>
+        /* Button styles */
+        .custom-button {
+            background-color: #4CAF50;
+            /* Green color */
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .custom-button:hover {
+            background-color: #001a01;
+            /* Darker green color on hover */
+        }
+
+        .custom-button1 {
+            background-color: #f55b1f;
+            /* Green color */
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .custom-button1:hover {
+            background-color: #200f00;
+            /* Darker green color on hover */
+        }
+
+        /* Table styles */
+        .table-smaller {
+            font-size: 12px;
+        }
+
+        .table-large {
+            font-size: 16px;
+        }
+
+        .projcard-img {
+            width: 50px;
+            /* Set the desired width */
+            height: 50px;
+            /* Set the desired height */
+            object-fit: cover;
+            /* Preserve the aspect ratio and crop if needed */
+        }
+
+        .tooltip-inner {
+            max-width: none;
+            padding: 0;
+        }
+
+        .full-image {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
 </head>
 
 <body class="bg-theme bg-theme1">
@@ -198,17 +266,135 @@
 
         <div class="clearfix"></div>
 
-             <div class="content-wrapper">
+        <div class="content-wrapper">
+            <div class="container-fluid">
+
+                <!--Start Dashboard Content-->
+
+                <div class="row">
+                    <div class="col-12 col-lg-12">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                            style="float:right;margin-right:20px;" aria-expanded="false">Filter</a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item"><a class="nav-link filter-option" data-target="pending-table">Pending Reservation</a></li>
+                            <li class="nav-item"><a class="nav-link filter-option" data-target="approved-table">Done Reservation </a></li>
+                            <li class="nav-item"><a class="nav-link filter-option" data-target="cancelled-table">Cancelled Reservation</a></li>
+                            {{-- <li class="nav-item"><a class="nav-link filter-option" data-target="history-table"><i class="zmdi zmdi-history"></i> History</a></li> --}}
+                        </ul>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="row">
+                        <div class="col-12 col-lg-12">
+                            <div class="card">
+                                <div class="card-header">List of Reserved Souvenirs
+                                    <br>
+                                    <br>
+                                    <div class="col-sm-4">
+                                        {{-- <a class="btn btn-success" style="float:left;margin-right:20px;" data-toggle="modal" data-target="#addItemModal">+ Add</a> --}}
+                                        <div class="search-box">
+                                            <input type="text" class="form-control" id="searchInput" placeholder="Search">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="table-responsive" style="width: 1255px; overflow-x: auto;">
+                                    <table class="table align-items-center table-flush table-borderless" id="pending-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Full Name</th>
+                                                <th>Souvenir Name</th>
+                                                <th>Souvenir Image</th>
+                                                <th>Quantity</th>
+                                                <th>Price</th>
+                                                <th>Total Price</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($reservedSouvenirs as $reservedSouvenir)
+                                            <tr>
+                                                <td>{{$reservedSouvenir->user->user_fname}} {{$reservedSouvenir->user->user_lname}}</td>
+                                                <td>{{$reservedSouvenir->souvenir->souvenir_name}}</td>
+                                                <td>
+                                                    @if ($reservedSouvenir->souvenir->souvenir_image)
+                                                        <a href="#" class="image-link" data-toggle="modal"
+                                                            data-target="#imageModal{{ $reservedSouvenir->souvenir->souvenir_id }}">
+                                                            <img src="{{ asset('souvenir_image/' . $reservedSouvenir->souvenir->souvenir_image) }}"
+                                                                class="projcard-img" />
+                                                        </a>
+                                                    @endif
+                                                </td>
+
+                                                {{-- imagemodal --}}
+                                                @if ($reservedSouvenir->souvenir->souvenir_image)
+                                                    <div class="modal fade" id="imageModal{{ $reservedSouvenir->souvenir->souvenir_id }}" tabindex="-1" role="dialog"
+                                                         aria-labelledby="imageModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-body">
+                                                                    <img src="{{ asset('souvenir_image/' . $reservedSouvenir->souvenir->souvenir_image) }}"
+                                                                        class="img-fluid" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                                <td>{{$reservedSouvenir->quantity}}</td>
+                                                <td>{{$reservedSouvenir->souvenir->souvenir_price}}</td>
+                                                <td>{{$reservedSouvenir->total_price}}</td>
+                                                <td>{{$reservedSouvenir->status}}</td>
+                                                <td>
+                                                    <form action="{{ url('/paid-reserved-souvenir/' . $reservedSouvenir->souvenir_reservations_id) }}" method="post">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-success">Paid</button>
+                                                    </form>
+                                                    <form action="{{ route('cancel_status', ['souvenir_reservations_id' => $reservedSouvenir->souvenir_reservations_id]) }}" method="post">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-danger" name="cancel">Cancel</button>
+                                                    </form>
 
 
+                                                    {{-- <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#cancelModal">Cancel</button> --}}
 
+                                                    {{-- <!-- Modal -->
+                                                    <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelModalLabel"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content custom-modal">
+                                                                <form action="{{ url('/cancel_status/' . $reservedSouvenir->souvenir_reservations_id) }}" method="POST">
+                                                                    @csrf
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                        <button type="submit" class="btn btn-success">Confirm Cancel</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div> --}}
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--End Row-->
 
+                <!--End Dashboard Content-->
 
+                <!--start overlay-->
+                <div class="overlay toggle-menu"></div>
+                <!--end overlay-->
 
+            </div>
+            <!-- End container-fluid-->
 
-
-             </div>
+        </div>
              <!--End content-wrapper-->
              <!--Start Back To Top Button-->
              <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
@@ -247,6 +433,29 @@
          <!-- Index js -->
          <script src="{{ asset('assets/js/jsadmin/index.js') }}"></script>
 
+         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+         <link rel="stylesheet"
+             href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
+         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
+         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+         </script>
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+             integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+         </script>
+         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+         </script>
+         <!-- jQuery -->
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+         <!-- Bootstrap JS -->
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+
+
+
+
          <script>
             function updateTime() {
                 var now = new Date();
@@ -271,6 +480,86 @@
 
             updateTime();
         </script>
+
+        <script>
+            $(document).ready(function() {
+                // Function to handle the filter option click
+                $(".filter-option").click(function() {
+                    var targetTable = $(this).data("target");
+                    showTable(targetTable);
+                });
+
+                // Function to show the selected table and hide others
+                function showTable(targetTable) {
+                    $(".table").each(function() {
+                        var tableId = $(this).attr("id");
+                        if (tableId === targetTable) {
+                            $(this).show();
+                        } else {
+                            $(this).hide();
+                        }
+                    });
+                }
+
+                // Initial table display (show the first table by default)
+                showTable("pending-table");
+
+                // Table search functionality
+                $("#searchInput").on("keyup", function() {
+                    var value = $(this).val().toLowerCase();
+                    $(".table tbody tr").filter(function() {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                    });
+                });
+            });
+        </script>
+
+
+
+         @if (session('success'))
+         <script>
+             Swal.fire({
+                 icon: 'success',
+                 title: 'Success!',
+                 text: '{{ session('success') }}',
+                 toast: true,
+                 position: 'top-end',
+                 showConfirmButton: false,
+                 timer: 1000,
+                 timerProgressBar: true,
+                 background: '#8cc63f',
+                 iconColor: '#ffffff',
+                 customClass: {
+                     title: 'text-white',
+                     content: 'text-white'
+                 }
+             });
+         </script>
+     @endif
+
+     @if (session('error'))
+         <script>
+             Swal.fire({
+                 icon: 'error',
+                 title: 'Error!',
+                 text: '{{ session('failed') }}',
+                 toast: true,
+                 position: 'top-end',
+                 showConfirmButton: false,
+                 timer: 1000,
+                 timerProgressBar: true,
+                 background: '#dc3545',
+                 iconColor: '#ffffff',
+                 customClass: {
+                     title: 'text-white',
+                     content: 'text-white'
+                 }
+             });
+         </script>
+     @endif
+
+
+
 
 </body>
 </html>

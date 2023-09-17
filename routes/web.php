@@ -151,6 +151,8 @@ Route::post('/archive-history-content/{history_id}', [About_Us::class, 'archive_
 //admin // Reserved Souvenirs
 // Route::view('admin/reserved', 'admin.pages.reservedsouvenirs.reserved_souvenirs');
 Route::get('admin/reserved', [ReservedsouvenirsController::class, 'admin_reservedsouvenirs']);
+Route::post('/paid-reserved-souvenir/{souvenir_reservations_id}', [ReservedsouvenirsController::class, 'update_reservedSouvenir']);
+Route::post('cancel_status/{souvenir_reservations_id}', [ReservedsouvenirsController::class, 'cancel_reservedSouvenir'])->name('cancel_status');;
 
 //wts
 Route::get('about-us/wts', [About_Us::class,'display_history_wts']);
@@ -245,7 +247,7 @@ Route::get('user/souvenirs', [CartController::class, 'displaySouvenir1']);
 Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');;
 Route::get('user/cart', [CartController::class, 'cartItems']);
 Route::post('/removeFromCart', [CartController::class, 'removeFromCart']);
-Route::post('/addToReserved', [Souvenir_Reserved::class, 'addToReserved'])->name('addToReserved');
+Route::post('addToReserved', [Souvenir_Reserved::class, 'addToReserved'])->name('addToReserved');
 
 
 //Artifacts

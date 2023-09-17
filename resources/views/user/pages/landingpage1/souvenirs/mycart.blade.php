@@ -196,6 +196,7 @@
                                                     value="{{ $cartItem->quantity }}" type="number"
                                                     class="form-control quantity-input" style="width: 60px;" />
                                                 </div>
+                                                <input type="hidden" name="status" value="">
                                                 <button type="button" class="btn btn-sm btn-primary px-2 ms-2"
                                                 onclick="updateQuantity({{ $cartItem->cart_item_id }}, 1)">
                                                 <i class="fas fa-plus"></i>

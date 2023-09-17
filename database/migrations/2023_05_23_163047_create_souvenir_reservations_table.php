@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('quantity');
             $table->double('total_price');
             $table->boolean('is_archived')->default(false);
+            $table->string('status')->default('RESERVED');
             $table->timestamps();
         });
     }

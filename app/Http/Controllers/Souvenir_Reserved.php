@@ -51,6 +51,7 @@ class Souvenir_Reserved extends Controller
                 'quantity' => $cartItem->quantity,
                 'total_price' => $cartItem->total_price,
                 'is_archived' => false,
+                'status' => 'RESERVED',
             ]);
 
             // Update the quantity field in the souvenirs table

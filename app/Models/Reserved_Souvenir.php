@@ -18,7 +18,8 @@ class Reserved_Souvenir extends Model
         'visits_id',
         'quantity',
         'total_price',
-        'is_archived'
+        'is_archived',
+        'status'
     ];
 
     public function user()
