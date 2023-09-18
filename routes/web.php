@@ -189,6 +189,8 @@ Route::get('user/qr',[UserVisitController::class,'showQRCode'])->name('show.qr')
 Route::get('/active-qr-code/{visitId}',[UserVisitController::class,'showActiveQRCode'])->name('active-qr-code.show');
 Route::get('user/profile', [UserVisitController::class,'displayUserProfile']);
 Route::post('/process-qr-code', [UserVisitController::class,'processQRCode'])->name('scan.qr.code');
+Route::get('/getMonthlyData', [UserVisitController::class, 'getMonthlyData']);
+
 
 
 //Rent Functional Hall

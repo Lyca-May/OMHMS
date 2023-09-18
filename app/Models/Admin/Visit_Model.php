@@ -3,6 +3,7 @@
 namespace App\Models\Admin;
 
 use App\Http\Controllers\Authentication\AuthController;
+use App\Models\Member;
 use App\Models\users;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -46,7 +47,7 @@ class Visit_Model extends Model
 
     public function members()
     {
-        return $this->hasMany(MembersModel::class);
+        return $this->hasMany(Member::class);
     }
 
 

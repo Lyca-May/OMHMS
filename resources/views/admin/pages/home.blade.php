@@ -295,7 +295,7 @@
                 <div class="col-12 col-lg-4 col-xl-4">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Users</h5>
+                            <h5 class="card-title">Visitors</h5>
                             <div class="input-group mb-3">
                                 {{-- <label class="input-group-text" for="chartTypeSelect">Chart Type</label> --}}
                                 <select id="chartTypeSelect" class="form-select form-select-sm">
@@ -311,6 +311,33 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-12 col-lg-4 col-xl-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Gender</h5>
+                            <div class="input-group mb-3">
+                                <select id="Filter" class="form-select form-select-sm">
+                                    <option value="gender">Gender</option>
+                                    <option value="age">Age</option>
+                                </select>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="genderBarChart" width="400" height="400"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{-- <div class="col-12 col-lg-4 col-xl-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Age</h5>
+                            <div class="input-group mb-3">
+                            <div class="card-body">
+                                <canvas id="ageBarChart" width="400" height="400"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div> --}}
 
 
 
@@ -516,22 +543,9 @@
 </script>
 
 <script>
-
-$(document).ready(function() {
-    // Trigger the change event to display province data on page load
-    $('#chartTypeSelect').val('province').trigger('change');
-
-    $('#chartTypeSelect').on('change', function() {
-        var selectedValue = $(this).val();
-
-        // Change the label of the dropdown button
-        $('#dropdownMenuButton').html(selectedValue);
-
-        // Show/hide visualization based on selected option
-        if (selectedValue === 'province') {
-            // Code to display province visualization
-            $('#visualizationDropdown .dropdown-item').removeClass('active');
-            $(this).addClass('active');
+    $(document).ready(function() {
+        // Function to create and display the province pie chart
+        function displayProvinceChart() {
             var ctx = document.getElementById('provincePieChart').getContext('2d');
             var chartData = <?= json_encode($provinceData) ?>;
 
@@ -548,127 +562,7 @@ $(document).ready(function() {
                 options: {
                     title: {
                         display: true,
-                        text: 'User Counts by Province',
-                        fontSize: 16,
-                    },
-                    legend: {
-                        display: true,
-                        position: 'bottom',
-                    },
-                    tooltips: {
-                        callbacks: {
-                            label: function(tooltipItem, data) {
-                                var dataset = data.datasets[tooltipItem.datasetIndex];
-                                var label = data.labels[tooltipItem.index];
-                                var currentValue = dataset.data[tooltipItem.index];
-                                return label + ': ' + currentValue;
-                            }
-                        }
-                    }
-                }
-
-            });
-
-        } else if (selectedValue === 'municipality') {
-            // Code to display municipality visualization
-            $('#visualizationDropdown .dropdown-item').removeClass('active');
-            $(this).addClass('active');
-            var ctx = document.getElementById('provincePieChart').getContext('2d');
-            var chartData = <?= json_encode($municipalityData) ?>;
-
-            // Create the pie chart for municipality data
-            var myPieChart = new Chart(ctx, {
-                type: 'pie',
-                data: {
-                    labels: chartData.labels,
-                    datasets: [{
-                        data: chartData.data,
-                        backgroundColor: chartData.backgroundColor,
-                    }]
-                },
-                options: {
-                    title: {
-                        display: true,
-                        text: 'User Counts by Municipality',
-                        fontSize: 16,
-                    },
-                    legend: {
-                        display: true,
-                        position: 'bottom',
-                    },
-                    tooltips: {
-                        callbacks: {
-                            label: function(tooltipItem, data) {
-                                var dataset = data.datasets[tooltipItem.datasetIndex];
-                                var label = data.labels[tooltipItem.index];
-                                var currentValue = dataset.data[tooltipItem.index];
-                                return label + ': ' + currentValue;
-                            }
-                        }
-                    }
-                }
-            });
-
-        } else if (selectedValue === 'barangay') {
-             // Code to display municipality visualization
-             $('#visualizationDropdown .dropdown-item').removeClass('active');
-            $(this).addClass('active');
-            var ctx = document.getElementById('provincePieChart').getContext('2d');
-            var chartData = <?= json_encode($barangayData) ?>;
-
-            // Create the pie chart for municipality data
-            var myPieChart = new Chart(ctx, {
-                type: 'pie',
-                data: {
-                    labels: chartData.labels,
-                    datasets: [{
-                        data: chartData.data,
-                        backgroundColor: chartData.backgroundColor,
-                    }]
-                },
-                options: {
-                    title: {
-                        display: true,
-                        text: 'User Counts by Barangay',
-                        fontSize: 16,
-                    },
-                    legend: {
-                        display: true,
-                        position: 'bottom',
-                    },
-                    tooltips: {
-                        callbacks: {
-                            label: function(tooltipItem, data) {
-                                var dataset = data.datasets[tooltipItem.datasetIndex];
-                                var label = data.labels[tooltipItem.index];
-                                var currentValue = dataset.data[tooltipItem.index];
-                                return label + ': ' + currentValue;
-                            }
-                        }
-                    }
-                }
-            });
-        } else if (selectedValue === 'street') {
-             // Code to display municipality visualization
-             $('#visualizationDropdown .dropdown-item').removeClass('active');
-            $(this).addClass('active');
-            var ctx = document.getElementById('provincePieChart').getContext('2d');
-            var chartData = <?= json_encode($streetData) ?>;
-
-            // Create the pie chart for municipality data
-            var myPieChart = new Chart(ctx, {
-                type: 'pie',
-                data: {
-                    labels: chartData.labels,
-                    datasets: [{
-                        data: chartData.data,
-                        backgroundColor: chartData.backgroundColor,
-                    }]
-                },
-                options: {
-                    title: {
-                        display: true,
-                        text: 'User Counts by Street',
+                        text: 'Visitors by Province',
                         fontSize: 16,
                     },
                     legend: {
@@ -688,79 +582,295 @@ $(document).ready(function() {
                 }
             });
         }
+
+        // Trigger the displayProvinceChart function to show province chart on page load
+        displayProvinceChart();
+
+        $('#chartTypeSelect').on('change', function() {
+            var selectedValue = $(this).val();
+
+            // Change the label of the dropdown button
+            $('#dropdownMenuButton').html(selectedValue);
+
+            // Show/hide visualization based on selected option
+            if (selectedValue === 'province') {
+                // Display the province chart
+                $('#visualizationDropdown .dropdown-item').removeClass('active');
+                $(this).addClass('active');
+                displayProvinceChart();
+            } else if (selectedValue === 'municipality') {
+                $('#visualizationDropdown .dropdown-item').removeClass('active');
+            $(this).addClass('active');
+            var ctx = document.getElementById('provincePieChart').getContext('2d');
+            var chartData = <?= json_encode($municipalityData) ?>;
+
+            // Create the pie chart for municipality data
+            var myPieChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: chartData.labels,
+                    datasets: [{
+                        data: chartData.data,
+                        backgroundColor: chartData.backgroundColor,
+                    }]
+                },
+                options: {
+                    title: {
+                        display: true,
+                        text: 'Visitors by Municipality',
+                        fontSize: 16,
+                    },
+                    legend: {
+                        display: true,
+                        position: 'bottom',
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function(tooltipItem, data) {
+                                var dataset = data.datasets[tooltipItem.datasetIndex];
+                                var label = data.labels[tooltipItem.index];
+                                var currentValue = dataset.data[tooltipItem.index];
+                                return label + ': ' + currentValue;
+                            }
+                        }
+                    }
+                }
+            });
+            } else if (selectedValue === 'barangay') {
+                $('#visualizationDropdown .dropdown-item').removeClass('active');
+            $(this).addClass('active');
+            var ctx = document.getElementById('provincePieChart').getContext('2d');
+            var chartData = <?= json_encode($barangayData) ?>;
+
+            // Create the pie chart for municipality data
+            var myPieChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: chartData.labels,
+                    datasets: [{
+                        data: chartData.data,
+                        backgroundColor: chartData.backgroundColor,
+                    }]
+                },
+                options: {
+                    title: {
+                        display: true,
+                        text: 'Visitors by Barangay',
+                        fontSize: 16,
+                    },
+                    legend: {
+                        display: true,
+                        position: 'bottom',
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function(tooltipItem, data) {
+                                var dataset = data.datasets[tooltipItem.datasetIndex];
+                                var label = data.labels[tooltipItem.index];
+                                var currentValue = dataset.data[tooltipItem.index];
+                                return label + ': ' + currentValue;
+                            }
+                        }
+                    }
+                }
+            });
+            } else if (selectedValue === 'street') {
+                $('#visualizationDropdown .dropdown-item').removeClass('active');
+            $(this).addClass('active');
+            var ctx = document.getElementById('provincePieChart').getContext('2d');
+            var chartData = <?= json_encode($streetData) ?>;
+
+            // Create the pie chart for municipality data
+            var myPieChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: chartData.labels,
+                    datasets: [{
+                        data: chartData.data,
+                        backgroundColor: chartData.backgroundColor,
+                    }]
+                },
+                options: {
+                    title: {
+                        display: true,
+                        text: 'Visitors by Street',
+                        fontSize: 16,
+                    },
+                    legend: {
+                        display: true,
+                        position: 'bottom',
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function(tooltipItem, data) {
+                                var dataset = data.datasets[tooltipItem.datasetIndex];
+                                var label = data.labels[tooltipItem.index];
+                                var currentValue = dataset.data[tooltipItem.index];
+                                return label + ': ' + currentValue;
+                            }
+                        }
+                    }
+                }
+            });
+            }
+        });
     });
-});
 </script>
 
-// <script>
-//     var ctx = document.getElementById('userPieChart').getContext('2d');
-//     var chartData = <?= json_encode($provinceData) ?>;
 
-//     var myPieChart = new Chart(ctx, {
-//         type: 'pie',
+
+<script>
+    $(document).ready(function() {
+        // Define the event handler
+        $('#Filter').on('change', function() {
+            var selectedValue = $(this).val();
+
+            // Change the label of the dropdown button
+            $('#dropdownMenuButton').html(selectedValue);
+
+            // Show/hide visualization based on selected option
+            if (selectedValue === 'gender') {
+                // Code to display gender visualization
+                $('#visualizationDropdown .dropdown-item').removeClass('active');
+                $(this).addClass('active');
+                var ctx = document.getElementById('genderBarChart').getContext('2d');
+                var chartData = @json($genderData);
+
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: chartData.labels,
+                        datasets: [{
+                            label: 'Gender Distribution',
+                            data: chartData.data,
+                            backgroundColor: ['pink', 'blue'], // Customize colors as needed
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Number of Visitors',
+                                },
+                            },
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Gender',
+                                },
+                            },
+                        },
+                    }
+                });
+            } else if (selectedValue === 'age') {
+                // Code to display age visualization
+                $('#visualizationDropdown .dropdown-item').removeClass('active');
+                $(this).addClass('active');
+                var ctx = document.getElementById('genderBarChart').getContext('2d');
+                var chartData = @json($ageData);
+
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: chartData.labels,
+                        datasets: [{
+                            label: 'Age Distribution',
+                            data: chartData.data,
+                            backgroundColor: ['blue', 'green', 'orange', 'red'], // Customize colors as needed
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Number of Visitors',
+                                },
+                            },
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Age Group',
+                                },
+                            },
+                        },
+                    }
+                });
+            }
+        });
+
+        // Trigger the change event to display the default graph for "Gender" on page load
+        $('#Filter').trigger('change');
+    });
+</script>
+
+
+// <script>
+
+//     var ctx = document.getElementById('genderBarChart').getContext('2d');
+//     var chartData = @json($genderData);
+
+//     new Chart(ctx, {
+//         type: 'bar',
 //         data: {
 //             labels: chartData.labels,
 //             datasets: [{
+//                 label: 'Gender Distribution',
 //                 data: chartData.data,
-//                 backgroundColor: chartData.backgroundColor,
+//                 backgroundColor: ['pink', 'blue'], // Customize colors as needed
 //             }]
 //         },
 //         options: {
-//             title: {
-//                 display: true,
-//                 // text: 'User Counts by Province',
-//                 fontSize: 16,
+//             scales: {
+//                 y: {
+//                     beginAtZero: true,
+//                     title: {
+//                         display: true,
+//                         text: 'Number of Visitors',
+//                     },
+//                 },
+//                 x: {
+//                     title: {
+//                         display: true,
+//                         text: 'Gender',
+//                     },
+//                 },
 //             },
-//             legend: {
-//                 display: true,
-//                 position: 'bottom',
-//             },
-//             tooltips: {
-//                 callbacks: {
-//                     label: function(tooltipItem, data) {
-//                         var dataset = data.datasets[tooltipItem.datasetIndex];
-//                         var label = data.labels[tooltipItem.index];
-//                         var currentValue = dataset.data[tooltipItem.index];
-//                         return label + ': ' + currentValue;
-//                     }
-//                 }
-//             }
 //         }
 //     });
-// </script>
-// <script>
-//     var ctx = document.getElementById('userMunicipalityPieChart').getContext('2d');
-//     var chartData = <?= json_encode($municipalityData) ?>;
 
-//     var myPieChart = new Chart(ctx, {
-//         type: 'pie',
+//     var ctx = document.getElementById('ageBarChart').getContext('2d');
+//     var chartData = @json($ageData);
+
+//     new Chart(ctx, {
+//         type: 'bar',
 //         data: {
 //             labels: chartData.labels,
 //             datasets: [{
+//                 label: 'Age Distribution',
 //                 data: chartData.data,
-//                 backgroundColor: chartData.backgroundColor,
+//                 backgroundColor: ['blue', 'green', 'orange', 'red'], // Customize colors as needed
 //             }]
 //         },
 //         options: {
-//             title: {
-//                 display: true,
-//                 // text: 'User Counts by Province',
-//                 fontSize: 16,
+//             scales: {
+//                 y: {
+//                     beginAtZero: true,
+//                     title: {
+//                         display: true,
+//                         text: 'Number of Visitors',
+//                     },
+//                 },
+//                 x: {
+//                     title: {
+//                         display: true,
+//                         text: 'Age Group',
+//                     },
+//                 },
 //             },
-//             legend: {
-//                 display: true,
-//                 position: 'bottom',
-//             },
-//             tooltips: {
-//                 callbacks: {
-//                     label: function(tooltipItem, data) {
-//                         var dataset = data.datasets[tooltipItem.datasetIndex];
-//                         var label = data.labels[tooltipItem.index];
-//                         var currentValue = dataset.data[tooltipItem.index];
-//                         return label + ': ' + currentValue;
-//                     }
-//                 }
-//             }
 //         }
 //     });
 // </script>
