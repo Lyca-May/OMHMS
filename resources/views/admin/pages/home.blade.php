@@ -96,12 +96,11 @@
                     </a>
                 </li>
 
-                <li>
+                {{-- <li>
                     <a href="{{ asset('admin/calendar') }}">
                         <i class="zmdi zmdi-calendar-check"></i> <span>Calendar</span>
-                        {{-- <small class="badge float-right badge-light">New</small> --}}
                     </a>
-                </li>
+                </li> --}}
 
                 <li class="sidebar-header">About Us</li>
                 <li>
@@ -292,6 +291,9 @@
 
                     </div>
                 </div>
+
+
+
                 <div class="col-12 col-lg-4 col-xl-4">
                     <div class="card">
                         <div class="card-body">
@@ -327,6 +329,21 @@
                         </div>
                     </div>
                 </div>
+
+
+{{--
+                <div class="col-12 col-lg-4 col-xl-4">
+                    <div class="card">
+                        <div class="card-header">Visitors Daily</div>
+
+                        <div class="card-body">
+                            <canvas id="visitorsChartDay" style="width: 100%; max-width: 600px;"></canvas>
+                        </div>
+
+                    </div>
+                </div> --}}
+
+
                 {{-- <div class="col-12 col-lg-4 col-xl-4">
                     <div class="card">
                         <div class="card-body">
@@ -396,6 +413,7 @@
     <!-- Chart js -->
 
     <script src="{{ asset('assets/plugins/Chart.js/Chart.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <!-- Index js -->
     {{-- <script src="{{ asset('assets/js/jsadmin/index.js') }}"></script> --}}
@@ -468,6 +486,8 @@
         var monthlyCount = <?= $monthlyCount ?>;
         var weeks = <?= $weeks ?>;
         var weeklyCount = <?= $weeklyCount ?>;
+        var days = <?= $days ?>;
+        var dailyVisitorCounts = <?= $dailyVisitorCounts ?>;
 
 
         // Create a new chart for yearly data
@@ -538,6 +558,28 @@
                 }
             }
         });
+          // Create a new chart for weekly data
+        //   var ctxWeek = document.getElementById('visitorsChartDay').getContext('2d');
+        // var visitorsChartDay = new Chart(ctxWeek, {
+        //     type: 'bar',
+        //     data: {
+        //         labels: days,
+        //         datasets: [{
+        //             label: 'Visitors per Day',
+        //             data: dailyVisitorCounts,
+        //             backgroundColor: 'rgba(54, 162, 235, 0.5)',
+        //             borderColor: 'rgba(54, 162, 235, 1)',
+        //             borderWidth: 1
+        //         }]
+        //     },
+        //     options: {
+        //         scales: {
+        //             y: {
+        //                 beginAtZero: true
+        //             }
+        //         }
+        //     }
+        // });
     });
 
 </script>

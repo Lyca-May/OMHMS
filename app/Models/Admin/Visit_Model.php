@@ -45,10 +45,10 @@ class Visit_Model extends Model
        return $this->belongsTo(users::class, 'userid', 'user_id');
     }
 
-    public function members()
-    {
-        return $this->hasMany(Member::class);
-    }
+    public function member()
+{
+    return $this->hasMany(Member::class, 'member_id');
+}
 
 
         use HasFactory;

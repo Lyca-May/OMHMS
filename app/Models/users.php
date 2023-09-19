@@ -60,4 +60,9 @@ class users extends Model
     {
         return $this->hasMany(Reserved_Souvenir::class);
     }
+    public function member()
+    {
+        return $this->hasMany(Member::class, 'userid');
+    }
+
 }

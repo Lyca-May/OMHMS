@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Admin\Visit_Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -33,7 +34,12 @@ class Member extends Model
      }
      public function visits()
      {
-         return $this->belongsTo(users::class, 'visit_id', 'visits_id');
+         return $this->belongsTo(Visit_Model::class, 'member_id', 'visits_id'); // Adjust the keys accordingly.
      }
+     public function approvedVisits()
+     {
+         return $this->hasMany(Visit_Model::class, 'member_id')->where('visits_status', 'APPROVED');
+     }
+
 
 }

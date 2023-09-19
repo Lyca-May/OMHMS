@@ -96,49 +96,102 @@ class UserVisitController extends Controller
             DB::raw('MONTH(updated_at) as month'),
             DB::raw('SUM(visits_no_of_visitors) as visitors')
         )
-        ->where('visits_status', 'APPROVED')
-        ->groupBy('year', 'month')
-        ->orderBy('year')
-        ->orderBy('month')
-        ->get();
+            ->where('visits_status', 'APPROVED')
+            ->groupBy('year', 'month')
+            ->orderBy('year')
+            ->orderBy('month')
+            ->get();
 
+        // Define an array with all month names from January to December
+        $allMonths = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
 
-        $months = [];
-        $monthlyCount = [];
+        // Create an associative array to store the data for each month
+        $monthlyDataMap = [];
 
+        // Fill in the data from your $monthlyData query
         foreach ($monthlyData as $item) {
-            // monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-            $monthName = date('F', mktime(0, 0, 0, $item->month, 1));
-            $months[] = $monthName;
-            $monthlyCount[] = $item->visitors;
+            $year = $item->year;
+            $month = $item->month;
+            $visitors = $item->visitors;
+
+            // Build the month-year key in the format "January 2023"
+            $monthYearKey = date('F Y', mktime(0, 0, 0, $month, 1, $year));
+
+            // Use the month-year key to store the visitor count
+            $monthlyDataMap[$monthYearKey] = $visitors;
         }
 
-       // Retrieve weekly data for the current month
-        $currentYear = date('Y');
-        $currentMonth = date('m');
+        // Initialize the data for each month with 0 visitors for months with no data
+        foreach ($allMonths as $index => $monthName) {
+            $year = date('Y'); // You can use the current year or a specific year as needed.
+            $monthYearKey = $monthName . ' ' . $year;
+
+            if (!isset($monthlyDataMap[$monthYearKey])) {
+                $monthlyDataMap[$monthYearKey] = 0;
+            }
+        }
+
+        // Sort the data by month
+        ksort($monthlyDataMap);
+
+        // Extract the months and visitor counts for the chart
+        $months = array_keys($monthlyDataMap);
+        $monthlyCount = array_values($monthlyDataMap);
+
 
         $weeklyData = Visit_Model::select(
-            DB::raw('YEAR(updated_at) as year'),
             DB::raw('WEEK(updated_at) as week'),
             DB::raw('SUM(visits_no_of_visitors) as visitors')
         )
             ->where('visits_status', 'APPROVED')
-            ->whereYear('updated_at', $currentYear)
-            ->whereMonth('updated_at', $currentMonth)
-            ->groupBy('year', 'week')
-            ->orderBy('year')
+            ->groupBy('week')
             ->orderBy('week')
             ->get();
 
         $weeks = [];
         $weeklyCount = [];
 
-
         foreach ($weeklyData as $item) {
             $weekNumber = $item->week;
-            $weeks[] = 'Week ' . $weekNumber ;
+            $weeks[] = 'Week ' . $weekNumber;
             $weeklyCount[] = $item->visitors;
         }
+
+        // Create an array to store data for each day of the week
+        $days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
+        // Create an array to store the daily visitor counts for each day of the week
+        $dailyVisitorCounts = [0, 0, 0, 0, 0, 0, 0];
+
+        // Retrieve daily data with the "visits_status" condition
+        $dailyData = Visit_Model::select(
+            DB::raw('DAY(updated_at) as day'),
+            DB::raw('SUM(visits_no_of_visitors) as visitors')
+        )
+            ->where('visits_status', 'APPROVED')
+            ->groupBy('day')
+            ->orderBy('day')
+            ->get();
+
+        // Loop through the daily data and distribute the counts to the corresponding day of the week
+        foreach ($dailyData as $item) {
+            // Get the day number (1-31) and visitor count for the day
+            $dayNumber = $item->day;
+            $visitorCount = $item->visitors;
+
+            // Calculate the index of the corresponding day of the week (Monday = 0, Tuesday = 1, etc.)
+            // Assuming that the first day of the month is a Monday
+            $dayIndex = ($dayNumber - 1) % 7;
+
+            // Add the visitor count to the corresponding day of the week
+            $dailyVisitorCounts[$dayIndex] += $visitorCount;
+        }
+
+
+
         // Get user counts by province
         $provinceData = Member::select('province')
             ->groupBy('province')
@@ -261,57 +314,33 @@ class UserVisitController extends Controller
         $user_id = session('Admin')['user_id'];
         $users = DB::table('users')->where('user_id', $user_id)->get();
 
+        // Initialize arrays to store gender labels and counts with fixed labels
+        $labels = ['Female', 'Male'];
+        $counts = [0, 0]; // Initialize counts for Female and Male to zero
 
         // Fetch gender distribution data from the member table
         $genderData = Member::select('gender', DB::raw('COUNT(*) as count'))
+            ->whereIn('gender', ['Female', 'Male']) // Only select 'Female' and 'Male' genders
             ->groupBy('gender')
             ->get();
 
-        // Initialize arrays to store gender labels and counts
-        $labels = [];
-        $counts = [];
-
-        // Populate the arrays with data
+        // Populate the counts array with data
         foreach ($genderData as $data) {
-            $labels[] = $data->gender;
-            $counts[] = $data->count;
+            if ($data->gender === 'Female') {
+                $counts[0] = $data->count;
+            } elseif ($data->gender === 'Male') {
+                $counts[1] = $data->count;
+            }
         }
-        $selectedLevel = $request->input('level', 'province');
 
-    // Adjust your query based on the selected level
-    $genderData = Member::select('gender', DB::raw('COUNT(*) as count'))
-        ->groupBy('gender')
-        ->when($selectedLevel === 'province', function ($query) {
-            return $query->groupBy('province');
-        })
-        ->when($selectedLevel === 'municipality', function ($query) {
-            return $query->groupBy('municipality');
-        })
-        ->when($selectedLevel === 'barangay', function ($query) {
-            return $query->groupBy('barangay');
-        })
-        ->when($selectedLevel === 'sitio', function ($query) {
-            return $query->groupBy('sitio');
-        })
-        ->get();
-
-    // Initialize arrays to store gender labels and counts
-    $labels = [];
-    $counts = [];
-
-    // Populate the arrays with data
-    foreach ($genderData as $data) {
-        $labels[] = $data->gender;
-        $counts[] = $data->count;
-    }
 
 
         $ageData = Member::select(
             DB::raw('COUNT(*) as count'),
             DB::raw('CASE WHEN age BETWEEN 1 AND 12 THEN "Children" WHEN age BETWEEN 13 AND 18 THEN "Teenagers" WHEN age BETWEEN 19 AND 59 THEN "Adults" ELSE "Seniors" END as category')
         )
-        ->groupBy('category')
-        ->get();
+            ->groupBy('category')
+            ->get();
         // Initialize arrays to store age group labels and counts
         $ageLabels = ['Children', 'Teenagers', 'Adults', 'Seniors'];
         $ageCounts = [0, 0, 0, 0]; // Initialize counts for each category
@@ -352,6 +381,10 @@ class UserVisitController extends Controller
 
             'weeks' => json_encode($weeks),
             'weeklyCount' => json_encode($weeklyCount),
+
+            'days' => json_encode($days),
+            'dailyVisitorCounts' => json_encode($dailyVisitorCounts),
+
 
             'provinceData' => $provinceData,
             'municipalityData' => $municipalityData,

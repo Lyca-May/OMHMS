@@ -189,7 +189,6 @@ Route::get('user/qr',[UserVisitController::class,'showQRCode'])->name('show.qr')
 Route::get('/active-qr-code/{visitId}',[UserVisitController::class,'showActiveQRCode'])->name('active-qr-code.show');
 Route::get('user/profile', [UserVisitController::class,'displayUserProfile']);
 Route::post('/process-qr-code', [UserVisitController::class,'processQRCode'])->name('scan.qr.code');
-Route::get('/getMonthlyData', [UserVisitController::class, 'getMonthlyData']);
 
 
 
@@ -210,7 +209,7 @@ Route::get('/admin/scan-qr', [VisitController::class, 'showScanQRPage']);
 Route::post('/admin/mark-visit-done', [VisitController::class, 'markVisitAsDone']);
 
 //Attendance
-Route::get('admin/attendance', [AttendanceController::class, 'visitorAttend']);
+Route::get('admin/attendance', [VisitController::class, 'displayAttendance']);
 
 
 //Newsfeed for user function

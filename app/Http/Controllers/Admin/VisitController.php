@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Kernel;
 use App\Http\Middleware\VerifyCsrfToken;
+use App\Models\Member;
 use App\Models\users;
 
 class VisitController extends Controller
@@ -39,6 +40,17 @@ class VisitController extends Controller
 
 
         return view('admin.pages.visit.visit', compact('visit', 'users', 'approved', 'cancelled', 'history'));
+    }
+
+    public function displayAttendance(){
+        $user_id = session('Admin')['user_id'];
+        $users = DB::table('users')->where('user_id', $user_id)->get();
+
+        $member = Member::with('user')
+        ->get();
+
+        return view('admin.pages.attendance.attendance-record', compact('users', 'member'));
+
     }
 
     public function approved_visit()
@@ -81,7 +93,7 @@ class VisitController extends Controller
         $user_id = session('Admin')['user_id'];
         $users = DB::table('users')->where('user_id', $user_id)->get();
 
-        
+
         return view('admin.pages.home', compact('visitCount', 'membersCount', 'users', 'currentDateTime', 'rentCount', 'visit', 'souvenirsCount', 'artifactsCount'));
     }
 

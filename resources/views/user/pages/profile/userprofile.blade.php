@@ -77,7 +77,7 @@
                 </li>
 
                 <li>
-                    <a href="{{ url('user/qr') }}" id="tablesLink">
+                    <a href="{{ url('user/functionhall') }}" id="tablesLink">
                         <i class="zmdi zmdi-book"></i> <span>Active booking for Function Hall</span>
                     </a>
                 </li>
