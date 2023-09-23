@@ -29,7 +29,7 @@
     <!-- Custom Style-->
     <link href="{{ asset('assets/css/css/app-style1.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/css/mybook.css') }}" rel="stylesheet" />
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -41,57 +41,58 @@
 
 </head>
 <style>
-     .body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
+    .body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
 
-        .header {
-            text-align: center;
-            margin: 20px 0;
-        }
+    .header {
+        text-align: center;
+        margin: 20px 0;
+    }
 
-        .logo {
-            width: 100px;
-            height: auto;
-        }
+    .logo {
+        width: 100px;
+        height: auto;
+    }
 
-        .title {
-            text-align: center;
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
+    .title {
+        text-align: center;
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
 
-        .date {
-            text-align: right;
-            margin-bottom: 20px;
-        }
+    .date {
+        text-align: right;
+        margin-bottom: 20px;
+    }
 
-        .content {
-            margin: 20px;
-        }
+    .content {
+        margin: 20px;
+    }
 
-        .partial {
-            text-align: left;
-            margin-top: 50px;
-            margin-bottom: 20px;
-        }
+    .partial {
+        text-align: left;
+        margin-top: 50px;
+        margin-bottom: 20px;
+    }
 
-        .balance {
-            text-align: left;
-        }
+    .balance {
+        text-align: left;
+    }
 
-        .signature {
-            text-align: left;
-            margin-top: 100px;
-        }
+    .signature {
+        text-align: left;
+        margin-top: 100px;
+    }
 
-        .signature img {
-            width: 150px;
-            height: auto;
-        }
+    .signature img {
+        width: 150px;
+        height: auto;
+    }
 </style>
+
 <body class="bg-theme">
 
     <!-- Start wrapper-->
@@ -232,41 +233,38 @@
         <div class="clearfix"></div>
 
         <div class="content-wrapper2">
-         <br>
-            <div id="function-section">
+            <br>
+
+            <div id="function-section" class="container mt-4">
                 <section>
-                    {{-- <span>FUNCTION HALL</span> --}}
                     @if ($rent->isEmpty())
-                        <p>You have no active booking</p>
+                        <p class="alert alert-warning">You have no active bookings.</p>
                     @else
                         @foreach ($rent as $visits)
-                            <div class="card">
-                                <div class="col-lg-6">
-                                    <div>
-                                        <div class="invoice-logo">
-                                            <img width="100" src="{{ asset('omhms.png') }}" alt="">
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-6">
+                                            <img width="100" src="{{ asset('eOMHeritage.png') }}" alt="">
                                             <strong>ORIENTAL MINDORO HERITAGE MUSEUM</strong>
                                         </div>
+                                        <div class="col-md-6 text-right">
+                                            <strong>Status:</strong>
+                                            <span class="badge badge-success">{{ $visits->status }}</span>
+                                        </div>
                                     </div>
-                                    <ul class="list-unstyled text-right" style="margin-top: 20px; margin-left:350px">
-                                        <p>
-                                            <li><strong>Status:</strong>
-                                                <span class="label label-success">{{ $visits->status }}</span>
-                                            </li>
-                                        </p>
-                                    </ul>
-
                                 </div>
-
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <!-- Booking Details -->
                                             <h5 class="card-title">Booking Details</h5>
-                                            <p class="card-text">Contact Person: {{ $visits->contact_person }}</p>
-                                            <p class="card-text">Contact Number: {{ $visits->contact_number }}</p>
-                                            <p class="card-text">Agency: {{ $visits->agency }}</p>
-                                            <p class="card-text">Facility: {{ $visits->facility }}</p>
+                                            <p class="card-text"><strong>Contact Person:</strong>
+                                                {{ $visits->contact_person }}</p>
+                                            <p class="card-text"><strong>Contact Number:</strong>
+                                                {{ $visits->contact_number }}</p>
+                                            <p class="card-text"><strong>Agency:</strong> {{ $visits->agency }}</p>
+                                            <p class="card-text"><strong>Facility:</strong> {{ $visits->facility }}
+                                            </p>
                                             <p class="card-text">Event Type: {{ $visits->event_type }}</p>
                                             <p class="card-text">Date Selected:
                                                 {{ date('F d, Y', strtotime($visits->date_requested)) }}</p>
@@ -394,80 +392,105 @@
                                                     @endif
                                                 </span>
                                             </div>
-
-
-
-
-
                                         </div>
+
+
+
                                         <div class="col-md-6">
-                                            <!-- Payment Details -->
                                             <h5 class="card-title">Payment Details</h5>
-                                            <p class="card-text">Payment for Rent: {{ $visits->payment_rent }}</p>
-                                            <p class="card-text">Payment for Additional Service: {{ $visits->add_service_payment }}</p>
-                                            <p class="card-text">Total Amount to be Paid: {{ $visits->total_payment }}
-                                            <p class="card-text">Downpayment: {{ $visits->downpayment }}</p>
-                                            <p class="card-text">Pending Payment: {{$visits->total_payment - $visits->downpayment }}</p>
-                                            </p>
-                                            {{-- <p class="card-text">Transaction ID: {{ $payment->transaction_id }}</p> --}}
-                                            <!-- Add more payment details as needed -->
+                                            <p class="card-text"><strong>Payment for Rent:</strong>
+                                                {{ $visits->payment_rent }}</p>
+                                            <p class="card-text"><strong>Payment for Additional Service:</strong>
+                                                {{ $visits->add_service_payment }}</p>
+                                            <p class="card-text"><strong>Total Amount to be Paid:</strong>
+                                                {{ $visits->total_payment }}</p>
+                                            <p class="card-text"><strong>Downpayment:</strong>
+                                                {{ $visits->downpayment }}</p>
+                                            <p class="card-text"><strong>Pending Payment:</strong>
+                                                {{ $visits->total_payment - $visits->downpayment }}</p>
+                                            <!-- Add other payment details here -->
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            {{-- <div>Kindly wait for the admin to approved your reservation. Thank you</div> --}}
-
                         @endforeach
                     @endif
+
                     @foreach ($rent as $visit)
                     @if ($visit->recorded_by != null)
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#acknowledgementModal">View Acknowledgement Receipt</button>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#acknowledgementModal{{$visit->id}}">
+                            View Acknowledgement Receipt
+                        </button>
                         <!-- Modal -->
-                        <div class="modal fade" id="acknowledgementModal" tabindex="-1" role="dialog" aria-labelledby="acknowledgementModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
+                        <div class="modal fade" id="acknowledgementModal{{$visit->id}}" tabindex="-1" role="dialog"
+                            aria-labelledby="acknowledgementModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <img src="{{ asset('omhms.png') }}" alt="Tourism Logo" class="logo">
-                                        {{-- <h2 class="modal-title" id="acknowledgementModalLabel" style="font-size: 30px">Acknowledgement Receipt</h2> --}}
-                                        <h2 style="font-size: 30px; text-align:center">Acknowledgement Receipt</h2>
-                                        <div class="date">{{ date('F d, Y') }}</div>
+                                        <div class="text-center">
+                                            <img src="{{ asset('eOMHeritage.png') }}" alt="Tourism Logo" class="logo">
+                                            <h2 class="modal-title font-weight-bold text-center" id="acknowledgementModalLabel"
+                                                style="font-size: 15px ">Acknowledgement Receipt</h2>
+                                        </div>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <p>Received from {{ date('F d, Y') }} the sum of (Php {{$visit->downpayment}}) as partial payment for the
+                                        <p class="text-justify">
+                                            Received from {{ date('F d, Y') }} the amount of Php {{ $visit->downpayment }} as partial payment for the
                                             @if ($visit->facility == 'Mangyan Ballroom')
-                                                Rent of Mangyan Ballroom
+                                                Rent of Mangyan Ballroom.
+                                            @elseif ($visit->facility == 'Museum Galleries')
+                                                Rent of Museum Galleries.
+                                            @elseif ($visit->facility == 'Halcon Performance Area')
+                                                Rent of Halcon Performance Area.
                                             @endif
-                                            @if ($visit->facility == 'Museum Galleries')
-                                                Rent of Museum Galleries
-                                            @endif
-                                            @if ($visit->facility == 'Halcon Performance Area')
-                                                Rent of Halcon Perfomance <Area></Area>
-                                            @endif
-                                            dated {{ date('F d, Y') }} {{ date('F d, Y', strtotime($visit->date_requested)) }}
+                                            This payment is for the event scheduled on {{ date('F d, Y', strtotime($visit->date_requested)) }}.
+                                        </p>
+                                        <p class="text-justify">
+                                            Please download the receipt as proof and provide it to the staff.
                                         </p>
                                         <div class="partial">
-                                            <p>Partial: {{$visit->downpayment}}</p>
+                                            <p>Partial: Php {{ $visit->downpayment }}</p>
                                         </div>
                                         <div class="balance">
-                                            <p>Balance: {{$visit->totalpayment - $visit->downpayment}}</p>
+                                            <p>Balance: Php {{ $visit->total_payment - $visit->downpayment }}</p>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <img src="admin_signature.png" alt="Admin Signature">
+                                        <div class="row align-items-center">
+                                            <div class="col-md-6 text-center">
+                                                <img src="{{ asset('recordedby_esign/' . $visit->recordedby_esign) }}"
+                                                    alt="Admin Signature" class="img-fluid signature">
+                                                <p class="mt-2">Recorded by: {{ $visit->recorded_by }}</p>
+                                            </div>
+                                            <div class="col-md-6 text-center">
+                                                <img src="{{ asset('approvedby_esign/' . $visit->approvedby_esign) }}"
+                                                    alt="Admin Signature" class="img-fluid signature">
+                                                <p class="mt-2">Approved by: {{ $visit->approved_by }}</p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <span>Admin Signature: {{$visit->approved_by}}</span>
-                                    <button class="btn btn-success">Download</button>
+                                    <div class="modal-footer">
+                                        <div class="date text-center mt-2">{{ date('F d, Y') }}</div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button onclick="printModal('{{ asset("eOMHeritage.png") }}', '{{ asset("recordedby_esign/" . $visit->recordedby_esign) }}', '{{ asset("approvedby_esign/" . $visit->approvedby_esign) }}')" class="btn btn-primary">
+                                            Print Receipt
+                                        </button>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     @endif
-                    @endforeach
+                @endforeach
+
 
                 </section>
             </div>
+
         </div>
     </div>
     <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
@@ -515,7 +538,7 @@
 </body>
 
 
-    {{-- <script>
+{{-- <script>
         $(document).ready(function() {
             // Hide the function section initially
             $('#function-section').hide();
@@ -533,5 +556,48 @@
             });
         });
     </script> --}}
+    <script>
+        function printModal(logoUrl, recordedEsignUrl, approvedEsignUrl) {
+            var modalContent = document.querySelector('.modal-content'); // Select the modal content
+
+            var printWindow = window.open('', '', 'width=600,height=600'); // Open a new window
+
+            // Write the modal's content to the new window
+            printWindow.document.open();
+            printWindow.document.write('<html><head><title>Receipt</title>');
+            // Include Bootstrap CSS if needed
+            printWindow.document.write('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">');
+            printWindow.document.write('</head><body>');
+            printWindow.document.write('<div class="container mt-5">'); // Add container for styling
+
+            // Header with title, logo, and e-sign images
+            printWindow.document.write('<div class="text-center">');
+            printWindow.document.write('<img src="' + logoUrl + '" alt="Tourism Logo" class="receipt-logo">');
+            printWindow.document.write('<h2 class="font-weight-bold mt-2">Acknowledgement Receipt</h2>');
+            // Add recorded e-signature
+            printWindow.document.write('<img src="' + recordedEsignUrl + '" alt="Recorded E-signature" class="receipt-esign">');
+            // Add approved e-signature
+            printWindow.document.write('<img src="' + approvedEsignUrl + '" alt="Approved E-signature" class="receipt-esign">');
+            printWindow.document.write('</div>');
+
+            // Content from the modal
+            printWindow.document.write('<div class="receipt-content">');
+            printWindow.document.write(modalContent.innerHTML);
+            printWindow.document.write('</div>');
+
+            // Close container and body
+            printWindow.document.write('</div>');
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+
+            // Trigger the print dialog in the new window
+            printWindow.print();
+            printWindow.close(); // Close the new window after printing
+        }
+    </script>
+
+
+
+
 
 </html>

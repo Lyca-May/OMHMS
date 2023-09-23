@@ -38,11 +38,12 @@
 
     <style>
         #pending-table {
-  display: block;
-  width: 100%;
-  overflow-x: auto;
-  white-space: nowrap;
-}
+            display: block;
+            width: 100%;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
         .custom-modal {
             background-color: #031a03;
             /* Dark green color */
@@ -73,15 +74,12 @@
             border-radius: 50%;
             object-fit: cover;
         }
+
         @media (max-width: 1707.50px) {
-        #pending-table {
-            width: 100%;
+            #pending-table {
+                width: 100%;
+            }
         }
-}
-
-
-
-
     </style>
 
 </head>
@@ -160,11 +158,11 @@
                     <a href="#" id="contentLink">
                         <i class="zmdi zmdi-edit"></i> <span>Edit Content</span>
                     </a>
-                    <ul id="contentDrawer" class="drawer-items" >
-                        <li><a href="{{url('about-us/history') }}">Edit History</a></li>
-                        <li><a href="{{url('about-us/footer')}}">Footer</a></li>
-                        <li><a href="{{url('about-us/wts')}}">What to see Inside</a></li>
-                        <li><a href="{{url('about-us/contact')}}">Contact</a></li>
+                    <ul id="contentDrawer" class="drawer-items">
+                        <li><a href="{{ url('about-us/history') }}">Edit History</a></li>
+                        <li><a href="{{ url('about-us/footer') }}">Footer</a></li>
+                        <li><a href="{{ url('about-us/wts') }}">What to see Inside</a></li>
+                        <li><a href="{{ url('about-us/contact') }}">Contact</a></li>
                     </ul>
                 </li>
                 <li>
@@ -201,13 +199,13 @@
                             <i class="fa fa-envelope-open-o"></i></a>
                     </li>
                     <li class="nav-item dropdown-lg">
-                        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret waves-effect" data-toggle="dropdown"
-                            href="javascript:void();">
+                        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret waves-effect"
+                            data-toggle="dropdown" href="javascript:void();">
                             <i class="fa fa-bell-o"></i></a>
                     </li>
                     <li class="nav-item language">
-                        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret waves-effect" data-toggle="dropdown"
-                            href="javascript:void();"><i class="fa fa-flag"></i></a>
+                        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret waves-effect"
+                            data-toggle="dropdown" href="javascript:void();"><i class="fa fa-flag"></i></a>
                         <ul class="dropdown-menu dropdown-menu-right">
                             <li class="dropdown-item"> <i class="flag-icon flag-icon-gb mr-2"></i> English</li>
                             <li class="dropdown-item"> <i class="flag-icon flag-icon-fr mr-2"></i> French</li>
@@ -275,6 +273,8 @@
                             <li class="nav-item"><a class="nav-link filter-option"
                                     data-target="approved-table">Approved Bookings</a></li>
                             <li class="nav-item"><a class="nav-link filter-option"
+                                    data-target="paid-table">Paid Bookings</a></li>
+                            <li class="nav-item"><a class="nav-link filter-option"
                                     data-target="cancelled-table">Cancelled Bookings</a></li>
                             <li class="nav-item"><a class="nav-link filter-option" data-target="history-table"><i
                                         class="zmdi zmdi-history"></i> History</a></li>
@@ -291,7 +291,8 @@
                                     <div class="col-sm-4">
                                         {{-- <a class="btn btn-success" style="float:left;margin-right:20px;" data-toggle="modal" data-target="#addItemModal">+ Add</a> --}}
                                         <div class="search-box">
-                                            <input type="text" class="form-control" id="searchInput" placeholder="Search">
+                                            <input type="text" class="form-control" id="searchInput"
+                                                placeholder="Search">
                                         </div>
                                     </div>
                                 </div>
@@ -371,7 +372,7 @@
                                                             data-target="#viewModal{{ $visits->rent_id }}">View</button>
                                                     </td>
                                                     <td>
-                                                        @if ($visits->status == 'pending')
+                                                        @if ($visits->status == 'PENDING')
                                                             <p><span style="color: gray">{{ $visits->status }}</span>
                                                             </p>
                                                         @else
@@ -380,26 +381,27 @@
                                                         @endif
                                                     </td>
                                                     <td>
-                                                        <form
-                                                            method="post">
+                                                        <form method="post">
                                                             @csrf
                                                             <button type="button"
                                                                 class="btn btn-success"data-toggle="modal"
-                                                                data-target="#approveModal{{$visits->rent_id}}" >Approve</button>
+                                                                data-target="#approveModal{{ $visits->rent_id }}">Approve</button>
                                                         </form>
+
                                                         <button type="button" class="btn btn-danger"
                                                             data-toggle="modal"
-                                                            data-target="#cancelModal{{$visits->rent_id}}">Cancel</button>
+                                                            data-target="#cancelModal{{ $visits->rent_id }}">Cancel</button>
 
-                                                        <!-- Modal -->
-                                                        <div class="modal fade" id="approveModal{{$visits->rent_id}}" tabindex="-1"
+                                                        <!-- APPROVE Modal -->
+                                                        <div class="modal fade"
+                                                            id="approveModal{{ $visits->rent_id }}" tabindex="-1"
                                                             role="dialog" aria-labelledby="approveModalLabel"
                                                             aria-hidden="true">
                                                             <div class="modal-dialog" role="document">
                                                                 <div class="modal-content custom-modal">
                                                                     <form
                                                                         action="{{ url('admin/approve/' . $visits->rent_id) }}"
-                                                                        method="POST">
+                                                                        method="POST" enctype="multipart/form-data">
                                                                         @csrf
                                                                         <div class="modal-header">
                                                                             <h5 class="modal-title"
@@ -413,24 +415,54 @@
                                                                         </div>
                                                                         <div class="modal-body">
                                                                             <div class="form-group">
-                                                                               <span>Recorded date: {{date('F d, Y') }}</span>
-                                                                                <label for="cancel_reason">Recorded Date</label>
-                                                                                <input type="hidden" class="form-control @error('recorded_date') is-invalid @enderror" name="recorded_date" id="recorded_date"
-                                                                                    rows="3" value=' ' readonly>
-                                                                                <label for="cancel_reason">Recorded by</label>
-                                                                                <input type="text" class="form-control @error('recorded_by') is-invalid @enderror" name="recorded_by" id="recorded_by"
-                                                                                    rows="3" {{ old('recorded_by') }}>
+                                                                                <span>Recorded date:
+                                                                                    {{ date('F d, Y') }}</span>
+                                                                                <br>
+                                                                                <input type="hidden"
+                                                                                    class="form-control @error('recorded_date') is-invalid @enderror"
+                                                                                    name="recorded_date"
+                                                                                    id="recorded_date" rows="3"
+                                                                                    value=' ' readonly>
+                                                                                <label for="cancel_reason">Recorded
+                                                                                    by</label>
+                                                                                <input type="text"
+                                                                                    class="form-control @error('recorded_by') is-invalid @enderror"
+                                                                                    name="recorded_by"
+                                                                                    id="recorded_by" rows="3"
+                                                                                    {{ old('recorded_by') }}>
                                                                                 @error('recorded_by')
                                                                                     <div class="invalid-feedback">
                                                                                         {{ $message }}</div>
                                                                                 @enderror
-                                                                                <label for="cancel_reason">Approved by</label>
-                                                                                <input type="text" class="form-control @error('approved_by') is-invalid @enderror" name="approved_by" id="approved_by"
-                                                                                    rows="3" {{ old('approved_by') }}>
+                                                                                <label for="recordedby_esign">Recorded
+                                                                                    by E-Signature:</label>
+                                                                                <input type="file"
+                                                                                    class="form-control-file"
+                                                                                    id="recordedby_esign"
+                                                                                    name="recordedby_esign">
+                                                                                <label for="cancel_reason">Approved
+                                                                                    by</label>
+                                                                                <input type="text"
+                                                                                    class="form-control @error('approved_by') is-invalid @enderror"
+                                                                                    name="approved_by"
+                                                                                    id="approved_by" rows="3"
+                                                                                    {{ old('approved_by') }}>
                                                                                 @error('approved_by')
                                                                                     <div class="invalid-feedback">
                                                                                         {{ $message }}</div>
                                                                                 @enderror
+                                                                                <label for="approvedby_esign">Approved
+                                                                                    by E-Signature:</label>
+                                                                                <input type="file"
+                                                                                    class="form-control-file"
+                                                                                    id="approvedby_esign"
+                                                                                    name="approvedby_esign">
+                                                                                <input type="number"
+                                                                                    class="form-control-file"
+                                                                                    id="approvedby_esign"
+                                                                                    name="others_payment"
+                                                                                    placeholder="If customer has avail other services">
+
                                                                             </div>
                                                                         </div>
                                                                         <div class="modal-footer">
@@ -445,8 +477,11 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <!-- Modal -->
-                                                        <div class="modal fade" id="cancelModal{{$visits->rent_id}}" tabindex="-1"
+
+
+                                                        <!-- Cancel Modal -->
+                                                        <div class="modal fade"
+                                                            id="cancelModal{{ $visits->rent_id }}" tabindex="-1"
                                                             role="dialog" aria-labelledby="cancelModalLabel"
                                                             aria-hidden="true">
                                                             <div class="modal-dialog" role="document">
@@ -491,50 +526,64 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-
                                             @endforeach
                                         </tbody>
                                     </table>
 
                                     @foreach ($rent as $visits)
-                                    <div class="modal fade" id="viewModal{{ $visits->rent_id }}" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel{{ $visits->rent_id }}" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="viewModalLabel{{ $visits->rent_id }}" style="color: black">Payment Details</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <p style="color: black">Rent Payment: {{ $visits->payment_rent }}</p>
-                                                    <p style="color: black">Ad On Payment: {{ $visits->add_service_payment }}</p>
-                                                    <p style="color: black">
-                                                        @if ($visits->others_payment==0)
-                                                            Other Payment: <span style="color: red">No payment yet</span>
-                                                        @endif
-                                                    </p>
-                                                    <p style="color: black">Total Price to Pay: {{ $visits->total_payment }}</p>
-                                                    <p style="color: black">Downpayment: {{ $visits->downpayment }}</p>
-                                                    <p style="color:#031a03">Balance: {{ $visits->total_payment - $visits->downpayment }}</p>
-                                                    @if ($visits->proof_of_payment)
-                                                        <p style="color: black">Proof of Payment:
+                                        <div class="modal fade" id="viewModal{{ $visits->rent_id }}" tabindex="-1"
+                                            role="dialog" aria-labelledby="viewModalLabel{{ $visits->rent_id }}"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title"
+                                                            id="viewModalLabel{{ $visits->rent_id }}"
+                                                            style="color: black">Payment Details</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p style="color: black">Rent Payment:
+                                                            {{ $visits->payment_rent }}</p>
+                                                        <p style="color: black">Ad On Payment:
+                                                            {{ $visits->add_service_payment }}</p>
+                                                        <p style="color: black">
+                                                            @if ($visits->others_payment == 0)
+                                                                Other Payment: <span style="color: red">No payment
+                                                                    yet</span>
+                                                            @endif
                                                         </p>
-                                                        <a href="#" class="image-link" data-toggle="modal" data-target="#imageModal">
-                                                            <img src="{{ asset('proof_of_payment/' . $visits->proof_of_payment) }}" class="projcard-img img-fluid" style="width: 100%; height: auto;" />
-                                                        </a>
-                                                    @endif
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <p style="color: black">Total Price to Pay:
+                                                            {{ $visits->total_payment }}</p>
+                                                        <p style="color: black">Downpayment:
+                                                            {{ $visits->downpayment }}</p>
+                                                        <p style="color:#031a03">Balance:
+                                                            {{ $visits->total_payment - $visits->downpayment }}</p>
+                                                        @if ($visits->proof_of_payment)
+                                                            <p style="color: black">Proof of Payment:
+                                                            </p>
+                                                            <a href="#" class="image-link" data-toggle="modal"
+                                                                data-target="#imageModal">
+                                                                <img src="{{ asset('proof_of_payment/' . $visits->proof_of_payment) }}"
+                                                                    class="projcard-img img-fluid"
+                                                                    style="width: 100%; height: auto;" />
+                                                            </a>
+                                                        @endif
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Close</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                @endforeach
+                                    @endforeach
 
 
-                                    {{-- <table class="table align-items-center table-flush table-borderless" id="approved-table"
+                                  <table class="table align-items-center table-flush table-borderless" id="approved-table"
                                         style="display: none;">
                                         <thead>
                                             <tr>
@@ -560,9 +609,11 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($rent as $visits)
+                                            @foreach ($approved as $visits)
                                             <tr>
-                                                <td>{{ $visits->user->user_lname }}, {{ $visits->user->user_fname }} {{ $visits->user->user_mname }}.</td>
+                                                <td>{{ $visits->user->user_lname }},
+                                                    {{ $visits->user->user_fname }}
+                                                    {{ $visits->user->user_mname }}.</td>
                                                 <td>{{ $visits->contact_person }}</td>
                                                 <td>{{ $visits->contact_number }}</td>
                                                 <td>{{ $visits->agency }}</td>
@@ -572,286 +623,327 @@
                                                 <td>{{ $visits->event_start }}</td>
                                                 <td>{{ $visits->date_of_setup }}</td>
                                                 <td>{{ $visits->prep_setup_time }}</td>
-                                                 @if ($visits->others != null)
-                                                   <td>{{$visits->others}}</td>
-                                                 @endif
-                                                 @if ($visits->sound_system == 1)
-                                                   <td>INCLUDED</td>
-                                                 @endif
-                                                 @if ($visits->led_tv == 1)
-                                                   <td>INCLUDED</td>
-                                                 @endif
-                                                 @if ($visits->microphones == 1)
-                                                   <td>{{$visits->number_of_microphones}}</td>
-                                                 @endif
-                                                 @if ($visits->tables == 1)
-                                                   <td>{{$visits->number_of_tables}}</td>
-                                                 @endif
-                                                 @if ($visits->chairs == 1)
-                                                   <td>{{$visits->number_of_chairs}}</td>
-                                                 @endif
-                                                <td><button class="btn btn-primary">View</button></td>
-
-                                                <td>
-                                                    @if ($visits->status == 'pending')
-                                                        <p><span style="color: gray">{{ $visits->status }}</span></p>
-                                                    @else
-                                                        <p><span style="color: green">{{ $visits->status }}</span></p>
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    <form action="{{ url('/approve-status/' . $visits->userid) }}" method="post">
-                                                        @csrf
-                                                        <button type="submit" class="btn btn-success">Approve</button>
-                                                    </form>
-                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#cancelModal">Cancel</button>
-
-                                                    <!-- Modal -->
-                                                    <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelModalLabel"
-                                                        aria-hidden="true">
-                                                        <div class="modal-dialog" role="document">
-                                                            <div class="modal-content custom-modal">
-                                                                <form action="{{ url('/cancel_status/' . $visits->userid) }}" method="POST">
-                                                                    @csrf
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title" id="cancelModalLabel">Confirm Cancel</h5>
-                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                            <span aria-hidden="true">&times;</span>
-                                                                        </button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <div class="form-group">
-                                                                            <label for="cancel_reason">Reason for cancellation</label>
-                                                                            <textarea class="form-control @error('cancel_reason') is-invalid @enderror" name="cancel_reason" id="cancel_reason" rows="3">{{ old('cancel_reason') }}</textarea>
-                                                                            @error('cancel_reason')
-                                                                                <div class="invalid-feedback">{{ $message }}</div>
-                                                                            @enderror
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                        <button type="submit" class="btn btn-success">Confirm Cancel</button>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                    <table class="table align-items-center table-flush table-borderless" id="history-table"
-                                        style="display: none;">
-                                        <thead>
-                                            <tr>
-                                                <th>Full Name</th>
-                                                <th>Contact Person</th>
-                                                <th>Contact Number</th>
-                                                <th>Agency</th>
-                                                <th>Facility</th>
-                                                <th>Event Type</th>
-                                                <th>Date Requested</th>
-                                                <th>Event Start Time</th>
-                                                <th>Date of Setup</th>
-                                                <th>Preparation Setup Time</th>
-                                                <th>Others</th>
-                                                <th>Sound System</th>
-                                                <th>LED TV</th>
-                                                <th>Number of Microphones</th>
-                                                <th>Number of Tables</th>
-                                                <th>Number of Chairs</th>
-                                                <th>Payment Details</th>
-                                                <th>Status</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($rent as $visits)
-                                            <tr>
-                                                <td>{{ $visits->user->user_lname }}, {{ $visits->user->user_fname }} {{ $visits->user->user_mname }}.</td>
-                                                <td>{{ $visits->contact_person }}</td>
-                                                <td>{{ $visits->contact_number }}</td>
-                                                <td>{{ $visits->agency }}</td>
-                                                <td>{{ $visits->facility }}</td>
-                                                <td>{{ $visits->event_type }}</td>
-                                                <td>{{ $visits->date_requested }}</td>
-                                                <td>{{ $visits->event_start }}</td>
-                                                <td>{{ $visits->date_of_setup }}</td>
-                                                <td>{{ $visits->prep_setup_time }}</td>
-                                                 @if ($visits->others != null)
-                                                   <td>{{$visits->others}}</td>
-                                                 @endif
-                                                 @if ($visits->sound_system == 1)
-                                                   <td>INCLUDED</td>
-                                                 @endif
-                                                 @if ($visits->led_tv == 1)
-                                                   <td>INCLUDED</td>
-                                                 @endif
-                                                 @if ($visits->microphones == 1)
-                                                   <td>{{$visits->number_of_microphones}}</td>
-                                                 @endif
-                                                 @if ($visits->tables == 1)
-                                                   <td>{{$visits->number_of_tables}}</td>
-                                                 @endif
-                                                 @if ($visits->chairs == 1)
-                                                   <td>{{$visits->number_of_chairs}}</td>
-                                                 @endif
-                                                <td><button class="btn btn-primary">View</button></td>
-
-                                                <td>
-                                                    @if ($visits->status == 'pending')
-                                                        <p><span style="color: gray">{{ $visits->status }}</span></p>
-                                                    @else
-                                                        <p><span style="color: green">{{ $visits->status }}</span></p>
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    <form action="{{ url('/approve-status/' . $visits->userid) }}" method="post">
-                                                        @csrf
-                                                        <button type="submit" class="btn btn-success">Approve</button>
-                                                    </form>
-                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#cancelModal">Cancel</button>
-
-                                                    <!-- Modal -->
-                                                    <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelModalLabel"
-                                                        aria-hidden="true">
-                                                        <div class="modal-dialog" role="document">
-                                                            <div class="modal-content custom-modal">
-                                                                <form action="{{ url('/cancel_status/' . $visits->userid) }}" method="POST">
-                                                                    @csrf
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title" id="cancelModalLabel">Confirm Cancel</h5>
-                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                            <span aria-hidden="true">&times;</span>
-                                                                        </button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <div class="form-group">
-                                                                            <label for="cancel_reason">Reason for cancellation</label>
-                                                                            <textarea class="form-control @error('cancel_reason') is-invalid @enderror" name="cancel_reason" id="cancel_reason" rows="3">{{ old('cancel_reason') }}</textarea>
-                                                                            @error('cancel_reason')
-                                                                                <div class="invalid-feedback">{{ $message }}</div>
-                                                                            @enderror
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                        <button type="submit" class="btn btn-success">Confirm Cancel</button>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                    <thead>
-                                        <tr>
-                                            <th>Full Name</th>
-                                            <th>Contact Person</th>
-                                            <th>Contact Number</th>
-                                            <th>Agency</th>
-                                            <th>Facility</th>
-                                            <th>Event Type</th>
-                                            <th>Date Requested</th>
-                                            <th>Event Start Time</th>
-                                            <th>Date of Setup</th>
-                                            <th>Preparation Setup Time</th>
-                                            <th>Others</th>
-                                            <th>Sound System</th>
-                                            <th>LED TV</th>
-                                            <th>Number of Microphones</th>
-                                            <th>Number of Tables</th>
-                                            <th>Number of Chairs</th>
-                                            <th>Payment Details</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($rent as $visits)
-                                        <tr>
-                                            <td>{{ $visits->user->user_lname }}, {{ $visits->user->user_fname }} {{ $visits->user->user_mname }}.</td>
-                                            <td>{{ $visits->contact_person }}</td>
-                                            <td>{{ $visits->contact_number }}</td>
-                                            <td>{{ $visits->agency }}</td>
-                                            <td>{{ $visits->facility }}</td>
-                                            <td>{{ $visits->event_type }}</td>
-                                            <td>{{ $visits->date_requested }}</td>
-                                            <td>{{ $visits->event_start }}</td>
-                                            <td>{{ $visits->date_of_setup }}</td>
-                                            <td>{{ $visits->prep_setup_time }}</td>
-                                             @if ($visits->others != null)
-                                               <td>{{$visits->others}}</td>
-                                             @endif
-                                             @if ($visits->sound_system == 1)
-                                               <td>INCLUDED</td>
-                                             @endif
-                                             @if ($visits->led_tv == 1)
-                                               <td>INCLUDED</td>
-                                             @endif
-                                             @if ($visits->microphones == 1)
-                                               <td>{{$visits->number_of_microphones}}</td>
-                                             @endif
-                                             @if ($visits->tables == 1)
-                                               <td>{{$visits->number_of_tables}}</td>
-                                             @endif
-                                             @if ($visits->chairs == 1)
-                                               <td>{{$visits->number_of_chairs}}</td>
-                                             @endif
-                                            <td><button class="btn btn-primary">View</button></td>
-
-                                            <td>
-                                                @if ($visits->status == 'pending')
-                                                    <p><span style="color: gray">{{ $visits->status }}</span></p>
+                                                @if ($visits->others != null)
+                                                    <td>{{ $visits->others }}</td>
                                                 @else
-                                                    <p><span style="color: green">{{ $visits->status }}</span></p>
+                                                    <td>NONE</td>
                                                 @endif
-                                            </td>
-                                            <td>
-                                                <form action="{{ url('/approve-status/' . $visits->userid) }}" method="post">
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-success">Approve</button>
-                                                </form>
-                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#cancelModal">Cancel</button>
-
-                                                <!-- Modal -->
-                                                <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelModalLabel"
-                                                    aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content custom-modal">
-                                                            <form action="{{ url('/cancel_status/' . $visits->userid) }}" method="POST">
-                                                                @csrf
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="cancelModalLabel">Confirm Cancel</h5>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <div class="form-group">
-                                                                        <label for="cancel_reason">Reason for cancellation</label>
-                                                                        <textarea class="form-control @error('cancel_reason') is-invalid @enderror" name="cancel_reason" id="cancel_reason" rows="3">{{ old('cancel_reason') }}</textarea>
-                                                                        @error('cancel_reason')
-                                                                            <div class="invalid-feedback">{{ $message }}</div>
-                                                                        @enderror
+                                                @if ($visits->sound_system == 1)
+                                                    <td>INCLUDED</td>
+                                                @else
+                                                    <td>NOT INCLUDED</td>
+                                                @endif
+                                                @if ($visits->led_tv == 1)
+                                                    <td>INCLUDED</td>
+                                                @else
+                                                    <td>NOT INCLUDED</td>
+                                                @endif
+                                                @if ($visits->microphones == 1)
+                                                    <td>{{ $visits->number_of_microphones }}</td>
+                                                @else
+                                                    <td>NOT INCLUDED</td>
+                                                @endif
+                                                @if ($visits->tables == 1)
+                                                    <td>{{ $visits->number_of_tables }}</td>
+                                                @else
+                                                    <td>NOT INCLUDED</td>
+                                                @endif
+                                                @if ($visits->chairs == 1)
+                                                    <td>{{ $visits->number_of_chairs }}</td>
+                                                @else
+                                                    <td>NOT INCLUDED</td>
+                                                @endif
+                                                <td><button class="btn btn-primary" data-toggle="modal"
+                                                        data-target="#viewModal{{ $visits->rent_id }}">View</button>
+                                                </td>
+                                                <td>
+                                                    @if ($visits->status == 'PENDING')
+                                                        <p><span style="color: gray">{{ $visits->status }}</span>
+                                                        </p>
+                                                    @else
+                                                        <p><span style="color: green">{{ $visits->status }}</span>
+                                                        </p>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <form method="post">
+                                                        @csrf
+                                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#paidModal{{ $visits->rent_id }}">Paid</button>
+                                                    </form>
+                                                      <!-- paid Modal -->
+                                                      <div class="modal fade" id="paidModal{{ $visits->rent_id }}" tabindex="-1" role="dialog" aria-labelledby="paidModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content custom-modal">
+                                                                <form action="{{ url('admin/paid/' . $visits->rent_id) }}" method="POST" enctype="multipart/form-data">
+                                                                    @csrf
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="cancelModalLabel">Confirm Payment</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
                                                                     </div>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                    <button type="submit" class="btn btn-success">Confirm Cancel</button>
-                                                                </div>
-                                                            </form>
+                                                                    <div class="modal-body">
+                                                                        <div class="form-group">
+                                                                            <label for="full_payment">Pending Payment</label>
+                                                                            <input type="number" class="form-control-file" id="full_payment" name="full_payment">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                        <button type="submit" class="btn btn-success">Confirm Payment</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody> --}}
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+
+
+                                  <table class="table align-items-center table-flush table-borderless" id="paid-table"
+                                        style="display: none;">
+                                        <thead>
+                                            <tr>
+                                                <th>Full Name</th>
+                                                <th>Contact Person</th>
+                                                <th>Contact Number</th>
+                                                <th>Agency</th>
+                                                <th>Facility</th>
+                                                <th>Event Type</th>
+                                                <th>Date Requested</th>
+                                                <th>Event Start Time</th>
+                                                <th>Date of Setup</th>
+                                                <th>Preparation Setup Time</th>
+                                                <th>Others</th>
+                                                <th>Sound System</th>
+                                                <th>LED TV</th>
+                                                <th>Number of Microphones</th>
+                                                <th>Number of Tables</th>
+                                                <th>Number of Chairs</th>
+                                                <th>Payment Details</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($paid as $visits)
+                                            <tr>
+                                                <td>{{ $visits->user->user_lname }},
+                                                    {{ $visits->user->user_fname }}
+                                                    {{ $visits->user->user_mname }}.</td>
+                                                <td>{{ $visits->contact_person }}</td>
+                                                <td>{{ $visits->contact_number }}</td>
+                                                <td>{{ $visits->agency }}</td>
+                                                <td>{{ $visits->facility }}</td>
+                                                <td>{{ $visits->event_type }}</td>
+                                                <td>{{ $visits->date_requested }}</td>
+                                                <td>{{ $visits->event_start }}</td>
+                                                <td>{{ $visits->date_of_setup }}</td>
+                                                <td>{{ $visits->prep_setup_time }}</td>
+                                                @if ($visits->others != null)
+                                                    <td>{{ $visits->others }}</td>
+                                                @else
+                                                    <td>NONE</td>
+                                                @endif
+                                                @if ($visits->sound_system == 1)
+                                                    <td>INCLUDED</td>
+                                                @else
+                                                    <td>NOT INCLUDED</td>
+                                                @endif
+                                                @if ($visits->led_tv == 1)
+                                                    <td>INCLUDED</td>
+                                                @else
+                                                    <td>NOT INCLUDED</td>
+                                                @endif
+                                                @if ($visits->microphones == 1)
+                                                    <td>{{ $visits->number_of_microphones }}</td>
+                                                @else
+                                                    <td>NOT INCLUDED</td>
+                                                @endif
+                                                @if ($visits->tables == 1)
+                                                    <td>{{ $visits->number_of_tables }}</td>
+                                                @else
+                                                    <td>NOT INCLUDED</td>
+                                                @endif
+                                                @if ($visits->chairs == 1)
+                                                    <td>{{ $visits->number_of_chairs }}</td>
+                                                @else
+                                                    <td>NOT INCLUDED</td>
+                                                @endif
+                                                <td><button class="btn btn-primary" data-toggle="modal"
+                                                        data-target="#viewModal{{ $visits->rent_id }}">View</button>
+                                                </td>
+                                                <td>
+                                                  <span style="color: green">{{ $visits->status }}</span>
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                  <table class="table align-items-center table-flush table-borderless" id="cancelled-table"
+                                        style="display: none;">
+                                        <thead>
+                                            <tr>
+                                                <th>Full Name</th>
+                                                <th>Contact Person</th>
+                                                <th>Contact Number</th>
+                                                <th>Agency</th>
+                                                <th>Facility</th>
+                                                <th>Event Type</th>
+                                                <th>Date Requested</th>
+                                                <th>Event Start Time</th>
+                                                <th>Date of Setup</th>
+                                                <th>Preparation Setup Time</th>
+                                                <th>Others</th>
+                                                <th>Sound System</th>
+                                                <th>LED TV</th>
+                                                <th>Number of Microphones</th>
+                                                <th>Number of Tables</th>
+                                                <th>Number of Chairs</th>
+                                                <th>Payment Details</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($cancelled as $visits)
+                                            <tr>
+                                                <td>{{ $visits->user->user_lname }},
+                                                    {{ $visits->user->user_fname }}
+                                                    {{ $visits->user->user_mname }}.</td>
+                                                <td>{{ $visits->contact_person }}</td>
+                                                <td>{{ $visits->contact_number }}</td>
+                                                <td>{{ $visits->agency }}</td>
+                                                <td>{{ $visits->facility }}</td>
+                                                <td>{{ $visits->event_type }}</td>
+                                                <td>{{ $visits->date_requested }}</td>
+                                                <td>{{ $visits->event_start }}</td>
+                                                <td>{{ $visits->date_of_setup }}</td>
+                                                <td>{{ $visits->prep_setup_time }}</td>
+                                                @if ($visits->others != null)
+                                                    <td>{{ $visits->others }}</td>
+                                                @else
+                                                    <td>NONE</td>
+                                                @endif
+                                                @if ($visits->sound_system == 1)
+                                                    <td>INCLUDED</td>
+                                                @else
+                                                    <td>NOT INCLUDED</td>
+                                                @endif
+                                                @if ($visits->led_tv == 1)
+                                                    <td>INCLUDED</td>
+                                                @else
+                                                    <td>NOT INCLUDED</td>
+                                                @endif
+                                                @if ($visits->microphones == 1)
+                                                    <td>{{ $visits->number_of_microphones }}</td>
+                                                @else
+                                                    <td>NOT INCLUDED</td>
+                                                @endif
+                                                @if ($visits->tables == 1)
+                                                    <td>{{ $visits->number_of_tables }}</td>
+                                                @else
+                                                    <td>NOT INCLUDED</td>
+                                                @endif
+                                                @if ($visits->chairs == 1)
+                                                    <td>{{ $visits->number_of_chairs }}</td>
+                                                @else
+                                                    <td>NOT INCLUDED</td>
+                                                @endif
+                                                <td><button class="btn btn-primary" data-toggle="modal"
+                                                        data-target="#viewModal{{ $visits->rent_id }}">View</button>
+                                                </td>
+                                                <td>
+                                                  <span style="color: rgb(57, 5, 5)">{{ $visits->status }}</span>
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                  <table class="table align-items-center table-flush table-borderless" id="history-table"
+                                        style="display: none;">
+                                        <thead>
+                                            <tr>
+                                                <th>Full Name</th>
+                                                <th>Contact Person</th>
+                                                <th>Contact Number</th>
+                                                <th>Agency</th>
+                                                <th>Facility</th>
+                                                <th>Event Type</th>
+                                                <th>Date Requested</th>
+                                                <th>Event Start Time</th>
+                                                <th>Date of Setup</th>
+                                                <th>Preparation Setup Time</th>
+                                                <th>Others</th>
+                                                <th>Sound System</th>
+                                                <th>LED TV</th>
+                                                <th>Number of Microphones</th>
+                                                <th>Number of Tables</th>
+                                                <th>Number of Chairs</th>
+                                                <th>Payment Details</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($history as $visits)
+                                            <tr>
+                                                <td>{{ $visits->user->user_lname }},
+                                                    {{ $visits->user->user_fname }}
+                                                    {{ $visits->user->user_mname }}.</td>
+                                                <td>{{ $visits->contact_person }}</td>
+                                                <td>{{ $visits->contact_number }}</td>
+                                                <td>{{ $visits->agency }}</td>
+                                                <td>{{ $visits->facility }}</td>
+                                                <td>{{ $visits->event_type }}</td>
+                                                <td>{{ $visits->date_requested }}</td>
+                                                <td>{{ $visits->event_start }}</td>
+                                                <td>{{ $visits->date_of_setup }}</td>
+                                                <td>{{ $visits->prep_setup_time }}</td>
+                                                @if ($visits->others != null)
+                                                    <td>{{ $visits->others }}</td>
+                                                @else
+                                                    <td>NONE</td>
+                                                @endif
+                                                @if ($visits->sound_system == 1)
+                                                    <td>INCLUDED</td>
+                                                @else
+                                                    <td>NOT INCLUDED</td>
+                                                @endif
+                                                @if ($visits->led_tv == 1)
+                                                    <td>INCLUDED</td>
+                                                @else
+                                                    <td>NOT INCLUDED</td>
+                                                @endif
+                                                @if ($visits->microphones == 1)
+                                                    <td>{{ $visits->number_of_microphones }}</td>
+                                                @else
+                                                    <td>NOT INCLUDED</td>
+                                                @endif
+                                                @if ($visits->tables == 1)
+                                                    <td>{{ $visits->number_of_tables }}</td>
+                                                @else
+                                                    <td>NOT INCLUDED</td>
+                                                @endif
+                                                @if ($visits->chairs == 1)
+                                                    <td>{{ $visits->number_of_chairs }}</td>
+                                                @else
+                                                    <td>NOT INCLUDED</td>
+                                                @endif
+                                                <td><button class="btn btn-primary" data-toggle="modal"
+                                                        data-target="#viewModal{{ $visits->rent_id }}">View</button>
+                                                </td>
+                                                <td>
+                                                  @if ($visits->status == "PAID")
+                                                    <p><span style="color: rgb(5, 107, 8)">{{ $visits->status }}</span></p>
+                                                  @endif
+                                                  <p><span style="color: rgb(81, 5, 5)">{{ $visits->status }}</span></p>
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+
                                 </div>
                             </div>
                         </div>

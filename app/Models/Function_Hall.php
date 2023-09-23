@@ -35,6 +35,7 @@ class Function_Hall extends Model
         'number_of_tables',
         'chairs',
         'number_of_chairs',
+        'recorded_date',
         'recorded_by',
         'approved_by',
         'downpayment',
@@ -43,6 +44,8 @@ class Function_Hall extends Model
         'full_payment',
         'total_payment',
         'status',
+        'recordedby_esign',
+        'approvedby_esign',
     ];
 
     public function user()

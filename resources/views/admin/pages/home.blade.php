@@ -96,11 +96,21 @@
                     </a>
                 </li>
 
-                {{-- <li>
-                    <a href="{{ asset('admin/calendar') }}">
-                        <i class="zmdi zmdi-calendar-check"></i> <span>Calendar</span>
+                <li>
+                    <a href="#" id="contentLink">
+                        <i class="zmdi zmdi-edit"></i> <span>Sales</span>
                     </a>
-                </li> --}}
+                    <ul id="contentDrawer" class="drawer-items">
+                        <li><a href="{{ url('/souvenir-sales') }}">Souvenirs</a></li>
+                        <li><a href="{{ url('/rent-sales') }}">Function Hall</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="{{ url('/generate-report-form') }}">
+                        <i class="zmdi zmdi-file-text"></i> <span>Souvenir Report</span>
+                    </a>
+                </li>
 
                 <li class="sidebar-header">About Us</li>
                 <li>
@@ -114,6 +124,7 @@
                         <li><a href="{{ url('about-us/contact') }}">Contact</a></li>
                     </ul>
                 </li>
+
                 <li>
                     <a href="{{ asset('admin/profile') }}">
                         <i class="zmdi zmdi-face"></i> <span>Profile</span>
@@ -209,7 +220,8 @@
                 <div class="card-content">
                     <div class="row row-group m-0">
                         <div class="col-12 col-lg-6 col-xl-3 border-light">
-                            <div class="card-body">
+                            <div class="card bg-white">
+
                                 <h5 class="text-white mb-0">{{ $visitCount }}<span class="float-right"></i></span>
                                 </h5>
                                 <div class="progress my-3" style="height:3px;">
@@ -221,7 +233,7 @@
                             </div>
                         </div>
                         <div class="col-12 col-lg-6 col-xl-3 border-light">
-                            <div class="card-body">
+                            <div class="card bg-white">
                                 <h5 class="text-white mb-0">{{ $rentCount }} <span class="float-right"><i
                                             class="fa fa-account"></i></span></h5>
                                 <div class="progress my-3" style="height:3px;">
@@ -233,7 +245,7 @@
                             </div>
                         </div>
                         <div class="col-12 col-lg-6 col-xl-3 border-light">
-                            <div class="card-body">
+                            <div class="card bg-white text-dark">
                                 <h5 class="text-white mb-0">{{ $souvenirsCount }} <span
                                         class="float-right"><i></i></span></h5>
                                 <div class="progress my-3" style="height:3px;">
@@ -244,7 +256,7 @@
                             </div>
                         </div>
                         <div class="col-12 col-lg-6 col-xl-3 border-light">
-                            <div class="card-body">
+                            <div class="card bg-white">
                                 <h5 class="text-white mb-0">{{ $artifactsCount }} <span class="float-right"><i
                                             class="fa fa-envira"></i></span></h5>
                                 <div class="progress my-3" style="height:3px;">
@@ -260,8 +272,8 @@
 
             <div class="row">
                 <div class="col-12 col-lg-4 col-xl-4">
-                    <div class="card">
-                        <div class="card-header">Visitors Report</div>
+                    <div class="card bg-white">
+                        <div class="card-header text-dark">Visitors Yearly</div>
 
                         <div class="card-body">
                             <canvas id="visitorsChartYear" style="width: 100%; max-width: 600px;"></canvas>
@@ -272,8 +284,8 @@
                 </div>
 
                 <div class="col-12 col-lg-4 col-xl-4">
-                    <div class="card">
-                        <div class="card-header">Visitors Monthly</div>
+                    <div class="card bg-white">
+                        <div class="card-header text-dark">Visitors Monthly</div>
 
                         <div class="card-body">
                             <canvas id="visitorsChartMonth" style="width: 100%; max-width: 600px;"></canvas>
@@ -282,8 +294,8 @@
                     </div>
                 </div>
                 <div class="col-12 col-lg-4 col-xl-4">
-                    <div class="card">
-                        <div class="card-header">Visitors Weekly</div>
+                    <div class="card bg-white">
+                        <div class="card-header text-dark">Visitors Weekly</div>
 
                         <div class="card-body">
                             <canvas id="visitorsChartWeek" style="width: 100%; max-width: 600px;"></canvas>
@@ -293,13 +305,11 @@
                 </div>
 
 
-
                 <div class="col-12 col-lg-4 col-xl-4">
-                    <div class="card">
+                    <div class="card bg-white">
                         <div class="card-body">
-                            <h5 class="card-title">Visitors</h5>
+                            <h5 class="card-title text-dark">Visitors</h5>
                             <div class="input-group mb-3">
-                                {{-- <label class="input-group-text" for="chartTypeSelect">Chart Type</label> --}}
                                 <select id="chartTypeSelect" class="form-select form-select-sm">
                                     <option value="province">By Province</option>
                                     <option value="municipality">By Municipality</option>
@@ -308,15 +318,16 @@
                                 </select>
                             </div>
                             <div class="card-body">
-                                <canvas id="provincePieChart" width="400" height="400"></canvas>
+                                <div id="provincePieChart"></div>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="col-12 col-lg-4 col-xl-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Gender</h5>
+                    <div class="card bg-white">
+                        <div class="card-body text-dark">
+                            <h5 class="card-title text-dark"></h5>
                             <div class="input-group mb-3">
                                 <select id="Filter" class="form-select form-select-sm">
                                     <option value="gender">Gender</option>
@@ -324,46 +335,86 @@
                                 </select>
                             </div>
                             <div class="card-body">
-                                <canvas id="genderBarChart" width="400" height="400"></canvas>
+                                <div id="polarAreaChart"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-4 col-xl-4">
+                    <div class="card bg-white">
+                        <div class="card-body text-dark">
+                            <h5 class="card-title text-dark">Time Schedule</h5>
+                            <div class="card-body">
+                                <div id="visitorChart" style="height: 400px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-4 col-xl-4">
+                    <div class="card bg-white">
+                        <div class="card-body text-dark">
+                            <h5 class="card-title text-dark">Yearly Souvenir Sales</h5>
+                            <div class="card-body">
+                                <div id="yearSouvenirSales" style="height: 400px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-4 col-xl-4">
+                    <div class="card bg-white">
+                        <div class="card-body text-daark">
+                            <h5 class="card-title text-dark">Monthly Souvenir Sales</h5>
+                            <div class="card-body">
+                                <div id="monthSouvenirSales" style="height: 400px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-4 col-xl-4">
+                    <div class="card bg-white">
+                        <div class="card-body text-dark">
+                            <h5 class="card-title text-dark">Weekly Souvenir Sales</h5>
+                            <div class="card-body">
+                                <div id="weekSouvenirSales" style="height: 400px;"></div>
                             </div>
                         </div>
                     </div>
                 </div>
 
 
-{{--
+            {{-- </div> --}}
                 <div class="col-12 col-lg-4 col-xl-4">
-                    <div class="card">
-                        <div class="card-header">Visitors Daily</div>
-
-                        <div class="card-body">
-                            <canvas id="visitorsChartDay" style="width: 100%; max-width: 600px;"></canvas>
-                        </div>
-
-                    </div>
-                </div> --}}
-
-
-                {{-- <div class="col-12 col-lg-4 col-xl-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Age</h5>
-                            <div class="input-group mb-3">
+                    <div class="card bg-white">
+                        <div class="card-body text-dark">
+                            <h5 class="card-title text-dark">Yearly Rent Sales</h5>
                             <div class="card-body">
-                                <canvas id="ageBarChart" width="400" height="400"></canvas>
+                                <div id="yearRentSales" style="height: 400px;"></div>
                             </div>
                         </div>
                     </div>
-                </div> --}}
-
-
-
-
-
-
-
-
-            </div>
+                </div>
+                <div class="col-12 col-lg-4 col-xl-4">
+                    <div class="card bg-white">
+                        <div class="card-body text-daark">
+                            <h5 class="card-title text-dark">Monthly Rent Sales</h5>
+                            <div class="card-body">
+                                <div id="monthRentSales" style="height: 400px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-4 col-xl-4">
+                    <div class="card bg-white">
+                        <div class="card-body text-dark">
+                            <h5 class="card-title text-dark">Weekly Rent Sales</h5>
+                            <div class="card-body">
+                                <div id="weekRentSales" style="height: 400px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {{-- </div> --}}
             <!--End Row-->
 
 
@@ -558,77 +609,51 @@
                 }
             }
         });
-          // Create a new chart for weekly data
-        //   var ctxWeek = document.getElementById('visitorsChartDay').getContext('2d');
-        // var visitorsChartDay = new Chart(ctxWeek, {
-        //     type: 'bar',
-        //     data: {
-        //         labels: days,
-        //         datasets: [{
-        //             label: 'Visitors per Day',
-        //             data: dailyVisitorCounts,
-        //             backgroundColor: 'rgba(54, 162, 235, 0.5)',
-        //             borderColor: 'rgba(54, 162, 235, 1)',
-        //             borderWidth: 1
-        //         }]
-        //     },
-        //     options: {
-        //         scales: {
-        //             y: {
-        //                 beginAtZero: true
-        //             }
-        //         }
-        //     }
-        // });
     });
 
 </script>
 
 <script>
-    $(document).ready(function() {
-        // Function to create and display the province pie chart
-        function displayProvinceChart() {
-            var ctx = document.getElementById('provincePieChart').getContext('2d');
-            var chartData = <?= json_encode($provinceData) ?>;
+    $(document).ready(function () {
+        var chartData = <?= json_encode($provinceData) ?>;
 
-            // Create the pie chart for province data
-            var myPieChart = new Chart(ctx, {
-                type: 'pie',
-                data: {
-                    labels: chartData.labels,
-                    datasets: [{
-                        data: chartData.data,
-                        backgroundColor: chartData.backgroundColor,
-                    }]
+        // Function to create and display the pie chart
+        function displayPieChart(data, title) {
+            var options = {
+                chart: {
+                    type: 'pie',
+                    height: 350,
+                    width: '100%',
                 },
-                options: {
-                    title: {
-                        display: true,
-                        text: 'Visitors by Province',
-                        fontSize: 16,
+                labels: data.labels,
+                series: data.data,
+                legend: {
+                    position: 'bottom',
+                },
+                tooltip: {
+                    enabled: true,
+                    y: {
+                        formatter: function (val) {
+                            return val + ' visitors';
+                        },
                     },
-                    legend: {
-                        display: true,
-                        position: 'bottom',
+                },
+                title: {
+                    text: title,
+                    style: {
+                        fontSize: '16px',
                     },
-                    tooltips: {
-                        callbacks: {
-                            label: function(tooltipItem, data) {
-                                var dataset = data.datasets[tooltipItem.datasetIndex];
-                                var label = data.labels[tooltipItem.index];
-                                var currentValue = dataset.data[tooltipItem.index];
-                                return label + ': ' + currentValue;
-                            }
-                        }
-                    }
-                }
-            });
+                },
+            };
+
+            var chart = new ApexCharts(document.querySelector('#provincePieChart'), options);
+            chart.render();
         }
 
-        // Trigger the displayProvinceChart function to show province chart on page load
-        displayProvinceChart();
+        // Initial chart display
+        displayPieChart(chartData, 'Visitors by Province');
 
-        $('#chartTypeSelect').on('change', function() {
+        $('#chartTypeSelect').on('change', function () {
             var selectedValue = $(this).val();
 
             // Change the label of the dropdown button
@@ -636,286 +661,337 @@
 
             // Show/hide visualization based on selected option
             if (selectedValue === 'province') {
-                // Display the province chart
                 $('#visualizationDropdown .dropdown-item').removeClass('active');
                 $(this).addClass('active');
-                displayProvinceChart();
+                displayPieChart(chartData, 'Visitors by Province');
             } else if (selectedValue === 'municipality') {
                 $('#visualizationDropdown .dropdown-item').removeClass('active');
-            $(this).addClass('active');
-            var ctx = document.getElementById('provincePieChart').getContext('2d');
-            var chartData = <?= json_encode($municipalityData) ?>;
-
-            // Create the pie chart for municipality data
-            var myPieChart = new Chart(ctx, {
-                type: 'pie',
-                data: {
-                    labels: chartData.labels,
-                    datasets: [{
-                        data: chartData.data,
-                        backgroundColor: chartData.backgroundColor,
-                    }]
-                },
-                options: {
-                    title: {
-                        display: true,
-                        text: 'Visitors by Municipality',
-                        fontSize: 16,
-                    },
-                    legend: {
-                        display: true,
-                        position: 'bottom',
-                    },
-                    tooltips: {
-                        callbacks: {
-                            label: function(tooltipItem, data) {
-                                var dataset = data.datasets[tooltipItem.datasetIndex];
-                                var label = data.labels[tooltipItem.index];
-                                var currentValue = dataset.data[tooltipItem.index];
-                                return label + ': ' + currentValue;
-                            }
-                        }
-                    }
-                }
-            });
+                $(this).addClass('active');
+                var municipalityData = <?= json_encode($municipalityData) ?>;
+                displayPieChart(municipalityData, 'Visitors by Municipality');
             } else if (selectedValue === 'barangay') {
                 $('#visualizationDropdown .dropdown-item').removeClass('active');
-            $(this).addClass('active');
-            var ctx = document.getElementById('provincePieChart').getContext('2d');
-            var chartData = <?= json_encode($barangayData) ?>;
-
-            // Create the pie chart for municipality data
-            var myPieChart = new Chart(ctx, {
-                type: 'pie',
-                data: {
-                    labels: chartData.labels,
-                    datasets: [{
-                        data: chartData.data,
-                        backgroundColor: chartData.backgroundColor,
-                    }]
-                },
-                options: {
-                    title: {
-                        display: true,
-                        text: 'Visitors by Barangay',
-                        fontSize: 16,
-                    },
-                    legend: {
-                        display: true,
-                        position: 'bottom',
-                    },
-                    tooltips: {
-                        callbacks: {
-                            label: function(tooltipItem, data) {
-                                var dataset = data.datasets[tooltipItem.datasetIndex];
-                                var label = data.labels[tooltipItem.index];
-                                var currentValue = dataset.data[tooltipItem.index];
-                                return label + ': ' + currentValue;
-                            }
-                        }
-                    }
-                }
-            });
+                $(this).addClass('active');
+                var barangayData = <?= json_encode($barangayData) ?>;
+                displayPieChart(barangayData, 'Visitors by Barangay');
             } else if (selectedValue === 'street') {
                 $('#visualizationDropdown .dropdown-item').removeClass('active');
-            $(this).addClass('active');
-            var ctx = document.getElementById('provincePieChart').getContext('2d');
-            var chartData = <?= json_encode($streetData) ?>;
-
-            // Create the pie chart for municipality data
-            var myPieChart = new Chart(ctx, {
-                type: 'pie',
-                data: {
-                    labels: chartData.labels,
-                    datasets: [{
-                        data: chartData.data,
-                        backgroundColor: chartData.backgroundColor,
-                    }]
-                },
-                options: {
-                    title: {
-                        display: true,
-                        text: 'Visitors by Street',
-                        fontSize: 16,
-                    },
-                    legend: {
-                        display: true,
-                        position: 'bottom',
-                    },
-                    tooltips: {
-                        callbacks: {
-                            label: function(tooltipItem, data) {
-                                var dataset = data.datasets[tooltipItem.datasetIndex];
-                                var label = data.labels[tooltipItem.index];
-                                var currentValue = dataset.data[tooltipItem.index];
-                                return label + ': ' + currentValue;
-                            }
-                        }
-                    }
-                }
-            });
+                $(this).addClass('active');
+                var streetData = <?= json_encode($streetData) ?>;
+                displayPieChart(streetData, 'Visitors by Street');
             }
         });
     });
 </script>
-
-
 
 <script>
-    $(document).ready(function() {
-        // Define the event handler
-        $('#Filter').on('change', function() {
-            var selectedValue = $(this).val();
+    // Define polar area chart function
+    function createPolarAreaChart(chartData, chartTitle) {
+        var options = {
+            chart: {
+                type: 'polarArea',
+                width: '100%',
+            },
+            labels: chartData.labels,
+            series: chartData.data,
+            dataLabels: {
+                enabled: false, // Disable data labels including percentages
+            },
+            legend: {
+                position: 'bottom',
+            },
+            title: {
+                text: chartTitle,
+                style: {
+                    fontSize: '16px',
+                },
+            },
+        };
 
-            // Change the label of the dropdown button
-            $('#dropdownMenuButton').html(selectedValue);
+        var chart = new ApexCharts(document.querySelector('#polarAreaChart'), options);
+        chart.render();
+    }
 
-            // Show/hide visualization based on selected option
-            if (selectedValue === 'gender') {
-                // Code to display gender visualization
-                $('#visualizationDropdown .dropdown-item').removeClass('active');
-                $(this).addClass('active');
-                var ctx = document.getElementById('genderBarChart').getContext('2d');
-                var chartData = @json($genderData);
+    // Define event handler for the filter selection
+    $('#Filter').on('change', function () {
+        var selectedValue = $(this).val();
 
-                new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: chartData.labels,
-                        datasets: [{
-                            label: 'Gender Distribution',
-                            data: chartData.data,
-                            backgroundColor: ['pink', 'blue'], // Customize colors as needed
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                title: {
-                                    display: true,
-                                    text: 'Number of Visitors',
-                                },
-                            },
-                            x: {
-                                title: {
-                                    display: true,
-                                    text: 'Gender',
-                                },
-                            },
-                        },
-                    }
-                });
-            } else if (selectedValue === 'age') {
-                // Code to display age visualization
-                $('#visualizationDropdown .dropdown-item').removeClass('active');
-                $(this).addClass('active');
-                var ctx = document.getElementById('genderBarChart').getContext('2d');
-                var chartData = @json($ageData);
+        // Change the label of the dropdown button
+        $('#dropdownMenuButton').html(selectedValue);
 
-                new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: chartData.labels,
-                        datasets: [{
-                            label: 'Age Distribution',
-                            data: chartData.data,
-                            backgroundColor: ['blue', 'green', 'orange', 'red'], // Customize colors as needed
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                title: {
-                                    display: true,
-                                    text: 'Number of Visitors',
-                                },
-                            },
-                            x: {
-                                title: {
-                                    display: true,
-                                    text: 'Age Group',
-                                },
-                            },
-                        },
-                    }
-                });
-            }
-        });
+        // Show/hide visualization based on selected option
+        if (selectedValue === 'gender') {
+            $('#visualizationDropdown .dropdown-item').removeClass('active');
+            $(this).addClass('active');
 
-        // Trigger the change event to display the default graph for "Gender" on page load
-        $('#Filter').trigger('change');
+            var chartData = @json($genderData);
+            createPolarAreaChart(chartData, 'Gender Distribution');
+        } else if (selectedValue === 'age') {
+            $('#visualizationDropdown .dropdown-item').removeClass('active');
+            $(this).addClass('active');
+
+            var chartData = @json($ageData);
+            createPolarAreaChart(chartData, 'Age Distribution');
+        }
     });
+
+    // Trigger the change event to display the default polar area chart for "Gender" on page load
+    $('#Filter').trigger('change');
+</script>
+
+<script>
+    var timeSchedule = @json($timeSchedule);
+
+    var labels = timeSchedule.map(function (item) {
+        return item.visits_time;
+    });
+
+    var data = timeSchedule.map(function (item) {
+        return item.total_visitors;
+    });
+
+    var options = {
+        chart: {
+            type: 'bar',
+            height: 400, // Increase height for better readability
+            width: '100%',
+            toolbar: {
+                show: false,
+            },
+        },
+        plotOptions: {
+            bar: {
+                horizontal: false, // Set to false for vertical bars
+                columnWidth: '50%', // Adjust the column width for spacing
+            },
+        },
+        dataLabels: {
+            enabled: true,
+        },
+        series: [
+            {
+                name: 'Number of Visitors',
+                data: data,
+            },
+        ],
+        xaxis: {
+            categories: labels,
+            labels: {
+                rotate: -45, // Rotate x-axis labels for better readability
+            },
+        },
+        yaxis: {
+            title: {
+                text: 'Number of Visitors',
+            },
+        },
+        colors: ['#007BFF'], // Customize bar colors
+        fill: {
+            opacity: 1,
+        },
+        tooltip: {
+            theme: 'dark', // Set the tooltip theme to 'dark' for white text on a dark background
+        },
+    };
+
+    var chart = new ApexCharts(document.querySelector('#visitorChart'), options);
+    chart.render();
+</script>
+<script>
+    var monthSouvenirSales = @json($formattedData);
+
+
+    var options = {
+        chart: {
+            type: 'line',
+            height: 350,
+        },
+        series: [{
+            name: 'Total Sales',
+            data: monthSouvenirSales,
+        }],
+        xaxis: {
+            type: 'datetime',
+            categories: monthSouvenirSales.map(dataPoint => dataPoint.x),
+        },
+        yaxis: {
+            title: {
+                text: 'Total Price',
+            },
+        },
+        tooltip: {
+            theme: 'dark', // Set the tooltip theme to 'dark' for white text on a dark background
+        },
+    };
+
+
+    var chart = new ApexCharts(document.querySelector("#monthSouvenirSales"), options);
+    chart.render();
+
+
+</script>
+<script>
+    var yearlySalesData = @json($formattedDatayearly);
+
+    // Extract the year from each data point's x value
+    var yearlyLabels = yearlySalesData.map(dataPoint => dataPoint.x.split('-')[0]);
+
+    // Use ApexCharts to create the chart
+    var options = {
+        chart: {
+            type: 'line',
+            height: 350,
+        },
+        series: [{
+            name: 'Yearly Sales',
+            data: yearlySalesData,
+        }],
+        xaxis: {
+            categories: yearlyLabels, // Set the x-axis labels to the extracted years
+        },
+        yaxis: {
+            title: {
+                text: 'Total Price',
+            },
+        },
+        tooltip: {
+            theme: 'dark', // Set the tooltip theme to 'dark' for white text on a dark background
+        },
+    };
+
+    var chart = new ApexCharts(document.querySelector("#yearSouvenirSales"), options);
+    chart.render();
+</script>
+
+<script>
+    var weeklySalesData = @json($formattedDataweekly);
+
+    // Use ApexCharts to create the chart
+    var options = {
+        chart: {
+            type: 'line',
+            height: 350,
+        },
+        series: [{
+            name: 'Weekly Sales',
+            data: weeklySalesData,
+        }],
+        xaxis: {
+            categories: weeklySalesData.map(dataPoint => dataPoint.x),
+        },
+        yaxis: {
+            title: {
+                text: 'Total Price',
+            },
+        },
+        tooltip: {
+            theme: 'dark', // Set the tooltip theme to 'dark' for white text on a dark background
+        },
+    };
+
+    var chart = new ApexCharts(document.querySelector("#weekSouvenirSales"), options);
+    chart.render();
 </script>
 
 
-// <script>
+//for rent
+<script>
+    var monthRentSales = @json($formattedDataRent);
 
-//     var ctx = document.getElementById('genderBarChart').getContext('2d');
-//     var chartData = @json($genderData);
 
-//     new Chart(ctx, {
-//         type: 'bar',
-//         data: {
-//             labels: chartData.labels,
-//             datasets: [{
-//                 label: 'Gender Distribution',
-//                 data: chartData.data,
-//                 backgroundColor: ['pink', 'blue'], // Customize colors as needed
-//             }]
-//         },
-//         options: {
-//             scales: {
-//                 y: {
-//                     beginAtZero: true,
-//                     title: {
-//                         display: true,
-//                         text: 'Number of Visitors',
-//                     },
-//                 },
-//                 x: {
-//                     title: {
-//                         display: true,
-//                         text: 'Gender',
-//                     },
-//                 },
-//             },
-//         }
-//     });
+    var options = {
+        chart: {
+            type: 'line',
+            height: 350,
+        },
+        series: [{
+            name: 'Total Sales',
+            data: monthRentSales,
+        }],
+        xaxis: {
+            type: 'datetime',
+            categories: monthRentSales.map(dataPoint => dataPoint.x),
+        },
+        yaxis: {
+            title: {
+                text: 'Total Price',
+            },
+        },
+        tooltip: {
+            theme: 'dark', // Set the tooltip theme to 'dark' for white text on a dark background
+        },
+    };
 
-//     var ctx = document.getElementById('ageBarChart').getContext('2d');
-//     var chartData = @json($ageData);
 
-//     new Chart(ctx, {
-//         type: 'bar',
-//         data: {
-//             labels: chartData.labels,
-//             datasets: [{
-//                 label: 'Age Distribution',
-//                 data: chartData.data,
-//                 backgroundColor: ['blue', 'green', 'orange', 'red'], // Customize colors as needed
-//             }]
-//         },
-//         options: {
-//             scales: {
-//                 y: {
-//                     beginAtZero: true,
-//                     title: {
-//                         display: true,
-//                         text: 'Number of Visitors',
-//                     },
-//                 },
-//                 x: {
-//                     title: {
-//                         display: true,
-//                         text: 'Age Group',
-//                     },
-//                 },
-//             },
-//         }
-//     });
-// </script>
+    var chart = new ApexCharts(document.querySelector("#monthRentSales"), options);
+    chart.render();
+
+
+</script>
+<script>
+    var yearlyRentSales = @json($formattedDatayearlyRent);
+
+    // Extract the year from each data point's x value
+    var yearlyLabels = yearlyRentSales.map(dataPoint => dataPoint.x.split('-')[0]);
+
+    // Use ApexCharts to create the chart
+    var options = {
+        chart: {
+            type: 'line',
+            height: 350,
+        },
+        series: [{
+            name: 'Yearly Sales',
+            data: yearlyRentSales,
+        }],
+        xaxis: {
+            categories: yearlyLabels, // Set the x-axis labels to the extracted years
+        },
+        yaxis: {
+            title: {
+                text: 'Total Price',
+            },
+        },
+        tooltip: {
+            theme: 'dark', // Set the tooltip theme to 'dark' for white text on a dark background
+        },
+    };
+
+    var chart = new ApexCharts(document.querySelector("#yearRentSales"), options);
+    chart.render();
+</script>
+
+<script>
+    var weeklyRentSales = @json($formattedDataweeklyRent);
+
+    // Use ApexCharts to create the chart
+    var options = {
+        chart: {
+            type: 'line',
+            height: 350,
+        },
+        series: [{
+            name: 'Weekly Sales',
+            data: weeklyRentSales,
+        }],
+        xaxis: {
+            categories: weeklyRentSales.map(dataPoint => dataPoint.x),
+        },
+        yaxis: {
+            title: {
+                text: 'Total Price',
+            },
+        },
+        tooltip: {
+            theme: 'dark', // Set the tooltip theme to 'dark' for white text on a dark background
+        },
+    };
+
+    var chart = new ApexCharts(document.querySelector("#weekRentSales"), options);
+    chart.render();
+</script>
+
+
 
 </body>
 

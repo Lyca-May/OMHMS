@@ -277,6 +277,14 @@
                         <div id="result">Scanning...</div>
                         <div id="success-icon">&#10004;</div>
                     </div>
+                    <div class="card">
+                        <div class="row">
+                            <button class="btn btn-primary" onclick="logIn()">Log In</button>
+                        </div>
+                        <div class="row">
+                            <button class="btn btn-danger" onclick="logOut()">Log Out</button>
+                        </div>
+                    </div>s
                 </div>
             </div>
         </div>
@@ -302,22 +310,67 @@
     <!--End wrapper-->
     <script src="https://cdn.jsdelivr.net/npm/jsqr"></script>
     <div id="result"></div>
-    <img id="success-icon"  alt="Success Icon" style="display: none;">
+    <img id="success-icon" alt="Success Icon" style="display: none;">
+
 
     <script>
         const resultElement = document.getElementById('result');
         const successIcon = document.getElementById('success-icon');
+        let qrCodeData = null; // Store scanned QR code data
 
-        // Request access to the camera devices
+        function logIn() {
+            if (qrCodeData) {
+                // Send the QR code data and action to the server
+                sendDataToServer(qrCodeData, 'LOGGED IN');
+            } else {
+                alert('No QR code scanned.');
+            }
+        }
+
+        function logOut() {
+            if (qrCodeData) {
+                // Send the QR code data and action to the server
+                sendDataToServer(qrCodeData, 'LOGGED OUT');
+            } else {
+                alert('No QR code scanned.');
+            }
+        }
+
+        function sendDataToServer(qrData, action) {
+            // Send the scanned QR code data and action to the server for processing
+            // Replace this with your actual server endpoint and request format
+            fetch('/process-qr-code', {
+                method: 'POST',
+                body: JSON.stringify({ qrData, action }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // QR code successfully processed on the server
+                    // Update the UI or perform any other actions as needed
+                    console.log('QR code processed successfully:', data.message);
+                    qrCodeData = null; // Clear scanned QR code data
+                    resultElement.textContent = ''; // Clear the result display
+                    successIcon.style.display = 'none'; // Hide the success icon
+                } else {
+                    console.error('Error processing QR code:', data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error sending QR code data:', error);
+            });
+        }
+
+        // Request access to the camera devices and handle QR code scanning
         navigator.mediaDevices.enumerateDevices()
             .then(devices => {
                 const videoDevices = devices.filter(device => device.kind === 'videoinput');
 
                 if (videoDevices.length > 0) {
-                    // Use the first video device (camera)
                     const deviceId = videoDevices[0].deviceId;
-
-                    // Define constraints with the selected device ID
                     const constraints = {
                         video: {
                             deviceId: {
@@ -326,20 +379,14 @@
                         },
                     };
 
-                    // Request access to the camera with the specified constraints
                     navigator.mediaDevices.getUserMedia(constraints)
                         .then(stream => {
-                            // Handle camera access
                             const videoElement = document.createElement('video');
                             videoElement.srcObject = stream;
                             videoElement.play();
-
-                            // Add the video element to the DOM or perform other actions with the camera feed.
                             document.body.appendChild(videoElement);
 
-                            // Listen for the 'loadedmetadata' event to ensure video metadata is loaded
-                            videoElement.addEventListener('loadedmetadata', (e) => {
-                                // Start scanning as shown in the previous response
+                            videoElement.addEventListener('loadedmetadata', () => {
                                 function scanQRCode() {
                                     const canvasElement = document.createElement('canvas');
                                     const canvasContext = canvasElement.getContext('2d');
@@ -359,56 +406,26 @@
                                     if (code) {
                                         // QR code found
                                         resultElement.textContent = 'Scanned: ' + code.data;
-                                        // Display the success icon
                                         successIcon.style.display = 'block';
-
-                                        // Send the scanned QR code data to the server for processing
-                                        // Here, you can use JavaScript fetch or other methods to send the data to your server
-                                        // Update visits_status and is_archived as needed in your server-side logic
-                                        // Example: Fetch API
-                                        fetch('/process-qr-code', {
-                                            method: 'POST',
-                                            body: JSON.stringify({ qrData: code.data }),
-                                            headers: {
-                                                'Content-Type': 'application/json',
-                                            },
-                                        })
-                                        .then(response => response.json())
-                                        .then(data => {
-                                            if (data.success) {
-                                                // QR code successfully processed on the server
-                                                // Update the UI or perform any other actions as needed
-                                                console.log('QR code processed successfully:', data.message);
-                                            } else {
-                                                console.error('Error processing QR code:', data.error);
-                                            }
-                                        })
-                                        .catch(error => {
-                                            console.error('Error sending QR code data:', error);
-                                        });
+                                        qrCodeData = code.data; // Store scanned QR code data
                                     } else {
-                                        // No QR code found in the current frame
-                                        // Hide the success icon
                                         successIcon.style.display = 'none';
                                     }
 
                                     requestAnimationFrame(scanQRCode);
                                 }
 
-                                scanQRCode(); // Start scanning
+                                scanQRCode();
                             });
                         })
                         .catch(error => {
-                            // Handle errors if camera access was denied or if there was an issue.
                             console.error('Error accessing camera:', error);
                         });
                 } else {
-                    // No video devices (cameras) found
                     console.error('No video devices (cameras) available.');
                 }
             })
             .catch(error => {
-                // Handle errors if there was an issue with enumerating devices.
                 console.error('Error enumerating devices:', error);
             });
     </script>

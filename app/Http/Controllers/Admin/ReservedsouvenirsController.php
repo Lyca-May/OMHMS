@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Reserved_Souvenir;
+use App\Models\Sales;
 use Illuminate\Http\Request;
 use Illuminate\support\facades\DB;
 use Carbon\Carbon;
@@ -22,19 +23,27 @@ class ReservedsouvenirsController extends Controller
     }
 
     public function update_reservedSouvenir(Request $request, $souvenir_reservations_id)
-    {
-        $souvenir_reservation = Reserved_Souvenir::where('souvenir_reservations_id', $souvenir_reservations_id)
-            ->where('status', 'RESERVED')
-            ->first();
+{
+    $souvenir_reservation = Reserved_Souvenir::where('souvenir_reservations_id', $souvenir_reservations_id)
+        ->where('status', 'RESERVED')
+        ->first();
 
-        if ($souvenir_reservation) {
-            $souvenir_reservation->update(['status' => 'PAID']);
+    if ($souvenir_reservation) {
+        $souvenir_reservation->update(['status' => 'PAID']);
 
-            return redirect()->back()->with('success', 'Reserved souvenir item has been paid successfully.');
-        } else {
-            return redirect()->back()->with('error', 'Failed to update souvenir item.');
+        // Now, update the corresponding record in the sales table
+        $sale = Sales::where('souvenirReservations_id', $souvenir_reservations_id)->first();
+
+        if ($sale) {
+            $sale->update(['status' => 'PAID']);
         }
+
+        return redirect()->back()->with('success', 'Reserved souvenir item has been paid successfully.');
+    } else {
+        return redirect()->back()->with('error', 'Failed to update souvenir item.');
     }
+}
+
     public function cancel_reservedSouvenir(Request $request, $souvenir_reservations_id)
     {
         $souvenir_reservation = Reserved_Souvenir::where('souvenir_reservations_id', $souvenir_reservations_id)

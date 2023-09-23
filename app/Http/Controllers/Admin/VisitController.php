@@ -33,7 +33,7 @@ class VisitController extends Controller
             ->where('visits_status', 'CANCELLED')
             ->get();
         $currentDate = date('Y-m-d');
-        $history = DB::table('visit')
+        $history = DB::table('visits')
             ->where('visits_status', '!=', 'PENDING')
             ->whereRaw('DATE(visits_intended_date) < ?', [$currentDate])
             ->get();

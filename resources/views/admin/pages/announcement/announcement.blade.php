@@ -131,7 +131,7 @@
 
                 <li>
                     <a href="{{ url('admin/reserved') }}">
-                        <i class="zmdi zmdi-info-outline"></i> <span>Souvenirs</span>
+                        <i class="zmdi zmdi-info-outline"></i> <span>Reserved Souvenirs</span>
                     </a>
                 </li>
 
@@ -160,12 +160,17 @@
                     </a>
                 </li>
 
+
                 <li>
-                    <a href="{{ asset('admin/calendar') }}">
-                        <i class="zmdi zmdi-calendar-check"></i> <span>Calendar</span>
-                        {{-- <small class="badge float-right badge-light">New</small> --}}
+                    <a href="#" id="contentLink">
+                        <i class="zmdi zmdi-edit"></i> <span>Sales</span>
                     </a>
+                    <ul id="contentDrawer" class="drawer-items">
+                        <li><a href="{{ url('/souvenir-sales') }}">Souvenirs</a></li>
+                        <li><a href="{{ url('') }}">Function Hall</a></li>
+                    </ul>
                 </li>
+
 
                 <li class="sidebar-header">About Us</li>
                 <li>

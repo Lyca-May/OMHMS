@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\VisitController;
 use App\Http\Controllers\Admin\FunctionalHallController;
 use App\Http\Controllers\Admin\Home_Controller;
 use App\Http\Controllers\Admin\ReservedsouvenirsController;
+use App\Http\Controllers\Admin\SalesController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\Category;
 use App\Http\Controllers\Inventory;
@@ -20,7 +21,6 @@ use App\Http\Controllers\User\UserVisitController;
 use App\Http\Controllers\User\UserFunctionalRoomController;
 use App\Http\Controllers\User\Comments_Controller;
 use App\Http\Controllers\User\SouvenirsController;
-use App\Http\Controllers\ChatController;
 
 use App\Http\Middleware\VerifyCsrfToken;
 
@@ -121,15 +121,14 @@ Route::view('cancel-status-page', 'admin.pages.visit.cancel-status');
 Route::get('admin/visit', [VisitController::class,'index']);
 Route::post('approve-status/{user_id}', [VisitController::class,'approve_status']);
 Route::post('/cancel_status/{user_id}', [VisitController::class,'cancel_status']);
-// Route::post('approved', [VisitController::class,'approved_visit'])->name('approved');
 Route::post('cancelled', [VisitController::class,'cancelled_visit']);
 Route::post('booking-history', [VisitController::class,'booking_history']);
-// Route::POST('/approve-status', [VisitController::class,'approve_status']);
 
 //manage rent for admin
 Route::get('admin/function', [FunctionalHallController::class,'displayRent']);
 Route::post('admin/approve/{rent_id}', [FunctionalHallController::class,'approve_rent']);
 Route::post('admin/cancel/{rent_id}', [FunctionalHallController::class,'cancel_rent']);
+Route::post('admin/paid/{rent_id}', [FunctionalHallController::class,'paidRent']);
 
 ///user about
 Route::get('user/history', [About_Us::class,'display_history_content_user']);
@@ -204,6 +203,7 @@ Route::post('rent/history', [FunctionalHallController::class,'rent_history']);
 Route::get('user/rentconhall', [UserFunctionalRoomController::class,'display_form']);
 Route::get('user/rent-payment-form/{rent_id}', [UserFunctionalRoomController::class,'display_payment_form']);
 Route::put('/rent-payment/update/{rent_id}', [UserFunctionalRoomController::class,'updateRentPayment']);
+
 Route::view('rent-cancel-status-page', 'admin.pages.visit.rent-cancel-status');
 Route::get('/admin/scan-qr', [VisitController::class, 'showScanQRPage']);
 Route::post('/admin/mark-visit-done', [VisitController::class, 'markVisitAsDone']);
@@ -263,8 +263,7 @@ Route::post('/add-category', [Category::class, 'add_category']);
 Route::post('/edit-category/{category_id}', [Category::class, 'edit_category']);
 Route::post('/archive-category/{category_id}', [Category::class, 'archive_category']);
 
-
-//RTC
-Route::get('chat',[ChatController::class, 'index'])->name('chat.index');
-Route::post('/send', [ChatController::class, 'sendMessage'])->name('chat.sendMessage');
-
+Route::get('/souvenir-sales', [SalesController::class, 'displaySouvenirSales']);
+Route::post('/generate-report-sales', [SalesController::class, 'generateReport']);
+Route::get('/generate-report-form', [SalesController::class, 'displayGenerateForm']);
+Route::get('/rent-sales', [SalesController::class, 'displayRentSales']);

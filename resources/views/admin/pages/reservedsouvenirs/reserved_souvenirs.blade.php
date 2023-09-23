@@ -355,23 +355,7 @@
                                                     </form>
 
 
-                                                    {{-- <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#cancelModal">Cancel</button> --}}
 
-                                                    {{-- <!-- Modal -->
-                                                    <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelModalLabel"
-                                                        aria-hidden="true">
-                                                        <div class="modal-dialog" role="document">
-                                                            <div class="modal-content custom-modal">
-                                                                <form action="{{ url('/cancel_status/' . $reservedSouvenir->souvenir_reservations_id) }}" method="POST">
-                                                                    @csrf
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                        <button type="submit" class="btn btn-success">Confirm Cancel</button>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div> --}}
                                                 </td>
                                             </tr>
                                             @endforeach

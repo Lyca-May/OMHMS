@@ -306,8 +306,8 @@
                                                 <th>Selected Time</th>
                                                 <th>Number of Visitors</th>
                                                 <th>Name of Institution</th>
-                                                <th>Status</th>
                                                 <th>File</th>
+                                                <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -387,7 +387,6 @@
                                         <thead>
                                             <tr>
                                                 <th>Full Name</th>
-                                                <th>Avatar</th>
                                                 <th>Country</th>
                                                 <th>Province</th>
                                                 <th>Municipality</th>
@@ -396,39 +395,43 @@
                                                 <th>Zipcode</th>
                                                 <th>Date of Visit</th>
                                                 <th>Selected Time</th>
-                                                <th>Contact Number</th>
                                                 <th>Number of Visitors</th>
                                                 <th>Name of Institution</th>
+                                                <th>File</th>
                                                 <th>Status</th>
 
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach($approved as $visits)
-                                                <tr>
-                                                    <td>{{ $visits->visits_lname }}, {{ $visits->visits_fname }} {{ $visits->visits_mname }}.</td>
-                                                    {{-- <td>
-                                                        @if ($visits->users && $visits->users->avatar)
-                                                            <img src="{{ asset('avatar/' . $visits->users->avatar) }}" alt="Avatar" class="avatar-image">
-                                                        @else
-                                                            <img src="{{ asset('avatar/default-avatar.jpg') }}" alt="Default Avatar" class="avatar-image">
-                                                        @endif
-                                                    </td> --}}
-                                                    <td>{{ $visits->visits_country }}</td>
-                                                    <td>{{ $visits->visits_province }}</td>
-                                                    <td>{{ $visits->visits_municipality }}</td>
-                                                    <td>{{ $visits->visits_brgy }}</td>
-                                                    <td>{{ $visits->visits_street }}</td>
-                                                    <td>{{ $visits->visits_zipcode }}</td>
-                                                    <td>{{ $visits->visits_intended_date }}</td>
-                                                    <td>{{ $visits->visits_time }}</td>
-                                                    <td>{{ $visits->visits_contactno }}</td>
-                                                    <td>{{ $visits->visits_no_of_visitors }}</td>
-                                                    <td>{{ $visits->visits_name_of_institution }}</td>
-                                                    <td>
-                                                        <p><span style="backgroundColor: rgb(14, 62, 4)">{{ $visits->visits_status }}</span></p>
-                                                    </td>
-                                                </tr>
+                                            <tr>
+                                                <td>{{ $visits->visits_lname }}, {{ $visits->visits_fname }} {{ $visits->visits_mname }}.</td>
+                                                <td>{{ $visits->visits_country }}</td>
+                                                <td>{{ $visits->visits_province }}</td>
+                                                <td>{{ $visits->visits_municipality }}</td>
+                                                <td>{{ $visits->visits_brgy }}</td>
+                                                <td>{{ $visits->visits_street }}</td>
+                                                <td>{{ $visits->visits_zipcode }}</td>
+                                                <td>{{ $visits->visits_intended_date }}</td>
+                                                <td>{{ $visits->visits_time }}</td>
+                                                <td>{{ $visits->visits_no_of_visitors }}</td>
+                                                <td>{{ $visits->visits_name_of_institution }}</td>
+                                                <td>
+                                                    @if ($visits->file_of_visitors)
+                                                        <a href="{{ asset('uploads/' . $visits->file_of_visitors) }}" target="_blank">View File</a>
+                                                    @else
+                                                        No file available
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($visits->visits_status == 'PENDING')
+                                                        <p><span style="color: gray">{{ $visits->visits_status }}</span></p>
+                                                    @else
+                                                        <p><span style="color: green">{{ $visits->visits_status }}</span></p>
+                                                    @endif
+                                                </td>
+
+                                            </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
@@ -437,7 +440,6 @@
                                         <thead>
                                             <tr>
                                                 <th>Full Name</th>
-                                                <th>Avatar</th>
                                                 <th>Country</th>
                                                 <th>Province</th>
                                                 <th>Municipality</th>
@@ -446,42 +448,42 @@
                                                 <th>Zipcode</th>
                                                 <th>Date of Visit</th>
                                                 <th>Selected Time</th>
-                                                <th>Contact Number</th>
                                                 <th>Number of Visitors</th>
                                                 <th>Name of Institution</th>
+                                                <th>File</th>
                                                 <th>Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach($history as $visits)
-                                                <tr>
-                                                    <td>{{ $visits->visits_lname }}, {{ $visits->visits_fname }} {{ $visits->visits_mname }}.</td>
-                                                    {{-- <td>
-                                                        @if ($visits->users && $visits->users->avatar)
-                                                            <img src="{{ asset('avatar/' . $visits->users->avatar) }}" alt="Avatar" class="avatar-image">
-                                                        @else
-                                                            <img src="{{ asset('avatar/default-avatar.jpg') }}" alt="Default Avatar" class="avatar-image">
-                                                        @endif
-                                                    </td> --}}
-                                                    <td>{{ $visits->visits_country }}</td>
-                                                    <td>{{ $visits->visits_province }}</td>
-                                                    <td>{{ $visits->visits_municipality }}</td>
-                                                    <td>{{ $visits->visits_brgy }}</td>
-                                                    <td>{{ $visits->visits_street }}</td>
-                                                    <td>{{ $visits->visits_zipcode }}</td>
-                                                    <td>{{ $visits->visits_intended_date }}</td>
-                                                    <td>{{ $visits->visits_time }}</td>
-                                                    <td>{{ $visits->contact_no }}</td>
-                                                    <td>{{ $visits->visits_no_of_visitors }}</td>
-                                                    <td>{{ $visits->visits_name_of_institution }}</td>
-                                                    <td>
-                                                        @if ($visits->visits_status == 'CANCELLED')
-                                                            <p><span style="color: red">{{ $visits->visits_status }}</span></p>
-                                                        @else
-                                                            <p><span style="color: green">{{ $visits->visits_status }}</span></p>
-                                                        @endif
-                                                    </td>
-                                                </tr>
+                                            <tr>
+                                                <td>{{ $visits->visits_lname }}, {{ $visits->visits_fname }} {{ $visits->visits_mname }}.</td>
+                                                <td>{{ $visits->visits_country }}</td>
+                                                <td>{{ $visits->visits_province }}</td>
+                                                <td>{{ $visits->visits_municipality }}</td>
+                                                <td>{{ $visits->visits_brgy }}</td>
+                                                <td>{{ $visits->visits_street }}</td>
+                                                <td>{{ $visits->visits_zipcode }}</td>
+                                                <td>{{ $visits->visits_intended_date }}</td>
+                                                <td>{{ $visits->visits_time }}</td>
+                                                <td>{{ $visits->visits_no_of_visitors }}</td>
+                                                <td>{{ $visits->visits_name_of_institution }}</td>
+                                                <td>
+                                                    @if ($visits->file_of_visitors)
+                                                        <a href="{{ asset('uploads/' . $visits->file_of_visitors) }}" target="_blank">View File</a>
+                                                    @else
+                                                        No file available
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($visits->visits_status == 'PENDING')
+                                                        <p><span style="color: gray">{{ $visits->visits_status }}</span></p>
+                                                    @else
+                                                        <p><span style="color: green">{{ $visits->visits_status }}</span></p>
+                                                    @endif
+                                                </td>
+
+                                            </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
@@ -490,7 +492,6 @@
                                         <thead>
                                             <tr>
                                                 <th>Full Name</th>
-                                                {{-- <th>Avatar</th> --}}
                                                 <th>Country</th>
                                                 <th>Province</th>
                                                 <th>Municipality</th>
@@ -499,40 +500,43 @@
                                                 <th>Zipcode</th>
                                                 <th>Date of Visit</th>
                                                 <th>Selected Time</th>
-                                                <th>Contact Number</th>
                                                 <th>Number of Visitors</th>
                                                 <th>Name of Institution</th>
+                                                <th>File</th>
                                                 <th>Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
 
                                             @foreach($cancelled as $visits)
-                                                <tr>
-                                                    <td>{{ $visits->visits_lname }}, {{ $visits->visits_fname }} {{ $visits->visits_mname }}.</td>
-                                                    <td>
-                                                        @if ($visits->users && $visits->users->avatar)
-                                                            <img src="{{ asset('avatar/' . $visits->users->avatar) }}" alt="Avatar" class="avatar-image">
-                                                        @else
-                                                            <img src="{{ asset('avatar/default-avatar.jpg') }}" alt="Default Avatar" class="avatar-image">
-                                                        @endif
-                                                    </td>
-                                                    <td>{{ $visits->visits_country }}</td>
-                                                    <td>{{ $visits->visits_province }}</td>
-                                                    <td>{{ $visits->visits_municipality }}</td>
-                                                    <td>{{ $visits->visits_brgy }}</td>
-                                                    <td>{{ $visits->visits_street }}</td>
-                                                    <td>{{ $visits->visits_zipcode }}</td>
-                                                    <td>{{ $visits->visits_intended_date }}</td>
-                                                    <td>{{ $visits->visits_time }}</td>
-                                                    <td>{{ $visits->visits_contactno }}</td>
-                                                    <td>{{ $visits->visits_no_of_visitors }}</td>
-                                                    <td>{{ $visits->visits_name_of_institution }}</td>
-                                                    <td>
-                                                        <p><span style="color: rgb(128, 0, 0)">{{ $visits->visits_status }}</span></p>
-                                                    </td>
+                                            <tr>
+                                                <td>{{ $visits->visits_lname }}, {{ $visits->visits_fname }} {{ $visits->visits_mname }}.</td>
+                                                <td>{{ $visits->visits_country }}</td>
+                                                <td>{{ $visits->visits_province }}</td>
+                                                <td>{{ $visits->visits_municipality }}</td>
+                                                <td>{{ $visits->visits_brgy }}</td>
+                                                <td>{{ $visits->visits_street }}</td>
+                                                <td>{{ $visits->visits_zipcode }}</td>
+                                                <td>{{ $visits->visits_intended_date }}</td>
+                                                <td>{{ $visits->visits_time }}</td>
+                                                <td>{{ $visits->visits_no_of_visitors }}</td>
+                                                <td>{{ $visits->visits_name_of_institution }}</td>
+                                                <td>
+                                                    @if ($visits->file_of_visitors)
+                                                        <a href="{{ asset('uploads/' . $visits->file_of_visitors) }}" target="_blank">View File</a>
+                                                    @else
+                                                        No file available
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($visits->visits_status == 'PENDING')
+                                                        <p><span style="color: gray">{{ $visits->visits_status }}</span></p>
+                                                    @else
+                                                        <p><span style="color: green">{{ $visits->visits_status }}</span></p>
+                                                    @endif
+                                                </td>
 
-                                                </tr>
+                                            </tr>
                                             @endforeach
 
                                         </tbody>

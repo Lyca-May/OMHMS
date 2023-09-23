@@ -297,7 +297,7 @@
                                     <div class="alert alert-success">
                                         {{ session('success') }}
                                     </div>
-                                    <a href="{{ url('user/mybookings') }}">Click to see reservation details</a>
+                                    <a href="{{ url('user/functionhall') }}">Click to see reservation details</a>
                                     @endif
 
                                 @if(session('failed'))

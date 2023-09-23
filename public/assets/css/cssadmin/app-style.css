@@ -494,7 +494,7 @@ hr {
 } */
 
 body.bg-theme1 {
-  background-image: url(../../images/bg-themes/bg.jfif);
+  background-color: rgb(6, 7, 6);
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;

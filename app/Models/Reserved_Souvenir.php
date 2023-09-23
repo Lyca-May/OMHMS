@@ -12,6 +12,8 @@ class Reserved_Souvenir extends Model
 
     protected $table = 'souvenir_reservations';
     protected $primaryKey = 'souvenir_reservations_id';
+    public $timestamps = true;
+
     protected $fillable = [
         'userid',
         'souvenir_id',

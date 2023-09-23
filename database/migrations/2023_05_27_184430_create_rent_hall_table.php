@@ -45,7 +45,8 @@ return new class extends Migration
             $table->string('proof_of_payment')->nullable();
             $table->integer('gcash_reference')->nullable();
             $table->string('total_payment')->nullable();
-            // $table->string('status');
+            $table->string('recordedby_esign')->nullable();
+            $table->string('approvedby_esign')->nullable();
             $table->timestamps();
         });
     }
