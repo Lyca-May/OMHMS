@@ -8,6 +8,7 @@ use App\Models\WTS_Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 
 
 class About_Us extends Controller
@@ -30,13 +31,14 @@ class About_Us extends Controller
         return view('user.pages.landingpage1.aboutpages.history1', compact('users', 'contents', 'wts', 'image', 'footer'));
     }
     public function display_history_content(){
+        $currentDateTime = Carbon::now()->tz('UTC');
         $user_id = session('Admin')['user_id'];
         $users = DB::table('users')->where('user_id', $user_id)->get();
         $wts = WTS_Model::where('is_archived','0')->get();
         $contents = History_Content::where('is_archived','0')->get();
         $archived = History_Content::where('is_archived','1')->get();
         $archivedwts = WTS_Model::where('is_archived','1')->get();
-        return view('admin.pages.aboutUs.history', compact('users', 'contents', 'archived', 'wts', 'archivedwts'));
+        return view('admin.pages.aboutUs.history', compact('currentDateTime', 'users', 'contents', 'archived', 'wts', 'archivedwts'));
     }
 
     public function add_history_content(Request $request)
@@ -211,11 +213,12 @@ class About_Us extends Controller
     //WTS
 
     public function display_history_wts(){
+        $currentDateTime = Carbon::now()->tz('UTC');
         $user_id = session('Admin')['user_id'];
         $users = DB::table('users')->where('user_id', $user_id)->get();
         $wts = WTS_Model::where('is_archived','0')->get();
         $archivedwts = WTS_Model::where('is_archived','1')->get();
-        return view('admin.pages.aboutUs.what-to-see', compact('users', 'wts', 'archivedwts'));
+        return view('admin.pages.aboutUs.what-to-see', compact('currentDateTime','users', 'wts', 'archivedwts'));
     }
 
 
@@ -354,11 +357,12 @@ class About_Us extends Controller
 
     //footer
     public function display_history_footer(){
+        $currentDateTime = Carbon::now()->tz('UTC');
         $user_id = session('Admin')['user_id'];
         $users = DB::table('users')->where('user_id', $user_id)->get();
         $footer = Footer_Model::where('is_archived','0')->get();
         $archived = Footer_Model::where('is_archived','1')->get();
-        return view('admin.pages.aboutUs.history-footer', compact('users', 'footer', 'archived'));
+        return view('admin.pages.aboutUs.history-footer', compact('currentDateTime','users', 'footer', 'archived'));
     }
 
     public function add_history_footer(Request $request)

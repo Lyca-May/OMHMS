@@ -7,15 +7,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\AnnouncementModel;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 
 
 class AnnouncementController extends Controller
 {
     public function displayAnnouncement(){
+        $currentDateTime = Carbon::now()->tz('UTC');
         $user_id = session('Admin')['user_id'];
         $users = DB::table('users')->where('user_id', $user_id)->get();
         $announcement = DB::table('announcement')->where('announcement_status', 'POSTED')->get();
-        return view('admin.pages.announcement.announcement', compact('announcement', 'users'));
+        return view('admin.pages.announcement.announcement', compact('currentDateTime','announcement', 'users'));
     }
 
     public function UserdisplayAnnouncement1(){

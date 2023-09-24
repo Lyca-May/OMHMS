@@ -7,19 +7,28 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Models\users;
+use Carbon\Carbon;
 
 class Inventory extends Controller
 {
     public function displayArtifacts(){
         // $category = DB::table('category')->where('is_archived','0')->get();
         // $archived = DB::table('category')->where('is_archived','1')->get();
+        $currentDateTime = Carbon::now()->tz('UTC');
         $categories = DB::table('category')->get();
         $archived = InventoryModel::with('category')->where('is_archived','1')->get();
         $artifacts = InventoryModel::with('category')->where('is_archived','0')->get();
         $user_id = session('Admin')['user_id'];
         $users = DB::table('users')->where('user_id', $user_id)->get();
-        return view('admin.pages.inventory.inventory-table', ['users' => $users, 'categories' => $categories, 'artifacts' => $artifacts, 'archived' => $archived]);
+        return view('admin.pages.inventory.inventory-table', ['users' => $users, 'categories' => $categories, 'artifacts' => $artifacts, 'archived' => $archived], compact('currentDateTime'));
     }
+
+    // public function archived_item()
+    // {
+    //     $archived = DB::table('inventory_artifacts')->where('is_archived', 'ARCHIVED')->get();
+    //     return view('admin.pages.inventory.inventory-table', ['archived' => $archived]);
+    // }
+
 
     public function create_artifact(Request $request)
     {

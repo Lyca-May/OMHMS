@@ -10,272 +10,66 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>eOMHeritage Admin</title>
-    <!-- loader-->
-    <link href="{{ asset('assets/css/cssadmin/pace.min.css') }}" rel="stylesheet" />
-    <script src="{{ asset('assets/js/jsadmin/pace.min.js') }}"></script>
-    <!--favicon-->
-    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}" type="image/x-icon">
-    <!-- Vector CSS -->
-    <link href="{{ asset('assets/plugins/vectormap/jquery-jvectormap-2.0.2.css') }}" rel="stylesheet" />
-    <!-- simplebar CSS-->
-    <link href="{{ asset('assets/plugins/simplebar/css/simplebar.css') }}" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@2.10.2/dist/umd/popper.min.js"></script>
+
     <!-- Bootstrap core CSS-->
     <link href="{{ asset('assets/css/cssadmin/bootstrap.min.css') }}" rel="stylesheet" />
-    <!-- animate CSS-->
-    <link href="{{ asset('assets/css/cssadmin/animate.css') }}" rel="stylesheet" type="text/css" />
-    <!-- Icons CSS-->
-    <link href="{{ asset('assets/css/cssadmin/icons.css') }}" rel="stylesheet" type="text/css" />
-    <!-- Sidebar CSS-->
-    <link href="{{ asset('assets/css/cssadmin/sidebar-menu.css') }}" rel="stylesheet" />
-    <!-- Custom Style-->
-    <link href="{{ asset('assets/css/cssadmin/app-style.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
 
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
+    <!-- Vendor CSS File -->
+    <link href="{{ asset('assets/vendor/simple-datatables/style.css') }}" rel="stylesheet">
+    <!-- Template Main CSS File -->
+    <link href="{{ asset('assets/css/admin/style.css') }}" rel="stylesheet">
+
+
 
 </head>
-<style>
-    h1 {
-            color: #ffffff;
-            font-weight: bold;
-        }
 
-        #video-container {
-            display: flex;
-            justify-content: center; /* Center horizontally */
-            align-items: center; /* Center vertically */
-            position: relative;
-            width: 50%;
-            max-width: 640px;
-            background-color: #000;
-            border: 2px solid #333;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-
-        #video {
-            width: 100%;
-            height: auto;
-        }
-
-        #camera-icon {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            color: white;
-            background-color: rgba(0, 0, 0, 0.7);
-            border-radius: 50%;
-            padding: 5px;
-        }
-
-        #result-container {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #fff;
-            border: 2px solid #333;
-            border-radius: 8px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        #result {
-            font-size: 18px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        #success-icon {
-            font-size: 48px;
-            color: green;
-            border: 2px solid green;
-            border-radius: 50%;
-            padding: 10px;
-        }
-    </style>
 </head>
 
-<body class="bg-theme bg-theme1">
+<body>
 
-    <!-- Start wrapper-->
-    <div id="wrapper">
+    <!--Start sidebar-wrapper-->
+    @include('admin.pages.sidebar')
+    <!--End sidebar-wrapper-->
 
-        <!--Start sidebar-wrapper-->
-        <div id="sidebar-wrapper" data-simplebar="" data-simplebar-auto-hide="true">
-            <div class="brand-logo">
-                <a href="index.html">
-                    <img src="{{ asset('omhms.png') }}" class="logo-icon" alt="logo icon"
-                        style="width: 40px; height: 30px">
-                    <img src="{{ asset('eOMHeritage.png') }}" class="logo-icon1" alt="logo icon"
-                        style="180px; height: 30px">
-                </a>
-            </div>
-            <ul class="sidebar-menu do-nicescrol">
-                <li class="sidebar-header">MAIN NAVIGATION</li>
-                <li>
-                    <a href="{{ asset('admin/home') }}">
-                        <i class="zmdi zmdi-view-dashboard"></i> <span>Dashboard</span>
-                    </a>
-                </li>
+    <!--Start topbar header-->
+    @include('admin.pages.navbar')
+    <!--End topbar header-->
 
+    <main id="main" class="main">
 
-                <li>
-                    <a href="#" id="tablesLink">
-                        <i class="zmdi zmdi-book"></i> <span>Bookings</span>
-                    </a>
-                    <ul id="tablesDrawer" class="drawer-items" style="display:block">
-                        <li><a href="{{ asset('admin/visit') }}">Museum Visit</a></li>
-                        <li><a href="{{ url('admin/function') }}">Function Hall</a></li>
-                        <!-- Add more link items as needed -->
-                    </ul>
-                </li>
-                <li>
-                    <a href="#" id="inventoryLink">
-                        <i class="zmdi zmdi-archive"></i> <span>Inventory</span>
-                    </a>
-                    <ul id="inventoryDrawer" class="drawer-items" style="display:block">
-                        <li><a href="{{ url('/artifacts') }}">Items & Artifacts</a></li>
-                        <li><a href="{{ url('/souvenirs') }}">Souvenirs</a></li>
-                        <li><a href="{{ url('/category') }}">Category</a></li>
-                    </ul>
-                </li>
-
-                <li>
-                    <a href="{{ url('admin/announcement') }}">
-                        <i class="zmdi zmdi-info-outline"></i> <span>Announcements</span>
-                    </a>
-                </li>
-
-
-                <li>
-                    <a href="{{ url('admin/attendance') }}">
-                        <i class="zmdi zmdi-file-text"></i> <span>Attendance</span>
-                    </a>
-                </li>
-
-
-
-                <li>
-                    <a href="{{ url('admin/calendar') }}">
-                        <i class="zmdi zmdi-calendar-check"></i> <span>Calendar</span>
-                    </a>
-                </li>
-
-
-
-                <li class="sidebar-header">About Us</li>
-
-                <li>
-                    <a href="#" id="contentLink">
-                        <i class="zmdi zmdi-edit"></i> <span>Edit Content</span>
-                    </a>
-                    <ul id="contentDrawer" class="drawer-items" style="display:block">
-                        <li><a href="{{ url('about-us/history') }}">Edit History</a></li>
-                        <li><a href="{{ url('about-us/footer') }}">Footer</a></li>
-                        <li><a href="{{ url('about-us/wts') }}">What to see Inside</a></li>
-                        <li><a href="{{ url('about-us/contact') }}">Contact</a></li>
-                    </ul>
-                </li>
-
-
-                <li>
-                    <a href="{{ asset('admin/profile') }}">
-                        <i class="zmdi zmdi-face"></i> <span>Profile</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ asset('admin/scan-qr') }}">
-                        <i class="zmdi zmdi-camera"></i> <span>Scanner</span>
-                    </a>
-                </li>
-
-
-            </ul>
-
-        </div>
-        <!--End sidebar-wrapper-->
-
-        <!--Start topbar header-->
-        <header class="topbar-nav">
-            <nav class="navbar navbar-expand fixed-top">
-                <ul class="navbar-nav mr-auto align-items-center">
-                    <li class="nav-item">
-                        <a class="nav-link toggle-menu" href="javascript:void();">
-                        </a>
-                    </li>
-                </ul>
-
-                <ul class="navbar-nav align-items-center right-nav-link">
-                    <li class="nav-item dropdown-lg">
-                        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret waves-effect"
-                            data-toggle="dropdown" href="javascript:void();">
-                            <i class="fa fa-envelope-open-o"></i></a>
-                    </li>
-                    <li class="nav-item dropdown-lg">
-                        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret waves-effect"
-                            data-toggle="dropdown" href="javascript:void();">
-                            <i class="fa fa-bell-o"></i></a>
-                    </li>
-                    <div id="clock">
-                        <i class="zmdi zmdi-time">{{ $currentDateTime }}</i>
-                    </div>
-
-                    @foreach ($users as $user)
-                        <li class="nav-item">
-                            <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown"
-                                href="#">
-                                <span class="user-profile"><img src="{{ asset('avatar/' . $user->avatar) }}"
-                                        class="img-circle" alt="user avatar"></span>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                <li class="dropdown-item user-details">
-                                    <a href="javaScript:void();">
-                                        <div class="media">
-
-                                            @if ($user->avatar)
-                                                <div class="avatar"><img class="align-self-start mr-3"
-                                                        src="{{ asset('avatar/' . $user->avatar) }}"
-                                                        alt="user avatar"></div>
-                                                {{-- <img src="{{ asset('avatar/' .$user->avatar) }}" alt="{{$user->user_fname}}" --}}
-                                                {{-- class="rounded-circle me-2" style="width:100px; height:100px; object-fit:cover" /> --}}
-                                            @endif
-
-                                            <div class="media-body">
-                                                <h6 class="mt-2 user-title">Hi, {{ session('Admin')['user_fname'] }}
-                                                </h6>
-                                                <p class="user-subtitle">{{ session('Admin')['user_email'] }}</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="dropdown-divider"></li>
-                                <li class="dropdown-item"><i class="zmdi zmdi-account"></i><a
-                                        href="{{ asset('admin/profile') }}"> Account</li></a>
-                                <li class="dropdown-divider"></li>
-                                <li class="dropdown-item"><i class="zmdi zmdi-power"></i><a
-                                        href="{{ url('logout-admin') }}">Logout</li></a>
-                            </ul>
-                        </li>
-                    @endforeach
-                </ul>
+        <div class="pagetitle">
+            <h1>Dashboard</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item">Pages</li>
+                    <li class="breadcrumb-item active">Edit Content</li>
+                    <li class="breadcrumb-item active">Profile</li>
+                    <li class="breadcrumb-item active">Scanner</li>
+                </ol>
             </nav>
-        </header>
-        <!--End topbar header-->
+        </div><!-- End Page Title -->
 
-        {{-- <div class="clearfix"></div> --}}
-
-        <div class="content-wrapper">
-            <div class="card mt-3">
+        <section class="section dashboard">
+            <div class="row">
                 <div class="card-content">
-                    <h1>Scan QR Code</h1>
-                    <div id="video-container"></div>
+                    <hr>
+                    <h1>QR Code Scanner</h1>
+                    <hr>
+                    <div id="video-container">
+                        <canvas id="detector-box"></canvas>
+                    </div>
                     <div id="result-container">
                         <div id="result">Scanning...</div>
-                        <div id="success-icon">&#10004;</div>
+                        <div id="success-icon" style="display: none;">&#10004;</div>
                     </div>
                     <div class="card">
                         <div class="row">
@@ -287,36 +81,43 @@
                     </div>s
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
 
-
-        <!--End content-wrapper-->
-        <!--Start Back To Top Button-->
-        <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
-        <!--End Back To Top Button-->
-
-        <!--Start footer-->
-        <footer class="footer">
-            <div class="container">
-                <div class="text-center">
-                    Copyright © 2023 eOMHeritage Admin
-                </div>
-            </div>
-        </footer>
-        <!--End footer-->
-
-    </div>
-    <!--End wrapper-->
     <script src="https://cdn.jsdelivr.net/npm/jsqr"></script>
+
     <div id="result"></div>
     <img id="success-icon" alt="Success Icon" style="display: none;">
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 
     <script>
         const resultElement = document.getElementById('result');
         const successIcon = document.getElementById('success-icon');
+<<<<<<< Updated upstream
         let qrCodeData = null; // Store scanned QR code data
+=======
+        const detectorBoxCanvas = document.getElementById('detector-box');
+        const detectorBoxContext = detectorBoxCanvas.getContext('2d');
+        let qrCodeDetected = false; // Flag to track if a QR code has been detected
+
+        // Define the dimensions and position of the detector box
+        const boxWidth = 350; // Adjust as needed
+        const boxHeight = 300; // Adjust as needed
+        const boxX = (window.innerWidth - boxWidth) / 3;
+        const boxY = (window.innerHeight - boxHeight) / 5;
+
+        // Set the dimensions of the detector box canvas
+        detectorBoxCanvas.width = window.innerWidth;
+        detectorBoxCanvas.height = window.innerHeight;
+
+        // Draw the initial red detector box on the canvas
+        detectorBoxContext.strokeStyle = 'red';
+        detectorBoxContext.lineWidth = 2;
+        detectorBoxContext.strokeRect(boxX, boxY, boxWidth, boxHeight);
+>>>>>>> Stashed changes
 
         function logIn() {
             if (qrCodeData) {
@@ -381,12 +182,26 @@
 
                     navigator.mediaDevices.getUserMedia(constraints)
                         .then(stream => {
+<<<<<<< Updated upstream
                             const videoElement = document.createElement('video');
                             videoElement.srcObject = stream;
                             videoElement.play();
                             document.body.appendChild(videoElement);
 
                             videoElement.addEventListener('loadedmetadata', () => {
+=======
+                            // Handle camera access
+                            const videoContainer = document.getElementById('video-container');
+                            const videoElement = document.createElement('video');
+                            videoElement.srcObject = stream;
+                            videoElement.play();
+
+                            // Listen for the 'loadedmetadata' event to ensure video metadata is loaded
+                            videoElement.addEventListener('loadedmetadata', () => {
+                                // Append the video element to the video container
+                                videoContainer.appendChild(videoElement);
+
+>>>>>>> Stashed changes
                                 function scanQRCode() {
                                     const canvasElement = document.createElement('canvas');
                                     const canvasContext = canvasElement.getContext('2d');
@@ -407,9 +222,32 @@
                                         // QR code found
                                         resultElement.textContent = 'Scanned: ' + code.data;
                                         successIcon.style.display = 'block';
+<<<<<<< Updated upstream
                                         qrCodeData = code.data; // Store scanned QR code data
+=======
+
+                                        // Change detection box color to green
+                                        if (!qrCodeDetected) {
+                                            detectorBoxContext.strokeStyle = 'green';
+                                            detectorBoxContext.lineWidth = 2;
+                                            detectorBoxContext.strokeRect(boxX, boxY, boxWidth, boxHeight);
+                                            qrCodeDetected = true; // Set the flag to true
+                                        }
+
+                                        // Send the scanned QR code data to the server for processing
+                                        // ...
+
+>>>>>>> Stashed changes
                                     } else {
                                         successIcon.style.display = 'none';
+
+                                        // Change detection box color back to red
+                                        if (qrCodeDetected) {
+                                            detectorBoxContext.strokeStyle = 'red';
+                                            detectorBoxContext.lineWidth = 2;
+                                            detectorBoxContext.strokeRect(boxX, boxY, boxWidth, boxHeight);
+                                            qrCodeDetected = false; // Set the flag to false
+                                        }
                                     }
 
                                     requestAnimationFrame(scanQRCode);
@@ -429,27 +267,23 @@
                 console.error('Error enumerating devices:', error);
             });
     </script>
-</body>
 
+
+
+
+    {{-- Vendor JS --}}
+    <script src="{{ asset('assets/vendor/simple-datatables/simple-datatables.js') }}"></script>
+
+    <!-- Template Main JS File -->
+    <script src="{{ asset('assets/js/admin/datatable.js') }}"></script>
     <!-- Bootstrap core JavaScript-->
+
     <script src="{{ asset('assets/js/jsadmin/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/js/jsadmin/popper.min.js') }}"></script>
     <script src="{{ asset('assets/js/jsadmin/bootstrap.min.js') }}"></script>
 
-    <!-- simplebar js -->
-    <script src="{{ asset('assets/plugins/simplebar/js/simplebar.js') }}"></script>
-    <!-- sidebar-menu js -->
-    <script src="{{ asset('assets/js/jsadmin/sidebar-menu.js') }}"></script>
-    <!-- loader scripts -->
-    <script src="{{ asset('assets/js/jsadmin/jquery.loading-indicator.js') }}"></script>
-    <!-- Custom scripts -->
-    <script src="{{ asset('assets/js/jsadmin/app-script.js') }}"></script>
-    <!-- Chart js -->
-
-    {{-- <script src="{{ asset('assets/plugins/Chart.js/Chart.min.js') }}"></script> --}}
-
-    <!-- Index js -->
-    <script src="{{ asset('assets/js/jsadmin/index.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
 
     <script>
         function updateTime() {

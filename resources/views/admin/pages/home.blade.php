@@ -9,56 +9,27 @@
     <meta name="author" content="" />
     <title>eOMHeritage Admin</title>
     <!-- loader-->
-    <link href="{{ asset('assets/css/cssadmin/pace.min.css') }}" rel="stylesheet" />
-    <script src="{{ asset('assets/js/jsadmin/pace.min.js') }}"></script>
-    <!--favicon-->
-    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}" type="image/x-icon">
-    <!-- Vector CSS -->
-    <link href="{{ asset('assets/plugins/vectormap/jquery-jvectormap-2.0.2.css') }}" rel="stylesheet" />
-    <!-- simplebar CSS-->
-    <link href="{{ asset('assets/plugins/simplebar/css/simplebar.css') }}" rel="stylesheet" />
-    <!-- Bootstrap core CSS-->
-    <link href="{{ asset('assets/css/cssadmin/bootstrap.min.css') }}" rel="stylesheet" />
-    <!-- animate CSS-->
-    <link href="{{ asset('assets/css/cssadmin/animate.css') }}" rel="stylesheet" type="text/css" />
-    <!-- Icons CSS-->
-    <link href="{{ asset('assets/css/cssadmin/icons.css') }}" rel="stylesheet" type="text/css" />
-    <!-- Sidebar CSS-->
-    <link href="{{ asset('assets/css/cssadmin/sidebar-menu.css') }}" rel="stylesheet" />
-    <!-- Custom Style-->
-    <link href="{{ asset('assets/css/cssadmin/app-style.css') }}" rel="stylesheet" />
 
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Vendor CSS File -->
+    <link href="{{ asset('assets/vendor/simple-datatables/style.css') }}" rel="stylesheet">
 
-
+    <!-- Template Main CSS File -->
+    <link href="{{ asset('assets/css/admin/style.css') }}" rel="stylesheet">
 </head>
 
-<body class="bg-theme bg-theme1">
+<body>
 
-    <!-- Start wrapper-->
-    <div id="wrapper">
+    <!--Start sidebar-wrapper-->
+    @include('admin.pages.sidebar')
+    <!--End sidebar-wrapper-->
 
-        <!--Start sidebar-wrapper-->
-        <div id="sidebar-wrapper" data-simplebar="" data-simplebar-auto-hide="true">
-            <div class="brand-logo">
-                <a href="index.html">
-                    <img src="{{ asset('omhms.png') }}" class="logo-icon" alt="logo icon"
-                        style="width: 40px; height: 30px">
-                    <img src="{{ asset('eOMHeritage.png') }}" class="logo-icon1" alt="logo icon"
-                        style="180px; height: 30px">
-                </a>
-            </div>
-            <ul class="sidebar-menu do-nicescrol">
-                <li class="sidebar-header">MAIN NAVIGATION</li>
-                <li>
-                    <a href="{{ asset('admin/home') }}">
-                        <i class="zmdi zmdi-view-dashboard"></i> <span>Dashboard</span>
-                    </a>
-                </li>
+    <!--Start topbar header-->
+    @include('admin.pages.navbar')
+    <!--End topbar header-->
 
+    <main id="main" class="main">
 
+<<<<<<< Updated upstream
                 <li>
                     <a href="#" id="tablesLink">
                         <i class="zmdi zmdi-book"></i> <span>Bookings</span>
@@ -269,28 +240,58 @@
                     </div>
                 </div>
             </div>
+=======
+        <div class="pagetitle">
+            <h1>Dashboard</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
+>>>>>>> Stashed changes
 
+        <section class="section dashboard">
             <div class="row">
+<<<<<<< Updated upstream
                 <div class="col-12 col-lg-4 col-xl-4">
                     <div class="card bg-white">
                         <div class="card-header text-dark">Visitors Yearly</div>
+=======
+>>>>>>> Stashed changes
 
-                        <div class="card-body">
-                            <canvas id="visitorsChartYear" style="width: 100%; max-width: 600px;"></canvas>
-                        </div>
+                <!-- Start columns -->
+                <div class="col-lg-12">
+                    <div class="row">
 
+                        <!-- Users Card -->
+                        <div class="col">
+                            <div class="card info-card customers-card">
 
-                    </div>
-                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Total Visitors Today <span> | All</span></h5>
 
+<<<<<<< Updated upstream
                 <div class="col-12 col-lg-4 col-xl-4">
                     <div class="card bg-white">
                         <div class="card-header text-dark">Visitors Monthly</div>
+=======
+                                    <div class="d-flex align-items-center">
+                                        <div
+                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-people"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <h6>{{ $visitCount }}</h6>
+                                            <!-- <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
+>>>>>>> Stashed changes
 
-                        <div class="card-body">
-                            <canvas id="visitorsChartMonth" style="width: 100%; max-width: 600px;"></canvas>
-                        </div>
+                                        </div>
+                                    </div>
+                                </div>
 
+<<<<<<< Updated upstream
                     </div>
                 </div>
                 <div class="col-12 col-lg-4 col-xl-4">
@@ -316,8 +317,464 @@
                                     <option value="barangay">By Barangay</option>
                                     <option value="street">By Street</option>
                                 </select>
+=======
+>>>>>>> Stashed changes
                             </div>
+                        </div><!-- End Customers Card -->
+
+                        <!-- Products Card -->
+                        <div class="col">
+                            <div class="card info-card product-card">
+
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Accounts who Reserve a Rent <span> | All</span></h5>
+
+                                    <div class="d-flex align-items-center">
+                                        <div
+                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-cart"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <h6>{{ $rentCount }}</h6>
+                                            <!-- <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div><!-- End Products Card -->
+
+                        <!-- Sales Card -->
+                        <div class="col">
+
+                            <div class="card info-card categories-card">
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Total Souvenir Stocks <span> | All</span></h5>
+
+                                    <div class="d-flex align-items-center">
+                                        <div
+                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-menu-button-wide"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <h6>{{ $souvenirsCount }}</h6>
+                                            {{-- <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span> --}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- End sales Card -->
+
+                        <!-- Customers Card -->
+                        <div class="col">
+
+                            <div class="card info-card sales-card">
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Total Quantity of Artifacts <span> | All</span></h5>
+
+                                    <div class="d-flex align-items-center">
+                                        <div
+                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-currency-dollar"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <h6>{{ $artifactsCount }} </h6>
+                                            <!-- <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- End sales Card -->
+
+
+                    </div><!-- End Left side columns -->
+
+                    <div class="col-lg-12">
+                        <div class="row">
+
+                            <div class="col-6">
+                                <div class="card">
+
+                                    <div class="filter">
+                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                class="bi bi-three-dots"></i></a>
+                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                            <li class="dropdown-header text-start">
+                                                <h6>Filter</h6>
+                                            </li>
+
+                                            <li><a class="dropdown-item" value="province" href="#">By Province</a></li>
+                                            <li><a class="dropdown-item" value="municipality" href="#">By Municipality</a></li>
+                                            <li><a class="dropdown-item" value="barangay" href="#">By Barangay</a></li>
+                                            <li><a class="dropdown-item" value="street" href="#">By Street</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="card-body">
+                                        <h5 class="card-title">Users</h5>
+
+                                        <!-- Bar Chart -->
+                                        <canvas id="provincePieChart" style="min-height: 200px;"></canvas>
+                                        <script>
+                                            document.addEventListener("DOMContentLoaded", () => {
+                                                new Chart(document.querySelector('#provincePieChart'), {
+                                                    type: 'bar',
+                                                    data: {
+                                                        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                                                        datasets: [{
+                                                            label: 'Bar Chart',
+                                                            data: [65, 59, 80, 81, 56, 55, 40],
+                                                            backgroundColor: [
+                                                                'rgba(255, 99, 132, 0.2)',
+                                                                'rgba(255, 159, 64, 0.2)',
+                                                                'rgba(255, 205, 86, 0.2)',
+                                                                'rgba(75, 192, 192, 0.2)',
+                                                                'rgba(54, 162, 235, 0.2)',
+                                                                'rgba(153, 102, 255, 0.2)',
+                                                                'rgba(201, 203, 207, 0.2)'
+                                                            ],
+                                                            borderColor: [
+                                                                'rgb(255, 99, 132)',
+                                                                'rgb(255, 159, 64)',
+                                                                'rgb(255, 205, 86)',
+                                                                'rgb(75, 192, 192)',
+                                                                'rgb(54, 162, 235)',
+                                                                'rgb(153, 102, 255)',
+                                                                'rgb(201, 203, 207)'
+                                                            ],
+                                                            borderWidth: 1
+                                                        }]
+                                                    },
+                                                    options: {
+                                                        scales: {
+                                                            y: {
+                                                                beginAtZero: true
+                                                            }
+                                                        }
+                                                    }
+                                                });
+                                            });
+                                        </script>
+                                        <!-- End Bar CHart -->
+
+                                    </div>
+                                </div>
+                            </div><!-- End Reports -->
+
+                            <div class="col-6">
+                                <div class="card">
+
+                                    <div class="filter">
+                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                class="bi bi-three-dots"></i></a>
+                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                            <li class="dropdown-header text-start">
+                                                <h6>Filter</h6>
+                                            </li>
+
+                                            <li><a class="dropdown-item" href="#">Today</a></li>
+                                            <li><a class="dropdown-item" href="#">This Month</a></li>
+                                            <li><a class="dropdown-item" href="#">This Year</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="card-body">
+                                        <h5 class="card-title">Bar CHart</h5>
+
+                                        <!-- Bar Chart -->
+                                        <canvas id="barChart1" style="min-height: 200px;"></canvas>
+                                        <script>
+                                            document.addEventListener("DOMContentLoaded", () => {
+                                                new Chart(document.querySelector('#barChart1'), {
+                                                    type: 'bar',
+                                                    data: {
+                                                        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                                                        datasets: [{
+                                                            label: 'Bar Chart',
+                                                            data: [65, 59, 80, 81, 56, 55, 40],
+                                                            backgroundColor: [
+                                                                'rgba(255, 99, 132, 0.2)',
+                                                                'rgba(255, 159, 64, 0.2)',
+                                                                'rgba(255, 205, 86, 0.2)',
+                                                                'rgba(75, 192, 192, 0.2)',
+                                                                'rgba(54, 162, 235, 0.2)',
+                                                                'rgba(153, 102, 255, 0.2)',
+                                                                'rgba(201, 203, 207, 0.2)'
+                                                            ],
+                                                            borderColor: [
+                                                                'rgb(255, 99, 132)',
+                                                                'rgb(255, 159, 64)',
+                                                                'rgb(255, 205, 86)',
+                                                                'rgb(75, 192, 192)',
+                                                                'rgb(54, 162, 235)',
+                                                                'rgb(153, 102, 255)',
+                                                                'rgb(201, 203, 207)'
+                                                            ],
+                                                            borderWidth: 1
+                                                        }]
+                                                    },
+                                                    options: {
+                                                        scales: {
+                                                            y: {
+                                                                beginAtZero: true
+                                                            }
+                                                        }
+                                                    }
+                                                });
+                                            });
+                                        </script>
+                                        <!-- End Bar CHart -->
+
+                                    </div>
+                                </div>
+                            </div><!-- End Reports -->
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-12">
+                        <div class="row">
+
+                            <div class="col-4">
+                                <div class="card">
+
+                                    <div class="filter">
+                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                class="bi bi-three-dots"></i></a>
+                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                            <li class="dropdown-header text-start">
+                                                <h6>Filter</h6>
+                                            </li>
+
+                                            <li><a class="dropdown-item" href="#">Today</a></li>
+                                            <li><a class="dropdown-item" href="#">This Month</a></li>
+                                            <li><a class="dropdown-item" href="#">This Year</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="card-body pb-2">
+                                        <h5 class="card-title">Website Traffic <span>| Today</span></h5>
+
+                                        <div id="trafficChart" style="min-height: 375px;" class="echart"></div>
+
+                                        <script>
+                                            document.addEventListener("DOMContentLoaded", () => {
+                                                echarts.init(document.querySelector("#trafficChart")).setOption({
+                                                    tooltip: {
+                                                        trigger: 'item'
+                                                    },
+                                                    legend: {
+                                                        top: '5%',
+                                                        left: 'center'
+                                                    },
+                                                    series: [{
+                                                        name: 'Access From',
+                                                        type: 'pie',
+                                                        radius: ['40%', '70%'],
+                                                        avoidLabelOverlap: false,
+                                                        label: {
+                                                            show: false,
+                                                            position: 'center'
+                                                        },
+                                                        emphasis: {
+                                                            label: {
+                                                                show: true,
+                                                                fontSize: '18',
+                                                                fontWeight: 'bold'
+                                                            }
+                                                        },
+                                                        labelLine: {
+                                                            show: false
+                                                        },
+                                                        data: [{
+                                                                value: 1048,
+                                                                name: 'Search Engine'
+                                                            },
+                                                            {
+                                                                value: 735,
+                                                                name: 'Direct'
+                                                            },
+                                                            {
+                                                                value: 580,
+                                                                name: 'Email'
+                                                            },
+                                                            {
+                                                                value: 484,
+                                                                name: 'Union Ads'
+                                                            },
+                                                            {
+                                                                value: 300,
+                                                                name: 'Video Ads'
+                                                            }
+                                                        ]
+                                                    }]
+                                                });
+                                            });
+                                        </script>
+
+                                    </div>
+                                </div>
+                            </div><!-- End Reports -->
+
+                            <!-- Reports -->
+                            <div class="col-4">
+                                <div class="card">
+
+                                    <div class="filter">
+                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                class="bi bi-three-dots"></i></a>
+                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                            <li class="dropdown-header text-start">
+                                                <h6>Filter</h6>
+                                            </li>
+
+                                            <li><a class="dropdown-item" href="#">Today</a></li>
+                                            <li><a class="dropdown-item" href="#">This Month</a></li>
+                                            <li><a class="dropdown-item" href="#">This Year</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="card-body">
+                                        <h5 class="card-title">Reports <span>/Today</span></h5>
+
+                                        <!-- Line Chart -->
+                                        <div id="reportsChart"></div>
+
+                                        <script>
+                                            document.addEventListener("DOMContentLoaded", () => {
+                                                new ApexCharts(document.querySelector("#reportsChart"), {
+                                                    series: [{
+                                                        name: 'Sales',
+                                                        data: [31, 40, 28, 51, 42, 82, 56],
+                                                    }],
+                                                    chart: {
+                                                        height: 350,
+                                                        type: 'area',
+                                                        toolbar: {
+                                                            show: false
+                                                        },
+                                                    },
+                                                    markers: {
+                                                        size: 4
+                                                    },
+                                                    colors: ['#4154f1', '#2eca6a', '#ff771d'],
+                                                    fill: {
+                                                        type: "gradient",
+                                                        gradient: {
+                                                            shadeIntensity: 1,
+                                                            opacityFrom: 0.3,
+                                                            opacityTo: 0.4,
+                                                            stops: [0, 90, 100]
+                                                        }
+                                                    },
+                                                    dataLabels: {
+                                                        enabled: false
+                                                    },
+                                                    stroke: {
+                                                        curve: 'smooth',
+                                                        width: 2
+                                                    },
+                                                    xaxis: {
+                                                        type: 'datetime',
+                                                        categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z",
+                                                            "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z",
+                                                            "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z",
+                                                            "2018-09-19T06:30:00.000Z"
+                                                        ]
+                                                    },
+                                                    tooltip: {
+                                                        x: {
+                                                            format: 'dd/MM/yy HH:mm'
+                                                        },
+                                                    }
+                                                }).render();
+                                            });
+                                        </script>
+                                        <!-- End Line Chart -->
+
+                                    </div>
+
+                                </div>
+                            </div><!-- End Reports -->
+
+                            <div class="col-4">
+                                <div class="card">
+
+                                    <div class="filter">
+                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                class="bi bi-three-dots"></i></a>
+                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                            <li class="dropdown-header text-start">
+                                                <h6>Filter</h6>
+                                            </li>
+
+                                            <li><a class="dropdown-item" href="#">Today</a></li>
+                                            <li><a class="dropdown-item" href="#">This Month</a></li>
+                                            <li><a class="dropdown-item" href="#">This Year</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="card-body">
+                                        <h5 class="card-title">Pie Chart</h5>
+
+                                        <!-- Pie Chart -->
+                                        <canvas id="pieChart" style="min-height: 363px;"></canvas>
+                                        <script>
+                                          document.addEventListener("DOMContentLoaded", () => {
+                                            new Chart(document.querySelector('#pieChart'), {
+                                              type: 'pie',
+                                              data: {
+                                                labels: [
+                                                  'Red',
+                                                  'Blue',
+                                                  'Yellow'
+                                                ],
+                                                datasets: [{
+                                                  label: 'My First Dataset',
+                                                  data: [300, 50, 100],
+                                                  backgroundColor: [
+                                                    'rgb(255, 99, 132)',
+                                                    'rgb(54, 162, 235)',
+                                                    'rgb(255, 205, 86)'
+                                                  ],
+                                                  hoverOffset: 4
+                                                }]
+                                              }
+                                            });
+                                          });
+                                        </script>
+                                        <!-- End Pie CHart -->
+
+                                      </div>
+                                </div>
+                            </div><!-- End Reports -->
+                        </div>
+                    </div>
+
+                    <!-- Recent Sales -->
+                    <div class="col-12">
+                        <div class="card recent-sales overflow-auto">
+
+                            <div class="filter">
+                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                        class="bi bi-three-dots"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                    <li class="dropdown-header text-start">
+                                        <h6>Filter</h6>
+                                    </li>
+
+                                    <li><a class="dropdown-item" href="#">Today</a></li>
+                                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                                </ul>
+                            </div>
+
                             <div class="card-body">
+<<<<<<< Updated upstream
                                 <div id="provincePieChart"></div>
                             </div>
                         </div>
@@ -377,10 +834,156 @@
                             <h5 class="card-title text-dark">Weekly Souvenir Sales</h5>
                             <div class="card-body">
                                 <div id="weekSouvenirSales" style="height: 400px;"></div>
+=======
+                                <h5 class="card-title">Recent Sales <span>| Today</span></h5>
+
+                                <table class="table table-borderless datatable">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Customer</th>
+                                            <th scope="col">Product</th>
+                                            <th scope="col">Price</th>
+                                            <th scope="col">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row"><a href="#">#2457</a></th>
+                                            <td>Brandon Jacob</td>
+                                            <td><a href="#" class="text-primary">At praesentium minu</a>
+                                            </td>
+                                            <td>$64</td>
+                                            <td><span class="badge bg-success">Approved</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><a href="#">#2147</a></th>
+                                            <td>Bridie Kessler</td>
+                                            <td><a href="#" class="text-primary">Blanditiis dolor omnis
+                                                    similique</a></td>
+                                            <td>$47</td>
+                                            <td><span class="badge bg-warning">Pending</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><a href="#">#2049</a></th>
+                                            <td>Ashleigh Langosh</td>
+                                            <td><a href="#" class="text-primary">At recusandae
+                                                    consectetur</a></td>
+                                            <td>$147</td>
+                                            <td><span class="badge bg-success">Approved</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><a href="#">#2644</a></th>
+                                            <td>Angus Grady</td>
+                                            <td><a href="#" class="text-primar">Ut voluptatem id earum
+                                                    et</a></td>
+                                            <td>$67</td>
+                                            <td><span class="badge bg-danger">Rejected</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><a href="#">#2644</a></th>
+                                            <td>Raheem Lehner</td>
+                                            <td><a href="#" class="text-primary">Sunt similique
+                                                    distinctio</a></td>
+                                            <td>$165</td>
+                                            <td><span class="badge bg-success">Approved</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+>>>>>>> Stashed changes
                             </div>
+
                         </div>
-                    </div>
+                    </div><!-- End Recent Sales -->
+
+                    <!-- Top Selling -->
+                    <div class="col-12">
+                        <div class="card top-selling overflow-auto">
+
+                            <div class="filter">
+                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                        class="bi bi-three-dots"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                    <li class="dropdown-header text-start">
+                                        <h6>Filter</h6>
+                                    </li>
+
+                                    <li><a class="dropdown-item" href="#">Today</a></li>
+                                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="card-body pb-0">
+                                <h5 class="card-title">Top Selling <span>| Today</span></h5>
+
+                                <table class="table table-borderless">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Preview</th>
+                                            <th scope="col">Product</th>
+                                            <th scope="col">Price</th>
+                                            <th scope="col">Sold</th>
+                                            <th scope="col">Revenue</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row"><a href="#"><img src="assets/img/product-1.jpg"
+                                                        alt=""></a></th>
+                                            <td><a href="#" class="text-primary fw-bold">Ut inventore ipsa
+                                                    voluptas nulla</a></td>
+                                            <td>$64</td>
+                                            <td class="fw-bold">124</td>
+                                            <td>$5,828</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><a href="#"><img src="assets/img/product-2.jpg"
+                                                        alt=""></a></th>
+                                            <td><a href="#" class="text-primary fw-bold">Exercitationem
+                                                    similique doloremque</a></td>
+                                            <td>$46</td>
+                                            <td class="fw-bold">98</td>
+                                            <td>$4,508</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><a href="#"><img src="assets/img/product-3.jpg"
+                                                        alt=""></a></th>
+                                            <td><a href="#" class="text-primary fw-bold">Doloribus nisi
+                                                    exercitationem</a></td>
+                                            <td>$59</td>
+                                            <td class="fw-bold">74</td>
+                                            <td>$4,366</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><a href="#"><img src="assets/img/product-4.jpg"
+                                                        alt=""></a></th>
+                                            <td><a href="#" class="text-primary fw-bold">Officiis quaerat
+                                                    sint rerum error</a></td>
+                                            <td>$32</td>
+                                            <td class="fw-bold">63</td>
+                                            <td>$2,016</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><a href="#"><img src="assets/img/product-5.jpg"
+                                                        alt=""></a></th>
+                                            <td><a href="#" class="text-primary fw-bold">Sit unde debitis
+                                                    delectus repellendus</a></td>
+                                            <td>$79</td>
+                                            <td class="fw-bold">41</td>
+                                            <td>$3,239</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+                    </div><!-- End Top Selling -->
+
                 </div>
+<<<<<<< Updated upstream
 
 
             {{-- </div> --}}
@@ -416,53 +1019,28 @@
                 </div>
             {{-- </div> --}}
             <!--End Row-->
+=======
+            </div><!-- End columns -->
 
-
-
-
-
-
-
-            <!--End Row-->
-
-            <!--End Dashboard Content-->
-
-            <!--start overlay-->
-            <div class="overlay toggle-menu"></div>
-
-        </div>
-        <!--End content-wrapper-->
-
-        <!--Start Back To Top Button-->
-        <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
-        <!--Start footer-->
-        <footer class="footer">
-            <div class="container">
-                <div class="text-center">
-                    Copyright © 2023 eOMHeritage Admin
-                </div>
             </div>
-        </footer>
-        <!--End footer-->
+        </section>
+>>>>>>> Stashed changes
 
+    </main><!-- End #main -->
+
+    <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Copyright <strong><span>eOMHeritage</span></strong>. All Rights Reserved
     </div>
-    <!--End wrapper-->
+  </footer><!-- End Footer -->
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="{{ asset('assets/js/jsadmin/jquery.min.js') }}"></script>
-    <script src="{{ asset('assets/js/jsadmin/popper.min.js') }}"></script>
-    <script src="{{ asset('assets/js/jsadmin/bootstrap.min.js') }}"></script>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-    <!-- simplebar js -->
-    <script src="{{ asset('assets/plugins/simplebar/js/simplebar.js') }}"></script>
-    <!-- sidebar-menu js -->
-    <script src="{{ asset('assets/js/jsadmin/sidebar-menu.js') }}"></script>
-    <!-- loader scripts -->
-    <script src="{{ asset('assets/js/jsadmin/jquery.loading-indicator.js') }}"></script>
-    <!-- Custom scripts -->
-    <script src="{{ asset('assets/js/jsadmin/app-script.js') }}"></script>
-    <!-- Chart js -->
+    {{-- Vendor JS --}}
+    <script src="{{ asset('assets/vendor/simple-datatables/simple-datatables.js') }}"></script>
 
+<<<<<<< Updated upstream
     <script src="{{ asset('assets/plugins/Chart.js/Chart.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
@@ -494,6 +1072,10 @@
 
         updateTime();
     </script>
+=======
+    <!-- Template Main JS File -->
+    <script src="{{ asset('assets/js/admin/datatable.js') }}"></script>
+>>>>>>> Stashed changes
 
     <script>
         // Function to filter table rows based on search input
@@ -527,6 +1109,7 @@
     </script>
 
 
+<<<<<<< Updated upstream
 <script>
 
    $(document).ready(function () {
@@ -539,80 +1122,310 @@
         var weeklyCount = <?= $weeklyCount ?>;
         var days = <?= $days ?>;
         var dailyVisitorCounts = <?= $dailyVisitorCounts ?>;
+=======
+    <script>
+        $(document).ready(function() {
+            // Get the data from your Laravel controller
+            var years = <?= $years ?>;
+            var yearlyCount = <?= $yearlyCount ?>;
+            var months = <?= $months ?>;
+            var monthlyCount = <?= $monthlyCount ?>;
+            var weeks = <?= $weeks ?>;
+            var weeklyCount = <?= $weeklyCount ?>;
+>>>>>>> Stashed changes
 
 
-        // Create a new chart for yearly data
-        var ctxYear = document.getElementById('visitorsChartYear').getContext('2d');
-        var visitorsChartYear = new Chart(ctxYear, {
-            type: 'bar',
-            data: {
-                labels: years,
-                datasets: [{
-                    label: 'Visitors per Year',
-                    data: yearlyCount,
-                    backgroundColor: 'rgba(75, 192, 192, 0.5)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
+            // Create a new chart for yearly data
+            var ctxYear = document.getElementById('visitorsChartYear').getContext('2d');
+            var visitorsChartYear = new Chart(ctxYear, {
+                type: 'bar',
+                data: {
+                    labels: years,
+                    datasets: [{
+                        label: 'Visitors per Year',
+                        data: yearlyCount,
+                        backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
                     }
                 }
-            }
-        });
+            });
 
-        // Create a new chart for monthly data
-        var ctxMonth = document.getElementById('visitorsChartMonth').getContext('2d');
-        var visitorsChartMonth = new Chart(ctxMonth, {
-            type: 'bar',
-            data: {
-                labels: months,
-                datasets: [{
-                    label: 'Visitors per Month',
-                    data: monthlyCount,
-                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
+            // Create a new chart for monthly data
+            var ctxMonth = document.getElementById('visitorsChartMonth').getContext('2d');
+            var visitorsChartMonth = new Chart(ctxMonth, {
+                type: 'bar',
+                data: {
+                    labels: months,
+                    datasets: [{
+                        label: 'Visitors per Month',
+                        data: monthlyCount,
+                        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
                     }
                 }
-            }
-        });
+            });
 
-        // Create a new chart for weekly data
-        var ctxWeek = document.getElementById('visitorsChartWeek').getContext('2d');
-        var visitorsChartWeek = new Chart(ctxWeek, {
-            type: 'bar',
-            data: {
-                labels: weeks,
-                datasets: [{
-                    label: 'Visitors per Week',
-                    data: weeklyCount,
-                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
+            // Create a new chart for weekly data
+            var ctxWeek = document.getElementById('visitorsChartWeek').getContext('2d');
+            var visitorsChartWeek = new Chart(ctxWeek, {
+                type: 'bar',
+                data: {
+                    labels: weeks,
+                    datasets: [{
+                        label: 'Visitors per Week',
+                        data: weeklyCount,
+                        backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
                     }
                 }
-            }
+            });
         });
-    });
+    </script>
 
-</script>
+    <script>
+        $(document).ready(function() {
+            // Trigger the change event to display province data on page load
+            $('#chartTypeSelect').val('province').trigger('change');
 
+            $('#chartTypeSelect').on('change', function() {
+                var selectedValue = $(this).val();
+
+                // Change the label of the dropdown button
+                $('#dropdownMenuButton').html(selectedValue);
+
+                // Show/hide visualization based on selected option
+                if (selectedValue === 'province') {
+                    // Code to display province visualization
+                    $('#visualizationDropdown .dropdown-item').removeClass('active');
+                    $(this).addClass('active');
+                    var ctx = document.getElementById('provincePieChart').getContext('2d');
+                    var chartData = <?= json_encode($provinceData) ?>;
+
+                    // Create the pie chart for province data
+                    var myPieChart = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: chartData.labels,
+                            datasets: [{
+                                data: chartData.data,
+                                backgroundColor: chartData.backgroundColor,
+                            }]
+                        },
+                        options: {
+                            title: {
+                                display: true,
+                                text: 'User Counts by Province',
+                                fontSize: 16,
+                            },
+                            legend: {
+                                display: true,
+                                position: 'bottom',
+                            },
+                            tooltips: {
+                                callbacks: {
+                                    label: function(tooltipItem, data) {
+                                        var dataset = data.datasets[tooltipItem.datasetIndex];
+                                        var label = data.labels[tooltipItem.index];
+                                        var currentValue = dataset.data[tooltipItem.index];
+                                        return label + ': ' + currentValue;
+                                    }
+                                }
+                            }
+                        }
+
+                    });
+
+                } else if (selectedValue === 'municipality') {
+                    // Code to display municipality visualization
+                    $('#visualizationDropdown .dropdown-item').removeClass('active');
+                    $(this).addClass('active');
+                    var ctx = document.getElementById('provincePieChart').getContext('2d');
+                    var chartData = <?= json_encode($municipalityData) ?>;
+
+                    // Create the pie chart for municipality data
+                    var myPieChart = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: chartData.labels,
+                            datasets: [{
+                                data: chartData.data,
+                                backgroundColor: chartData.backgroundColor,
+                            }]
+                        },
+                        options: {
+                            title: {
+                                display: true,
+                                text: 'User Counts by Municipality',
+                                fontSize: 16,
+                            },
+                            legend: {
+                                display: true,
+                                position: 'bottom',
+                            },
+                            tooltips: {
+                                callbacks: {
+                                    label: function(tooltipItem, data) {
+                                        var dataset = data.datasets[tooltipItem.datasetIndex];
+                                        var label = data.labels[tooltipItem.index];
+                                        var currentValue = dataset.data[tooltipItem.index];
+                                        return label + ': ' + currentValue;
+                                    }
+                                }
+                            }
+                        }
+                    });
+
+                } else if (selectedValue === 'barangay') {
+                    // Code to display municipality visualization
+                    $('#visualizationDropdown .dropdown-item').removeClass('active');
+                    $(this).addClass('active');
+                    var ctx = document.getElementById('provincePieChart').getContext('2d');
+                    var chartData = <?= json_encode($barangayData) ?>;
+
+                    // Create the pie chart for municipality data
+                    var myPieChart = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: chartData.labels,
+                            datasets: [{
+                                data: chartData.data,
+                                backgroundColor: chartData.backgroundColor,
+                            }]
+                        },
+                        options: {
+                            title: {
+                                display: true,
+                                text: 'User Counts by Barangay',
+                                fontSize: 16,
+                            },
+                            legend: {
+                                display: true,
+                                position: 'bottom',
+                            },
+                            tooltips: {
+                                callbacks: {
+                                    label: function(tooltipItem, data) {
+                                        var dataset = data.datasets[tooltipItem.datasetIndex];
+                                        var label = data.labels[tooltipItem.index];
+                                        var currentValue = dataset.data[tooltipItem.index];
+                                        return label + ': ' + currentValue;
+                                    }
+                                }
+                            }
+                        }
+                    });
+                } else if (selectedValue === 'street') {
+                    // Code to display municipality visualization
+                    $('#visualizationDropdown .dropdown-item').removeClass('active');
+                    $(this).addClass('active');
+                    var ctx = document.getElementById('provincePieChart').getContext('2d');
+                    var chartData = <?= json_encode($streetData) ?>;
+
+                    // Create the pie chart for municipality data
+                    var myPieChart = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: chartData.labels,
+                            datasets: [{
+                                data: chartData.data,
+                                backgroundColor: chartData.backgroundColor,
+                            }]
+                        },
+                        options: {
+                            title: {
+                                display: true,
+                                text: 'User Counts by Street',
+                                fontSize: 16,
+                            },
+                            legend: {
+                                display: true,
+                                position: 'bottom',
+                            },
+                            tooltips: {
+                                callbacks: {
+                                    label: function(tooltipItem, data) {
+                                        var dataset = data.datasets[tooltipItem.datasetIndex];
+                                        var label = data.labels[tooltipItem.index];
+                                        var currentValue = dataset.data[tooltipItem.index];
+                                        return label + ': ' + currentValue;
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
+    //
+    <script>
+        //     var ctx = document.getElementById('userPieChart').getContext('2d');
+        //     var chartData = <?= json_encode($provinceData) ?>;
+
+        //     var myPieChart = new Chart(ctx, {
+        //         type: 'pie',
+        //         data: {
+        //             labels: chartData.labels,
+        //             datasets: [{
+        //                 data: chartData.data,
+        //                 backgroundColor: chartData.backgroundColor,
+        //             }]
+        //         },
+        //         options: {
+        //             title: {
+        //                 display: true,
+        //                 // text: 'User Counts by Province',
+        //                 fontSize: 16,
+        //             },
+        //             legend: {
+        //                 display: true,
+        //                 position: 'bottom',
+        //             },
+        //             tooltips: {
+        //                 callbacks: {
+        //                     label: function(tooltipItem, data) {
+        //                         var dataset = data.datasets[tooltipItem.datasetIndex];
+        //                         var label = data.labels[tooltipItem.index];
+        //                         var currentValue = dataset.data[tooltipItem.index];
+        //                         return label + ': ' + currentValue;
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     });
+        //
+    </script>
+    //
+    <script>
+        //     var ctx = document.getElementById('userMunicipalityPieChart').getContext('2d');
+        //     var chartData = <?= json_encode($municipalityData) ?>;
+
+<<<<<<< Updated upstream
 <script>
     $(document).ready(function () {
         var chartData = <?= json_encode($provinceData) ?>;
@@ -992,6 +1805,41 @@
 </script>
 
 
+=======
+        //     var myPieChart = new Chart(ctx, {
+        //         type: 'pie',
+        //         data: {
+        //             labels: chartData.labels,
+        //             datasets: [{
+        //                 data: chartData.data,
+        //                 backgroundColor: chartData.backgroundColor,
+        //             }]
+        //         },
+        //         options: {
+        //             title: {
+        //                 display: true,
+        //                 // text: 'User Counts by Province',
+        //                 fontSize: 16,
+        //             },
+        //             legend: {
+        //                 display: true,
+        //                 position: 'bottom',
+        //             },
+        //             tooltips: {
+        //                 callbacks: {
+        //                     label: function(tooltipItem, data) {
+        //                         var dataset = data.datasets[tooltipItem.datasetIndex];
+        //                         var label = data.labels[tooltipItem.index];
+        //                         var currentValue = dataset.data[tooltipItem.index];
+        //                         return label + ': ' + currentValue;
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     });
+        //
+    </script>
+>>>>>>> Stashed changes
 
 </body>
 

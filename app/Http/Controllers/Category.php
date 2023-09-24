@@ -6,18 +6,22 @@ use App\Models\CategoryModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
+
 
 
 class Category extends Controller
 {
     public function displayCategory()
     {
+        $currentDateTime = Carbon::now()->tz('UTC');
         $category = DB::table('category')->where('is_archived','0')->get();
         $archived = DB::table('category')->where('is_archived','1')->get();
         $user_id = session('Admin')['user_id'];
         $users = DB::table('users')->where('user_id', $user_id)->get();
-        return view('admin.pages.category.category-table', ['users' => $users, 'category' => $category, 'archived' => $archived]);
+        return view('admin.pages.category.category-table', ['users' => $users, 'category' => $category, 'archived' => $archived,],  compact('currentDateTime'));
     }
+
 
     public function add_category(Request $request)
     {

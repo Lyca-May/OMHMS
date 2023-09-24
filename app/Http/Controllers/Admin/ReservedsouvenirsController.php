@@ -16,11 +16,32 @@ class ReservedsouvenirsController extends Controller
         $currentDateTime = Carbon::now()->tz('UTC');
         $user_id = session('Admin')['user_id'];
         $users = DB::table('users')->where('user_id', $user_id)->get();
-        $reservedSouvenirs = Reserved_Souvenir::with('user', 'souvenir')->where('status', 'RESERVED')->get();
+        $reservedSouvenirs = Reserved_Souvenir::with('user', 'souvenir')->where('status', 'PENDING')->get();
 
 
         return view('admin.pages.reservedsouvenirs.reserved_souvenirs', compact('currentDateTime', 'users', 'reservedSouvenirs'));
     }
+    public function admin_souvenirspurchasedhistory()
+    {
+        $currentDateTime = Carbon::now()->tz('UTC');
+        $user_id = session('Admin')['user_id'];
+        $users = DB::table('users')->where('user_id', $user_id)->get();
+
+
+        return view('admin.pages.reservedsouvenirs.souvenirpurchased', compact('currentDateTime', 'users'));
+    }
+
+    public function admin_souvenirsales()
+    {
+        $currentDateTime = Carbon::now()->tz('UTC');
+        $user_id = session('Admin')['user_id'];
+        $users = DB::table('users')->where('user_id', $user_id)->get();
+
+
+        return view('admin.pages.reservedsouvenirs.souvenirsales', compact('currentDateTime', 'users'));
+    }
+
+
 
     public function update_reservedSouvenir(Request $request, $souvenir_reservations_id)
 {
@@ -32,11 +53,19 @@ class ReservedsouvenirsController extends Controller
         $souvenir_reservation->update(['status' => 'PAID']);
 
         // Now, update the corresponding record in the sales table
+<<<<<<< Updated upstream
         $sale = Sales::where('souvenirReservations_id', $souvenir_reservations_id)->first();
 
         if ($sale) {
             $sale->update(['status' => 'PAID']);
         }
+=======
+        // $sale = Sales::where('souvenirReservations_id', $souvenir_reservations_id)->first();
+
+        // if ($sale) {
+        //     $sale->update(['status' => 'PAID']);
+        // }
+>>>>>>> Stashed changes
 
         return redirect()->back()->with('success', 'Reserved souvenir item has been paid successfully.');
     } else {

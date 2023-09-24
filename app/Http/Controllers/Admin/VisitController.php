@@ -21,6 +21,7 @@ class VisitController extends Controller
     //get
     public function index()
     {
+        $currentDateTime = Carbon::now()->tz('UTC');
         $user_id = session('Admin')['user_id'];
         $users = DB::table('users')->where('user_id', $user_id)->get();
         $visit = Visit_Model::with('users')
@@ -39,7 +40,31 @@ class VisitController extends Controller
             ->get();
 
 
-        return view('admin.pages.visit.visit', compact('visit', 'users', 'approved', 'cancelled', 'history'));
+        return view('admin.pages.visit.visit', compact('currentDateTime','visit', 'users', 'approved', 'cancelled', 'history'));
+    }
+
+    public function viewAllBookings()
+    {
+        $currentDateTime = Carbon::now()->tz('UTC');
+        $user_id = session('Admin')['user_id'];
+        $users = DB::table('users')->where('user_id', $user_id)->get();
+        $visit = Visit_Model::with('users')
+            ->where('visits_status', 'PENDING')
+            ->get();
+        $approved = Visit_Model::with('users')
+            ->where('visits_status', 'APPROVED')
+            ->get();
+        $cancelled = Visit_Model::with('users')
+            ->where('visits_status', 'CANCELLED')
+            ->get();
+        $currentDate = date('Y-m-d');
+        $history = DB::table('visit')
+            ->where('visits_status', '!=', 'PENDING')
+            ->whereRaw('DATE(visits_intended_date) < ?', [$currentDate])
+            ->get();
+
+
+        return view('admin.pages.visit.visit_history', compact('currentDateTime','visit', 'users', 'approved', 'cancelled', 'history'));
     }
 
     public function displayAttendance(){

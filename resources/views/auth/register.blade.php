@@ -1,300 +1,393 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- fontawesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous" />
-    <!-- main style -->
-    <link rel="stylesheet" href="{{ asset('main.css') }}" />
-    <title>eOMHeritage Admin</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Pages / Register - NiceAdmin Bootstrap Template</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com') }}" rel="preconnect">
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/quill/quill.snow.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/quill/quill.bubble.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/remixicon/remixicon.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/simple-datatables/style.css') }}" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="{{ asset('assets/css/admin/style.css') }}" rel="stylesheet">
+
 </head>
 
-<body>
-    <div class="container">
-        <div class="forms">
-            <div class="form-content">
-                <div class="signup-form">
-                    @if (session('success'))
-                        <span style="color: green">{{ session('success') }}</span>
-                    @elseif (session('failed'))
-                        <span style="color: red">{{ session('failed') }}</span>
-                    @endif
-                    <div class="title">Signup</div>
-                    <form class="form-horizontal" action="{{ route('register') }}" method="POST">
-                        @csrf
+<body
+    style="
+    background-image:url(../../../../../images/eomheritage_register.jpg);
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;">
 
-                        <div class="input-boxes">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="input-box">
-                                        <i class="fas fa-envelope"></i>
-                                        <input type="email" placeholder="Enter your Email" class="form-control"
-                                            name="user_email" value="{{ old('user_email') }}"
-                                            class="@error('user_email') is-invalid @enderror" autocomplete="on">
-                                        @error('user_email')
-                                            <span style="color: red; font-size:15px">{{ $message }}</span>
-                                        @enderror
+    <main>
+        <div class="container">
+
+            <section
+                class="section register min-vh-150 d-flex flex-column align-items-center justify-content-center py-4">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+
+
+
+                            <div class="card mb-3">
+                                <div class="d-flex py-4" style="margin-top: 10px; margin-left:20px">
+                                    <a href="index.html" class="logo d-flex align-items-center w-auto">
+                                        <img src="{{ asset('omhms.png') }}" alt="logo icon">
+                                        <span><img src="{{ asset('eOMHeritage.png') }}" alt="logo icon"></span>
+                                        <span> <img src="{{ asset('images/lakbaylogo.jpg') }}" class="logo-icon" alt="logo icon"
+                                        style="width: 70px; height: 60px; margin-left:290px "></span>
+                                        <span> <img src="{{ asset('images/GSMlogo.jpg') }}" class="logo-icon" alt="logo icon"
+                                        style="width: 70px; height: 60px; "></span>
+                                        <span> <img src="{{ asset('PGOM.png') }}" class="logo-icon" alt="logo icon"
+                                        style="width: 40px; height: 40px; "></span>
+                                        <span> <img src="{{ asset('PTO.png') }}" class="logo-icon" alt="logo icon"
+                                        style="width: 45px; height: 65px; "></span>
+                                    </a>
+                                </div><!-- End Logo -->
+                                <div class="card-body">
+
+                                    @if (session('success'))
+                                        <span style="color: green">{{ session('success') }}</span>
+                                    @elseif (session('failed'))
+                                        <span style="color: red">{{ session('failed') }}</span>
+                                    @endif
+                                    <div class="pt-4 pb-2">
+                                        <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
+                                        <p class="text-center small">Enter your personal details to create account</p>
                                     </div>
+
+                                    <form class="row g-3 needs-validation" novalidate action="{{ route('register') }}"
+                                        method="POST">
+                                        @csrf
+                                        <div class="col-12">
+                                            <label for="yourName" class="form-label">Email</label>
+                                            <div class="input-group has-validation">
+                                                <span class="input-group-text" id="inputGroupPrepend"><i
+                                                        class="bi bi-at"></i></span>
+                                                <input type="email" placeholder="Enter your Email"
+                                                    class="form-control" name="user_email"
+                                                    value="{{ old('user_email') }}" required
+                                                    class="@error('user_email') is-invalid @enderror" autocomplete="on">
+                                                @error('user_email')
+                                                    <span style="color: red; font-size:15px">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="row" style="margin-top:20px">
+                                            <div class="col-6">
+                                                <label for="yourEmail" class="form-label">Password</label>
+                                                <div class="input-group has-validation">
+                                                    <span class="input-group-text" id="inputGroupPrepend"><i
+                                                            class="bi bi-lock"></i></span>
+                                                    <input type="password" placeholder="Confirm your Password"
+                                                        class="form-control" name="user_password_confirmation"
+                                                        value="{{ old('user_password_confirmation') }}"
+                                                        class="@error('user_password_confirmation') is-invalid @enderror"
+                                                        autocomplete="on" required>
+                                                    @error('user_password_confirmation')
+                                                        <span style="color: red; font-size:15px">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="yourUsername" class="form-label">Confirm Password</label>
+                                                <div class="input-group has-validation">
+                                                    <span class="input-group-text" id="inputGroupPrepend"><i
+                                                            class="bi bi-key"></i></span>
+                                                    <input type="password" placeholder="Re-enter your Password"
+                                                        class="form-control" name="user_password_confirmation"
+                                                        value="{{ old('user_password_confirmation') }}"
+                                                        class="@error('user_password_confirmation') is-invalid @enderror"
+                                                        autocomplete="on" required>
+                                                    @error('user_password_confirmation')
+                                                        <span
+                                                            style="color: red; font-size:15px">{{ $message }}</span>
+                                                    @enderror
+
+                                                </div>
+                                            </div>
+
+                                            <br><br><br> <br>
+
+                                            <h6 class="sub-title" style="text-align: center"><b>PERSONAL INFORMATION</b></h6>
+                                            <div class="row" style="margin-top: 20px">
+                                                <div class="col-4">
+                                                    <label for="firstName" class="form-label">First Name</label>
+                                                    <div class="input-group has-validation">
+                                                        <span class="input-group-text" id="inputGroupPrepend"><i
+                                                                class="bi bi-person"></i></span>
+                                                        <input type="text" placeholder="First Name"
+                                                            class="form-control" name="user_fname"
+                                                            value="{{ old('user_fname') }}"
+                                                            class="@error('user_fname') is-invalid @enderror"
+                                                            autocomplete="on" required>
+                                                        @error('user_fname')
+                                                            <span
+                                                                style="color: red; font-size:15px">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <label for="middleName" class="form-label">Middle Name</label>
+                                                    <div class="input-group has-validation">
+                                                        <span class="input-group-text" id="inputGroupPrepend"><i
+                                                                class="bi bi-person"></i></span>
+                                                        <input type="text" placeholder="Middle Name"
+                                                            class="form-control" name="user_mname"
+                                                            value="{{ old('user_mname') }}"
+                                                            class="@error('user_mname') is-invalid @enderror"
+                                                            autocomplete="on" required>
+                                                        @error('user_mname')
+                                                            <span
+                                                                style="color: red; font-size:15px">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <label for="lastName" class="form-label">Last Name</label>
+                                                    <div class="input-group has-validation">
+                                                        <span class="input-group-text" id="inputGroupPrepend"><i
+                                                                class="bi bi-person"></i></span>
+                                                        <input type="text" placeholder="Last Name"
+                                                            class="form-control" name="user_lname"
+                                                            value="{{ old('user_lname') }}"
+                                                            class="@error('user_lname') is-invalid @enderror"
+                                                            autocomplete="on" required>
+                                                        @error('user_lname')
+                                                            <span
+                                                                style="color: red; font-size:15px">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row" style="margin-top: 20px">
+                                                <div class="col-4">
+                                                    <label for="gender" class="form-label">Gender</label>
+                                                    <div class="input-group has-validation">
+                                                        <span class="input-group-text" id="inputGroupPrepend">⚥</span>
+                                                        <input type="text" placeholder="Gender"
+                                                            class="form-control" name="gender"
+                                                            value="{{ old('gender') }}"
+                                                            class="@error('gender') is-invalid @enderror"
+                                                            autocomplete="on" required>
+                                                        @error('gender')
+                                                            <span
+                                                                style="color: red; font-size:15px">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <label for="birthday" class="form-label">Birthday</label>
+                                                    <div class="input-group has-validation">
+                                                        <span class="input-group-text" id="inputGroupPrepend"><i
+                                                                class="bi bi-calendar"></i></span>
+                                                        <input type="date" placeholder="Birthday"
+                                                            class="form-control" name="birthdate"
+                                                            value="{{ old('birthdate') }}"
+                                                            class="@error('birthdate') is-invalid @enderror"
+                                                            autocomplete="on" required>
+                                                        @error('birthdate')
+                                                            <span
+                                                                style="color: red; font-size:15px">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <label for="phonenum" class="form-label">Phone Number</label>
+                                                    <div class="input-group has-validation">
+                                                        <span class="input-group-text" id="inputGroupPrepend"><i
+                                                                class="bi bi-phone"></i></span>
+                                                        <input type="text" placeholder="Phone Number"
+                                                            class="form-control" name="user_phonenum"
+                                                            value="{{ old('user_phonenum') }}"
+                                                            class="@error('user_phonenum') is-invalid @enderror"
+                                                            autocomplete="on" required>
+                                                        @error('user_phonenum')
+                                                            <span
+                                                                style="color: red; font-size:15px">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row" style="margin-top: 20px">
+                                                <div class="col-3">
+                                                    <label for="country" class="form-label">Country</label>
+                                                    <div class="input-group has-validation">
+                                                        <span class="input-group-text" id="inputGroupPrepend"><i
+                                                                class="bi bi-geo"></i></span>
+                                                        <input type="text" placeholder="Country"
+                                                            class="form-control" name="user_country"
+                                                            value="{{ old('user_country') }}"
+                                                            class="@error('user_country') is-invalid @enderror"
+                                                            autocomplete="on" required>
+                                                        @error('user_country')
+                                                            <span
+                                                                style="color: red; font-size:15px">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-3">
+                                                    <label for="province" class="form-label">Province</label>
+                                                    <div class="input-group has-validation">
+                                                        <span class="input-group-text" id="inputGroupPrepend"><i
+                                                                class="bi bi-geo"></i></span>
+                                                        <input type="text" placeholder="Province"
+                                                            class="form-control" name="user_province"
+                                                            value="{{ old('user_province') }}"
+                                                            class="@error('user_province') is-invalid @enderror"
+                                                            autocomplete="on" required>
+                                                        @error('user_province')
+                                                            <span
+                                                                style="color: red; font-size:15px">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-3">
+                                                    <label for="municipality" class="form-label">Municipality</label>
+                                                    <div class="input-group has-validation">
+                                                        <span class="input-group-text" id="inputGroupPrepend"><i
+                                                                class="bi bi-geo"></i></span>
+                                                        <input type="text" placeholder="Municipality"
+                                                            class="form-control" name="user_municipality"
+                                                            value="{{ old('user_municipality') }}"
+                                                            class="@error('user_municipality') is-invalid @enderror"
+                                                            autocomplete="on" required>
+                                                        @error('user_municipality')
+                                                            <span
+                                                                style="color: red; font-size:15px">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-3">
+                                                    <label for="barangay" class="form-label">Barangay</label>
+                                                    <div class="input-group has-validation">
+                                                        <span class="input-group-text" id="inputGroupPrepend"><i
+                                                                class="bi bi-geo"></i></span>
+                                                        <input type="text" placeholder="Barangay"
+                                                            class="form-control" name="user_barangay"
+                                                            value="{{ old('user_barangay') }}"
+                                                            class="@error('user_barangay') is-invalid @enderror"
+                                                            autocomplete="on" required>
+                                                        @error('user_barangay')
+                                                            <span
+                                                                style="color: red; font-size:15px">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row" style="margin-top: 20px">
+                                                <div class="col-8">
+                                                    <label for="street" class="form-label">Street</label>
+                                                    <div class="input-group has-validation">
+                                                        <span class="input-group-text" id="inputGroupPrepend"><i
+                                                                class="bi bi-geo"></i></span>
+                                                        <input type="text" placeholder="Street"
+                                                            class="form-control" name="user_street"
+                                                            value="{{ old('user_street') }}"
+                                                            class="@error('user_street') is-invalid @enderror"
+                                                            autocomplete="on" required>
+                                                        @error('user_street')
+                                                            <span
+                                                                style="color: red; font-size:15px">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <label for="zipcode" class="form-label">Zipcode</label>
+                                                    <div class="input-group has-validation">
+                                                        <span class="input-group-text" id="inputGroupPrepend"><i
+                                                                class="bi bi-map"></i></span>
+                                                        <input type="text" placeholder="Zipcode"
+                                                            class="form-control" name="user_zipcode"
+                                                            value="{{ old('user_zipcode') }}"
+                                                            class="@error('user_zipcode') is-invalid @enderror"
+                                                            autocomplete="on" required>
+                                                        @error('user_zipcode')
+                                                            <span
+                                                                style="color: red; font-size:15px">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12"  style="margin-top: 20px">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" name="terms" type="checkbox"
+                                                        value="" id="acceptTerms" required>
+                                                    <label class="form-check-label" for="acceptTerms">I agree and
+                                                        accept
+                                                        the
+                                                        <a href="#">terms and conditions</a></label>
+                                                    <div class="invalid-feedback">You must agree before submitting.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 text-center"style="margin-top: 20px;">
+                                                <button class="btn btn-primary w-100" style="margin-left:260px" type="submit">Create
+                                                    Account</button>
+                                            </div>
+                                            <div class="col-12" style="text-align: center;margin-top:20px">
+                                                <p class="small mb-0">Already have an account? <a
+                                                        href="{{ url('auth/login') }}">Log in</a></p>
+                                            </div>
+                                    </form>
+
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="input-box">
-                                        <i class="fas fa-lock"></i>
-                                        <input type="password" placeholder="Enter your Password" class="form-control"
-                                            name="user_password" value="{{ old('user_password') }}"
-                                            class="@error('user_password') is-invalid @enderror" autocomplete="on">
-                                        @error('user_password')
-                                            <span style="color: red; font-size:15px">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="input-box">
-                                        <i class="fas fa-lock"></i>
-                                        <input type="password" placeholder="Confirm your Password" class="form-control"
-                                            name="user_password_confirmation"
-                                            value="{{ old('user_password_confirmation') }}"
-                                            class="@error('user_password_confirmation') is-invalid @enderror"
-                                            autocomplete="on">
-                                        @error('user_password_confirmation')
-                                            <span style="color: red; font-size:15px">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
-                            <h6 class="sub-title" style="text-align: center">Personal Information</h6>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="input-box">
-                                        <i class="fas fa-user"></i>
-                                        <input type="text" placeholder="First Name" class="form-control" name="user_fname"
-                                            value="{{ old('user_fname') }}" class="@error('user_fname') is-invalid @enderror"
-                                            autocomplete="on">
-                                        @error('user_fname')
-                                        <span style="color: red; font-size:15px">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="input-box">
-                                        <i class="fas fa-user"></i>
-                                        <input type="text" placeholder="Middle Name" class="form-control" name="user_mname"
-                                            value="{{ old('user_mname') }}" class="@error('user_mname') is-invalid @enderror"
-                                            autocomplete="on">
-                                        @error('user_mname')
-                                        <span style="color: red; font-size:15px">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="input-box">
-                                        <i class="fas fa-user"></i>
-                                        <input type="text" placeholder="Last Name" class="form-control" name="user_lname"
-                                            value="{{ old('user_lname') }}" class="@error('user_lname') is-invalid @enderror"
-                                            autocomplete="on">
-                                        @error('user_lname')
-                                        <span style="color: red; font-size:15px">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="input-box">
-                                        <i class="fas fa-user"></i>
-                                        <input type="text" placeholder="Gender" class="form-control" name="gender"
-                                            value="{{ old('gender') }}" class="@error('gender') is-invalid @enderror"
-                                            autocomplete="on">
-                                        @error('gender')
-                                        <span style="color: red; font-size:15px">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="input-box">
-                                        <i class="fas fa-user"></i>
-                                        <input type="date" placeholder="Birthday" class="form-control" name="birthdate"
-                                            value="{{ old('birthdate') }}" class="@error('birthdate') is-invalid @enderror"
-                                            autocomplete="on">
-                                        @error('birthdate')
-                                        <span style="color: red; font-size:15px">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="input-box">
-                                        <i class="fas fa-phone"></i>
-                                        <input type="text" placeholder="Phone Number" class="form-control" name="user_phonenum"
-                                            value="{{ old('user_phonenum') }}" class="@error('user_phonenum') is-invalid @enderror"
-                                            autocomplete="on">
-                                        @error('user_phonenum')
-                                        <span style="color: red; font-size:15px">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="input-box">
-                                        <i class="fas fa-user"></i>
-                                        <input type="text" placeholder="Country" class="form-control" name="user_country"
-                                            value="{{ old('user_country') }}"
-                                            class="@error('user_country') is-invalid @enderror" autocomplete="on">
-                                        @error('user_country')
-                                        <span style="color: red; font-size:15px">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="input-box">
-                                        <i class="fas fa-user"></i>
-                                        <input type="text" placeholder="Province" class="form-control" name="user_province"
-                                            value="{{ old('user_province') }}"
-                                            class="@error('user_province') is-invalid @enderror" autocomplete="on">
-                                        @error('user_province')
-                                        <span style="color: red; font-size:15px">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="input-box">
-                                        <i class="fas fa-phone"></i>
-                                        <input type="text" placeholder="Municipality" class="form-control"
-                                            name="user_municipality" value="{{ old('user_municipality') }}"
-                                            class="@error('user_municipality') is-invalid @enderror" autocomplete="on">
-                                        @error('user_municipality')
-                                        <span style="color: red; font-size:15px">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="input-box">
-                                        <i class="fas fa-phone"></i>
-                                        <input type="text" placeholder="Barangay" class="form-control" name="user_barangay"
-                                            value="{{ old('user_barangay') }}"
-                                            class="@error('user_barangay') is-invalid @enderror" autocomplete="on">
-                                        @error('user_barangay')
-                                        <span style="color: red; font-size:15px">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="input-box">
-                                        <i class="fas fa-user"></i>
-                                        <input type="text" placeholder="Street" class="form-control" name="user_street"
-                                            value="{{ old('user_street') }}" class="@error('user_street') is-invalid @enderror"
-                                            autocomplete="on">
-                                        @error('user_street')
-                                        <span style="color: red; font-size:15px">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="input-box">
-                                        <i class="fas fa-user"></i>
-                                        <input type="text" placeholder="Zipcode" class="form-control" name="user_zipcode"
-                                            value="{{ old('user_zipcode') }}"
-                                            class="@error('user_zipcode') is-invalid @enderror" autocomplete="on">
-                                        @error('user_zipcode')
-                                        <span style="color: red; font-size:15px">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="button input-box">
-                                <input type="submit" value="Submit">
-                            </div>
-                            <div class="text sign-up-text">Already have an account?<a href="{{ url('auth/login') }}">
-                                    Login now</a></div>
+
+
+
                         </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
+
+            </section>
 
         </div>
-        <div class="cover">
-            <div class="front">
-                <img src="{{ asset('images/hmhal.jpg') }}" alt="">
-                <div class="text">
-                    <span class="text-1">Complete miles of journey <br> with one step</span>
-                    <span class="text-2">Let's get started</span>
-                </div>
-            </div>
-        </div>
-    </div>
+    </main><!-- End #main -->
 
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-        </script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-        </script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-        </script>
-        <!-- jQuery -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Vendor JS Files -->
+    <script src="{{ asset('assets/vendor/apexcharts/apexcharts.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/chart.js/chart.umd.js') }}"></script>
+    <script src="{{ asset('assets/vendor/echarts/echarts.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/quill/quill.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/simple-datatables/simple-datatables.js') }}"></script>
+    <script src="{{ asset('assets/vendor/tinymce/tinymce.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script>
 
-        <!-- Bootstrap JS -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
-        @if (session('success'))
-        <script>
-            Swal.fire({
-                icon: 'success',
-                title: 'Success!',
-                text: '{{ session('success') }}',
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 1000,
-                timerProgressBar: true,
-                background: '#8cc63f',
-                iconColor: '#ffffff',
-                customClass: {
-                    title: 'text-white',
-                    content: 'text-white'
-                }
-            });
-        </script>
-    @endif
+    <!-- Template Main JS File -->
+    <script src="{{ asset('assets/js/admin/main.js') }}"></script>
 
-    @if (session('failed'))
-        <script>
-            Swal.fire({
-                icon: 'failed',
-                title: 'failed!',
-                text: '{{ session('failed') }}',
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 1000,
-                timerProgressBar: true,
-                background: '#dc3545',
-                iconColor: '#ffffff',
-                customClass: {
-                    title: 'text-white',
-                    content: 'text-white'
-                }
-            });
-        </script>
-    @endif
 </body>
 
 </html>

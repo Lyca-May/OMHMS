@@ -9,25 +9,20 @@ use App\Models\users;
 use Illuminate\Http\Request;
 use Illuminate\support\facades\DB;
 use Illuminate\Support\Facades\Validator;
-
+use Carbon\Carbon;
 
 
 class SouvenirsController extends Controller
 {
     public function displaySouvenirs(){
+        $currentDateTime = Carbon::now()->tz('UTC');
         $categories = DB::table('category')->get();
         $archived = SouvenirsModel::with('category')->where('souvenir_status','archived')->get();
         $souvenirs = SouvenirsModel::with('category')->where('souvenir_status','posted')->get();
         $user_id = session('Admin')['user_id'];
         $users = DB::table('users')->where('user_id', $user_id)->get();
-        return view('admin.pages.souvenirs.souvenir-table', ['users' => $users, 'categories' => $categories, 'souvenirs' => $souvenirs, 'archived' => $archived]);
+        return view('admin.pages.souvenirs.souvenir-table', ['users' => $users, 'categories' => $categories, 'souvenirs' => $souvenirs, 'archived' => $archived], compact ('currentDateTime'));
     }
-
-    // public function displaySouvenirs(){
-    //     $user_id = session('Admin')['user_id'];
-    //     $users = DB::table('users')->where('user_id', $user_id)->get();
-    //     return view('admin.pages.souvenirs.souvenir-table', ['users' => $users]);
-    // }
 
     public function create_souvenir(Request $request)
 {

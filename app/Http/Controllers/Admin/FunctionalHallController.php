@@ -14,6 +14,10 @@ use App\Mail\RentApproved;
 use App\Mail\RentCancelled;
 use App\Models\Function_Hall;
 use Carbon\Carbon;
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 
 class FunctionalHallController extends Controller
 {
@@ -44,18 +48,34 @@ class FunctionalHallController extends Controller
         return view('admin.pages.functional.rent-history', ['rent' => $rent]);
     }
 
+<<<<<<< Updated upstream
     public function displayRent()
     {
+=======
+    public function displayRent(){
+        $currentDateTime = Carbon::now()->tz('UTC');
+>>>>>>> Stashed changes
         $user_id = session('Admin')['user_id'];
         $users = DB::table('users')->where('user_id', $user_id)->get();
         $rent = Function_Hall::with('user')
             ->where('status', 'PENDING')
             ->get();
+        $currentDate = date('Y-m-d');
+        return view('admin.pages.function_hall.function_hall', compact('currentDateTime', 'rent', 'users',));
+    }
+
+    public function viewRentHistory(){
+        $currentDateTime = Carbon::now()->tz('UTC');
+        $user_id = session('Admin')['user_id'];
+        $users = DB::table('users')->where('user_id', $user_id)->get();
         $approved = Function_Hall::with('user')
             ->where('status', 'APPROVED')
+<<<<<<< Updated upstream
             ->get();
         $paid = Function_Hall::with('user')
             ->where('status', 'PAID')
+=======
+>>>>>>> Stashed changes
             ->get();
         $cancelled = Function_Hall::with('user')
             ->where('status', 'CANCELLED')
@@ -65,7 +85,11 @@ class FunctionalHallController extends Controller
             ->where('status', '!=', 'PENDING')
             ->whereRaw('DATE(date_requested) < ?', [$currentDate])
             ->get();
+<<<<<<< Updated upstream
         return view('admin.pages.function_hall.function_hall', compact('rent', 'users', 'approved', 'paid', 'cancelled', 'history'));
+=======
+        return view('admin.pages.function_hall.function_hall_history', compact('currentDateTime', 'users', 'approved', 'cancelled', 'history'));
+>>>>>>> Stashed changes
     }
 
     public function approve_rent(Request $request, $rent_id)

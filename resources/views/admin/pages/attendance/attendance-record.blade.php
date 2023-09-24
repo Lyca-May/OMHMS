@@ -9,25 +9,13 @@
     <meta name="author" content="" />
     <link rel="icon" href="{{ asset('omhms.png') }}" type="image/png">
     <title>eOMHeritage Admin</title>
-    <!-- loader-->
-    <link href="{{ asset('assets/css/cssadmin/pace.min.css') }}" rel="stylesheet" />
-    <script src="{{ asset('assets/js/jsadmin/pace.min.js') }}"></script>
-    <!--favicon-->
-    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}" type="image/x-icon">
-    <!-- Vector CSS -->
-    <link href="{{ asset('assets/plugins/vectormap/jquery-jvectormap-2.0.2.css') }}" rel="stylesheet" />
-    <!-- simplebar CSS-->
-    <link href="{{ asset('assets/plugins/simplebar/css/simplebar.css') }}" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@2.10.2/dist/umd/popper.min.js"></script>
+
     <!-- Bootstrap core CSS-->
     <link href="{{ asset('assets/css/cssadmin/bootstrap.min.css') }}" rel="stylesheet" />
-    <!-- animate CSS-->
-    <link href="{{ asset('assets/css/cssadmin/animate.css') }}" rel="stylesheet" type="text/css" />
-    <!-- Icons CSS-->
-    <link href="{{ asset('assets/css/cssadmin/icons.css') }}" rel="stylesheet" type="text/css" />
-    <!-- Sidebar CSS-->
-    <link href="{{ asset('assets/css/cssadmin/sidebar-menu.css') }}" rel="stylesheet" />
-    <!-- Custom Style-->
-    <link href="{{ asset('assets/css/cssadmin/app-style.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
 
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
@@ -84,14 +72,21 @@
 
     </style>
 
+    <!-- Vendor CSS File -->
+    <link href="{{ asset('assets/vendor/simple-datatables/style.css') }}" rel="stylesheet">
+    <!-- Template Main CSS File -->
+    <link href="{{ asset('assets/css/admin/style.css') }}" rel="stylesheet">
+
 
 </head>
 
-<body class="bg-theme bg-theme1">
+<body>
 
-    <!-- Start wrapper-->
-    <div id="wrapper">
+    <!--Start sidebar-wrapper-->
+    @include('admin.pages.sidebar')
+    <!--End sidebar-wrapper-->
 
+<<<<<<< Updated upstream
         <!--Start sidebar-wrapper-->
         <div id="sidebar-wrapper" data-simplebar="" data-simplebar-auto-hide="true">
             <div class="brand-logo">
@@ -109,8 +104,15 @@
                         <i class="zmdi zmdi-view-dashboard"></i> <span>Dashboard</span>
                     </a>
                 </li>
+=======
+    <!--Start topbar header-->
+    @include('admin.pages.navbar')
+    <!--End topbar header-->
+>>>>>>> Stashed changes
 
+    <main id="main" class="main">
 
+<<<<<<< Updated upstream
                 <li>
                     <a href="#" id="tablesLink">
                         <i class="zmdi zmdi-book"></i> <span>Bookings</span>
@@ -254,12 +256,28 @@
                         </li>
                     @endforeach
                 </ul>
+=======
+        <div class="pagetitle">
+            <h1>Dashboard</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item">Dashboard</li>
+                    <li class="breadcrumb-item active">Bookings</li>
+                    <li class="breadcrumb-item active">Inventory</li>
+                    <li class="breadcrumb-item active">Announcements</li>
+                    <li class="breadcrumb-item active">Attendance</li>
+                </ol>
+>>>>>>> Stashed changes
             </nav>
-        </header>
-        <!--End topbar header-->
+        </div><!-- End Page Title -->
+        <hr>
+        <section class="section dashboard">
+            <div class="row">
 
-        <div class="clearfix"></div>
+                <br><br>
 
+<<<<<<< Updated upstream
         <div class="content-wrapper">
             <div class="container-fluid">
 
@@ -456,6 +474,95 @@
             });
         </script>
     @endif
+=======
+                <!--- Attendance Content -->
+                <div class="col-12">
+                    <div class="card recent-sales overflow-auto">
+                        <div class="card-body">
+                            <h5 class="card-title">Current History Content</span></h5>
+                            <table class="table table-borderless datatable">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Address</th>
+                                        <th scope="col">Age</th>
+                                        <th scope="col">Cell No.</th>
+                                        <th scope="col"></th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Lyca May Nobleza </td>
+                                        <td>Batong Dalig</td>
+                                        <td>21</td>
+                                        <td>0975465345346 </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+        </section>
+
+
+        {{-- Vendor JS --}}
+        <script src="{{ asset('assets/vendor/simple-datatables/simple-datatables.js') }}"></script>
+
+        <!-- Template Main JS File -->
+        <script src="{{ asset('assets/js/admin/datatable.js') }}"></script>
+        <!-- Bootstrap core JavaScript-->
+
+        <script src="{{ asset('assets/js/jsadmin/jquery.min.js') }}"></script>
+        <script src="{{ asset('assets/js/jsadmin/popper.min.js') }}"></script>
+        <script src="{{ asset('assets/js/jsadmin/bootstrap.min.js') }}"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
+
+        @if (session('success'))
+            <script>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: '{{ session('success') }}',
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    background: '#8cc63f',
+                    iconColor: '#ffffff',
+                    customClass: {
+                        title: 'text-white',
+                        content: 'text-white'
+                    }
+                });
+            </script>
+        @endif
+
+        @if (session('error'))
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: '{{ session('error') }}',
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    background: '#dc3545',
+                    iconColor: '#ffffff',
+                    customClass: {
+                        title: 'text-white',
+                        content: 'text-white'
+                    }
+                });
+            </script>
+        @endif
+>>>>>>> Stashed changes
 
     @if (session('failed'))
         <script>
@@ -478,6 +585,7 @@
         </script>
     @endif
 
+<<<<<<< Updated upstream
     <script>
         $(document).ready(function() {
             // Function to handle the filter option click
@@ -496,6 +604,48 @@
                         $(this).hide();
                     }
                 });
+=======
+        <script>
+            $(document).ready(function() {
+                // Handle dropdown item click event
+                $('.dropdown-item').click(function() {
+                    // Get the data-target attribute value
+                    var targetTable = $(this).data('target');
+
+                    // Hide all tables
+                    $('.datatable').hide();
+
+                    // Show the selected table
+                    $('#' + targetTable).show();
+                });
+
+                // Initially show the "pending" table
+                $('#pendingTable').show();
+            });
+        </script>
+
+
+        <script>
+            function updateTime() {
+                var now = new Date();
+                var hours = now.getHours();
+                var minutes = now.getMinutes();
+                var seconds = now.getSeconds();
+
+                // Convert 24-hour format to 12-hour format
+                var ampm = hours >= 12 ? 'PM' : 'AM';
+                hours = hours % 12;
+                hours = hours ? hours : 12;
+
+                var timeString = hours.toString().padStart(2, '0') + ':' +
+                    minutes.toString().padStart(2, '0') + ':' +
+                    seconds.toString().padStart(2, '0') + ' ' + ampm;
+
+                document.getElementById('clock').innerHTML = timeString;
+
+                // Update the time every second
+                setTimeout(updateTime, 1000);
+>>>>>>> Stashed changes
             }
 
             // Initial table display (show the first table by default)
